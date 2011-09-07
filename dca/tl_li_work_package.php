@@ -77,7 +77,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('isExternal'),
-		'default'                     => '{package_legend}, title, hourLimit;{settings_legend}, isExternal;'
+		'default'                     => '{package_legend}, toCustomer, toProject, title, hourLimit;{settings_legend}, isExternal;'
 	),
 
 	// Subpalettes
@@ -89,7 +89,21 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 	// Fields
 	'fields' => array
 	(
-        'title' => array
+		'toCustomer' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'],
+			'inputType'               => 'select',
+			'options_callback'        => array('Customer', 'getCustomerWithProjectsOptions'),
+			'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true)
+		),
+        'toProject' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toProject'],
+			'inputType'               => 'select',
+			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+			'options_callback'        => array('Project', 'getProjectsFromCustomerOptions')
+		),
+		'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_work_package']['title'],
 			'inputType'               => 'text',
@@ -106,14 +120,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
         	'label'                   => &$GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'],
         	'inputType'               => 'checkbox',
         	'eval'                    => array('submitOnChange'=>true)
-        ),
-        'toCustomer' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer'],
-			'inputType'               => 'select',
-			'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('mandatory'=>true)
-		)
+        )
 	)
 );
 
