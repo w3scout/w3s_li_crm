@@ -1,0 +1,14 @@
+<?php $lang = $this->lang; ?>
+<div id="tl_buttons">
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['customerTitle']; ?>" class="header_new customer" href="contao/main.php?do=member&act=create">
+        <?php echo $lang['customerLabel']; ?>
+    </a>
+     &nbsp; :: &nbsp;
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['projectTitle']; ?>" class="header_new project" href="contao/main.php?do=li_customers&table=tl_li_project&act=create">
+        <?php echo $lang['projectLabel']; ?>
+    </a>
+    &nbsp; :: &nbsp;
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['serviceTitle']; ?>" class="header_new service" href="contao/main.php?do=li_customers&table=tl_li_service&act=create">
+        <?php echo $lang['serviceLabel']; ?>
+    </a>
+</div>

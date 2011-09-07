@@ -1,0 +1,12 @@
+<div id="tl_soverview">
+    <div id="tl_moverview">
+        <h2>Rechnungsgenerierung</h2>
+        <div class="tl_module_desc">
+            <p>Die Rechnung wurde erfolgreich generiert und unter folgendem Pfad abgelegt:</p>
+            <div class="path">
+            Pfad: <a href="/tl_files/invoices/out/2011/Rechnung 0043 Kunde-X.pdf" target="blank">tl_files/invoices/out/2011/Rechnung 0043 Kunde-X.pdf</a>
+            </div>
+            <a class="back_link" href="contao/main.php?do=li_invoices">Zurück zur Übersicht</a>
+        </div>
+    </div>
+</div>
