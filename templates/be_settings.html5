@@ -14,7 +14,7 @@
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['projects']; ?></h2>
         <div class="tl_module_desc">
             <h3>
-                <a href="contao/main.php?do=li_settings&table=tl_li_project_settings" class="navigation" style="background-image:url('system/modules/li_crm/icons/project.png')">
+                <a href="contao/main.php?do=li_settings&table=tl_li_project_settings" class="navigation" style="background-image:url('system/modules/li_crm/icons/projects.png')">
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['projectSettings']; ?>
                 </a>
             </h3>

@@ -38,8 +38,8 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         ),
         'li_timekeeping' => array
         (
-            'tables'     => array('tl_li_work_package'),
-            'callback'   => 'TimeKeeping',
+            'tables'     => array('tl_li_work_package', 'tl_li_working_hours'),
+            'callback'   => 'WorkingHoursCalendar',
             'icon'       => 'system/modules/li_crm/icons/timekeeping.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
@@ -74,6 +74,10 @@ if ($_GET['do'] == 'li_invoices' && !strlen($_GET['key']))
 if ($_GET['do'] == 'li_settings' && strlen($_GET['table']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_settings']['callback']);
+}
+if ($_GET['do'] == 'li_timekeeping' && strlen($_GET['table']))
+{
+	unset($GLOBALS['BE_MOD']['li_crm']['li_timekeeping']['callback']);
 }
 
 $GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');  

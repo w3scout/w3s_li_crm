@@ -1,0 +1,57 @@
+<?php $lang = $this->lang; ?>
+<div class="tl_panel">
+	<div class="tl_submit_panel tl_subpanel">
+		<input type="image" name="filter" id="filter" src="system/themes/default/images/reload.gif"
+			   class="tl_img_submit" title="Anwenden" alt="Anwenden">
+	</div>
+	<div class="tl_search tl_subpanel">
+		<strong>Kalenderwoche:</strong>
+		<input type="text" name="tl_value" class="tl_text" value="">
+		&nbsp;bis&nbsp;
+		<input type="text" name="tl_value" class="tl_text" value="">	
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="tl_buttons">
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['addHoursLabel']; ?>"
+	   class="header_new customer" href="contao/main.php?do=li_timekeeping&table=tl_li_working_hours&act=create">
+        <?php echo $lang['addHoursLabel']; ?>
+    </a>
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['manageWorkPackages']; ?>"
+	   class="header_new customer" href="contao/main.php?do=li_timekeeping&table=tl_li_work_package">
+        <?php echo $lang['manageWorkPackages']; ?>
+    </a>
+</div>
+<table>
+	<thead>
+		<tr>
+			<td>KW</td>
+			<td>Montag</td>
+			<td>Dienstag</td>
+			<td>Mittwoch</td>
+			<td>Donnerstag</td>
+			<td>Freitag</td>
+			<td>Samstag</td>
+			<td>Sonntag</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php for ($week = $this->startWeek; $week <= $this->endWeek; $week++): ?>
+		<tr>
+			<td><?php echo $week; ?></td>
+			<?php for ($day = 0; $day < 7; $day++): ?>
+			<td>
+				<?php if (!empty($this->hours[$week][$day])): ?>
+					<?php foreach ($this->hours[$week][$day] as $entry): ?>
+						<?php
+						echo '<a href="contao/main.php?do=li_timekeeping&table=tl_li_working_hours&act=edit&id='.$entry['id'].'">';
+						echo $entry['toWorkPackage'].': '.$entry['hours'].'</a><br />';
+						?>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</td>
+			<?php endfor; ?>
+		</tr>
+		<?php endfor; ?>
+	</tbody>
+</table>

@@ -16,5 +16,19 @@ class WorkPackage extends Controller
 		parent::__construct();
 		$this->import('Database');
 	}
+	
+	public function getWorkPackages()
+	{
+		$workPackages = array();
+		$getWorkPackages = $this->Database->prepare("SELECT *
+			FROM tl_li_work_package")->execute();
+		
+		while ($getWorkPackages->next())
+		{
+			$workPackages[$getWorkPackages->id] = $getWorkPackages->title.' ('.$getWorkPackages->hourLimit.')';
+		}
+		
+		return $workPackages;
+	}
 }
 ?>

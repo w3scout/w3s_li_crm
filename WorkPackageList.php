@@ -5,16 +5,17 @@ if (!defined('TL_ROOT'))
 /**
  * @author apoy2k
  */
-class TimeKeeping extends BackendModule
+class WorkPackageList extends BackendModule
 {
-	protected $strTemplate = 'be_time_keeping';
+	protected $strTemplate = 'be_workpackage_list';
 	
 	public function generate()
 	{
 		parent::generate();
-		
 		return $this->Template->parse();
 	}
 	
-	protected function compile();
+	protected function compile()
+	{
+	}
 }
