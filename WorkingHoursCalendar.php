@@ -26,7 +26,7 @@ class WorkingHoursCalendar extends BackendModule
 			FROM tl_li_working_hours wh
 			INNER JOIN tl_li_work_package wp
 				ON wh.toWorkPackage = wp.id
-			INNER JOIN tl_member c
+			LEFT JOIN tl_member c
 				ON wp.toCustomer = c.id
 			WHERE hours IS NOT NULL
 				AND WEEK(FROM_UNIXTIME(li_crm_date)) = ".$week."

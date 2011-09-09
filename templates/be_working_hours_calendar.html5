@@ -19,6 +19,7 @@
 		style="background-image: url(system/themes/default/images/new.gif);">
 		<?php echo $lang['addHours']; ?>
     </a>
+     &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['manageWorkPackages']; ?>"
 		class="manage_work_packages" href="contao/main.php?do=li_timekeeping&table=tl_li_work_package"
 		style="background-image: url(system/modules/li_crm/icons/workpackage.png);">
@@ -47,14 +48,9 @@
 					<div class="working_hour_entry" style="background-color: #<?php echo $entry['customerColor']; ?>">
 						<?php echo $entry['hours'].'h'; ?>
 						<div class="entry_buttons">
-							<a href="contao/main.php?do=member&amp;act=edit&amp;id=<?php echo $entry['customerId']; ?>"
-							   title="<?php echo $lang['editCustomer']; ?>">
-								<img src="system/modules/li_crm/icons/customer_edit.png"
-									 alt="<?php echo $lang['editCustomer']; ?>" width="16" height="16" />
-							</a>
 							<a href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package&amp;act=edit&amp;id=<?php echo $entry['customerId']; ?>"
 							   title="<?php echo $lang['editWorkPackage']; ?>">
-								<img src="system/modules/li_crm/icons/workpackage.png"
+								<img src="system/modules/li_crm/icons/workpackage_edit.png"
 									 alt="<?php echo $lang['editWorkPackage']; ?>" width="16" height="16" />
 							</a>
 							<a href="contao/main.php?do=li_timekeeping&amp;&table=tl_li_working_hours&amp;act=edit&amp;id=<?php echo $entry['id']; ?>"
