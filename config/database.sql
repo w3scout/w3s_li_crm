@@ -240,7 +240,7 @@ CREATE TABLE `tl_li_invoice_reminder` (
 CREATE TABLE `tl_li_working_hours` (
 	`id` int(10) unsigned NOT NULL auto_increment,
 	`tstamp` int(10) unsigned NULL default '0',
-	`li_crm_date` int(10) unsigned NULL default '0',
+	`entryDate` int(10) unsigned NULL default '0',
 	`hours` int(10) unsigned NULL default '0',
 	`toWorkPackage` int(10) unsigned NULL default '0',
 	PRIMARY KEY  (`id`)
