@@ -21,7 +21,7 @@ class WorkingHoursCalendar extends BackendModule
 		
 		// Only get the working hours in the desired week range
 		$getWorkingHours = $this->Database->prepare("SELECT wh.id,
-				WEEKDAY(FROM_UNIXTIME(wh.li_crm_date)) as weekday, wh.hours, wp.hourLimit, c.customerColor,
+				WEEKDAY(FROM_UNIXTIME(wh.entryDate)) as weekday, wh.hours, wp.hourLimit, c.customerColor,
 				c.id as customerId, wp.id as workPackageId
 			FROM tl_li_working_hours wh
 			INNER JOIN tl_li_work_package wp
@@ -29,8 +29,8 @@ class WorkingHoursCalendar extends BackendModule
 			LEFT JOIN tl_member c
 				ON wp.toCustomer = c.id
 			WHERE hours IS NOT NULL
-				AND WEEK(FROM_UNIXTIME(li_crm_date)) = ".$week."
-			ORDER BY li_crm_date")->execute();
+				AND WEEK(FROM_UNIXTIME(entryDate)) = ".$week."
+			ORDER BY entryDate")->execute();
 		
 		// Build an array of the working hours per day. The first index is the week of the year,
 		// the second is the day within that week. This array is iterated on the calendar,

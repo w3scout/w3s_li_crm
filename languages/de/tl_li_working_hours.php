@@ -9,8 +9,8 @@ $GLOBALS['TL_LANG']['tl_li_working_hours']['manageWorkPackages'] = 'Arbeitspaket
 $GLOBALS['TL_LANG']['tl_li_working_hours']['editCustomer'] = 'Zugehörigen Kunden bearbeiten';
 $GLOBALS['TL_LANG']['tl_li_working_hours']['editWorkPackage'] = 'Zugehöriges Arbeitspaket bearbeiten';
 
-$GLOBALS['TL_LANG']['tl_li_working_hours']['date'] = array('Datum', 'Datum an dem die Stunden geleistet wurden');
-$GLOBALS['TL_LANG']['tl_li_working_hours']['hours'] = array('Arbeitsstunden', 'Anzahl der Arbeitsstunden. Bitte ohne Endungen angeben.');
+$GLOBALS['TL_LANG']['tl_li_working_hours']['entryDate'] = array('Datum', 'Datum an dem die Stunden geleistet wurden');
 $GLOBALS['TL_LANG']['tl_li_working_hours']['toWorkPackage'] = array('Arbeitspaket', 'Das Arbeitspaket, dem die Arbeitsstunden zugeordnet werden sollen.');
+$GLOBALS['TL_LANG']['tl_li_working_hours']['hours'] = array('Arbeitsstunden', 'Anzahl der Arbeitsstunden. Bitte ohne Endungen angeben.');
 
 $GLOBALS['TL_LANG']['tl_li_working_hours']['legend'] = 'Stunden erfassen';
