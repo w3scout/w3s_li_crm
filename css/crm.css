@@ -7,6 +7,7 @@
 
 .tree_view .tl_listing li{display:block;}
 
+#tl_buttons a{padding-left:18px;background-repeat: no-repeat;background-position:left center;margin:0 5px;}
 .header_new.customer{background-image:url(../icons/customer_new.png);padding-left:21px;}
 .header_new.project{background-image:url(../icons/project_new.png);padding-left:21px;background-position:3px 2px;}
 .header_new.service{background-image:url(../icons/service_new.png);padding-left:21px;background-position:3px 2px;}
@@ -27,3 +28,45 @@ label.print{display:block;float:left;}
 
 .path{margin-top:10px;}
 .back_link{display:block;margin-top:20px;}
+
+div#workin_hours_calendar_wrapper {
+	margin: 15px;
+}
+
+table#working_hours_calendar {
+	width: 100%;
+	background: #fdfdfd;
+	border-collapse: collapse;
+}
+
+table#working_hours_calendar thead td {
+	font-weight: bold;
+	background: #F3F3F3;
+	width: 95px;
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+table#working_hours_calendar, table#working_hours_calendar td {
+	border: 1px solid #bbb;
+}
+
+table#working_hours_calendar td {
+	padding: 5px;
+	padding-bottom: 0;
+}
+
+table#working_hours_calendar tbody td {
+	vertical-align: top;
+}
+
+table#working_hours_calendar td div.working_hour_entry {
+	border: 1px solid #bbb;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+table#working_hours_calendar td div.working_hour_entry div.entry_buttons {
+	text-align: right;
+	margin-top: 5px;
+}

@@ -24,13 +24,13 @@ $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('isExternal'),
-		'default'                     => '{legend}, tstamp, toWorkPackage, hours;'
+		'default'                     => '{legend}, li_crm_date, toWorkPackage, hours;'
 	),
 	
 	// Fields
 	'fields' => array
 	(
-		'tstamp' => array
+		'li_crm_date' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_working_hours']['date'],
 			'default'                 => time(),
@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'date', 'mandatory' => true,
+			'eval'                    => array('rgxp' => 'datim', 'mandatory' => true,
 				'datepicker' => $this->getDatePickerString(), 'tl_class' => 'w50 wizard')
 		),
         'hours' => array
@@ -49,10 +49,10 @@ $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 		),
 		'toWorkPackage' => array
 		(
-			'label'	=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['toWorkPackage'],
-			'inputType' => 'select',
-			'options_callback' => array('WorkPackage', 'getWorkPackages'),
-			'eval' => array('mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50')
+			'label'				=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['toWorkPackage'],
+			'inputType'			=> 'select',
+			'options_callback'	=> array('WorkPackage', 'getWorkPackages'),
+			'eval'				=> array('mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50')
 		)
 	)
 );

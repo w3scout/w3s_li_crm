@@ -62,20 +62,21 @@ array_insert($GLOBALS['BE_MOD'], 0, array
 
 $GLOBALS['BE_MOD']['accounts']['member']['tables'][] = 'tl_li_contact';
 
-// Callback is only used for overview screen
-if ($_GET['do'] == 'li_customers' && strlen($_GET['table']))
+// Delete callbacks if a specific table is set. This way,
+// the callbacks are only used when the overview screen is requested
+if ($_GET['do'] == 'li_customers' && !empty($_GET['table']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_customers']['callback']);
 }
-if ($_GET['do'] == 'li_invoices' && !strlen($_GET['key']))
+if ($_GET['do'] == 'li_invoices' && empty($_GET['key']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_invoices']['callback']);
 }
-if ($_GET['do'] == 'li_settings' && strlen($_GET['table']))
+if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_settings']['callback']);
 }
-if ($_GET['do'] == 'li_timekeeping' && strlen($_GET['table']))
+if ($_GET['do'] == 'li_timekeeping' && !empty($_GET['table']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_timekeeping']['callback']);
 }

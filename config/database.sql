@@ -15,6 +15,7 @@ CREATE TABLE `tl_member` (
   `customerNumber` varchar(255) NOT NULL default '',
   `customerName` varchar(255) NOT NULL default '',
   `isCustomer` char(1) NOT NULL default ''
+  `customerColor` varchar(6) NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
@@ -231,4 +232,16 @@ CREATE TABLE `tl_li_invoice_reminder` (
   `remindRepeatedly` char(1) NOT NULL default '',
   `remindInterval` varchar(20) NOT NULL default '',
   PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table `tl_li_working_hours
+--
+CREATE TABLE `tl_li_working_hours` (
+	`id` int(10) unsigned NOT NULL auto_increment,
+	`tstamp` int(10) unsigned NULL default '0',
+	`li_crm_date` int(10) unsigned NULL default '0',
+	`hours` int(10) unsigned NULL default '0',
+	`toWorkPackage` int(10) unsigned NULL default '0',
+	PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

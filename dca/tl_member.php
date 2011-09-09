@@ -18,7 +18,7 @@
 $GLOBALS['TL_DCA']['tl_member']['config']['ctable'][] = 'tl_li_contact';
 $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = "{customer_legend},isCustomer;".$GLOBALS['TL_DCA']['tl_member']['palettes']['default'];
 $GLOBALS['TL_DCA']['tl_member']['palettes']['__selector__'][] = 'isCustomer';
-$GLOBALS['TL_DCA']['tl_member']['subpalettes'] = array('login'=>'username,password','assignDir'=>'homeDir','isCustomer'=>'customerNumber,customerName');
+$GLOBALS['TL_DCA']['tl_member']['subpalettes'] = array('login'=>'username,password','assignDir'=>'homeDir','isCustomer'=>'customerNumber,customerName,customerColor');
 
 /**
  * Operations
@@ -65,4 +65,13 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerName'] = array
 	'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
 );
 
+$GLOBALS['TL_DCA']['tl_member']['fields']['customerColor'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_member']['customerColor'],
+	'search'                  => true,
+	'sorting'                 => true,
+	'flag'                    => 1,
+	'inputType'               => 'text',
+	'eval'                    => array('tl_class'=>'w50 wizard')
+);
 ?>
