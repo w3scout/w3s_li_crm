@@ -15,14 +15,14 @@
 </form>
 <div id="tl_buttons">
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['addHoursLabel']; ?>"
-		class="add_hours" href="contao/main.php?do=li_timekeeping&table=tl_li_working_hours&act=create"
+		class="add_hours" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_working_hours&amp;act=create"
 		style="background-image: url(system/themes/default/images/new.gif);">
 		<?php echo $lang['addHours']; ?>
     </a>
      &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['manageWorkPackages']; ?>"
-		class="manage_work_packages" href="contao/main.php?do=li_timekeeping&table=tl_li_work_package"
-		style="background-image: url(system/modules/li_crm/icons/workpackage.png);">
+		class="manage_work_packages" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package"
+		style="background-image: url(system/modules/li_crm/icons/workpackage.png); padding-top:2px;padding-bottom:2px;">
         <?php echo $lang['manageWorkPackages']; ?>
     </a>
 </div>
@@ -46,9 +46,9 @@
 	<?php if (!empty($this->hours[$day])): ?>
 		<?php foreach ($this->hours[$day] as $entry): ?>
 					<div class="working_hour_entry" style="background-color: #<?php echo $entry['customerColor']; ?>">
-						<?php echo $entry['hours'].'h'; ?>
+						<?php echo $entry['hours'].'h'.(!empty($entry['minutes']) ? ' '.$entry['minutes'].'m ' : ''); ?>
 						<div class="entry_buttons">
-							<a href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package&amp;act=edit&amp;id=<?php echo $entry['customerId']; ?>"
+							<a href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package&amp;act=edit&amp;id=<?php echo $entry['workPackageId']; ?>"
 							   title="<?php echo $lang['editWorkPackage']; ?>">
 								<img src="system/modules/li_crm/icons/workpackage_edit.png"
 									 alt="<?php echo $lang['editWorkPackage']; ?>" width="16" height="16" />

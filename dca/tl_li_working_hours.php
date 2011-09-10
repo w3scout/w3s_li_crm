@@ -1,44 +1,34 @@
 <?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * PHP version 5
  * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author     apoy2k
  * @license    MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * Table tl_li_project 
- */
 $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 (
-
-	// Config
 	'config' => array
 	(
-		'dataContainer'               => 'Table',
-		'enableVersioning'            => true
+		'dataContainer'		=> 'Table',
+		'enableVersioning'	=> true
 	),
-
-	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('isExternal'),
-		'default'                     => '{legend}, entryDate, toWorkPackage, hours;'
+		'__selector__'	=> array('isExternal'),
+		'default'		=> '{legend}, entryDate, toWorkPackage, hours, minutes;'
 	),
-	
-	// Fields
 	'fields' => array
 	(
 		'entryDate' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_working_hours']['entryDate'],
-			'default'                 => date(),
-			'filter'                  => true,
-			'sorting'                 => true,
-			'flag'                    => 8,
-			'inputType'               => 'text',
-			'eval'                    => array('rgxp' => 'date', 'mandatory' => true, 'datepicker' => $this->getDatePickerString(), 'tl_class' => 'w50 wizard')
+			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['entryDate'],
+			'default'	=> time(),
+			'filter'	=> true,
+			'sorting'	=> true,
+			'flag'		=> 8,
+			'inputType'	=> 'text',
+			'eval'		=> array('rgxp' => 'date', 'mandatory' => true,
+				'datepicker' => $this->getDatePickerString(), 'tl_class' => 'w50 wizard')
 		),
         'toWorkPackage' => array
 		(
@@ -49,11 +39,16 @@ $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 		),
         'hours' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_working_hours']['hours'],
-			'inputType'               => 'text',
-			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50')
+			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['hours'],
+			'inputType'	=> 'text',
+			'eval'		=> array('mandatory' => true, 'tl_class' => 'w50')
+		),
+		'minutes' => array
+		(
+			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['minutes'],
+			'inputType' => 'select',
+			'options'	=> array('15', '30', '45'),
+			'eval'		=> array('tl_class' => 'w50', 'includeBlankOption' => true)
 		)
 	)
 );
-
-?>

@@ -30,8 +30,8 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 		),
 		'label' => array
 		(
-			'fields'                  => array('title'),
-			'format'                  => '%s'
+			'fields'                  => array('title', 'hourLimit'),
+			'format'                  => '%s (%sh)'
 		),
 		'global_operations' => array
 		(
@@ -62,7 +62,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_work_package']['delete'],
 				'href'                => 'act=delete',
 				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+				'attributes'          => 'onclick="if (!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\')) return false; Backend.getScrollOffset();"'
 			),
 			'show' => array
 			(

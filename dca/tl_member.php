@@ -1,12 +1,17 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * PHP version 5
  * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author     Christian Kolb <info@liplex.de>
+ * @author     apoy2k
  * @license    MIT (see /LICENSE.txt for further information)
  */
+ if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
+ // Import tl_style class to use the colorpicker
+ require_once(dirname(__FILE__).'/../../backend/dca/tl_style.php');
+ 
 /**
  * Table tl_member
  */
@@ -72,6 +77,9 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerColor'] = array
 	'sorting'                 => true,
 	'flag'                    => 1,
 	'inputType'               => 'text',
-	'eval'                    => array('tl_class'=>'w50 wizard')
+	'eval'                    => array('maxlength' => 6, 'isHexColor' => true, 'tl_class' => 'w50 wizard'),
+	'wizard' => array
+	(
+		array('tl_style', 'colorPicker')
+	)
 );
-?>

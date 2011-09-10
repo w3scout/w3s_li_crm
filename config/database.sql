@@ -242,6 +242,7 @@ CREATE TABLE `tl_li_working_hours` (
 	`tstamp` int(10) unsigned NULL default '0',
 	`entryDate` int(10) unsigned NULL default '0',
 	`hours` int(10) unsigned NULL default '0',
+	`minutes` int(10) unsigned NULL default '0',
 	`toWorkPackage` int(10) unsigned NULL default '0',
 	PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
