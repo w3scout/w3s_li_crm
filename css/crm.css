@@ -7,7 +7,7 @@
 
 .tree_view .tl_listing li{display:block;}
 
-#tl_buttons a{padding-left:18px;background-repeat: no-repeat;background-position:left center;margin:0 5px;}
+#tl_buttons a{padding:2px 0 2px 18px;background-repeat: no-repeat;background-position:left center;margin:0 5px;}
 .header_new.customer{background-image:url(../icons/customer_new.png);padding-left:21px;}
 .header_new.project{background-image:url(../icons/project_new.png);padding-left:21px;background-position:3px 2px;}
 .header_new.service{background-image:url(../icons/service_new.png);padding-left:21px;background-position:3px 2px;}
@@ -29,8 +29,12 @@ label.print{display:block;float:left;}
 .path{margin-top:10px;}
 .back_link{display:block;margin-top:20px;}
 
+div#week_buttons {
+	padding: 10px 25px 0;
+}
+
 div#workin_hours_calendar_wrapper {
-	margin: 15px;
+	margin: 0 15px 15px;
 }
 
 table#working_hours_calendar {

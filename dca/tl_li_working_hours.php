@@ -41,14 +41,13 @@ $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['hours'],
 			'inputType'	=> 'text',
-			'eval'		=> array('mandatory' => true, 'tl_class' => 'w50')
+			'eval'		=> array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50')
 		),
 		'minutes' => array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['minutes'],
-			'inputType' => 'select',
-			'options'	=> array('15', '30', '45'),
-			'eval'		=> array('tl_class' => 'w50', 'includeBlankOption' => true)
+			'inputType' => 'text',
+			'eval'		=> array('rgxp' => 'digit', 'maxlength' => '2', 'tl_class' => 'w50')
 		)
 	)
 );

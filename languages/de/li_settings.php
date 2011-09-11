@@ -34,6 +34,11 @@ $GLOBALS['TL_LANG']['li_settings']['taskStatusDesc']              = 'Über Aufga
 $GLOBALS['TL_LANG']['li_settings']['taskReminderSettings']        = 'Erinnerungseinstellungen';
 $GLOBALS['TL_LANG']['li_settings']['taskReminderSettingsDesc']    = 'Über die Erinnerungseinstellungen können allgemeine Einstellungen bezüglich der Aufgabenerinnerungen getroffen werden. Hier wird z. B. festlegen welche Benutzter per E-Mail an Aufgaben erinnert werden.';
 
+$GLOBALS['TL_LANG']['li_settings']['timekeeping']		= 'Zeiterfassung';
+$GLOBALS['TL_LANG']['li_settings']['workingHours']		= 'Stunden erfassen';
+$GLOBALS['TL_LANG']['li_settings']['workingHoursDesc']	= 'Über die Einstellungen zum Stunden erfassen können sie die '.
+	'Verwaltung der erfassten Stunden anpassen, wie z.&nbsp;B. den Beginn von Kalenderwochen.';
+
 $GLOBALS['TL_LANG']['li_settings']['invoices']                    = 'Rechnungen';
 $GLOBALS['TL_LANG']['li_settings']['invoiceSettings']             = 'Rechnungseinstellungen';
 $GLOBALS['TL_LANG']['li_settings']['invoiceSettingsDesc']         = 'Über die Rechnungseinstellungen können allgemeine Einstellungen bezüglich der Rechnungen getroffen werden. Hier wird z. B. die Generierung der Rechnungsnummer konfiguriert.';

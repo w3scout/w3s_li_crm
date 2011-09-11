@@ -59,6 +59,16 @@
             <?php echo $GLOBALS['TL_LANG']['li_settings']['taskReminderSettingsDesc']; ?>
         </div>
         
+        <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['timekeeping']; ?></h2>
+        <div class="tl_module_desc">
+            <h3>
+                <a href="contao/main.php?do=li_settings&amp;table=tl_li_timekeeping_settings" class="navigation" style="background-image:url('system/modules/li_crm/icons/timekeeping.png')">
+                    <?php echo $GLOBALS['TL_LANG']['li_settings']['workingHours']; ?>
+                </a>
+            </h3>
+            <?php echo $GLOBALS['TL_LANG']['li_settings']['workingHoursDesc']; ?>
+        </div>
+        
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['invoices']; ?></h2>
         <div class="tl_module_desc">
             <h3>

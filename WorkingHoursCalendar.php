@@ -14,8 +14,16 @@ class WorkingHoursCalendar extends BackendModule
 		parent::generate();
 		
 		// Get the desired week range or set default values
-		$week = empty($_POST['tl_li_week']) ? date('W') : $_POST['tl_li_week'];
+		$week = empty($_REQUEST['tl_li_week']) ? date('W') : $_REQUEST['tl_li_week'];
+		
+		// Save template variables for previous, current and next week numbers
 		$this->Template->week = $week;
+		$this->Template->prevWeek = ($week - 1 <= 0) ? 53 : $week - 1;
+		$this->Template->nextWeek = ($week + 1 > 53) ? 1 : $week + 1;
+		
+		// Get the configured week mode from the configuration
+		$weekMode = !empty($GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode']) ?
+			$GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode'] : '7';
 		
 		// Only get the working hours in the desired week range
 		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) as weekday,
@@ -24,12 +32,11 @@ class WorkingHoursCalendar extends BackendModule
 				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
 				LEFT JOIN tl_member c ON wp.toCustomer = c.id
 			WHERE hours IS NOT NULL
-				AND WEEK(FROM_UNIXTIME(entryDate)) = ".$week."
+				AND WEEK(FROM_UNIXTIME(entryDate), ".$weekMode.") = ".$week."
 			ORDER BY entryDate")->execute();
 		
 		// Build an array of the working hours per day. The first index is the week of the year,
-		// the second is the day within that week. This array is iterated on the calendar,
-		// building the complete calendar
+		// the second is the day within that week
 		$hours = array();
 		while ($getWorkingHours->next())
 		{
