@@ -26,24 +26,26 @@
 label.print{display:block;float:left;}
 .positions .tl_help{clear:left;}
 
+#tl_buttons .add_hours{padding-left:20px;}
+
 .path{margin-top:10px;}
 .back_link{display:block;margin-top:20px;}
 
-div#week_buttons {
+#week_buttons {
 	padding: 10px 25px 0;
 }
 
-div#workin_hours_calendar_wrapper {
+#workin_hours_calendar_wrapper {
 	margin: 0 15px 15px;
 }
 
-table#working_hours_calendar {
+#working_hours_calendar {
 	width: 100%;
 	background: #fdfdfd;
 	border-collapse: collapse;
 }
 
-table#working_hours_calendar thead td {
+#working_hours_calendar thead td {
 	font-weight: bold;
 	background: #F3F3F3;
 	width: 95px;
@@ -51,26 +53,30 @@ table#working_hours_calendar thead td {
 	padding-bottom: 5px;
 }
 
-table#working_hours_calendar, table#working_hours_calendar td {
+#working_hours_calendar, #working_hours_calendar td {
 	border: 1px solid #bbb;
 }
 
-table#working_hours_calendar td {
+#working_hours_calendar td {
 	padding: 5px;
 	padding-bottom: 0;
 }
 
-table#working_hours_calendar tbody td {
+#working_hours_calendar tbody td {
 	vertical-align: top;
 }
 
-table#working_hours_calendar td div.working_hour_entry {
+#working_hours_calendar td .working_hour_entry {
 	border: 1px solid #bbb;
 	padding: 5px;
 	margin-bottom: 5px;
 }
 
-table#working_hours_calendar td div.working_hour_entry div.entry_buttons {
+#working_hours_calendar td .working_hour_entry .entry_buttons {
 	text-align: right;
-	margin-top: 5px;
+	margin-top: 15px;
+}
+
+#working_hours_calendar td .working_hour_entry .entry_buttons a {
+	margin-left: 5px;
 }
