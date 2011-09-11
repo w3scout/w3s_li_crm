@@ -53,6 +53,15 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['bank_code']            = 'BLZ';
 $GLOBALS['TL_LANG']['tl_li_invoice']['bank']                 = 'Bank';
 $GLOBALS['TL_LANG']['tl_li_invoice']['greeting']             = 'Mit freundlichen Grüßen<br />Christian Kolb';
 
+$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto']          = 'Rechnungsbetrag (netto)';
+$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto']         = 'Rechnungsbetrag (brutto)';
+$GLOBALS['TL_LANG']['tl_li_invoice']['tax']                  = 'Umsatzsteuer';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit']        = 'Stück';
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour']        = 'Stunde';
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['month']       = 'Monat';
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['year']        = 'Jahr';
+
 /**
  * Buttons
  */

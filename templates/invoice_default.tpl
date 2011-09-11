@@ -51,7 +51,7 @@
             <thead>
                 <tr>
                     <td width="35" class="quantity">{{position_quantity_label}}</td>
-                    <td width="40" class="unit">{{position_unit_label}}</td>
+                    <td width="50" class="unit">{{position_unit_label}}</td>
                     <td class="label">{{position_label_label}}</td>
                     <td width="60" class="unit_price">{{position_unit_price_label}}</td>
                     <td width="60" class="total_price">{{position_total_price_label}}</td>

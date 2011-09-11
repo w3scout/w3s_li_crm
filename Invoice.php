@@ -135,10 +135,10 @@ class Invoice extends BackendModule
 		$positions = array();
 
 		$unit_options = array(
-				'unit' => 'Stück(e)',
-				'hour' => 'Stunde(n)',
-				'month' => 'Monat(e)',
-				'year' => 'Jahr(e)'
+				'unit' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'],
+				'hour' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'],
+				'month' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'],
+				'year' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year']
 		);
 
 		if ($objInvoice->positions == "")
@@ -232,7 +232,13 @@ class Invoice extends BackendModule
 		$template = file_get_contents($templateFile);
 
 		$invoicePositions = unserialize($objInvoice->positions);
-		$positionCounter = 1;
+		
+		$rowCounter = 1;
+		$fullNetto = 0;
+		$fullTaxes = 0;
+		
+		$taxes = array();
+		
 		foreach ($invoicePositions as $invoicePosition)
 		{
 			if (!$invoicePosition['print'])
@@ -240,18 +246,51 @@ class Invoice extends BackendModule
 				continue;
 			}
 
-			$netto_full += $invoicePosition['quantity'] * $invoicePosition['price'];
+			$position_total_price = $invoicePosition['quantity'] * $invoicePosition['price'];
+			
+			if (!array_key_exists($invoicePosition['tax'], $taxes))
+			{
+				$taxes[$invoicePosition['tax']] = $position_total_price; 
+			} else {
+				$taxes[$invoicePosition['tax']] += $position_total_price;
+			}
 
-			$htmlPositions .= '<tr class="'.($positionCounter % 2 == 0 ? 'odd' : 'even').'">';
+			$fullNetto += $invoicePosition['quantity'] * $invoicePosition['price'];
+
+			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
 			$htmlPositions .= '<td class="quantity">'.$invoicePosition['quantity'].'</td>';
-			$htmlPositions .= '<td class="unit">'.$invoicePosition['unit'].'</td>';
+			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$invoicePosition['unit']].'</td>';
 			$htmlPositions .= '<td class="label">'.$invoicePosition['label'].'</td>';
 			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($invoicePosition['price']).' &#0128;</td>';
-			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber(($invoicePosition['quantity'] * $invoicePosition['price'])).' &#0128;</td>';
+			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' &#0128;</td>';
 			$htmlPositions .= '</tr>';
 
-			$positionCounter++;
+			$rowCounter++;
 		}
+
+		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+		$htmlPositions .= '<td class="spacer" colspan="5"> </td>';
+		$htmlPositions .= '</tr>';
+		$rowCounter++;
+		
+		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+		$htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'] .'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' &#0128;</td>';
+		$htmlPositions .= '</tr>';
+		$rowCounter++;
+		
+		
+		foreach($taxes as $tax => $price) {
+			$taxPrice = $price * $tax / 100;
+			$fullTaxes += $taxPrice;
+			$htmlPositions .= '<tr class="total '.$this->getOddEven($rowCounter).'">';
+			$htmlPositions .= '<td class="amount tax" colspan="4">'.$tax.'% '.$GLOBALS['TL_LANG']['tl_li_invoice']['tax'].'</td><td class="price">'.$this->getFormattedNumber($taxPrice).' &#0128;</td>';
+			$htmlPositions .= '</tr>';
+			$rowCounter++;
+		}
+		
+		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'] .'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' &#0128;</td>';
+		$htmlPositions .= '</tr>';
 
 		$search = array(
 				'logo' => '/{{logo}}/',
@@ -293,22 +332,6 @@ class Invoice extends BackendModule
 				'bank' => '/{{bank}}/',
 				'greeting' => '/{{greeting}}/'
 		);
-
-		$htmlPositions .= '<tr>
-                    <td class="spacer" colspan="5"> </td>
-                </tr>
-                <tr class="odd total">
-                    <td class="amount netto" colspan="4">Rechnungsbetrag (netto)</td>
-                    <td class="price">'.$this->getFormattedNumber($netto_full).' &#0128;</td>
-                </tr>
-                <tr class="total">
-                    <td class="amount tax" colspan="4">19% Umsatzsteuer</td>
-                    <td class="price">5,70 &#0128;</td>
-                </tr>
-                <tr class="odd total">
-                    <td class="amount brutto" colspan="4">Rechnungsbetrag (brutto)</td>
-                    <td class="price">35,70 &#0128;</td>
-                </tr>';
 
 		$replace = array(
 				'logo' => '<img src="'.$objInvoice->logo.'" title="Logo" alt="Logo">',
@@ -367,6 +390,10 @@ class Invoice extends BackendModule
 		fclose($pdfInvoice);
 
 		return false;
+	}
+
+	private function getOddEven($row) {
+		return $row % 2 == 0 ? 'odd' : 'even';
 	}
 
 }
