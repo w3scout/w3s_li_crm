@@ -383,7 +383,7 @@ class Invoice extends BackendModule
 		$dompdf->load_html($html);
 		$dompdf->render();
 
-		$filename = '../tl_files/Rechnung_dompdf_'.$id.'.pdf';
+		$filename = '../tl_files/Rechnung_'.$id.'.pdf';
 
 		$pdfInvoice = fopen($filename, 'a');
 		fwrite($pdfInvoice, $dompdf->output());
