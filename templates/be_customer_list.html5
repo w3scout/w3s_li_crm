@@ -29,10 +29,12 @@
                 <li id="customer_<?php echo $customer['customerNumber']; ?>" class="tl_folder customer<?php if($customer['isDisabled']) echo " disabled"; ?>" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
                     <div class="tl_left">
 						<a href="contao/main.php?do=li_customers&amp;toggle=customer&amp;id=<?php echo $customer['id']; ?>" onclick="javascript:toggleProjects('customer_<?php echo $customer['customerNumber']; ?>');">
-							<?php if ($customer['display']): ?>
-							<img src="system/themes/default/images/folMinus.gif" />
-							<?php else: ?>
-							<img src="system/themes/default/images/folPlus.gif" />
+							<?php if (count($customer['projects']) > 0): ?>
+								<?php if ($customer['display']): ?>
+								<img src="system/themes/default/images/folMinus.gif" />
+								<?php else: ?>
+								<img src="system/themes/default/images/folPlus.gif" />
+								<?php endif; ?>
 							<?php endif; ?>
 						</a>
                         <?php if(!$customer['isDisabled']) : ?>
@@ -61,11 +63,13 @@
 					<?php foreach($customer['projects'] as $project) : ?>
 						<li class="tl_file project" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
 							<div class="tl_left">
-								<a href="contao/main.php?do=li_customers&amp;toggle=project&amp;id=<?php echo $customer['id']; ?>" onclick="javascript:toggleProjects('customer_<?php echo $customer['customerNumber']; ?>');">
-									<?php if ($project['display']): ?>
-									<img src="system/themes/default/images/folMinus.gif" />
-									<?php else: ?>
-									<img src="system/themes/default/images/folPlus.gif" />
+								<a href="contao/main.php?do=li_customers&amp;toggle=project&amp;id=<?php echo $project['id']; ?>" onclick="javascript:toggleProjects('customer_<?php echo $customer['customerNumber']; ?>');">
+									<?php if (count($project['services']) > 0): ?>
+										<?php if ($project['display'] && count($project['services']) > 0): ?>
+										<img src="system/themes/default/images/folMinus.gif" />
+										<?php else: ?>
+										<img src="system/themes/default/images/folPlus.gif" />
+										<?php endif; ?>
 									<?php endif; ?>
 								</a>
 								<span><img class="icon" height="16" width="16" alt="" src="system/modules/li_crm/icons/projects.png" /> </span>
