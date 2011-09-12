@@ -55,7 +55,7 @@ class CustomerList extends BackendModule
 		}
 		
 		$this->loadLanguageFile('li_customer');
-		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName, disable FROM tl_member WHERE isCustomer = 1 ORDER BY customerNumber ASC")->execute();
+		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName, disable FROM tl_member WHERE isCustomer = 1 AND NOT customerNumber = '' AND NOT customerName = '' ORDER BY customerNumber ASC")->execute();
 		$arrCustomers = array();
 		while ($objCustomers->next())
 		{

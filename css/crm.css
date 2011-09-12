@@ -26,13 +26,13 @@
 label.print{display:block;float:left;}
 .positions .tl_help{clear:left;}
 
-#tl_buttons .add_hours{padding-left:20px;}
+#tl_buttons .add_hours{padding-left:21px;}
 
 .path{margin-top:10px;}
 .back_link{display:block;margin-top:20px;}
 
 #week_buttons {
-	padding: 10px 25px 0;
+	padding: 10px 16px 0;
 }
 
 #workin_hours_calendar_wrapper {
