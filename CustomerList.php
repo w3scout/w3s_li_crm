@@ -43,6 +43,17 @@ class CustomerList extends BackendModule
 
 	protected function generateCustomerList()
 	{
+		// If a toggle is requested, modify the array accordingly before displaying the tree
+		if (!empty($_REQUEST['toggle']) && !empty($_REQUEST['id']))
+		{
+			// Set the display property to the negated current value
+			$_SESSION['li_crm']['customerList'][$_REQUEST['toggle']][$_REQUEST['id']]['display'] = 
+				!(bool)$_SESSION['li_crm']['customerList'][$_REQUEST['toggle']][$_REQUEST['id']]['display'];
+			
+			// Redirect the user back to the overview
+			header('Location: main.php?do=li_customers');
+		}
+		
 		$this->loadLanguageFile('li_customer');
 		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName, disable FROM tl_member WHERE isCustomer = 1 ORDER BY customerNumber ASC")->execute();
 		$arrCustomers = array();
@@ -87,30 +98,32 @@ class CustomerList extends BackendModule
 						'deleteDialog' => sprintf($GLOBALS['TL_LANG']['li_customers']['projectDelete'][2], $id),
 						'infoLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['projectInfo'][0], $id),
 						'infoTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['projectInfo'][1], $id),
-						'services' => $arrServices
+						'services' => $arrServices,
+						'display' => $_SESSION['li_crm']['customerList']['project'][$id]['display']
 				);
 			}
 
 			$id = $objCustomers->id;
 			$arrCustomers[] = array(
-					'id' => $id,
-					'customerNumber' => $objCustomers->customerNumber,
-					'customerName' => $objCustomers->customerName,
-					'editLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerEdit'][0], $id),
-					'editTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerEdit'][1], $id),
-					'copyLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerCopy'][0], $id),
-					'copyTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerCopy'][1], $id),
-					'deleteLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerDelete'][0], $id),
-					'deleteTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerDelete'][1], $id),
-					'deleteDialog' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerDelete'][2], $id),
-					'infoLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerInfo'][0], $id),
-					'infoTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerInfo'][1], $id),
-					'addressesLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['addressesManage'][0], $id),
-					'addressesTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['addressesManage'][1], $id),
-					'contactsLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['contactsManage'][0], $id),
-					'contactsTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['contactsManage'][1], $id),
-					'projects' => $arrProjects,
-					'isDisabled' => $objCustomers->disable
+				'id' => $id,
+				'customerNumber' => $objCustomers->customerNumber,
+				'customerName' => $objCustomers->customerName,
+				'editLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerEdit'][0], $id),
+				'editTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerEdit'][1], $id),
+				'copyLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerCopy'][0], $id),
+				'copyTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerCopy'][1], $id),
+				'deleteLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerDelete'][0], $id),
+				'deleteTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerDelete'][1], $id),
+				'deleteDialog' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerDelete'][2], $id),
+				'infoLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerInfo'][0], $id),
+				'infoTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['customerInfo'][1], $id),
+				'addressesLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['addressesManage'][0], $id),
+				'addressesTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['addressesManage'][1], $id),
+				'contactsLabel' => sprintf($GLOBALS['TL_LANG']['li_customers']['contactsManage'][0], $id),
+				'contactsTitle' => sprintf($GLOBALS['TL_LANG']['li_customers']['contactsManage'][1], $id),
+				'projects' => $arrProjects,
+				'isDisabled' => $objCustomers->disable,
+				'display' => $_SESSION['li_crm']['customerList']['customer'][$id]['display']
 			);
 		}
 

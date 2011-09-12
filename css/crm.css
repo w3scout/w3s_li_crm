@@ -2,7 +2,7 @@
 .tree_view .tl_listing .tl_folder .tl_left, .tree_view .tl_listing .tl_file .tl_left{padding-top:2px;}
 .tree_view .tl_listing .icon{vertical-align:-4px;padding-right:3px;}
 .tree_view .tl_listing .project .tl_left{padding-left:28px;}
-.tree_view .tl_listing .service .tl_left{padding-left:51px;}
+.tree_view .tl_listing .service .tl_left{padding-left:70px;}
 .tree_view .tl_listing .tl_folder.disabled strong{color:#999c99;}
 
 .tree_view .tl_listing li{display:block;}

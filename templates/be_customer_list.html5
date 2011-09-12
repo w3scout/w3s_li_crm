@@ -26,8 +26,15 @@
             </li>
             
             <?php foreach($this->customers as $customer) : ?>
-                <li class="tl_folder customer<?php if($customer['isDisabled']) echo " disabled"; ?>" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
+                <li id="customer_<?php echo $customer['customerNumber']; ?>" class="tl_folder customer<?php if($customer['isDisabled']) echo " disabled"; ?>" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
                     <div class="tl_left">
+						<a href="contao/main.php?do=li_customers&amp;toggle=customer&amp;id=<?php echo $customer['id']; ?>" onclick="javascript:toggleProjects('customer_<?php echo $customer['customerNumber']; ?>');">
+							<?php if ($customer['display']): ?>
+							<img src="system/themes/default/images/folMinus.gif" />
+							<?php else: ?>
+							<img src="system/themes/default/images/folPlus.gif" />
+							<?php endif; ?>
+						</a>
                         <?php if(!$customer['isDisabled']) : ?>
                             <span><img class="icon" height="16" width="16" alt="<?php echo $lang['customer']; ?>" src="system/modules/li_crm/icons/customer.png" /> </span>
                         <?php else : ?>
@@ -50,48 +57,59 @@
                     </div>
                     <div style="clear:both;"></div>
                 </li>
-                <?php foreach($customer['projects'] as $project) : ?>
-                    <li class="tl_file project" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
-                        <div class="tl_left">
-                            <span><img class="icon" height="16" width="16" alt="" src="system/modules/li_crm/icons/project.png" /> </span>
-                            <em><?php echo $project['projectNumber']; ?> - <?php echo $project['title']; ?></em>
-                        </div>
-                        <div class="tl_right">
-                            <?php if(!$customer['isDisabled']) : ?>
-                                <a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=edit&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['editTitle']; ?>"><img src="system/themes/default/images/edit.gif" alt="<?php echo $project['editLabel']; ?>" width="12" height="16" /> </a>
-                                <a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=copy&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['copyTitle']; ?>"><img src="system/themes/default/images/copy.gif" alt="<?php echo $project['copyLabel']; ?>" width="14" height="16" /> </a>
-                                <a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=delete&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['deleteTitle']; ?>" onclick="if (!confirm('<?php echo $project['deleteDialog']; ?>')) return false; Backend.getScrollOffset();"><img src="system/themes/default/images/delete.gif" alt="<?php echo $project['deleteLabel']; ?>" width="14" height="16" /> </a>
-                            <?php else: ?>
-                                <span><img src="system/themes/default/images/edit_.gif" alt="<?php echo $project['editLabel']; ?>" width="12" height="16" /> </span>
-                                <span><img src="system/themes/default/images/copy_.gif" alt="<?php echo $project['copyLabel']; ?>" width="14" height="16" /> </span>
-                                <span><img src="system/themes/default/images/delete_.gif" alt="<?php echo $project['deleteLabel']; ?>" width="14" height="16" /> </span>
-                            <?php endif; ?>
-                            <a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=show&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['infoTitle']; ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $project['infoLabel']; ?>" width="14" height="16" /> </a>
-                        </div>
-                        <div style="clear:both;"></div>
-                    </li>
-                    <?php foreach($project['services'] as $service) : ?>
-                        <li class="tl_file service" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
-                            <div class="tl_left">
-                                <span><img class="icon" height="16" width="16" alt="<?php echo $service['serviceTitle']; ?>" src="<?php echo $service['icon']; ?>" /> </span>
-                                <span><?php echo $service['serviceTitle']; ?></span>
-                            </div>
-                            <div class="tl_right">
-                                <?php if(!$customer['isDisabled']) : ?>
-                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=edit&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['editTitle']; ?>"><img src="system/themes/default/images/edit.gif" alt="<?php echo $service['editLabel']; ?>" width="12" height="16" /> </a>
-                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=copy&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['copyTitle']; ?>"><img src="system/themes/default/images/copy.gif" alt="<?php echo $service['copyLabel']; ?>" width="14" height="16" /> </a>
-                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=delete&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['deleteTitle']; ?>" onclick="if (!confirm('<?php echo $service['deleteDialog']; ?>')) return false; Backend.getScrollOffset();"><img src="system/themes/default/images/delete.gif" alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" /> </a>
-                                <?php else: ?>
-                                    <span><img src="system/themes/default/images/edit_.gif" alt="<?php echo $service['editLabel']; ?>" width="12" height="16" /> </span>
-                                    <span><img src="system/themes/default/images/copy_.gif" alt="<?php echo $service['copyLabel']; ?>" width="14" height="16" /> </span>
-                                    <span><img src="system/themes/default/images/delete_.gif" alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" /> </span>
-                                <?php endif; ?>
-                                <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=show&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['infoTitle']; ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $service['infoLabel']; ?>" width="14" height="16" /> </a>
-                            </div>
-                            <div style="clear:both;"></div>
-                        </li>
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
+				<?php if ($customer['display']): ?>
+					<?php foreach($customer['projects'] as $project) : ?>
+						<li class="tl_file project" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
+							<div class="tl_left">
+								<a href="contao/main.php?do=li_customers&amp;toggle=project&amp;id=<?php echo $customer['id']; ?>" onclick="javascript:toggleProjects('customer_<?php echo $customer['customerNumber']; ?>');">
+									<?php if ($project['display']): ?>
+									<img src="system/themes/default/images/folMinus.gif" />
+									<?php else: ?>
+									<img src="system/themes/default/images/folPlus.gif" />
+									<?php endif; ?>
+								</a>
+								<span><img class="icon" height="16" width="16" alt="" src="system/modules/li_crm/icons/projects.png" /> </span>
+								<em><?php echo $project['projectNumber']; ?> - <?php echo $project['title']; ?></em>
+							</div>
+							<div class="tl_right">
+								<?php if(!$customer['isDisabled']) : ?>
+									<a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=edit&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['editTitle']; ?>"><img src="system/themes/default/images/edit.gif" alt="<?php echo $project['editLabel']; ?>" width="12" height="16" /> </a>
+									<a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=copy&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['copyTitle']; ?>"><img src="system/themes/default/images/copy.gif" alt="<?php echo $project['copyLabel']; ?>" width="14" height="16" /> </a>
+									<a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=delete&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['deleteTitle']; ?>" onclick="if (!confirm('<?php echo $project['deleteDialog']; ?>')) return false; Backend.getScrollOffset();"><img src="system/themes/default/images/delete.gif" alt="<?php echo $project['deleteLabel']; ?>" width="14" height="16" /> </a>
+								<?php else: ?>
+									<span><img src="system/themes/default/images/edit_.gif" alt="<?php echo $project['editLabel']; ?>" width="12" height="16" /> </span>
+									<span><img src="system/themes/default/images/copy_.gif" alt="<?php echo $project['copyLabel']; ?>" width="14" height="16" /> </span>
+									<span><img src="system/themes/default/images/delete_.gif" alt="<?php echo $project['deleteLabel']; ?>" width="14" height="16" /> </span>
+								<?php endif; ?>
+								<a href="contao/main.php?do=li_customers&amp;table=tl_li_project&amp;act=show&amp;id=<?php echo $project['id']; ?>" title="<?php echo $project['infoTitle']; ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $project['infoLabel']; ?>" width="14" height="16" /> </a>
+							</div>
+							<div style="clear:both;"></div>
+						</li>
+						<?php if ($project['display']): ?>
+							<?php foreach($project['services'] as $service) : ?>
+								<li class="tl_file service" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
+									<div class="tl_left">
+										<span><img class="icon" height="16" width="16" alt="<?php echo $service['serviceTitle']; ?>" src="<?php echo $service['icon']; ?>" /> </span>
+										<span><?php echo $service['serviceTitle']; ?></span>
+									</div>
+									<div class="tl_right">
+										<?php if(!$customer['isDisabled']) : ?>
+											<a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=edit&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['editTitle']; ?>"><img src="system/themes/default/images/edit.gif" alt="<?php echo $service['editLabel']; ?>" width="12" height="16" /> </a>
+											<a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=copy&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['copyTitle']; ?>"><img src="system/themes/default/images/copy.gif" alt="<?php echo $service['copyLabel']; ?>" width="14" height="16" /> </a>
+											<a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=delete&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['deleteTitle']; ?>" onclick="if (!confirm('<?php echo $service['deleteDialog']; ?>')) return false; Backend.getScrollOffset();"><img src="system/themes/default/images/delete.gif" alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" /> </a>
+										<?php else: ?>
+											<span><img src="system/themes/default/images/edit_.gif" alt="<?php echo $service['editLabel']; ?>" width="12" height="16" /> </span>
+											<span><img src="system/themes/default/images/copy_.gif" alt="<?php echo $service['copyLabel']; ?>" width="14" height="16" /> </span>
+											<span><img src="system/themes/default/images/delete_.gif" alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" /> </span>
+										<?php endif; ?>
+										<a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=show&amp;id=<?php echo $service['id']; ?>" title="<?php echo $service['infoTitle']; ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $service['infoLabel']; ?>" width="14" height="16" /> </a>
+									</div>
+									<div style="clear:both;"></div>
+								</li>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				<?php endif; ?>
             <?php endforeach; ?>
         </ul>
     </div>

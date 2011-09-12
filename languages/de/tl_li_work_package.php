@@ -14,6 +14,7 @@ $GLOBALS['TL_LANG']['tl_li_work_package']['title']      = array('Titel', 'Bitte 
 $GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit']  = array('Stundenlimit', 'Bitte geben Sie ein Stundenlimit ein.');
 $GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'] = array('Extern', 'Handelt es sich um ein externes Arbeitspaket?');
 $GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer'] = array('Kunde', 'Bitte wählen Sie einen Kunden aus.');
+$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'] = array('Projekt', 'Bitte wählen Sie ein Projekt aus.');
 
 /**
  * Legends
