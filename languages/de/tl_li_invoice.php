@@ -14,8 +14,9 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer']       = array('Kunde', 'Bitte
 $GLOBALS['TL_LANG']['tl_li_invoice']['toCategory']       = array('Rechnungskategorie', 'Bitte wählen Sie die Rechnungskategorie aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['title']            = array('Titel', 'Bitte geben Sie den Titel ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['alias']            = array('Alias', 'Bitte geben Sie den Alias ein.');
-$GLOBALS['TL_LANG']['tl_li_invoice']['price']            = array('Preis', 'Bitte geben Sie den Preis ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoiceDate']      = array('Rechnungsdatum', 'Bitte geben Sie das Rechnungsdatum ein.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['performanceDate']  = array('Leistungsdatum', 'Bitte geben Sie das Leistungsdatum ein.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['price']            = array('Preis', 'Bitte geben Sie den Preis ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['file']             = array('Rechnung', 'Bitte wählen Sie die Rechnung aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['isOut']            = array('Ausgangsrechnung?', 'Ist die Rechnung eine Ausgangsrechnung?');
 $GLOBALS['TL_LANG']['tl_li_invoice']['isSingular']       = array('Einmalige Rechnung?', 'Ist die Rechnung eine einmalige Rechnung?');
@@ -39,7 +40,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['expense']              = 'Ausgabe';
 $GLOBALS['TL_LANG']['tl_li_invoice']['tax_number']           = 'Steuernummer';
 $GLOBALS['TL_LANG']['tl_li_invoice']['date']                 = 'Datum';
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number']       = 'Rechnungs-Nr.';
-$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_introduction'] = 'Sehr geehrter Herr Mustermann,<br />für Ihren Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male']    = 'Sehr geehrter Herr %s,<br />für Ihren Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female']  = 'Sehr geehrte Frau %s,<br />für Ihren Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.';
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity']    = 'Anzahl';
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit']        = 'Einheit';
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_label']       = 'Bezeichnung';
@@ -61,6 +63,11 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit']        = 'Stück';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour']        = 'Stunde';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month']       = 'Monat';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year']        = 'Jahr';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation']   = 'Rechnungsgenerierung';
+$GLOBALS['TL_LANG']['tl_li_invoice']['path_introduction']    = 'Die Rechnung wurde erfolgreich generiert und unter folgendem Pfad abgelegt';
+$GLOBALS['TL_LANG']['tl_li_invoice']['path']                 = 'Pfad';
+$GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']        = 'Zurück zur Übersicht';
 
 /**
  * Buttons

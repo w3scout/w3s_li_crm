@@ -65,7 +65,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array (
 	// Palettes
 	'palettes' => array (
 		'__selector__'                => array(''),
-		'default'                     => '{template_legend}, title, html, invoice_template, logo;'
+		'default'                     => '{template_legend},title,html,invoice_template,logo;{generation_path_legend},basePath,periodFolder;'
 	),
 
 	// Subpalettes
@@ -90,6 +90,19 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'],
 			'inputType'               => 'fileTree',
 			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
+		),
+		'basePath' => array (
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'],
+			'inputType'               => 'fileTree',
+			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false)
+		),
+		'periodFolder' => array (
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'],
+			'exclude'                 => true,
+			'inputType'               => 'select',
+			'options'                 => array('daily', 'weekly', 'monthly', 'yearly'),
+			'reference'               => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods'],
+			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
 		)
 	)
 );
