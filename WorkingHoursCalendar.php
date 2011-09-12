@@ -65,16 +65,11 @@ class WorkingHoursCalendar extends BackendModule
 					'hours' => $hoursWorked,
 					'minutes' => $minutes,
 					'hourLimit' => $getWorkingHours->hourLimit,
-					'customerColor' => $getWorkingHours->customerColor,
+					'customerColor' => !empty($getWorkingHours->customerColor) ? $getWorkingHours->customerColor : 'eee',
 					'customerId' => $getWorkingHours->customerId,
 					'workPackageId' => $getWorkingHours->workPackageId,
 			);
-
-			if (empty($entry['customerColor']))
-			{
-				$entry['customerColor'] = 'eee';
-			}
-
+			
 			$hours[$getWorkingHours->weekday][] = $entry;
 		}
 
