@@ -30,7 +30,7 @@ class Invoice extends BackendModule
 		if ($this->Input->get('key') == 'print')
 		{
 			$id = $this->Input->get('id');
-			$this->printInvoice($id);
+			$this->Template->filePath = $this->printInvoice($id);
 		}
 		return $this->Template->parse();
 	}
@@ -208,18 +208,22 @@ class Invoice extends BackendModule
 
 	public function printInvoice($id)
 	{
-		//$this->log('New invoice', 'tl_li_invoice generateInvoice()', TL_FILES);
+		// Log process
+		$this->log('Generate new invoice', 'Generate invoice with id '.$id, TL_FILES);
 
+		// Get data
+		$objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.toCustomer, i.positions, i.isOut, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder FROM tl_li_invoice AS i INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id WHERE i.id = ?")->limit(1)->execute($id);
+		$objAddress = $this->Database->prepare("SELECT company, firstname, lastname, street, postal, city, gender FROM tl_address WHERE id = ?")->limit(1)->execute($objInvoice->toCustomer);
+
+		// Load language file
 		$this->loadLanguageFile('tl_member');
 		$this->loadLanguageFile('tl_li_invoice');
 
+		// Import required systems
 		$this->import('BackendUser', 'User');
-
-		$objInvoice = $this->Database->prepare("SELECT i.title, i.invoiceDate, i.toCustomer, i.positions, t.title AS templateTitle, t.invoice_template, t.logo FROM tl_li_invoice AS i INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id WHERE i.id = ?")->limit(1)->execute($id);
-		$objAddress = $this->Database->prepare("SELECT company, firstname, lastname, street, postal, city FROM tl_address WHERE id = ?")->limit(1)->execute($objInvoice->toCustomer);
+		require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
 
 		// Generate DOMPDF object
-		require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
 		$dompdf = new DOMPDF();
 
 		$templateName = $objInvoice->invoice_template;
@@ -232,13 +236,12 @@ class Invoice extends BackendModule
 		$template = file_get_contents($templateFile);
 
 		$invoicePositions = unserialize($objInvoice->positions);
-		
+
 		$rowCounter = 1;
 		$fullNetto = 0;
 		$fullTaxes = 0;
-		
 		$taxes = array();
-		
+
 		foreach ($invoicePositions as $invoicePosition)
 		{
 			if (!$invoicePosition['print'])
@@ -247,11 +250,13 @@ class Invoice extends BackendModule
 			}
 
 			$position_total_price = $invoicePosition['quantity'] * $invoicePosition['price'];
-			
+
 			if (!array_key_exists($invoicePosition['tax'], $taxes))
 			{
-				$taxes[$invoicePosition['tax']] = $position_total_price; 
-			} else {
+				$taxes[$invoicePosition['tax']] = $position_total_price;
+			}
+			else
+			{
 				$taxes[$invoicePosition['tax']] += $position_total_price;
 			}
 
@@ -272,14 +277,14 @@ class Invoice extends BackendModule
 		$htmlPositions .= '<td class="spacer" colspan="5"> </td>';
 		$htmlPositions .= '</tr>';
 		$rowCounter++;
-		
+
 		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
-		$htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'] .'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' &#0128;</td>';
+		$htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' &#0128;</td>';
 		$htmlPositions .= '</tr>';
 		$rowCounter++;
-		
-		
-		foreach($taxes as $tax => $price) {
+
+		foreach ($taxes as $tax => $price)
+		{
 			$taxPrice = $price * $tax / 100;
 			$fullTaxes += $taxPrice;
 			$htmlPositions .= '<tr class="total '.$this->getOddEven($rowCounter).'">';
@@ -287,9 +292,9 @@ class Invoice extends BackendModule
 			$htmlPositions .= '</tr>';
 			$rowCounter++;
 		}
-		
+
 		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
-		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'] .'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' &#0128;</td>';
+		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' &#0128;</td>';
 		$htmlPositions .= '</tr>';
 
 		$search = array(
@@ -349,7 +354,7 @@ class Invoice extends BackendModule
 				'invoice_number_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number'],
 				'invoice_number' => $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']),
 				'invoice_title' => $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
-				'invoice_introduction' => $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_introduction'],
+				'invoice_introduction' => sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
 				'customer_name' => $objAddress->company,
 				'customer_firstname' => $objAddress->firstname,
 				'customer_lastname' => $objAddress->lastname,
@@ -383,16 +388,49 @@ class Invoice extends BackendModule
 		$dompdf->load_html($html);
 		$dompdf->render();
 
-		$filename = '../tl_files/Rechnung_'.$id.'.pdf';
+		// Generate export path
+		$exportPath = $objInvoice->basePath == '' ? '../'.TL_ROOT.'/' : '../'.$objInvoice->basePath.'/';
 
-		$pdfInvoice = fopen($filename, 'a');
+		if ($objInvoice->periodFolder != '')
+		{
+			if ($objInvoice->periodFolder == 'daily')
+			{
+				$exportPath .= date('Y-z', $objInvoice->invoiceDate).'/';
+			}
+			elseif ($objInvoice->periodFolder == 'weekly')
+			{
+				$exportPath .= date('Y-W', $objInvoice->invoiceDate).'/';
+			}
+			elseif ($objInvoice->periodFolder == 'monthly')
+			{
+				$exportPath .= date('Y-m', $objInvoice->invoiceDate).'/';
+			}
+			elseif ($objInvoice->periodFolder == 'yearly')
+			{
+				$exportPath .= date('Y', $objInvoice->invoiceDate).'/';
+			}
+		}
+
+		if (!file_exists($exportPath))
+		{
+			mkdir($exportPath, 0777, true);
+		}
+
+		$exportFile = $exportPath.$objInvoice->alias.'.pdf';
+
+		// Export pdf
+		$pdfInvoice = fopen($exportFile, 'w');
 		fwrite($pdfInvoice, $dompdf->output());
 		fclose($pdfInvoice);
 
-		return false;
+		$templateLink = substr($exportFile, 2);
+
+		// Return link to template
+		return $templateLink;
 	}
 
-	private function getOddEven($row) {
+	private function getOddEven($row)
+	{
 		return $row % 2 == 0 ? 'odd' : 'even';
 	}
 

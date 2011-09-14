@@ -101,13 +101,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('enableGeneration'),
-		'default'                     => '{invoice_legend}, toCustomer, toCategory, title, alias, price, invoiceDate;{pdf_legend}, file;{settings_legend}, isOut, isSingular;{generation_legend}, enableGeneration;'
+		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,invoiceDate,performanceDate,price;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'enableGeneration'            => 'toTemplate, toAddress, positions'
+		'enableGeneration'            => 'toTemplate,toAddress,positions'
 	),
 
 	// Fields
@@ -148,13 +148,6 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				array('Invoice', 'generateAlias')
 			)
 		),
-		'price' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['price'],
-			'search'                  => true,
-			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50')
-		),
 		'invoiceDate' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceDate'],
@@ -163,7 +156,24 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+		),
+		'performanceDate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['performanceDate'],
+			'default'                 => time(),
+			'filter'                  => true,
+			'sorting'                 => true,
+			'flag'                    => 8,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+		),
+		'price' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['price'],
+			'search'                  => true,
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50')
 		),
 		'file' => array
 		(
