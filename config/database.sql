@@ -97,6 +97,15 @@ CREATE TABLE `tl_li_product` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
+-- Table `tl_li_product_to_project`
+--
+CREATE TABLE `tl_li_product_to_project` (
+  `productId` int(10) unsigned NOT NULL default '0',
+  `projectId` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`productId`, `projectId`),
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
 -- Table `tl_li_product_type`
 --
 
