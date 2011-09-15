@@ -19,7 +19,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
     (
         'li_customers' => array
         (
-            'tables'     => array('tl_member', 'tl_li_project', 'tl_li_service'),
+            'tables'     => array('tl_member', 'tl_li_project', 'tl_li_service', 'tl_li_product_to_project'),
             'callback'   => 'CustomerList',
             'icon'       => 'system/modules/li_crm/icons/customers.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'

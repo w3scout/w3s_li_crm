@@ -100,9 +100,11 @@ CREATE TABLE `tl_li_product` (
 -- Table `tl_li_product_to_project`
 --
 CREATE TABLE `tl_li_product_to_project` (
-  `productId` int(10) unsigned NOT NULL default '0',
-  `projectId` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`productId`, `projectId`),
+   `id` int(10) unsigned NOT NULL auto_increment,
+   `tstamp` int(10) unsigned NOT NULL default '0',
+   `toProduct` int(10) unsigned NOT NULL default '0',
+   `toProject` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
