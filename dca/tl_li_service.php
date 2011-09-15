@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{service_legend}, toCustomer, toProject, toServiceType, title, price;'
+		'default'                     => '{service_legend}, toProject, toServiceType, title, price;'
 	),
 
 	// Subpalettes
@@ -90,26 +90,19 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	// Fields
 	'fields' => array
 	(
-		'toCustomer' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'],
-			'inputType'               => 'select',
-			'options_callback'        => array('Customer', 'getCustomerWithProjectsOptions'),
-			'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true)
-		),
         'toProject' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toProject'],
 			'inputType'               => 'select',
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-			'options_callback'        => array('Project', 'getProjectsFromCustomerOptions')
+			'options_callback'        => array('Project', 'getProjectsByCustomerList')
 		),
 		'toServiceType' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toServiceType'],
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_li_service_type.title',
-			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
 		),
         'title' => array
 		(

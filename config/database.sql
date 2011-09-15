@@ -14,8 +14,8 @@
 CREATE TABLE `tl_member` (
   `customerNumber` varchar(255) NOT NULL default '',
   `customerName` varchar(255) NOT NULL default '',
-  `isCustomer` char(1) NOT NULL default ''
-  `customerColor` varchar(6) NULL default '',
+  `isCustomer` char(1) NOT NULL default '',
+  `customerColor` varchar(6) NULL default ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -61,7 +61,6 @@ CREATE TABLE `tl_li_contact` (
 CREATE TABLE `tl_li_service` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
-  `toCustomer` int(10) unsigned NOT NULL default '0',
   `toProject` int(10) unsigned NOT NULL default '0',
   `toServiceType` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
@@ -128,7 +127,6 @@ CREATE TABLE `tl_li_product_type` (
 CREATE TABLE `tl_li_task` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
-  `toCustomer` int(10) unsigned NOT NULL default '0',
   `toProject` int(10) unsigned NOT NULL default '0',
   `toStatus` int(10) unsigned NOT NULL default '0',
   `toUser` int(10) unsigned NOT NULL default '0',
@@ -160,7 +158,6 @@ CREATE TABLE `tl_li_task_status` (
 CREATE TABLE `tl_li_task_reminder` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
-  `toCustomer` int(10) unsigned NOT NULL default '0',
   `toTask` int(10) unsigned NOT NULL default '0',
   `remindOnce` char(1) NOT NULL default '',
   `remindDate` varchar(10) NOT NULL default '',
@@ -176,7 +173,6 @@ CREATE TABLE `tl_li_task_reminder` (
 CREATE TABLE `tl_li_work_package` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
-  `toCustomer` int(10) unsigned NOT NULL default '0',
   `toProject` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `hourLimit` int(10) unsigned NOT NULL default '0',

@@ -46,7 +46,8 @@ class WorkingHoursCalendar extends BackendModule
 				(wh.hours * 60 + wh.minutes) AS minutes, wp.id as workPackageId, c.customerColor
 			FROM tl_li_working_hours wh
 				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
-				LEFT JOIN tl_member c ON wp.toCustomer = c.id
+				INNER JOIN tl_li_project p ON wp.toProject = p.id
+				LEFT JOIN tl_member c ON p.toCustomer = c.id
 			WHERE hours IS NOT NULL
 				AND WEEK(FROM_UNIXTIME(wh.entryDate), ".$weekMode.") = ".$week."
 			ORDER BY wh.entryDate")->execute();

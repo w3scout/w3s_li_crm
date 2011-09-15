@@ -25,14 +25,14 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 	(
 		'sorting' => array
 		(
-			'mode'                    => 1,
-			'fields'                  => array('toCustomer'),
+			'mode'                    => 2,
+			'fields'                  => array('toTask'),
 			'flag'                    => 1,
 			'panelLayout'             => 'filter;sort,limit'
 		),
 		'label' => array
 		(
-			'fields'                  => array('toCustomer', 'toTask'),
+			'fields'                  => array('toTask'),
 			'label_callback'          => array('TaskReminder', 'renderLabel')
 		),
 		'global_operations' => array
@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('remindOnce', 'remindRepeatedly'),
-		'default'                     => '{reminder_legend}, toCustomer, toTask;{once_legend},remindOnce;{repeatedly_legend},remindRepeatedly;'
+		'default'                     => '{reminder_legend}, toTask; {once_legend}, remindOnce; {repeatedly_legend}, remindRepeatedly;'
 	),
 
 	// Subpalettes
@@ -92,27 +92,19 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 	// Fields
 	'fields' => array
 	(
-        'toCustomer' => array
-		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['toCustomer'],
-			'filter'                  => true,
-			'inputType'               => 'select',
-            'options_callback'        => array('TaskReminder', 'getCustomerOptions'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
-        ),
         'toTask' => array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['toTask'],
 			'inputType'               => 'select',
             'options_callback'        => array('TaskReminder', 'getTaskOptions'),
-			'eval'                    => array('tl_class'=>'w50', 'mandatory'=>true, 'includeBlankOption'=>true , 'submitOnChange'=>true)
+			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true)
         ),
         'remindOnce' => array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindOnce'],
 			'inputType'               => 'checkbox',
 			'filter'                  => true,
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange' => true)
         ),
         'remindDate' => array
 		(
@@ -122,18 +114,16 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
-			'load_callback'           => array
-            (
-                array('TaskReminder', 'getRemindDate')
-            ),
-			'eval'                    => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'load_callback'           => array (array('TaskReminder', 'getRemindDate')),
+			'eval'                    => array('rgxp' => 'date', 'datepicker' => $this->getDatePickerString(),
+                                               'tl_class' => 'w50 wizard')
 		),
         'remindRepeatedly' => array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindRepeatedly'],
 			'inputType'               => 'checkbox',
 			'filter'                  => true,
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange' => true)
         ),
         'remindInterval' => array
 		(
@@ -142,7 +132,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'inputType'               => 'select',
             'options'                 => array('daily', 'weekly', 'monthly', 'yearly'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindInterval'],
-			'eval'                    => array('tl_class'=>'w50')
+			'eval'                    => array('tl_class' => 'w50')
         )
 	)
 );

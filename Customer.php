@@ -25,7 +25,9 @@ class Customer extends Controller
 		{
 			if (isset($arrSplit[1]))
 			{
-				$objCustomer = $this->Database->prepare("SELECT COUNT(id) AS count FROM tl_member WHERE isCustomer = '1'")->limit(1)->execute();
+				$objCustomer = $this->Database->prepare("SELECT COUNT(id) AS count
+				    FROM tl_member
+				    WHERE isCustomer = '1'")->limit(1)->execute();
 				$count = $objCustomer->count;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation_start']))
 				{
@@ -41,22 +43,37 @@ class Customer extends Controller
 	public function getCustomerOptions(DataContainer $dc)
 	{
 		$customers = array();
-		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName FROM tl_member WHERE disable = '' AND isCustomer = '1'")->execute();
+
+		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName
+		    FROM tl_member
+		    WHERE disable = ''
+		        AND isCustomer = '1'")->execute();
+
 		while ($objCustomers->next())
 		{
 			$customers[$objCustomers->id] = $objCustomers->customerNumber." ".$objCustomers->customerName;
 		}
+
 		return $customers;
 	}
 
 	public function getCustomerWithProjectsOptions(DataContainer $dc)
 	{
 		$customers = array();
-		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName FROM tl_member AS m WHERE disable = '' AND (SELECT COUNT(p.id) FROM tl_li_project AS p WHERE p.toCustomer = m.id ) > 0")->execute();
+
+		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName
+		    FROM tl_member AS m
+		    WHERE disable = ''
+		        AND (SELECT COUNT(p.id)
+		            FROM tl_li_project AS p
+		            WHERE p.toCustomer = m.id
+		        ) > 0")->execute();
+        
 		while ($objCustomers->next())
 		{
 			$customers[$objCustomers->id] = $objCustomers->customerNumber." ".$objCustomers->customerName;
 		}
+
 		return $customers;
 	}
 
@@ -75,8 +92,7 @@ class Customer extends Controller
 		}
 
 		// Generate new customer number
-		$value = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);
-		return $value;
+		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);;
 	}
 
 }

@@ -20,61 +20,69 @@ class TaskReminder extends Controller
 		$this->import('Database');
 	}
 
-	public function getCustomerOptions($dc)
+    /**
+     * Gets all tasks and order them in an array that can be used to create a select-list of all tasks. Groups
+     * by customers and projects
+     *
+     * @return array The tasks as a nested array
+     */
+	public function getTaskOptions()
 	{
-		$customers = array();
-		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName FROM tl_member AS m WHERE disable = '' AND (SELECT COUNT(t.id) FROM tl_li_task AS t WHERE t.toCustomer = m.id ) > 0")->execute();
-		while ($objCustomers->next())
-		{
-			$customers[$objCustomers->id] = $objCustomers->customerNumber." ".$objCustomers->customerName;
-		}
-		if (count($customers) == 0)
-		{
-			$customers[0] = "kein kunde";
-		}
-		return $customers;
-	}
+		$objTasks = $this->Database->prepare("SELECT t.id, t.title, p.title AS project, c.customerName
+		    FROM tl_li_task as t
+                LEFT JOIN tl_li_project AS p ON t.toProject = p.id
+                LEFT JOIN tl_member AS c ON p.toCustomer = c.id
+		    WHERE deadline >= ?
+		    ORDER BY c.customerName, p.title, t.title")->execute(strtotime(date('d.m.Y')));
 
-	public function getTaskOptions($dc)
-	{
 		$tasks = array();
-		$objTasks = $this->Database->prepare("SELECT id, title FROM tl_li_task WHERE toCustomer = ? AND deadline >= ?")->execute($dc->activeRecord->toCustomer, strtotime(date('d.m.Y')));
 		while ($objTasks->next())
 		{
-			$tasks[$objTasks->id] = $objTasks->title;
+            $customer = $objTasks->customerName != '' ? $objTasks->customerName : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noCustomer'];
+            $project = $objTasks->project != '' ? $objTasks->project : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noProject'];
+
+			$tasks[$customer.' - '.$project][$objTasks->id] = $objTasks->title;
 		}
+        
 		return $tasks;
 	}
 
 	public function getRemindDate($value, $dc)
 	{
-		if (true)
-		{
-			$objInvoice = $this->Database->prepare("SELECT deadline FROM tl_li_task WHERE id = ?")->limit(1)->execute($dc->activeRecord->toTask);
-			return $this->parseDate('d.m.Y', $objInvoice->taskDate);
-		}
-		else
-		{
-			return '';
-		}
+        $objInvoice = $this->Database->prepare("SELECT deadline
+            FROM tl_li_task
+            WHERE id = ?")->limit(1)->execute($dc->activeRecord->toTask);
+
+        return $this->parseDate('d.m.Y', $objInvoice->taskDate);
 	}
 
-	public function renderLabel($row, $label)
+    /**
+     * Renders the label of a task to be displayed in a list
+     *
+     * @param $row The current row to be rendered
+     * @return string The rendered label
+     */
+	public function renderLabel($row)
 	{
-		$objTask = $this->Database->prepare("SELECT title, deadline FROM tl_li_task WHERE id = ?")->limit(1)->execute($row['toTask']);
-		if ($row['toCustomer'] == '0')
-		{
-			$label = $GLOBALS['TL_LANG']['tl_li_task_reminder']['noCustomer']." - ".$objTask->title;
-		}
-		else
-		{
-			$objCustomer = $this->Database->prepare("SELECT customerNumber, customerName FROM tl_member WHERE id = ?")->limit(1)->execute($row['toCustomer']);
-			$label = $objCustomer->customerNumber." ".$objCustomer->customerName." - ".$objTask->title;
-		}
+        // Get the data of the linked task and its project and customer data (if any)
+		$objTask = $this->Database->prepare("SELECT t.title, t.deadline, p.title AS project, m.customerName
+            FROM tl_li_task AS t
+                LEFT JOIN tl_li_project AS p ON t.toProject = p.id
+                LEFT JOIN tl_member AS m ON p.toCustomer = m.id
+		    WHERE t.id = ?")->limit(1)->execute($row['toTask']);
+        
+        $label = $objTask->customerName != '' ? $objTask->customerName : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noCustomer'];
+        $label .= ' - ';
+        $label .= $objTask->project != '' ? $objTask->project : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noProject'];
+        $label .= ' - ';
+        $label .= $objTask->title;
+
+        // Check if the deadline already passed the current date and adjust the formatting
 		if ($objTask->deadline < strtotime(date('d.m.Y')))
 		{
 			$label = '<span class="disabled">'.$label.'</span>';
 		}
+
 		return $label;
 	}
 

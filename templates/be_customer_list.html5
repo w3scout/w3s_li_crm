@@ -221,7 +221,7 @@
 									</div>
 									<div class="tl_right">
 										<?php if(!$customer['isDisabled']) : ?>
-                                            <a href="contao/main.php?do=li_customers&amp;table=tl_li_product&amp;act=edit&amp;id=<?php echo $product['id']; ?>"
+                                            <a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_project&amp;act=edit&amp;id=<?php echo $product['id']; ?>"
                                                 title="<?php echo $product['editTitle']; ?>">
                                                 <img src="system/themes/default/images/edit.gif"
                                                     alt="<?php echo $product['editLabel']; ?>" width="12" height="16" />

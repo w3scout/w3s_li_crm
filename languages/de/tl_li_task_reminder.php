@@ -6,6 +6,7 @@
  * @author     Christian Kolb <info@liplex.de>
  * @license    MIT (see /LICENSE.txt for further information)
  */
+$GLOBALS['TL_LANG']['tl_li_task_reminder']['noProject'] = 'Kein Projekt';
 
 /**
  * Fields

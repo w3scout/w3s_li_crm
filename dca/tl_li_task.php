@@ -1,4 +1,6 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
  * PHP version 5
@@ -26,7 +28,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 		'sorting' => array
 		(
 			'mode'                    => 1,
-			'fields'                  => array('toStatus', 'priority', 'toCustomer'),
+			'fields'                  => array('toStatus', 'priority'),
 			'flag'                    => 1,
 			'panelLayout'             => 'filter;sort,search,limit'
 		),
@@ -92,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{settings_legend}, toCustomer, toProject, toStatus, toUser, priority;{task_legend}, title, alias, deadline, description;'
+		'default'                     => '{settings_legend}, toProject, toStatus, toUser, priority;{task_legend}, title, alias, deadline, description;'
 	),
 
 	// Subpalettes
@@ -104,19 +106,11 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 	// Fields
 	'fields' => array
 	(
-        'toCustomer' => array
-		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toCustomer'],
-			'filter'                  => true,
-			'inputType'               => 'select',
-            'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
-        ),
         'toProject' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toProject'],
 			'inputType'               => 'select',
-			'options_callback'        => array('Project', 'getProjectsFromCustomerOptions'),
+			'options_callback'        => array('Project', 'getProjectsByCustomerList'),
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
 		),
         'toStatus' => array

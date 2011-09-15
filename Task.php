@@ -50,13 +50,20 @@ class Task extends Controller
 
 	public function renderLabel($row, $label)
 	{
-		$statusIcon = "<img src=\"system/modules/li_crm/icons/status_default.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_task']['defaultIcon']."\" style=\"vertical-align:-3px;\" />";
+		$statusIcon = '<img src="system/modules/li_crm/icons/status_default.png" alt="'
+                      .$GLOBALS['TL_LANG']['tl_li_task']['defaultIcon'].'" style="vertical-align:-3px;" />';
+
 		if ($row['toStatus'] != 0)
 		{
-			$objStatus = $this->Database->prepare("SELECT title, icon, isTaskDisabled FROM tl_li_task_status WHERE id = ?")->limit(1)->execute($row['toStatus']);
+			$objStatus = $this->Database->prepare("SELECT title, icon, isTaskDisabled
+			    FROM tl_li_task_status
+			    WHERE id = ?")
+                    ->limit(1)
+                    ->execute($row['toStatus']);
+
 			if ($objStatus->icon != '')
 			{
-				$statusIcon = "<img src=\"".$objStatus->icon."\" alt=\"".$objStatus->title."\" style=\"vertical-align:-3px;\" />";
+				$statusIcon = '<img src="'.$objStatus->icon.'" alt="'.$objStatus->title.'" style="vertical-align: -3px;" />';
 			}
 			if ($objStatus->isTaskDisabled)
 			{
@@ -64,9 +71,15 @@ class Task extends Controller
 			}
 		}
 
-		if ($row['toCustomer'] != 0)
+		if ($row['toProject'] != 0)
 		{
-			$objCustomer = $this->Database->prepare("SELECT customerNumber, customerName FROM tl_member WHERE id = ?")->limit(1)->execute($row['toCustomer']);
+			$objCustomer = $this->Database->prepare("SELECT c.customerNumber, c.customerName
+			    FROM tl_li_project AS p
+			        INNER JOIN tl_member AS c ON p.toCustomer = c.id
+			    WHERE p.id = ?")
+                    ->limit(1)
+                    ->execute($row['toProject']);
+
 			$customer = $objCustomer->customerNumber." ".$objCustomer->customerName;
 		}
 		else
@@ -76,12 +89,16 @@ class Task extends Controller
 
 		if (!$taskDisabled)
 		{
-			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'.png" alt="'.$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
+			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'.png" alt="'
+                            .$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
+
 			return $priorityIcon." ".$statusIcon." ".$customer." - ".$row['title'];
 		}
 		else
 		{
-			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'_disabled.png" alt="'.$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
+			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'_disabled.png" alt="'
+                            .$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
+            
 			return $priorityIcon." ".$statusIcon." <span class=\"disabled\">".$customer." - ".$row['title']."</span>";
 		}
 	}
