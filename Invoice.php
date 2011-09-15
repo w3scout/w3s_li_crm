@@ -150,7 +150,7 @@ class Invoice extends BackendModule
 				$position = array();
 				$position['quantity'] = 1;
 				$position['label'] = $objPerformances->title;
-				$position['tax'] = $objPerformances->tax;
+				$position['tax'] = $objPerformances->taxRate;
 				$position['price'] = $objPerformances->price;
 				$positions[] = $position;
 			}
@@ -164,7 +164,7 @@ class Invoice extends BackendModule
 				$position = array();
 				$position['quantity'] = 1;
 				$position['label'] = $objProducts->title;
-				$position['tax'] = $objProducts->tax;
+				$position['tax'] = $objProducts->taxRate;
 				$position['price'] = $objProducts->price;
 				$positions[] = $position;
 			}

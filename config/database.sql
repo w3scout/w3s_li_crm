@@ -7,9 +7,9 @@
 -- *                                                      *
 -- ********************************************************
 
--- 
+--
 -- Table `tl_member`
--- 
+--
 
 CREATE TABLE `tl_member` (
   `customerNumber` varchar(255) NOT NULL default '',
@@ -18,9 +18,9 @@ CREATE TABLE `tl_member` (
   `customerColor` varchar(6) NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Table `tl_li_project`
--- 
+--
 
 CREATE TABLE `tl_li_project` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -54,9 +54,9 @@ CREATE TABLE `tl_li_contact` (
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Table `tl_li_service`
--- 
+--
 
 CREATE TABLE `tl_li_service` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -66,12 +66,13 @@ CREATE TABLE `tl_li_service` (
   `toServiceType` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `price` double NOT NULL default '0',
+  `taxRate` double NOT NULL default '0',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Table `tl_li_service_type`
--- 
+--
 
 CREATE TABLE `tl_li_service_type` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -93,6 +94,7 @@ CREATE TABLE `tl_li_product` (
   `toProductType` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `price` double NOT NULL default '0',
+  `taxRate` double NOT NULL default '0',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -152,9 +154,9 @@ CREATE TABLE `tl_li_task_status` (
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Table `tl_li_task_reminder`
--- 
+--
 CREATE TABLE `tl_li_task_reminder` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
@@ -182,9 +184,9 @@ CREATE TABLE `tl_li_work_package` (
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Table `tl_li_invoice`
--- 
+--
 
 CREATE TABLE `tl_li_invoice` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -206,9 +208,9 @@ CREATE TABLE `tl_li_invoice` (
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Table `tl_li_invoice_category`
--- 
+--
 
 CREATE TABLE `tl_li_invoice_category` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -233,9 +235,9 @@ CREATE TABLE `tl_li_invoice_template` (
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Table `tl_li_invoice_reminder`
--- 
+--
 CREATE TABLE `tl_li_invoice_reminder` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',

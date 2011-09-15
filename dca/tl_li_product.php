@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend}, toProductType, title, price;'
+		'default'                     => '{product_legend}, title, toProductType, price, taxRate;'
 	),
 
 	// Subpalettes
@@ -95,9 +95,9 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['toProductType'],
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_li_product_type.title',
-			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true, 'tl_class'=>'w50')
 		),
-        'title' => array
+                'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['title'],
 			'inputType'               => 'text',
@@ -108,6 +108,12 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['price'],
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
+		),
+                'taxRate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['taxRate'],
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		)
 	)
 );
