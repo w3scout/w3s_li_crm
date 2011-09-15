@@ -162,11 +162,12 @@ class Invoice extends BackendModule
                 $position['price'] = $objProducts->price;
                 $positions[] = $position;
             }
-            $objHours = $this->Database->prepare("SELECT wp.title, (wh.hours * 60 + wh.minutes) AS minutes
+            $objHours = $this->Database->prepare("SELECT wp.title, (SUM(wh.hours) * 60 + SUM(wh.minutes)) AS minutes
                                                   FROM tl_li_work_package AS wp
                                                   INNER JOIN tl_li_working_hours AS wh ON wh.toWorkPackage = wp.id
                                                   INNER JOIN tl_li_project AS p ON wp.toProject = p.id
-                                                  WHERE p.toCustomer = ?")
+                                                  WHERE p.toCustomer = ?
+                                                  GROUP BY p.toCustomer")
                                        ->execute($objInvoice->toCustomer);
             while ($objHours->next())
             {
@@ -420,7 +421,7 @@ class Invoice extends BackendModule
             'bank_code' => $GLOBALS['TL_CONFIG']['li_crm_bank_code'],
             'bank_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['bank'],
             'bank' => $GLOBALS['TL_CONFIG']['li_crm_bank'],
-            'greeting' => $GLOBALS['TL_LANG']['tl_li_invoice']['greeting']
+            'greeting' => sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name'])
         );
 
         $template = preg_replace($search, $replace, $template);
