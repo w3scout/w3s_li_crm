@@ -60,6 +60,7 @@ class CustomerList extends BackendModule
 						INNER JOIN tl_li_service_type AS t ON p.toServiceType = t.id
 					WHERE p.toProject = ?
 					ORDER BY t.orderNumber ASC")->execute($objProjects->id);
+
 				$arrServices = array();
 				while ($objServices->next())
 				{
