@@ -7,9 +7,9 @@ if (!defined('TL_ROOT'))
  * @author     apoy2k
  * @license    MIT (see /LICENSE.txt for further information)
  */
-class WorkingHoursCalendar extends BackendModule
+class WorkingHourCalendar extends BackendModule
 {
-	protected $strTemplate = 'be_working_hours_calendar';
+	protected $strTemplate = 'be_working_hour_calendar';
 
 	public function generate()
 	{
@@ -44,13 +44,13 @@ class WorkingHoursCalendar extends BackendModule
 		// Only get the working hours in the desired week range
 		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) as weekday,
 				(wh.hours * 60 + wh.minutes) AS minutes, wp.id as workPackageId, c.customerColor
-			FROM tl_li_working_hours wh
+			FROM tl_li_working_hour wh
 				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
 				INNER JOIN tl_li_project p ON wp.toProject = p.id
 				LEFT JOIN tl_member c ON p.toCustomer = c.id
 			WHERE hours IS NOT NULL
-				AND WEEK(FROM_UNIXTIME(wh.entryDate), ".$weekMode.") = ".$week."
-			ORDER BY wh.entryDate")->execute();
+				AND WEEK(FROM_UNIXTIME(wh.entryDate), ?) = ?
+			ORDER BY wh.entryDate")->execute($weekMode, $week);
 
 		// Build an array of the working hours per day. The first index is the week of the year,
 		// the second is the day within that week
@@ -74,8 +74,8 @@ class WorkingHoursCalendar extends BackendModule
 			$hours[$getWorkingHours->weekday][] = $entry;
 		}
 
-		$this->loadLanguageFile('tl_li_working_hours');
-		$lang = $GLOBALS['TL_LANG']['tl_li_working_hours'];
+		$this->loadLanguageFile('tl_li_working_hour');
+		$lang = $GLOBALS['TL_LANG']['tl_li_working_hour'];
 
 		$this->Template->hours = $hours;
 		$this->Template->lang = $lang;

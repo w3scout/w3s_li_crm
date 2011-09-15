@@ -30,8 +30,7 @@
 
 #tl_buttons a {
     padding: 2px 0 2px 20px;
-    background-repeat: no-repeat;
-    background-position: left center;
+    background: left center no-repeat;
     margin: 0 5px;
 }
 

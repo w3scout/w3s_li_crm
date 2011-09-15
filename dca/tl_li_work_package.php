@@ -1,4 +1,6 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
  * PHP version 5
@@ -6,27 +8,19 @@
  * @author     Christian Kolb <info@liplex.de>
  * @license    MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * Table tl_li_project 
- */
 $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 (
-
-	// Config
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true
 	),
-
-	// List
 	'list' => array
 	(
 		'sorting' => array
 		(
 			'mode'                    => 2,
-			'fields'                  => array('toCustomer')
+			'fields'                  => array('toProject')
 		),
 		'label' => array
 		(
@@ -72,21 +66,15 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			)
 		)
 	),
-
-	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array('isExternal'),
-		'default'                     => '{package_legend}, title, hourLimit;{settings_legend}, isExternal;'
+		'default'                     => '{package_legend}, title, hourLimit; {settings_legend}, isExternal;'
 	),
-
-	// Subpalettes
 	'subpalettes' => array
 	(
-		'isExternal'                  => 'toCustomer, toProject'
+		'isExternal'                  => 'toProject'
 	),
-
-	// Fields
 	'fields' => array
 	(
 		'title' => array

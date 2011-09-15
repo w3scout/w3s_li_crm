@@ -7,7 +7,7 @@ if (!defined('TL_ROOT'))
  * @author     apoy2k
  * @license    MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_DCA']['tl_li_working_hours'] = array
+$GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 (
 	'config' => array
 	(
@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 	(
 		'entryDate' => array
 		(
-			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['entryDate'],
+			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['entryDate'],
 			'default'	=> time(),
 			'filter'	=> true,
 			'sorting'	=> true,
@@ -34,20 +34,20 @@ $GLOBALS['TL_DCA']['tl_li_working_hours'] = array
 		),
         'toWorkPackage' => array
 		(
-			'label'				=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['toWorkPackage'],
+			'label'				=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['toWorkPackage'],
 			'inputType'			=> 'select',
 			'options_callback'	=> array('WorkPackage', 'getWorkPackages'),
 			'eval'				=> array('mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50')
 		),
         'hours' => array
 		(
-			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['hours'],
+			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['hours'],
 			'inputType'	=> 'text',
 			'eval'		=> array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50')
 		),
 		'minutes' => array
 		(
-			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hours']['minutes'],
+			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['minutes'],
 			'inputType' => 'text',
 			'eval'		=> array('rgxp' => 'digit', 'maxlength' => '2', 'tl_class' => 'w50')
 		)

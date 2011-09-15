@@ -1,10 +1,11 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
@@ -38,8 +39,8 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         ),
         'li_timekeeping' => array
         (
-            'tables'     => array('tl_li_work_package', 'tl_li_working_hours'),
-            'callback'   => 'WorkingHoursCalendar',
+            'tables'     => array('tl_li_work_package', 'tl_li_working_hour'),
+            'callback'   => 'WorkingHourCalendar',
             'icon'       => 'system/modules/li_crm/icons/timekeeping.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
@@ -55,7 +56,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'tables'	 => array('tl_li_customer_settings', 'tl_li_project_settings', 'tl_li_service_type',
 				'tl_li_product_type', 'tl_li_task_status', 'tl_li_invoice_settings', 'tl_li_invoice_category',
 				'tl_li_invoice_reminder_settings', 'tl_li_invoice_template', 'tl_li_task_reminder_settings',
-				'tl_li_company_settings', 'tl_li_timekeeping_settings'),
+				'tl_li_company_settings', 'tl_li_timekeeping_settings', 'tl_li_timekeeping_hourlywage'),
             'callback'	 => 'Settings',
             'icon'       => 'system/modules/li_crm/icons/settings.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'

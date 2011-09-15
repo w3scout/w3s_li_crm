@@ -7,7 +7,7 @@ if (!defined('TL_ROOT'))
  * @author		apoy2k
  * @license		MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_working_hours'] = array(
+$GLOBALS['TL_LANG']['tl_li_working_hour'] = array(
     'legend' => 'Stunden erfassen',
     
     'editEntry'             => 'Stundeneintrag bearbeiten',

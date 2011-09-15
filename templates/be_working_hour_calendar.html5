@@ -15,7 +15,7 @@
 </form>
 <div id="tl_buttons">
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['addHoursLabel']; ?>"
-		class="add_hours" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_working_hours&amp;act=create"
+		class="add_hours" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_working_hour&amp;act=create"
 		style="background-image: url(system/modules/li_crm/icons/add.png);">
 		<?php echo $lang['addHours']; ?>
     </a>
