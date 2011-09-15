@@ -182,3 +182,33 @@ label.print {
 #working_hours_calendar td .working_hour_entry .entry_buttons a {
     margin-left: 5px;
 }
+
+.li_positions .header {
+    height: 17px;
+}
+.li_positions .header span {
+    display: block;
+    float: left;
+    overflow: hidden;
+}
+.li_positions .header .quantity {
+    width: 42px;
+}
+.li_positions .header .unit {
+    width: 74px;
+}
+.li_positions .header .label {
+    width: 422px;
+}
+.li_positions .header .tax {
+    width: 41px;
+}
+.li_positions .header .unit_price {
+    width: 63px;
+}
+.li_positions .header .print {
+    width: 63px;
+}
+.li_positions .tl_tip {
+    clear: left;
+}

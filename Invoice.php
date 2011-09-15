@@ -154,16 +154,38 @@ class Invoice extends BackendModule
 				$position['price'] = $objPerformances->price;
 				$positions[] = $position;
 			}
+                        $objProducts = $this->Database->prepare("SELECT p.title, p.tax, p.price
+                                                                 FROM tl_li_product AS p
+                                                                 INNER JOIN tl_li_product_to_project AS pp ON p.id = pp.toProduct
+                                                                 INNER JOIN tl_li_project AS pr ON pr.id = pp.toProject
+                                                                 WHERE pr.toCustomer = ?")->execute($objInvoice->toCustomer);
+                        while ($objProducts->next())
+			{
+				$position = array();
+				$position['quantity'] = 1;
+				$position['label'] = $objProducts->title;
+				$position['tax'] = $objProducts->tax;
+				$position['price'] = $objProducts->price;
+				$positions[] = $position;
+			}
 		}
 		else
 		{
 			$positions = unserialize($objInvoice->positions);
 		}
-		$field = '<div class="clr positions"><h3><label>Positionen</label></h3>';
-		$field .= '<div class="">Anzahl / Einheit / Bezeichnung / Steuer / Preis / Auf die Rechnung?</div>';
+		$field = '<div class="clr li_positions"><h3><label>Positionen</label></h3>';
+		$field .= '<div class="header">';
+                $field .= '<span class="quantity">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'].'</span>';
+                $field .= '<span class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'].'</span>';
+                $field .= '<span class="label">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'].'</span>';
+                $field .= '<span class="tax">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_tax'].'</span>';
+                $field .= '<span class="unit_price">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'].'</span>';
+                $field .= '</div>';
+                $field .= '<div class="positions">';
 		$counter = count($positions);
 		for ($i = 0; $i < $counter; $i++)
 		{
+                        $field .= '<div class="position">';
 			$position = $positions[$i];
 			$checked = $position['print'] ? " checked" : "";
 
@@ -181,8 +203,10 @@ class Invoice extends BackendModule
 			$field .= '<input class="tl_text price" value="'.$position['price'].'" type="text" name="position_price_'.$i.'" />';
 			$field .= '<input type="checkbox" class="checkbox print" name="position_print_'.$i.'"'.$checked.' />';
 			$field .= '<label class="print" for="position_print_'.$i.'"><img src="system/modules/li_crm/icons/invoice_generation.png" /></label>';
+                        $field .= '</div>';
 		}
 		$field .= '<input type="hidden" name="positions_count" value="'.count($positions).'" />';
+                $field .= '</div>';
 		$field .= '<p class="tl_help tl_tip">Bitte wählen Sie das Rechnungstemplate aus.</p></div>';
 		return $field;
 	}

@@ -45,6 +45,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female']  = 'Sehr geehrte Fra
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity']    = 'Anzahl';
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit']        = 'Einheit';
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_label']       = 'Bezeichnung';
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_tax']         = 'Steuer';
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price']  = 'Einzelpreis';
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'] = 'Gesamtpreis';
 $GLOBALS['TL_LANG']['tl_li_invoice']['service_remark']       = 'Das Rechnungsdatum entspricht dem Leistungsdatum.';
