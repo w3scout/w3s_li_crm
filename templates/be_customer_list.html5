@@ -29,7 +29,6 @@
                 <div class="tl_right">&nbsp;</div>
                 <div style="clear:both;"></div>
             </li>
-            
             <?php foreach($this->customers as $customer) : ?>
                 <li id="customer_<?php echo $customer['customerNumber']; ?>"
 					class="tl_folder customer<?php echo $customer['isDisabled'] ? " disabled" : ""; ?>"
@@ -222,6 +221,11 @@
 									</div>
 									<div class="tl_right">
 										<?php if(!$customer['isDisabled']) : ?>
+                                            <a href="contao/main.php?do=li_customers&amp;table=tl_li_product&amp;act=edit&amp;id=<?php echo $product['id']; ?>"
+                                                title="<?php echo $product['editTitle']; ?>">
+                                                <img src="system/themes/default/images/edit.gif"
+                                                    alt="<?php echo $product['editLabel']; ?>" width="12" height="16" />
+                                            </a> 
 											<a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_project&amp;act=copy&amp;id=<?php echo $product['id']; ?>"
 											   title="<?php echo $product['copyTitle']; ?>">
 												<img src="system/themes/default/images/copy.gif"
@@ -234,6 +238,10 @@
 													 alt="<?php echo $product['deleteLabel']; ?>" width="14" height="16" />
 											</a> 
 										<?php else: ?>
+											<span>
+												<img src="system/themes/default/images/edit_.gif"
+													   alt="<?php echo $product['editLabel']; ?>" width="14" height="16" />
+											</span> 
 											<span>
 												<img src="system/themes/default/images/copy_.gif"
 													   alt="<?php echo $product['copyLabel']; ?>" width="14" height="16" />

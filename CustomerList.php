@@ -95,6 +95,8 @@ class CustomerList extends BackendModule
 						'id' => $id,
 						'productTitle' => $objProducts->productTitle,
 						'icon' => !empty($objProducts->icon) ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
+                        'editTitle' => sprintf($lang['productEdit'][0], $id),
+                        'editLabel' => sprintf($lang['productEdit'][1], $id),
                         'copyLabel' => sprintf($lang['productCopy'][0], $id),
                         'copyTitle' => sprintf($lang['productCopy'][1], $id),
                         'deleteLabel' => sprintf($lang['productDelete'][0], $id),

@@ -3,14 +3,10 @@ if (!defined('TL_ROOT'))
 	die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
- */
-
-/**
- * Class Project
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      apoy2k
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 class Project extends Controller
 {
@@ -22,6 +18,8 @@ class Project extends Controller
     
     /**
      * Returns an array that can be used to create a select-list with all projects, grouped by the customers
+     * 
+     * @return array All projects grouped by customers
      */
     public function getProjectsByCustomerList()
     {
@@ -40,6 +38,12 @@ class Project extends Controller
         return $projectsList;
     }
     
+    /**
+     * Returns the amount of projects padded with the amount of zeroes defined in the insert tag
+     * 
+     * @param string $insertConfig The insert tag string
+     * @return string The amount of projects
+     */
 	public function getProjectCount($insertConfig)
 	{
 		$arrSplit = explode('::', $insertConfig);
@@ -48,7 +52,9 @@ class Project extends Controller
 		{
 			if (isset($arrSplit[1]))
 			{
-				$objProject = $this->Database->prepare("SELECT COUNT(id) AS count FROM tl_li_project")->limit(1)->execute();
+				$objProject = $this->Database->prepare("SELECT COUNT(id) AS count
+                    FROM tl_li_project")->limit(1)->execute();
+                
 				$count = $objProject->count;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_project_number_generation_start']))
 				{
@@ -60,7 +66,13 @@ class Project extends Controller
 		}
 		return false;
 	}
-
+    
+    /**
+     * Gets all projects of a customer provided by a data container form
+     * 
+     * @param DataContainer $dc The data container provided by the form
+     * @return array The projects of the customer
+     */
 	public function getProjectsFromCustomerOptions($dc)
 	{
 		$projects = array();
@@ -71,7 +83,10 @@ class Project extends Controller
 			return $projects;
 		}
 
-		$objProjects = $this->Database->prepare("SELECT id, projectNumber, title FROM tl_li_project WHERE toCustomer = ? ORDER BY projectNumber ASC")->execute($cid);
+		$objProjects = $this->Database->prepare("SELECT id, projectNumber, title
+           FROM tl_li_project
+           WHERE toCustomer = ?
+           ORDER BY projectNumber ASC")->execute($cid);
 
 		while ($objProjects->next())
 		{
@@ -79,7 +94,14 @@ class Project extends Controller
 		}
 		return $projects;
 	}
-
+    
+    /**
+     * Generates a new project number
+     * 
+     * @param string $value
+     * @param DataContainer $dc
+     * @return string The new project number
+     */
 	public function createNewProjectNumber($value, $dc)
 	{
 		// Do not create a number if a number is allready set
@@ -96,6 +118,7 @@ class Project extends Controller
 
 		// Generate new customer number
 		$value = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_project_number_generation']);
+        
 		return $value;
 	}
 
