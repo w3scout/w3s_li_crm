@@ -68,7 +68,7 @@ class CustomerList extends BackendModule
 					$arrServices[] = array(
                         'id' => $id,
                         'serviceTitle' => $objServices->serviceTitle,
-                        'icon' => !empty($objServices->icon) ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
+                        'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
                         'editLabel' => sprintf($lang['serviceEdit'][0], $id),
                         'editTitle' => sprintf($lang['serviceEdit'][1], $id),
                         'copyLabel' => sprintf($lang['serviceCopy'][0], $id),
@@ -95,7 +95,7 @@ class CustomerList extends BackendModule
 					$arrProducts[] = array(
 						'id' => $id,
 						'productTitle' => $objProducts->productTitle,
-						'icon' => !empty($objProducts->icon) ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
+						'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
                         'editTitle' => sprintf($lang['productEdit'][0], $id),
                         'editLabel' => sprintf($lang['productEdit'][1], $id),
                         'copyLabel' => sprintf($lang['productCopy'][0], $id),

@@ -60,12 +60,12 @@ class WorkingHoursCalendar extends BackendModule
 			$minutes = $getWorkingHours->minutes % 60;
 			$hoursWorked = ($getWorkingHours->minutes - $minutes) / 60;
 
-			$entry = array(
+            $entry = array(
 					'id' => $getWorkingHours->id,
 					'hours' => $hoursWorked,
 					'minutes' => $minutes,
 					'hourLimit' => $getWorkingHours->hourLimit,
-					'customerColor' => !empty($getWorkingHours->customerColor) ? $getWorkingHours->customerColor : 'eee',
+					'customerColor' => $getWorkingHours->customerColor != '' ? $getWorkingHours->customerColor : 'eee',
 					'customerId' => $getWorkingHours->customerId,
 					'workPackageId' => $getWorkingHours->workPackageId,
 			);
