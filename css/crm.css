@@ -29,7 +29,7 @@
 }
 
 #tl_buttons a {
-    padding: 2px 0 2px 18px;
+    padding: 2px 0 2px 20px;
     background-repeat: no-repeat;
     background-position: left center;
     margin: 0 5px;
@@ -37,25 +37,19 @@
 
 .header_new.customer {
     background-image: url(../icons/customer_new.png);
-    padding-left: 21px;
+    padding-left: 23px;
 }
 
 .header_new.project {
     background-image: url(../icons/project_new.png);
-    padding-left: 21px;
-    background-position: 3px 2px;
 }
 
 .header_new.service {
     background-image: url(../icons/service_new.png);
-    padding-left: 21px;
-    background-position: 3px 2px;
 }
 
 .header_new.product {
-    background-image: url(../icons/products.png);
-    padding-left: 21px;
-    background-position: 3px 2px;
+    background-image: url(../icons/product_new.png);
 }
 
 .header_invoice_reminder {
