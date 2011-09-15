@@ -13,7 +13,7 @@
 $GLOBALS['TL_LANG']['tl_li_product']['title']         = array('Titel', 'Bitte geben Sie den Titel ein.');
 $GLOBALS['TL_LANG']['tl_li_product']['toProductType'] = array('Produkttyp', 'Bitte wählen Sie den Produkttyp aus.');
 $GLOBALS['TL_LANG']['tl_li_product']['price']         = array('Preis', 'Bitte geben Sie den Preis ein.');
-$GLOBALS['TL_LANG']['tl_li_product']['taxRate']       = array('Steuersatz', 'Bitte geben Sie den Steuersatz ein.');
+$GLOBALS['TL_LANG']['tl_li_product']['taxRate']       = array('Steuersatz in %', 'Bitte geben Sie den Steuersatz in % ein.');
 
 /**
  * Legends

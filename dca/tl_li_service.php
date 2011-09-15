@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{service_legend}, toProject, toServiceType, title, price;'
+		'default'                     => '{service_legend}, toProject, toServiceType, title, price, taxRate;'
 	),
 
 	// Subpalettes
@@ -109,7 +109,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['title'],
 			'inputType'               => 'text',
 			'default'                 => '-',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'clr')
 		),
 		'price' => array
 		(
@@ -117,6 +117,12 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'inputType'               => 'text',
 			'load_callback'           => array(array('Service', 'getDefaultPrice')),
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit', 'alwaysSave'=>true)
+		),
+        'taxRate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['taxRate'],
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		)
 	)
 );
