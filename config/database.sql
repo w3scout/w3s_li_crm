@@ -174,10 +174,10 @@ CREATE TABLE `tl_li_work_package` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
   `toProject` int(10) unsigned NOT NULL default '0',
+  `toHourlyWage` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `hourLimit` int(10) unsigned NOT NULL default '0',
   `isExternal` char(1) NOT NULL default '',
-  `toHourlyWage` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -268,5 +268,6 @@ CREATE TABLE `tl_li_hourly_wage` (
   `tstamp` int(10) unsigned NULL default '0',
   `title` varchar(20) NOT NULL default '',
   `wage` int(10) unsigned NOT NULL default '0',
+  `taxRate` double NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

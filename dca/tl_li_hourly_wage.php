@@ -70,7 +70,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array(),
-		'default'		=> '{hourlyWage}, title, wage;'
+		'default'		=> '{hourlyWage}, title, wage, taxRate;'
 	),
 	'fields' => array
 	(
@@ -88,6 +88,12 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'default'	=> '',
             'rgxp'      => 'digit',
 			'eval'		=> array('mandatory' => true, 'tl_class' => 'w50'),
+		),
+        'taxRate' => array
+		(
+			'label'     => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate'],
+			'inputType' => 'text',
+			'eval'      => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		)
 	)
 );

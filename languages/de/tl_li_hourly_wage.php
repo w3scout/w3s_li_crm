@@ -16,6 +16,7 @@ $GLOBALS['TL_LANG']['tl_li_hourly_wage'] = array(
     'delete'    => array('Löschen', 'Stundensatz löschen'),
     'show'      => array('Informationen', 'Informationen anzeigen'),
     
-    'title' => array('Bezeichnung', 'Die Bezeichnung des Stundensatzes'),
-    'wage'  => array('Stundensatz', 'Die Bezahlung pro Stunde in diesem Stundensatz (Netto)'),
+    'title'   => array('Bezeichnung', 'Bitte geben Sie die Bezeichnung des Stundensatzes ein.'),
+    'wage'    => array('Stundensatz', 'Bitte geben Sie die Bezahlung pro Stunde in diesem Stundensatz (Netto) ein.'),
+    'taxRate' => array('Steuersatz', 'Bitte geben Sie den Steuersatz in % ein.'),
 );

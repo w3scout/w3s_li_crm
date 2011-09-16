@@ -61,7 +61,7 @@
                 {{positions}}
             </tbody>
         </table>
-        <p>{{service_remark}}</p>
+        <p>{{performance_date_remark}}</p>
         <p>{{transfer_remark}}</p>
         <table class="account">
             <thead>

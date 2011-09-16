@@ -1,6 +1,6 @@
 <?php
 if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+    die('You cannot access this file directly!');
 
 /**
  * PHP version 5
@@ -132,11 +132,12 @@ class Invoice extends BackendModule
             'year' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year']
         );
 
-        if ($objInvoice->positions == "") {
-            $objPerformances = $this->Database->prepare("SELECT title, tax, price
-                                                         FROM tl_li_service
-                                                         WHERE toCustomer = ?")
-                                              ->execute($objInvoice->toCustomer);
+        if ($objInvoice->positions == '') {
+            $objPerformances = $this->Database->prepare("SELECT s.title, s.taxRate, s.price
+                                                         FROM tl_li_service AS s
+                                                         INNER JOIN tl_li_project AS p ON s.toProject = p.id
+                                                         WHERE p.toCustomer = ?")
+                    ->execute($objInvoice->toCustomer);
             $positions = array();
             while ($objPerformances->next())
             {
@@ -147,12 +148,12 @@ class Invoice extends BackendModule
                 $position['price'] = $objPerformances->price;
                 $positions[] = $position;
             }
-            $objProducts = $this->Database->prepare("SELECT p.title, p.tax, p.price
+            $objProducts = $this->Database->prepare("SELECT p.title, p.taxRate, p.price
                                                      FROM tl_li_product AS p
                                                      INNER JOIN tl_li_product_to_project AS pp ON p.id = pp.toProduct
                                                      INNER JOIN tl_li_project AS pr ON pr.id = pp.toProject
                                                      WHERE pr.toCustomer = ?")
-                                          ->execute($objInvoice->toCustomer);
+                    ->execute($objInvoice->toCustomer);
             while ($objProducts->next())
             {
                 $position = array();
@@ -162,18 +163,21 @@ class Invoice extends BackendModule
                 $position['price'] = $objProducts->price;
                 $positions[] = $position;
             }
-            $objHours = $this->Database->prepare("SELECT wp.title, (SUM(wh.hours) * 60 + SUM(wh.minutes)) AS minutes
+            $objHours = $this->Database->prepare("SELECT wp.title, (SUM(wh.hours) *60 + SUM(wh.minutes)) AS minutes, hw.wage AS price, hw.taxRate AS taxRate
                                                   FROM tl_li_work_package AS wp
-                                                  INNER JOIN tl_li_working_hours AS wh ON wh.toWorkPackage = wp.id
+                                                  INNER JOIN tl_li_working_hour AS wh ON wh.toWorkPackage = wp.id
                                                   INNER JOIN tl_li_project AS p ON wp.toProject = p.id
+                                                  INNER JOIN tl_li_hourly_wage AS hw ON hw.id = wp.toHourlyWage
                                                   WHERE p.toCustomer = ?
-                                                  GROUP BY p.toCustomer")
-                                       ->execute($objInvoice->toCustomer);
+                                                  GROUP BY wp.id")
+                    ->execute($objInvoice->toCustomer);
             while ($objHours->next())
             {
                 $position = array();
                 $position['quantity'] = $objHours->minutes / 60;
+                $position['unit'] = 'hour';
                 $position['label'] = $objHours->title;
+                $position['tax'] = $objHours->taxRate;
                 $position['price'] = $objHours->price;
                 $positions[] = $position;
             }
@@ -237,10 +241,13 @@ class Invoice extends BackendModule
             $position['print'] = $this->Input->post('position_print_' . $i);
             $positions[] = $position;
         }
-        $this->Database->prepare("UPDATE tl_li_invoice
-                                  SET positions=?
-                                  WHERE id=?")
-                       ->execute(serialize($positions), $dc->id);
+        if (!empty($positions)) {
+            $this->Database->prepare("UPDATE tl_li_invoice
+                                     SET positions=?
+                                     WHERE id=?")
+                    ->execute(serialize($positions), $dc->id);
+        }
+
     }
 
     public function printInvoice($id)
@@ -249,17 +256,17 @@ class Invoice extends BackendModule
         $this->log('Generate new invoice', 'Generate invoice with id ' . $id, TL_FILES);
 
         // Get data
-        $objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.toCustomer, i.positions, i.isOut, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder
+        $objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.positions, i.isOut, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder
                                                 FROM tl_li_invoice AS i
                                                 INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
                                                 WHERE i.id = ?")
-                                     ->limit(1)
-                                     ->execute($id);
+                ->limit(1)
+                ->execute($id);
         $objAddress = $this->Database->prepare("SELECT company, firstname, lastname, street, postal, city, gender
                                                 FROM tl_address
                                                 WHERE id = ?")
-                                     ->limit(1)
-                                     ->execute($objInvoice->toCustomer);
+                ->limit(1)
+                ->execute($objInvoice->toCustomer);
 
         // Load language file
         $this->loadLanguageFile('tl_member');
@@ -369,7 +376,7 @@ class Invoice extends BackendModule
             'position_unit_price_label' => '/{{position_unit_price_label}}/',
             'position_total_price_label' => '/{{position_total_price_label}}/',
             'positions' => '/{{positions}}/',
-            'service_remark' => '/{{service_remark}}/',
+            'performance_date_remark' => '/{{performance_date_remark}}/',
             'transfer_remark' => '/{{transfer_remark}}/',
             'account_data_label' => '/{{account_data_label}}/',
             'account_number_label' => '/{{account_number_label}}/',
@@ -412,7 +419,9 @@ class Invoice extends BackendModule
             'position_unit_price_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'],
             'position_total_price_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'],
             'positions' => $htmlPositions,
-            'service_remark' => $GLOBALS['TL_LANG']['tl_li_invoice']['service_remark'],
+            'performance_date_remark' => $objInvoice->invoiceDate == $objInvoice->performanceDate
+                    ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date']
+                    : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
             'transfer_remark' => $GLOBALS['TL_LANG']['tl_li_invoice']['transfer_remark'],
             'account_data_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['account_data'],
             'account_number_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['account_number'],
@@ -477,4 +486,5 @@ class Invoice extends BackendModule
     }
 
 }
+
 ?>
