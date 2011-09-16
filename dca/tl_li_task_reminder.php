@@ -26,8 +26,9 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 		),
 		'label' => array
 		(
-			'fields'                  => array('toTask'),
-			'label_callback'          => array('TaskReminder', 'renderLabel')
+			'fields'            => array('toTask'),
+			'label_callback'    => array('TaskReminder', 'renderLabel'),
+            'group_callback'    => array('TaskReminder', 'getGroupLabel'),
 		),
 		'global_operations' => array
 		(
