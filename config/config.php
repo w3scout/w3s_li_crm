@@ -1,6 +1,4 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -35,8 +33,8 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         ),
         'li_timekeeping' => array
         (
-            'tables'     => array('tl_li_work_package', 'tl_li_working_hour'),
-            'callback'   => 'WorkingHourCalendar',
+            'tables'     => array('tl_li_work_package', 'tl_li_working_hours'),
+            'callback'   => 'WorkingHoursCalendar',
             'icon'       => 'system/modules/li_crm/icons/timekeeping.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),

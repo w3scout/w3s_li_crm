@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'foreignKey'              => 'tl_li_product_type.title',
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true, 'tl_class'=>'w50')
 		),
-                'title' => array
+        'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['title'],
 			'inputType'               => 'text',
@@ -109,7 +109,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
-                'taxRate' => array
+        'taxRate' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['taxRate'],
 			'inputType'               => 'text',

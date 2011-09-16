@@ -1,11 +1,9 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright	Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author		Christian Kolb <info@liplex.de>
- * @author	    apoy2k
+ * @author		apoy2k
  * @license		MIT (see /LICENSE.txt for further information)
  */
 class WorkPackage extends Controller
@@ -28,9 +26,9 @@ class WorkPackage extends Controller
 		$getWorkPackages = $this->Database->prepare("SELECT wp.id, wp.title, wp.hourLimit,
 				(SUM(wh.hours) * 60 + SUM(wh.minutes)) AS sumMinutes
 			FROM tl_li_work_package wp
-				LEFT JOIN tl_li_working_hour wh ON wh.toWorkPackage = wp.id
+				LEFT JOIN tl_li_working_hours wh ON wh.toWorkPackage = wp.id
 			GROUP BY wp.id
-			ORDER BY wp.id")->execute();
+			ORDER BY id")->execute();
 		
 		while ($getWorkPackages->next())
 		{

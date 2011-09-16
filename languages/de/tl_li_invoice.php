@@ -54,7 +54,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['account_data']         = 'Kontodaten';
 $GLOBALS['TL_LANG']['tl_li_invoice']['account_number']       = 'Kontonummer';
 $GLOBALS['TL_LANG']['tl_li_invoice']['bank_code']            = 'BLZ';
 $GLOBALS['TL_LANG']['tl_li_invoice']['bank']                 = 'Bank';
-$GLOBALS['TL_LANG']['tl_li_invoice']['greeting']             = 'Mit freundlichen Grüßen<br />Christian Kolb';
+$GLOBALS['TL_LANG']['tl_li_invoice']['greeting']             = 'Mit freundlichen Grüßen<br />%s';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['total_netto']          = 'Rechnungsbetrag (netto)';
 $GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto']         = 'Rechnungsbetrag (brutto)';

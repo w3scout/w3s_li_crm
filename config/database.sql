@@ -248,25 +248,14 @@ CREATE TABLE `tl_li_invoice_reminder` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Table `tl_li_working_hours`
+-- Table `tl_li_working_hours
 --
-CREATE TABLE `tl_li_working_hour` (
+CREATE TABLE `tl_li_working_hours` (
 	`id` int(10) unsigned NOT NULL auto_increment,
 	`tstamp` int(10) unsigned NULL default '0',
 	`entryDate` int(10) unsigned NULL default '0',
 	`hours` int(10) unsigned NULL default '0',
 	`minutes` int(10) unsigned NULL default '0',
 	`toWorkPackage` int(10) unsigned NULL default '0',
-	PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Table `tl_li_hourly_wage`
---
-CREATE TABLE `tl_li_hourly_wage` (
-	`id` int(10) unsigned NOT NULL auto_increment,
-	`tstamp` int(10) unsigned NULL default '0',
-	`title` varchar(20) NOT NULL default '',
-	`wage` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

@@ -1,6 +1,4 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright	Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -17,7 +15,7 @@ $GLOBALS['TL_DCA']['tl_li_timekeeping_settings'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array(),
-		'default'		=> '{calendar}, li_crm_timekeeping_week_mode;'
+		'default'		=> '{calendar},li_crm_timekeeping_week_mode;'
 	),
 	'subpalettes' => array
 	(

@@ -1,20 +1,26 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
- * @author      ApoY2k <apoy2k@gmail.com>
- * @license     MIT (see /LICENSE.txt for further information)
+ * PHP version 5
+ * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author     Christian Kolb <info@liplex.de>
+ * @license    MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Table tl_li_invoice
  */
 $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 (
+
+	// Config
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
 	),
+
+	// List
 	'list' => array
 	(
 		'sorting' => array
@@ -69,16 +75,22 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			)
 		)
 	),
+
+	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array('remindOnce', 'remindRepeatedly'),
 		'default'                     => '{reminder_legend}, toTask; {once_legend}, remindOnce; {repeatedly_legend}, remindRepeatedly;'
 	),
+
+	// Subpalettes
 	'subpalettes' => array
 	(
 		'remindOnce'                  => 'remindDate',
 		'remindRepeatedly'            => 'remindInterval'
 	),
+
+	// Fields
 	'fields' => array
 	(
         'toTask' => array

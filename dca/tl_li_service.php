@@ -1,20 +1,26 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
- * @author      ApoY2k <apoy2k@gmail.com>
- * @license     MIT (see /LICENSE.txt for further information)
+ * PHP version 5
+ * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author     Christian Kolb <info@liplex.de>
+ * @license    MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Table tl_li_service
  */
 $GLOBALS['TL_DCA']['tl_li_service'] = array
 (
+
+	// Config
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true
 	),
+
+	// List
 	'list' => array
 	(
 		'sorting' => array
@@ -67,11 +73,21 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			)
 		)
 	),
+
+	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{service_legend}, toProject, toServiceType, title, price;'
+		'default'                     => '{service_legend}, toProject, toServiceType, title, price, taxRate;'
 	),
+
+	// Subpalettes
+	'subpalettes' => array
+	(
+		''                            => ''
+	),
+
+	// Fields
 	'fields' => array
 	(
         'toProject' => array
@@ -102,6 +118,14 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'load_callback'           => array(array('Service', 'getDefaultPrice')),
 			'eval'                    => array('mandatory' => true, 'maxlength' => 12, 'tl_class' => 'w50',
                 'rgxp' => 'digit', 'alwaysSave' => true)
+		),
+        'taxRate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['taxRate'],
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		)
 	)
 );
+
+?>
