@@ -1,42 +1,33 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * Fields
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['title']              = array('Titel', 'Bitte geben Sie den Titel ein.');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template']   = array('Rechnungs-Template', 'Bitte wählen Sie das Rechnungs-Template aus.');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['logo']               = array('Logo', 'Bitte wählen Sie das Logo aus.');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath']           = array('Basispfad', 'Bitte wählen Sie den Basisordner aus.');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder']       = array('Periodischen Ordner erstellen?', 'Soll ein zusätzlicher periodischer Ordner erstellt werden?');
-
-/**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['template_legend']        = 'Rechnungstemplate';
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['generation_path_legend'] = 'Generierungspfad';
-
-/**
- * References
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['daily']   = 'Täglich';
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['weekly']  = 'Wöchentlich';
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['monthly'] = 'Monatlich';
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['yearly']  = 'Jährlich';
-
-/**
- * Buttons
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['new']    = array('Neues Rechnungstemplate', 'Eine neues Rechnungstemplate anlegen');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['edit']   = array('Rechnungstemplate bearbeiten', 'Rechnungstemplate mit der ID %s bearbeiten');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['copy']   = array('Rechnungstemplate duplizieren', 'Rechnungstemplate mit der ID %s duplizieren');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['delete'] = array('Rechnungstemplate löschen', 'Rechnungstemplate mit der ID %s löschen');
-$GLOBALS['TL_LANG']['tl_li_invoice_template']['show']   = array('Rechnungstemplatedetails', 'Details der Rechnungstemplate mit der ID %s anzeigen');
-
-?>
+$GLOBALS['TL_LANG']['tl_li_invoice_template'] = array(
+    'title'             => array('Titel', 'Bitte geben Sie den Titel ein.'),
+    'invoice_template'  => array('Rechnungs-Template', 'Bitte wählen Sie das Rechnungs-Template aus.'),
+    'logo'              => array('Logo', 'Bitte wählen Sie das Logo aus.'),
+    'basePath'          => array('Basispfad', 'Bitte wählen Sie den Basisordner aus.'),
+    'periodFolder'      => array('Periodischen Ordner erstellen?', 'Soll ein zusätzlicher periodischer Ordner erstellt werden?'),
+    
+    'template_legend'           => 'Rechnungstemplate',
+    'generation_path_legend'    => 'Generierungspfad',
+    
+    'periods' => array(
+        'daily'     => 'Täglich',
+        'weekly'    => 'Wöchentlich',
+        'monthly'   => 'Monatlich',
+        'yearly'    => 'Jährlich',
+    ),
+    
+    'new'       => array('Neues Rechnungstemplate', 'Eine neues Rechnungstemplate anlegen'),
+    'edit'      => array('Rechnungstemplate bearbeiten', 'Rechnungstemplate mit der ID %s bearbeiten'),
+    'copy'      => array('Rechnungstemplate duplizieren', 'Rechnungstemplate mit der ID %s duplizieren'),
+    'delete'    => array('Rechnungstemplate löschen', 'Rechnungstemplate mit der ID %s löschen'),
+    'show'      => array('Rechnungstemplatedetails', 'Details der Rechnungstemplate mit der ID %s anzeigen'),
+);
