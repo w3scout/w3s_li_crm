@@ -34,7 +34,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         'li_timekeeping' => array
         (
             'tables'     => array('tl_li_work_package', 'tl_li_working_hours'),
-            'callback'   => 'WorkingHoursCalendar',
+            'callback'   => 'WorkingHourCalendar',
             'icon'       => 'system/modules/li_crm/icons/timekeeping.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
