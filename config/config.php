@@ -51,7 +51,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         (
             'tables'	 => array('tl_li_customer_settings', 'tl_li_project_settings', 'tl_li_service_type',
 				'tl_li_product_type', 'tl_li_task_status', 'tl_li_invoice_settings', 'tl_li_invoice_category',
-				'tl_li_invoice_reminder_settings', 'tl_li_invoice_template', 'tl_li_task_reminder_settings',
+				'tl_li_invoice_reminder_settings', 'tl_li_invoice_dispatch_settings', 'tl_li_invoice_template', 'tl_li_task_reminder_settings',
 				'tl_li_company_settings', 'tl_li_timekeeping_settings', 'tl_li_hourly_wage'),
             'callback'	 => 'Settings',
             'icon'       => 'system/modules/li_crm/icons/settings.png',

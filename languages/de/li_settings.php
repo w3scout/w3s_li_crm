@@ -50,6 +50,9 @@ $GLOBALS['TL_LANG']['li_settings'] = array(
     
     'invoiceTemplates'      => 'Rechnungstemplates',
     'invoiceTemplatesDesc'  => 'Über Rechnungstemplates haben Sie die Möglichkeit die Ausgabe von generierten Rechnung steuern. Hier können Sie ein Logo auswählen und Ihre Adressdaten hinterlegen.',
+
+    'invoiceDispatchSettings'       => 'Rechnungsversand',
+    'invoiceDispatchSettingsDesc'   => 'Über die Rechnungsversand Einstellungen können Sie einstellen von welcher E-Mail Adresse aus eine Rechnung versant wird und welcher Name als Abseder angezeigt werden soll.',
     
     'invoiceReminderSettings'       => 'Erinnerungseinstellungen',
     'invoiceReminderSettingsDesc'   => 'Über die Erinnerungseinstellungen können allgemeine Einstellungen bezüglich der Rechnungserinnerungen getroffen werden. Hier wird z. B. festlegen welche Benutzter per E-Mail an Rechnungen erinnert werden.',

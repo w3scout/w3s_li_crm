@@ -19,8 +19,8 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		'sorting' => array
 		(
 			'mode'                    => 1,
-			'fields'                  => array('title'),
-			'flag'                    => 1
+			'fields'                  => array('wage'),
+			'flag'                    => 11
 		),
 		'label' => array
 		(

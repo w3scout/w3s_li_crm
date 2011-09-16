@@ -63,12 +63,12 @@
 								<img src="system/modules/li_crm/icons/workpackage_edit.png"
 									 alt="<?php echo $lang['editWorkPackage']; ?>" width="16" height="16" />
 							</a>
-							<a href="contao/main.php?do=li_timekeeping&amp;&table=tl_li_working_hours&amp;act=edit&amp;id=<?php echo $entry['id']; ?>"
+							<a href="contao/main.php?do=li_timekeeping&amp;&table=tl_li_working_hour&amp;act=edit&amp;id=<?php echo $entry['id']; ?>"
 							   title="<?php echo $lang['editEntry']; ?>">
 								<img src="system/modules/li_crm/icons/edit.png"
 									 alt="<?php echo $lang['editEntry']; ?>" width="16" height="16" />
 							</a>
-							<a href="contao/main.php?do=li_timekeeping&amp;&table=tl_li_working_hours&amp;act=delete&amp;id=<?php echo $entry['id']; ?>"
+							<a href="contao/main.php?do=li_timekeeping&amp;&table=tl_li_working_hour&amp;act=delete&amp;id=<?php echo $entry['id']; ?>"
 							   title="<?php echo $lang['deleteEntry']; ?>"
 							   onclick="if (!confirm('<?php echo $lang['deleteConfirmDialog']; ?>')) return false; Backend.getScrollOffset();"">
 								<img src="system/modules/li_crm/icons/delete.png"

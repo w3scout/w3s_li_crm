@@ -202,7 +202,7 @@ class Reminder extends Controller
 		}
 		catch( Exception $e )
 		{
-			$this->log('Reminder email error: '.$e->getMessage(), __METHOD__, TL_ERROR);
+			$this->log('Reminder error: '.$e->getMessage(), __METHOD__, TL_ERROR);
 		}
 	}
 

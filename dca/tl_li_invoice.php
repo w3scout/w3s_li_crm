@@ -88,6 +88,12 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'icon'                => 'system/modules/li_crm/icons/invoice_generation_disabled.png',
 				'button_callback'     => array('Invoice', 'generationIcon')
 			),
+            'send' => array
+			(
+                'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['send'],
+				'icon'                => 'system/modules/li_crm/icons/invoice_send_disabled.png',
+				'button_callback'     => array('Invoice', 'dispatchIcon')
+			),
 			'new_reminder' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['new'],
@@ -152,8 +158,6 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceDate'],
 			'default'                 => time(),
-			'filter'                  => true,
-			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')

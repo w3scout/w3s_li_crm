@@ -105,6 +105,14 @@
         </div>
         <div class="tl_module_desc">
             <h3>
+                <a href="contao/main.php?do=li_settings&table=tl_li_invoice_dispatch_settings" class="navigation" style="background-image:url('system/modules/li_crm/icons/invoice_dispatch.png')">
+                    <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceDispatchSettings']; ?>
+                </a>
+            </h3>
+            <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceDispatchSettingsDesc']; ?>
+        </div>
+        <div class="tl_module_desc">
+            <h3>
                 <a href="contao/main.php?do=li_settings&table=tl_li_invoice_reminder_settings" class="navigation" style="background-image:url('system/modules/li_crm/icons/invoice_reminder.png')">
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettings']; ?>
                 </a>

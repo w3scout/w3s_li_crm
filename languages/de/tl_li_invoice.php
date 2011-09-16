@@ -65,6 +65,15 @@ $GLOBALS['TL_LANG']['tl_li_invoice'] = array(
     'path_introduction'     => 'Die Rechnung wurde erfolgreich generiert und unter folgendem Pfad abgelegt',
     'path'                  => 'Pfad',
     'back_overview'         => 'Zurück zur Übersicht',
+
+    'dispatch_subject'      => 'Rechnung',
+    'dispatch_text_male'    => 'Sehr geehrter Herr %s,\n\nanbei die neue Rechnung vom %s.\n\nMit freundlichen Grüßen\n%s',
+    'dispatch_text_female'  => 'Sehr geehrte Frau %s,\n\nanbei die neue Rechnung vom %s.\n\nMit freundlichen Grüßen\n%s',
+    'dispatch_html_male'    => 'Sehr geehrter Herr %s,<br /><br />anbei die neue Rechnung vom %s.<br /><br />Mit freundlichen Grüßen<br />%s',
+    'dispatch_html_female'  => 'Sehr geehrte Frau %s,<br /><br />anbei die neue Rechnung vom %s.<br /><br />Mit freundlichen Grüßen<br />%s',
+    'invoice_dispatch'      => 'Rechnungsversand',
+    'dispatch_successful'   => 'Die Rechnung wurde erfolgreich versant.',
+    'dispatch_failed'       => 'Die Rechnung konnte nicht versant werden. Genauere Informationen entnehmen Sie bitte dem System Log.',
     
     'new'       => array('Neue Rechnung', 'Neue Rechnung erstellen'),
     'edit'      => array('Rechnung editieren', 'Die Rechnung mit der ID %s editieren'),

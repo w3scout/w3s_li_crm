@@ -27,10 +27,21 @@ class Invoice extends BackendModule
     {
         parent::generate();
 
-        if ($this->Input->get('key') == 'print') {
+        $key = $this->Input->get('key');
+
+        if ($key == 'print')
+        {
             $id = $this->Input->get('id');
             $this->Template->filePath = $this->printInvoice($id);
         }
+        elseif($key == 'send')
+        {
+            $id = $this->Input->get('id');
+            $this->Template->dispatchSuccessful = $this->sendInvoice($id);
+        }
+
+        $this->Template->key = $key;
+
         return $this->Template->parse();
     }
 
@@ -85,6 +96,18 @@ class Invoice extends BackendModule
         else
         {
             return '<img src="system/modules/li_crm/icons/invoice_generation_disabled.png" alt="" /> ';
+        }
+    }
+
+    public function dispatchIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        if ($row['isOut'] && $row['file'] != '') {
+            $href = '&amp;do=li_invoices&amp;key=send&amp;id=' . $row['id'];
+            return '<a href="' . $this->addToUrl($href) . '"><img src="system/modules/li_crm/icons/invoice_send.png" alt="" /></a> ';
+        }
+        else
+        {
+            return '<img src="system/modules/li_crm/icons/invoice_send_disabled.png" alt="" /> ';
         }
     }
 
@@ -475,10 +498,53 @@ class Invoice extends BackendModule
         fclose($pdfInvoice);
 
         $templateLink = substr($exportFile, 2);
+        $filePath = substr($exportFile, 3);
+
+        $this->Database->prepare("UPDATE tl_li_invoice
+                                  SET file = ?
+                                  WHERE id = ?")
+                       ->execute($filePath, $id);
 
         // Return link to template
         return $templateLink;
     }
+
+    private function sendInvoice($id)
+	{
+        $objInvoice = $this->Database->prepare("SELECT i.invoiceDate, i.file, a.lastname, a.gender, a.email
+                                                FROM tl_li_invoice AS i
+                                                INNER JOIN tl_address AS a ON a.id = i.toAddress
+                                                WHERE i.id = ?")
+                                     ->limit(1)
+                                     ->execute($id);
+		try
+		{
+			$objEmail = new Email();
+			$objEmail->from = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_from'];
+			$objEmail->fromName = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_fromName'];
+			$objEmail->subject = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'];
+			$objEmail->text = sprintf($objInvoice->gender == 'male'
+                                              ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male']
+                                              : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female']
+                , $objInvoice->lastname
+                , date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate)
+                , $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+			$objEmail->html = sprintf($objInvoice->gender == 'male'
+                                              ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male']
+                                              : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female']
+                , $objInvoice->lastname
+                , date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate)
+                , $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+
+            $objEmail->attachFile('../'.$objInvoice->file);
+			$worked = $objEmail->sendTo($objInvoice->email);
+		}
+		catch( Exception $e )
+		{
+			$this->log('Dispatch error: '.$e->getMessage(), __METHOD__, TL_ERROR);
+		}
+        return $worked;
+	}
 
     private function getOddEven($row)
     {
