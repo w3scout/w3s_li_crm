@@ -3,26 +3,18 @@ if (!defined('TL_ROOT'))
     die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
- */
-
-/**
- * Table tl_li_invoice
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 $GLOBALS['TL_DCA']['tl_li_task'] = array
 (
-
-	// Config
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
 	),
-
-	// List
 	'list' => array
 	(
 		'sorting' => array
@@ -89,21 +81,11 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			)
 		)
 	),
-
-	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
 		'default'                     => '{settings_legend}, toProject, toStatus, toUser, priority;{task_legend}, title, alias, deadline, description;'
 	),
-
-	// Subpalettes
-	'subpalettes' => array
-	(
-		''                            => ''
-	),
-
-	// Fields
 	'fields' => array
 	(
         'toProject' => array
@@ -173,5 +155,3 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
         )
 	)
 );
-
-?>

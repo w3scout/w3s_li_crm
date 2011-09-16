@@ -1,4 +1,6 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -6,27 +8,20 @@
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * Table tl_li_project 
- */
 $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 (
-
-	// Config
 	'config' => array
 	(
 		'dataContainer'     => 'Table',
 		'enableVersioning'  => true
 	),
-
-	// List
 	'list' => array
 	(
 		'sorting' => array
 		(
-			'mode'      => 2,
-			'fields'    => array('toProject')
+			'mode'      => 1,
+			'fields'    => array('toProject'),
+            'flag'      => 1
 		),
 		'label' => array
 		(
@@ -72,21 +67,15 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			)
 		)
 	),
-
-	// Palettes
 	'palettes' => array
 	(
 		'__selector__'  => array('isExternal'),
 		'default'       => '{package_legend}, title, hourLimit, toHourlyWage; {settings_legend}, isExternal;'
 	),
-
-	// Subpalettes
 	'subpalettes' => array
 	(
 		'isExternal' => 'toProject'
 	),
-
-	// Fields
 	'fields' => array
 	(
 		'title' => array
@@ -101,9 +90,11 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			'inputType' => 'text',
 			'eval'      => array('rgxp' => 'digit', 'maxlength' => 4)
 		),
-        'toHourlyWage' => array(
+        'toHourlyWage' => array
+        (
             'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage'],
             'inputType'         => 'select',
+            'foreignKey'        => 'tl_li_hourly_wage.title',
             'eval'              => array('mandatory' => true, 'includeBlankOption' => true),
             'options_callback'  => array('HourlyWage', 'getHourlyWagesList'),
         ),
@@ -116,6 +107,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
         'toProject' => array
 		(
 			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'],
+            'foreignKey'        => 'tl_li_project.title',
 			'inputType'         => 'select',
 			'eval'              => array('mandatory' => true, 'tl_class' => 'w50'),
 			'options_callback'  => array('Project', 'getProjectsByCustomerList')

@@ -86,10 +86,4 @@ class TaskReminder extends Controller
 
 		return $label;
 	}
-    
-    public function getGroupLabel()
-    {
-        return 'test';
-    }
 }
-?>

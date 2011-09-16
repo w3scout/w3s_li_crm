@@ -1,26 +1,19 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
  * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author     Christian Kolb <info@liplex.de>
  * @license    MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * Table tl_li_invoice
- */
 $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 (
-
-	// Config
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
 	),
-
-	// List
 	'list' => array
 	(
 		'sorting' => array
@@ -34,7 +27,6 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 		(
 			'fields'            => array('toTask'),
 			'label_callback'    => array('TaskReminder', 'renderLabel'),
-            'group_callback'    => array('TaskReminder', 'getGroupLabel'),
 		),
 		'global_operations' => array
 		(
@@ -75,28 +67,23 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			)
 		)
 	),
-
-	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array('remindOnce', 'remindRepeatedly'),
 		'default'                     => '{reminder_legend}, toTask; {once_legend}, remindOnce; {repeatedly_legend}, remindRepeatedly;'
 	),
-
-	// Subpalettes
 	'subpalettes' => array
 	(
 		'remindOnce'                  => 'remindDate',
 		'remindRepeatedly'            => 'remindInterval'
 	),
-
-	// Fields
 	'fields' => array
 	(
         'toTask' => array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['toTask'],
 			'inputType'               => 'select',
+            'foreignKey'        => 'tl_li_task.title',
             'options_callback'        => array('TaskReminder', 'getTaskOptions'),
 			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true)
         ),
@@ -137,5 +124,3 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
         )
 	)
 );
-
-?>
