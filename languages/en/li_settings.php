@@ -50,7 +50,10 @@ $GLOBALS['TL_LANG']['li_settings'] = array(
     
     'invoiceTemplates'      => 'Invoice templates',
     'invoiceTemplatesDesc'  => 'Invoice templates define the layout of a generated invoice.',
-    
+
+    'invoiceDispatchSettings'       => 'Invoice dispatching',
+    'invoiceDispatchSettingsDesc'   => 'General invoice dispatching settings, e.g. E-Mail recipients.',
+
     'invoiceReminderSettings'       => 'Invoice reminder settings',
     'invoiceReminderSettingsDesc'   => 'General settings for the invoice reminder, e.g. E-Mail recipients.',
     

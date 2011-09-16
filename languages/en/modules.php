@@ -14,6 +14,6 @@ $GLOBALS['TL_LANG']['MOD']['li_products']       = array('Products', 'Manage prod
 $GLOBALS['TL_LANG']['MOD']['li_tasks']          = array('Tasks', 'Manage tasks.');
 $GLOBALS['TL_LANG']['MOD']['li_timekeeping']    = array('Timekeeping', 'Manage timekeeping.');
 $GLOBALS['TL_LANG']['MOD']['li_invoices']       = array('Invoices', 'Manage invoicess.');
-$GLOBALS['TL_LANG']['MOD']['li_settings']       = array('Settinsg', 'Manage CRM settings.');
+$GLOBALS['TL_LANG']['MOD']['li_settings']       = array('Settings', 'Manage CRM settings.');
 
 $GLOBALS['TL_LANG']['FMD'][''] = array('', '');
