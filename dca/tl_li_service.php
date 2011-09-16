@@ -57,7 +57,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_service']['delete'],
 				'href'                => 'act=delete',
 				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+				'attributes'          => 'onclick="if (!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\')) return false; Backend.getScrollOffset();"'
 			),
 			'show' => array
 			(
@@ -86,21 +86,22 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toServiceType'],
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_li_service_type.title',
-			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'submitOnChange' => true)
 		),
         'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['title'],
 			'inputType'               => 'text',
 			'default'                 => '-',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                    => array('mandatory' => true, 'maxlength' => 250, 'tl_class' => 'w50')
 		),
 		'price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['price'],
 			'inputType'               => 'text',
 			'load_callback'           => array(array('Service', 'getDefaultPrice')),
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit', 'alwaysSave'=>true)
+			'eval'                    => array('mandatory' => true, 'maxlength' => 12, 'tl_class' => 'w50',
+                'rgxp' => 'digit', 'alwaysSave' => true)
 		)
 	)
 );

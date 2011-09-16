@@ -75,6 +75,15 @@
             </h3>
             <?php echo $GLOBALS['TL_LANG']['li_settings']['workingHoursDesc']; ?>
         </div>
+        <div class="tl_module_desc">
+            <h3>
+                <a href="contao/main.php?do=li_settings&amp;table=tl_li_hourly_wage" class="navigation"
+                   style="background-image:url('system/modules/li_crm/icons/hourly_wage.png')">
+                    <?php echo $GLOBALS['TL_LANG']['li_settings']['hourlyWage']; ?>
+                </a>
+            </h3>
+            <?php echo $GLOBALS['TL_LANG']['li_settings']['hourlyWageDesc']; ?>
+        </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['invoices']; ?></h2>
         <div class="tl_module_desc">

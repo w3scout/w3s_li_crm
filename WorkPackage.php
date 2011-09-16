@@ -44,4 +44,20 @@ class WorkPackage extends Controller
 		
 		return $workPackages;
 	}
+    
+    /**
+     * Generates a label from a given work package entry
+     * 
+     * @param array $row The database row of the work package
+     * @return string The generated label
+     */
+    public function getLabel($row)
+    {
+        // Get all necessary information
+        $getRow = $this->Database->prepare("SELECT hw.title
+            FROM tl_li_hourly_wage hw
+            WHERE hw.id = ?")->execute($row['toHourlyWage']);
+        
+        return $row['title'].' ('.$row['hourLimit'].' - '.$getRow->title.')';
+    }
 }

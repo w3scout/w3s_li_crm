@@ -177,6 +177,7 @@ CREATE TABLE `tl_li_work_package` (
   `title` varchar(255) NOT NULL default '',
   `hourLimit` int(10) unsigned NOT NULL default '0',
   `isExternal` char(1) NOT NULL default '',
+  `toHourlyWage` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

@@ -102,7 +102,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
-			'load_callback'           => array (array('TaskReminder', 'getRemindDate')),
+			'load_callback'           => array(array('TaskReminder', 'getRemindDate')),
 			'eval'                    => array('rgxp' => 'date', 'datepicker' => $this->getDatePickerString(),
                                                'tl_class' => 'w50 wizard')
 		),

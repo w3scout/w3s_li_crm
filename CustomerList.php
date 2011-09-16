@@ -3,15 +3,10 @@ if (!defined('TL_ROOT'))
 	die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @author     apoy2k
- * @license    MIT (see /LICENSE.txt for further information)
- */
-
-/**
- * Class CustomerList
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 class CustomerList extends BackendModule
 {

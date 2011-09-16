@@ -24,6 +24,7 @@ class TaskReminder extends Controller
      */
 	public function getTaskOptions()
 	{
+        // Get all tasks whose deadline hasn't passed yet
 		$objTasks = $this->Database->prepare("SELECT t.id, t.title, p.title AS project, c.customerName
 		    FROM tl_li_task as t
                 LEFT JOIN tl_li_project AS p ON t.toProject = p.id

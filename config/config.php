@@ -5,15 +5,11 @@ if (!defined('TL_ROOT'))
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
-/**
- * -------------------------------------------------------------------------
- * BACK END MODULES
- * -------------------------------------------------------------------------
- */
-
+// Backend modules
 array_insert($GLOBALS['BE_MOD'], 0, array
 (
     'li_crm' => array
@@ -56,7 +52,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'tables'	 => array('tl_li_customer_settings', 'tl_li_project_settings', 'tl_li_service_type',
 				'tl_li_product_type', 'tl_li_task_status', 'tl_li_invoice_settings', 'tl_li_invoice_category',
 				'tl_li_invoice_reminder_settings', 'tl_li_invoice_template', 'tl_li_task_reminder_settings',
-				'tl_li_company_settings', 'tl_li_timekeeping_settings', 'tl_li_timekeeping_hourlywage'),
+				'tl_li_company_settings', 'tl_li_timekeeping_settings', 'tl_li_hourly_wage'),
             'callback'	 => 'Settings',
             'icon'       => 'system/modules/li_crm/icons/settings.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
@@ -64,6 +60,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
     )
 ));
 
+// Add customer fields to members
 $GLOBALS['BE_MOD']['accounts']['member']['tables'][] = 'tl_li_contact';
 
 // Delete callbacks if a specific table is set. This way,
@@ -85,18 +82,12 @@ if ($_GET['do'] == 'li_timekeeping' && !empty($_GET['table']))
 	unset($GLOBALS['BE_MOD']['li_crm']['li_timekeeping']['callback']);
 }
 
+// Remindes cronjob
 $GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');  
 
-/**
- * -------------------------------------------------------------------------
- * HOOKS
- * -------------------------------------------------------------------------
- */
-
+// Hooks
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Customer', 'getCustomerCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Project', 'getProjectCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Invoice', 'getInvoiceCount');
 
 $GLOBALS['TL_HOOKS']['executePostActions'][] = array('Invoice', 'generateInvoice');
- 
-?>
