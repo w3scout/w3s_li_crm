@@ -13,7 +13,7 @@ $GLOBALS['TL_LANG']['tl_li_task_reminder'] = array(
     'noCustomer'    => 'Kein Kunde',
     
     'toCustomer'        => array('Kunde', 'Bitte wählen Sie einen Kunden aus.'),
-    'toTask'            => array('Aufgabe', 'Bitte wählen Sie die Aufgabe aus.'),
+    'toTask'            => array('Aufgabe', 'Bitte wählen Sie die Aufgabe aus. (Aufgaben, deren Deadline verstrichen ist, werden nicht angezeigt!)'),
     'remindOnce'        => array('Einmalig erinnern', 'Soll einmalig eine Erinnerung verschickt werden?'),
     'remindDate'        => array('Erinnerungsdatum', 'Bitte geben Sie das Datum, an dem die Erinnerung verschickt werden soll, ein.'),
     'remindRepeatedly'  => array('Wiederholt erinnern', 'Soll die Erinnerung im Intervall bis zur Deadline verschickt werden?'),

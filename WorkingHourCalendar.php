@@ -42,8 +42,8 @@ class WorkingHourCalendar extends BackendModule
 			$GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode'] : '7';
 
 		// Only get the working hours in the desired week range
-		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) as weekday,
-				(wh.hours * 60 + wh.minutes) AS minutes, wp.id as workPackageId, c.customerColor
+		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) AS weekday,
+				(wh.hours * 60 + wh.minutes) AS minutes, wp.id AS workPackageId, c.customerColor
 			FROM tl_li_working_hour wh
 				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
 				LEFT JOIN tl_li_project p ON wp.toProject = p.id

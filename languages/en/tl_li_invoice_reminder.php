@@ -1,48 +1,41 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * Fields
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['toCustomer']       = array('Customer', 'Please choose a customer.');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['toInvoice']        = array('Invoice', 'Please choose a invoice.');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindOnce']       = array('Remind once', 'Should the remind be send once?');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindDate']       = array('Remind date', 'Please enter the date the remind should be send.');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindRepeatedly'] = array('Remind repeatedly', 'Should the remind be send repeatedly?');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval']   = array('Interval', 'Please choose an iterval.');
-
-/**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['reminder_legend']   = 'Reminder';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['once_legend']       = 'Once';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['repeatedly_legend'] = 'Repeatedly';
-
-/**
- * Reference
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['noCustomer']                = 'No Customer';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval']['daily']   = 'Daily';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval']['weekly']  = 'Weekly';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval']['monthly'] = 'Monthly';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval']['yearly']  = 'Yearly';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['subject']                   = 'Invoice reminder';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['text']                      = 'Invoice reminder for the invoice "%s" from %s.';
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['customerRemark']            = 'The invoice belongs to the customer "%s %s".';
-
-/**
- * Buttons
- */
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['new']    = array('New reminder', 'Create a new reminder');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['edit']   = array('Edit reminder', 'Edit the reminder with the ID %s');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['copy']   = array('Copy reminder', 'Copy the reminder with the ID %s');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['delete'] = array('Delete reminder', 'Delete the reminder with the ID %s');
-$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['show']   = array('Show details of the reminder', 'Show the details of the reminder with the ID %s');
-
-?>
+$GLOBALS['TL_LANG']['tl_li_invoice_reminder'] = array(
+    'toCustomer'        => array('Customer', 'Please choose a customer.'),
+    'toInvoice'         => array('Invoice', 'Please choose an invoice.'),
+    'remindOnce'        => array('Remind once', 'Create a single reminder.'),
+    'remindDate'        => array('Remind date', 'Please choose a date when the reminder should be sent.'),
+    'remindRepeatedly'  => array('Remind repeatedly', 'Create a repeated reminder.'),
+    'remindInterval'    => array('Interval', 'Please choose an interval.'),
+    
+    'reminder_legend'   => 'Reminder',
+    'once_legend'       => 'Once',
+    'repeatedly_legend' => 'Repeatedly',
+    
+    'noCustomer'    => 'No customer',
+    
+    'remindInterval' => array(
+        'daily'     => 'Daily',
+        'weekly'    => 'Weekly',
+        'monthly'   => 'Monthly',
+        'yearly'    => 'Yearly',
+    ),
+    
+    'subject'           => 'Invoice reminder',
+    'text'              => 'Invoice reminder for invoice "%s" form %s.',
+    'customerRemark'    => 'The invoce is for "%s %s".',
+    
+    'new'       => array('New reminder', 'Create a new reminder'),
+    'edit'      => array('Edit reminder', 'Edit reminder %s'),
+    'copy'      => array('Duplicate reminder', 'Duplicate reminder %s'),
+    'delete'    => array('Delete reminder', 'Delete reminder %s'),
+    'show'      => array('Show reminder', 'Show reminder %s'),
+);

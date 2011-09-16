@@ -9,34 +9,34 @@ if (!defined('TL_ROOT'))
  * @license     MIT (see /LICENSE.txt for further information)
  */
 $GLOBALS['TL_LANG']['li_customers'] = array(
-    'customers' => 'Customers',
-    'customer'  => 'Customer',
-    'noEntries' => 'No entries found.',
-    
-    'customerNew'       => array('New customer', 'Create a new customer'),
-    'customerEdit'      => array('Edit customer', 'Edit the customer with the ID %s'),
-    'customerCopy'      => array('Copy customer', 'Copy the customer with the ID %s'),
-    'customerDelete'    => array('Delete customer', 'Delete the customer with the ID %s', 'Should the customer with the ID %s really be deleted?'),
-    'customerInfo'      => array('Show customerdetails', 'Show the details of the customer with the ID %s'),
-    
-    'addressesManage'   => array('Manage addresses', 'Manage the addresses of the customer with the ID %s'),
-    'contactsManage'    => array('Manage contacts', 'Manage the contacts of the customer with the ID %s'),
-    
-    'projectNew'    => array('New project', 'Create a new project'),
-    'projectEdit'   => array('Edit project', 'Edit the project with the ID %s'),
-    'projectCopy'   => array('Copy project', 'Copy the project with the ID %s'),
-    'projectDelete' => array('Delete project', 'Delete the project with the ID %s', 'Should the project with the ID %s really be deleted?'),
-    'projectInfo'   => array('Show details of the project', 'Show the details of the project with the ID %s'),
+	'customers'	=> 'Kunden',
+	'customer'	=> 'Kunde',
+	'noEntries' => 'Keine Einträge gefunden.',
 	
-    'productNew'    => array('Add product', 'Add a product to a project'),
-	'productEdit'   => array('Edit product', 'Edit product ID %s'),
-	'productCopy'   => array('Duplicate product', 'Add product %s to another project'),
-	'productDelete' => array('Delete product', 'Delete product %s from project', 'Are you sure you want to delete the product from the project?'),
-	'productInfo'   => array('Show info', 'Show details of product %s'),
+	'customerNew'       => array('Neuer Kunde', 'Einen neuen Kunden erstellen'),
+	'customerEdit'      => array('Kunde bearbeiten', 'Den Kunden mit der ID %s bearbeiten'),
+	'customerCopy'      => array('Kunde duplizieren', 'Den Kunden mit der ID %s duplizieren'),
+	'customerDelete'    => array('Kunde löschen', 'Den Kunden mit der ID %s löschen', 'Soll der Kunde mit der ID %s wirklich gelöscht werden?'),
+	'customerInfo'      => array('Kundendetails anzeigen', 'Die Details des Kunden mit der ID %s anzeigen'),
+	
+	'addressesManage'   => array('Adressen verwalten', 'Die Adressen des Kunden mit der ID %s verwalten'),
+	'contactsManage'    => array('Kontakte verwalten', 'Die Kontakte mit dem Kunden mit der ID %s verwalten'),
+	
+	'projectNew'    => array('Neues Projekt', 'Ein neues Projekt erstellen'),
+	'projectEdit'   => array('Projekt bearbeiten', 'Das Projekt mit der ID %s bearbeiten'),
+	'projectCopy'   => array('Projekt duplizieren', 'Das Projekt mit der ID %s duplizieren'),
+	'projectDelete' => array('Projekt löschen', 'Das Projekt mit der ID %s löschen', 'Soll das Projekt mit der ID %s wirklich gelöscht werden?'),
+	'projectInfo'   => array('Projektendetails anzeigen', 'Die Details des Projekts mit der ID %s anzeigen'),
+	
+    'productNew'    => array('Produkt hinzufügen', 'Einem Projekt ein Produkt hinzufügen'),
+	'productEdit'   => array('Produkt bearbeiten', 'Das Produkt mit der ID %s bearbeiten'),
+	'productCopy'   => array('Produkt duplizieren', 'Produkt %s einem weiteren Projekt zuordnen'),
+	'productDelete' => array('Produkt löschen', 'Prodkut %s aus dem Projekt löschen', 'Soll die Zuordnung des Produkts zu diesem Projekt wirklich gelöscht werden?'),
+	'productInfo'   => array('Produktdetails anzeigen', 'Die Details des Produkts mit der ID %s anzeigen'),
     
-    'serviceNew'    => array('New service', 'Create a new service'),
-    'serviceEdit'   => array('Edit service', 'Edit the service with the ID %s'),
-    'serviceCopy'   => array('Copy service', 'Copy the service with the ID %s'),
-    'serviceDelete' => array('Delete service', 'Delete the service with the ID %s', 'Should the service with the ID %s really be deleted?'),
-    'serviceInfo'   => array('Show servicedetails', 'Show the details of the service with the ID %s'),
+	'serviceNew'    => array('Neue Leistung', 'Eine neue Leistung erstellen'),
+	'serviceEdit'   => array('Leistung bearbeiten', 'Die Leistung mit der ID %s bearbeiten'),
+	'serviceCopy'   => array('Leistung duplizieren', 'Die Leistung mit der ID %s duplizieren'),
+	'serviceDelete' => array('Leistung löschen', 'Die Leistung mit der ID %s löschen', 'Soll die Leistung mit der ID %s wirklich gelöscht werden?'),
+	'serviceInfo'   => array('Leistungsdetails anzeigen', 'Die Details der Leistung mit der ID %s anzeigen'),
 );

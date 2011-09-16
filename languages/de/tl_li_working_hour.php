@@ -16,7 +16,6 @@ $GLOBALS['TL_LANG']['tl_li_working_hour'] = array(
     
     'addHours'              => 'Stunden erfassen',
     'manageWorkPackages'    => 'Arbeitspakete verwalten',
-    'editCustomer'          => 'Zugehörigen Kunden bearbeiten',
     'editWorkPackage'       => 'Zugehöriges Arbeitspaket bearbeiten',
     
     'entryDate'         => array('Datum', 'Datum an dem die Stunden geleistet wurden'),

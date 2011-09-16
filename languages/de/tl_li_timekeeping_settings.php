@@ -1,16 +1,15 @@
 <?php
-
-/**
- * @copyright	Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author		apoy2k
- * @license		MIT (see /LICENSE.txt for further information)
- */
 if (!defined('TL_ROOT'))
 	die('You cannot access this file directly!');
-
+/**
+ * @copyright	Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author		ApoY2k <apoy2k@gmail.com>
+ * @license		MIT (see /LICENSE.txt for further information)
+ */
 $GLOBALS['TL_LANG']['tl_li_timekeeping_settings'] = array(
-	'edit' => 'Stundenerfassung einstellen',
-	'calendar' => 'Kalender einstellen',
+	'edit'      => 'Stundenerfassung einstellen',
+	'calendar'  => 'Kalender einstellen',
+
 	'calendarWeekMode' => array(
 		'Beginn einer Kalenderwoche',
 		'Legt fest, wann eine Kalenderwoche beginnt und wie mit dem Jahreswechsel beim Zählen der Kalenderwochen umgegangen '.

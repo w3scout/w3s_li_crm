@@ -1,39 +1,60 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * li_settings
- */
-$GLOBALS['TL_LANG']['li_settings']['settings']                    = 'CRM Settings';
-
-$GLOBALS['TL_LANG']['li_settings']['customers']                   = 'Customers';
-$GLOBALS['TL_LANG']['li_settings']['customerSettings']            = 'Customer settings';
-$GLOBALS['TL_LANG']['li_settings']['customerSettingsDesc']        = 'Through the customer settings your able to manage the settings regarding customers. Here you can configure how the customer number will be generated.';
-
-$GLOBALS['TL_LANG']['li_settings']['projects']                    = 'Projects';
-$GLOBALS['TL_LANG']['li_settings']['projectSettings']             = 'Project settings';
-$GLOBALS['TL_LANG']['li_settings']['projectSettingsDesc']         = 'Through the project settings your able to manage the settings regarding projects. Here you can configure how the project number will be generated.';
-
-$GLOBALS['TL_LANG']['li_settings']['services']                    = 'Services';
-$GLOBALS['TL_LANG']['li_settings']['serviceTypes']                = 'Service types';
-$GLOBALS['TL_LANG']['li_settings']['serviceTypesDesc']            = 'Through service types you define the different kinds of services. Each service type kann have a icon which will be shown in the service list. The icon has to have the size 16x16.';
-
-$GLOBALS['TL_LANG']['li_settings']['tasks']                       = 'Tasks';
-$GLOBALS['TL_LANG']['li_settings']['taskStatus']                  = 'Task statuses';
-$GLOBALS['TL_LANG']['li_settings']['taskStatusDesc']              = 'Through task statuses you are able to define several statuses in which a task can be. An icon can be assigned to each task, which will be shown in the task view. The icon has to have the size 16x16.';
-$GLOBALS['TL_LANG']['li_settings']['taskReminderSettings']        = 'Reminder settings';
-$GLOBALS['TL_LANG']['li_settings']['taskReminderSettingsDesc']    = 'Through the reminder settings your able to manage the settings regarding task reminder. Here you can configure to whom the reminder email for an task will be sended.';
-
-$GLOBALS['TL_LANG']['li_settings']['invoices']                    = 'Bills';
-$GLOBALS['TL_LANG']['li_settings']['invoiceCategories']           = 'Bill categories';
-$GLOBALS['TL_LANG']['li_settings']['invoiceCategoriesDesc']       = 'Through bill categories you define different categories for bills. Bills can thus be categorized. This facilitates the search and issue of invoices.';
-$GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettings']     = 'Reminder settings';
-$GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettingsDesc'] = 'Through the reminder settings your able to manage the settings regarding invoice reminder. Here you can configure to whom the reminder email for an invoice will be sended.';
-
-?>
+$GLOBALS['TL_LANG']['li_settings'] = array(
+    'settings' => 'CRM settings',
+    
+    'customers'             => 'Customers',
+    'customerSettings'      => 'Customer settings',
+    'customerSettingsDesc'  => 'General settings for customers, e.g. customer numbers.',
+    
+    'projects'              => 'Projects',
+    'projectSettings'       => 'Project settings',
+    'projectSettingsDesc'   => 'General settings for projects, e.g. project numbers.',
+    
+    'services'          => 'Services',
+    'serviceTypes'      => 'Service types',
+    'serviceTypesDesc'  => 'Service types are used to group different services for easier searching and archiving.',
+    
+    'products'          => 'Products',
+    'productTypes'      => 'Product types',
+    'productTypesDesc'  => 'Product types are used to group different products for easier searching and archiving.',
+    
+    'tasks'             => 'Tasks',
+    'taskStatus'        => 'Task status',
+    'taskStatusDesc'    => 'Task status are used to define the current status of a task.',
+    
+    'taskReminderSettings'      => 'Task reminder settings',
+    'taskReminderSettingsDesc'  => 'General settings for the task reminder, e.g. E-Mail recipients.',
+    
+    'timekeeping'       => 'Timekeeping',
+    'workingHours'      => 'Working hours',
+    'workingHoursDesc'  => 'General settings for working hours, e.g. the start of a calendar week.',
+    
+    'hourlyWage'        => 'Hourly wage',
+    'hourlyWageDesc'    => 'Hourly wages are used by work packages to define how the working hours are billed.',
+    
+    'invoices'              => 'Invoices',
+    'invoiceSettings'       => 'Invoice settings',
+    'invoiceSettingsDesc'   => 'General settings for invoices, e.g. invoice numbers.',
+    
+    'invoiceCategories'     => 'Invoice categories',
+    'invoiceCategoriesDesc' => 'Invoice categories are used to group different invoices for easier searching and archiving.',
+    
+    'invoiceTemplates'      => 'Invoice templates',
+    'invoiceTemplatesDesc'  => 'Invoice templates define the layout of a generated invoice.',
+    
+    'invoiceReminderSettings'       => 'Invoice reminder settings',
+    'invoiceReminderSettingsDesc'   => 'General settings for the invoice reminder, e.g. E-Mail recipients.',
+    
+    'company'               => 'Company',
+    'companySettings'       => 'Company settings',
+    'companySettingsDesc'   => 'General company settings, e.g. address and bank account.',
+);

@@ -1,33 +1,26 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
-
-/**
- * Fields
- */
-$GLOBALS['TL_LANG']['tl_li_service']['toCustomer']    = array('Customer', 'Please choose a customer.');
-$GLOBALS['TL_LANG']['tl_li_service']['toProject']     = array('Project', 'Please choose a project.');
-$GLOBALS['TL_LANG']['tl_li_service']['toServiceType'] = array('Service type', 'Please choose a service type.');
-$GLOBALS['TL_LANG']['tl_li_service']['title']         = array('Title', 'Please enter a title.');
-$GLOBALS['TL_LANG']['tl_li_service']['price']         = array('Price', 'Please enter a price.');
-
-/**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_li_service']['service_legend'] = 'Service';
-
-/**
- * Buttons
- */
-$GLOBALS['TL_LANG']['tl_li_service']['new']    = array('New service', 'Create a new service');
-$GLOBALS['TL_LANG']['tl_li_service']['show']   = array('Service details', 'Show details of the service ID %s');
-$GLOBALS['TL_LANG']['tl_li_service']['edit']   = array('Edit service', 'Edit service ID %s');
-$GLOBALS['TL_LANG']['tl_li_service']['copy']   = array('Copy service', 'Copy service ID %s');
-$GLOBALS['TL_LANG']['tl_li_service']['delete'] = array('Delete service', 'Delete service ID %s');
-
-?>
+$GLOBALS['TL_LANG']['tl_li_service'] = array(
+    'toCustomer'    => array('Customer', 'Please choose a customer.'),
+    'toProject'     => array('Project', 'Please choose a project.'),
+    'toServiceType' => array('Service type', 'Please choose a service type.'),
+    'title'         => array('Title', 'Please enter a title.'),
+    'price'         => array('Price', 'Please enter a price.'),
+    'taxRate'       => array('Tax rate', 'Please enter a tax rate in percent.'),
+    
+    'service_legend' => 'Service',
+    
+    'new'       => array('New service', 'Create a new service'),
+    'show'      => array('Show service', 'Show service %s'),
+    'edit'      => array('Edit service', 'Edit service %s'),
+    'copy'      => array('Duplicate service', 'Duplicate service %s'),
+    'delete'    => array('Delete service', 'Delete service %s'),
+);

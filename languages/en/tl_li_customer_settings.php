@@ -1,26 +1,24 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
+$GLOBALS['TL_LANG']['tl_li_customer_settings'] = array(
+    'li_crm_customer_number_generation' => array('Customer number creation',
+        'Please enter a combination of text and insert tags that can be used to generate a customer number. '.
+        '{{countCustomers::x}} returns the current amount of customers. x determines how many zeroes are used to pad '.
+        'the number.'),
 
-/**
- * Fields
- */
-$GLOBALS['TL_LANG']['tl_li_customer_settings']['li_crm_customer_number_generation']       = array('Customer number generation', 'Please enter a combination of insert tags and text through which the customer number will be generated. You can use {{countCustomers::x}} to get the current number of customers. The x-Value defines on how many marks will be used. The rest will be filled with zeros.');
-$GLOBALS['TL_LANG']['tl_li_customer_settings']['li_crm_customer_number_generation_start'] = array('Customer counter start', 'Please enter a number at which the customer counter starts. Through this you\'re able to, for example, let the number start at 100.');
+    'li_crm_customer_number_generation_start' => array('Start value',
+        'Please enter a value that is set as a start value for generating customer numbers. This way, customer numbers '.
+        'can start at e.g. 100 instead of 1.'),
 
-/**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_li_customer_settings']['customer_number_legend'] = 'Customer number';
+    'customer_number_legend' => 'Customer number',
 
-/**
- * Reference
- */
-$GLOBALS['TL_LANG']['tl_li_customer_settings']['edit']   = 'Edit customer settings';
-
-?>
+    'edit' => 'Edit customer settings',
+);
