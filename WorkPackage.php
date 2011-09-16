@@ -26,7 +26,7 @@ class WorkPackage extends Controller
 		$getWorkPackages = $this->Database->prepare("SELECT wp.id, wp.title, wp.hourLimit,
 				(SUM(wh.hours) * 60 + SUM(wh.minutes)) AS sumMinutes
 			FROM tl_li_work_package wp
-				LEFT JOIN tl_li_working_hours wh ON wh.toWorkPackage = wp.id
+				LEFT JOIN tl_li_working_hour wh ON wh.toWorkPackage = wp.id
 			GROUP BY wp.id
 			ORDER BY id")->execute();
 		
