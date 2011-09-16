@@ -23,4 +23,6 @@ $GLOBALS['TL_LANG']['tl_li_work_package'] = array(
     'copy'      => array('Arbeitspaket duplizieren', 'Arbeitspaket mit der ID %s duplizieren'),
     'delete'    => array('Arbeitspaket löschen', 'Arbeitspaket mit der ID %s löschen'),
     'show'      => array('Arbeitspaketdetails', 'Details des Arbeitspakets mit der ID %s anzeigen'),
+    
+    'internal' => 'Intern',
 );

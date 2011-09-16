@@ -1,10 +1,12 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * @copyright	Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author		Christian Kolb <info@liplex.de>
- * @author		apoy2k
- * @license		MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 class WorkPackage extends Controller
 {
@@ -57,5 +59,23 @@ class WorkPackage extends Controller
             WHERE hw.id = ?")->execute($row['toHourlyWage']);
         
         return $row['title'].' ('.$row['hourLimit'].' - '.$getRow->title.')';
+    }
+    
+    /**
+     * Gets a label of a group or returns a default label for groups without one
+     * 
+     * @param string $currentLabel The current label of a group
+     * @return string The group label
+     */
+    public function getGroupLabel($currentLabel)
+    {
+        // Only modify the label if it's a numeric id - meaning that the foreignKey wasn't matchen
+        if (!empty($currentLabel))
+            return $currentLabel;
+        
+		// Load language file for workpackages
+		$this->loadLanguageFile('tl_li_work_package');
+        
+        return $GLOBALS['TL_LANG']['tl_li_work_package']['internal'];
     }
 }

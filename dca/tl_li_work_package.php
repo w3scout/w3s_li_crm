@@ -26,7 +26,8 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 		'label' => array
 		(
             'fields'            => array('title'),
-            'label_callback'    => array('WorkPackage', 'getLabel')
+            'label_callback'    => array('WorkPackage', 'getLabel'),
+            'group_callback'    => array('WorkPackage', 'getGroupLabel'),
 		),
 		'global_operations' => array
 		(

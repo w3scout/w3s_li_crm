@@ -1,39 +1,32 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT'))
+    die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
- */
-
-/**
- * Table tl_li_product_type
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 $GLOBALS['TL_DCA']['tl_li_product_type'] = array
 (
-
-	// Config
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true
 	),
-
-	// List
 	'list' => array
 	(
 		'sorting' => array
 		(
 			'mode'                    => 1,
 			'fields'                  => array('title'),
-			'flag'                    => 11
+			'flag'                    => 1
 		),
 		'label' => array
 		(
-			'fields'                  => array('icon', 'title', 'title'),
-			'format'                  => '<img src=\'%s\' alt=\'%s\' /> %s',
-			//'label_callback'          => array('ServiceType', 'renderLabel')
+			'fields'                  => array('icon', 'title'),
+			'label_callback'          => array('ProductType', 'getLabel')
 		),
 		'global_operations' => array
 		(
@@ -74,21 +67,11 @@ $GLOBALS['TL_DCA']['tl_li_product_type'] = array
 			)
 		)
 	),
-
-	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
 		'default'                     => '{type_legend}, title, icon;'
 	),
-
-	// Subpalettes
-	'subpalettes' => array
-	(
-		''                            => ''
-	),
-
-	// Fields
 	'fields' => array
 	(
         'title' => array
@@ -105,5 +88,3 @@ $GLOBALS['TL_DCA']['tl_li_product_type'] = array
 		)
 	)
 );
-
-?>

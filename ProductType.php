@@ -1,6 +1,6 @@
 <?php
 if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+    die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -8,13 +8,13 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-class ServiceType extends Controller
+class ProductType extends Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
-		$this->import('Database');
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->import('Database');
+    }
     
     /**
      * Gets the label for a given row
@@ -22,10 +22,10 @@ class ServiceType extends Controller
      * @param array $row The row data
      * @return string The label
      */
-	public function renderLabel($row)
-	{
-        $image = file_exists($row['icon']) ? $row['icon'] : 'system/modules/li_crm/icons/service_default.png';
+    public function getLabel($row)
+    {
+        $image = file_exists($row['icon']) ? $row['icon'] : 'system/modules/li_crm/icons/products.png';
         
         return '<img src="'.$image.'" alt="'.$row['title'].'" /> '.$row['title'];
-	}
+    }
 }
