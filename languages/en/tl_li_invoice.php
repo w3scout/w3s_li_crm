@@ -51,7 +51,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice'] = array(
     
     'total_netto'   => 'Total cost (net)',
     'total_brutto'  => 'Total cost (gross)',
-    'tax'           => 'VAT',
+    'tax'           => 'Tax',
     
     'units' => array(
         'unit'  => 'Unit',

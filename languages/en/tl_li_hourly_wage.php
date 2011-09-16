@@ -17,5 +17,5 @@ $GLOBALS['TL_LANG']['tl_li_hourly_wage'] = array(
     'show'      => array('Show hourly wage', 'Show hourly wage %s'),
     
     'title' => array('Title', 'Please enter a title.'),
-    'wage'  => array('Wage', 'Please enter the wage per hour (w/o tax)'),
+    'wage'  => array('Wage', 'Please enter the wage per hour (net)'),
 );
