@@ -28,7 +28,7 @@ $GLOBALS['TL_LANG']['li_customers'] = array(
 	'projectDelete' => array('Projekt löschen', 'Das Projekt mit der ID %s löschen', 'Soll das Projekt mit der ID %s wirklich gelöscht werden?'),
 	'projectInfo'   => array('Projektendetails anzeigen', 'Die Details des Projekts mit der ID %s anzeigen'),
 	
-    'productNew'    => array('Neue Produktzuordnung', 'Eine neue Zuordnung zu einem Projekt erstellen'),
+    'productNew'    => array('Produkt hinzufügen', 'Einem Projekt ein Produkt hinzufügen'),
 	'productEdit'   => array('Produkt bearbeiten', 'Das Produkt mit der ID %s bearbeiten'),
 	'productCopy'   => array('Produkt duplizieren', 'Produkt %s einem weiteren Projekt zuordnen'),
 	'productDelete' => array('Produkt löschen', 'Prodkut %s aus dem Projekt löschen', 'Soll die Zuordnung des Produkts zu diesem Projekt wirklich gelöscht werden?'),
