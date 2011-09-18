@@ -279,7 +279,7 @@ class Invoice extends BackendModule
         $this->log('Generate new invoice', 'Generate invoice with id ' . $id, TL_FILES);
 
         // Get data
-        $objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.positions, i.isOut, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder
+        $objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.toAddress, i.positions, i.isOut, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder
                                                 FROM tl_li_invoice AS i
                                                 INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
                                                 WHERE i.id = ?")
@@ -289,7 +289,7 @@ class Invoice extends BackendModule
                                                 FROM tl_address
                                                 WHERE id = ?")
                 ->limit(1)
-                ->execute($objInvoice->toCustomer);
+                ->execute($objInvoice->toAddress);
 
         // Load language file
         $this->loadLanguageFile('tl_member');

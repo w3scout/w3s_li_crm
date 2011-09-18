@@ -177,7 +177,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['price'],
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50')
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
 		'file' => array
 		(
