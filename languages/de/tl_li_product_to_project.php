@@ -8,10 +8,9 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_product_to_project'] = array(
-    'legend' => 'Produktzuordnung',
-    
-    'toCustomer'    => array('Kunde', 'Der Kunde, zu dessen Projekt ein Produkt hinzugefügt werden soll.'),
-    'toProject'     => array('Projekt', 'Das Projekt des Kunden, zu dem das Produkt hinzugefügt werden soll.'),
-    'toProduct'     => array('Produkt', 'Das Produkt, das hinzugefügt werden soll.'),
-);
+
+$GLOBALS['TL_LANG']['tl_li_product_to_project']['product_legend'] = 'Produktzuordnung';
+
+$GLOBALS['TL_LANG']['tl_li_product_to_project']['toCustomer'] = array('Kunde', 'Der Kunde, zu dessen Projekt ein Produkt hinzugefügt werden soll.');
+$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProject'] = array('Projekt', 'Das Projekt des Kunden, zu dem das Produkt hinzugefügt werden soll.');
+$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProduct'] = array('Produkt', 'Das Produkt, das hinzugefügt werden soll.');

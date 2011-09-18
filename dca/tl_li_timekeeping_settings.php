@@ -15,7 +15,7 @@ $GLOBALS['TL_DCA']['tl_li_timekeeping_settings'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array(),
-		'default'		=> '{calendar},li_crm_timekeeping_week_mode;'
+		'default'		=> '{calendar_legend},li_crm_timekeeping_week_mode;'
 	),
 	'subpalettes' => array
 	(
@@ -25,7 +25,7 @@ $GLOBALS['TL_DCA']['tl_li_timekeeping_settings'] = array
 	(
 		'li_crm_timekeeping_week_mode' => array
 		(
-			'label'		=> &$GLOBALS['TL_LANG']['tl_li_timekeeping_settings']['calendarWeekMode'],
+			'label'		=> &$GLOBALS['TL_LANG']['tl_li_timekeeping_settings']['li_crm_timekeeping_week_mode'],
 			'inputType'	=> 'select',
 			'default'	=> '7',
 			'options'	=> &$GLOBALS['TL_LANG']['tl_li_timekeeping_settings']['calendarWeekModeOptions'],

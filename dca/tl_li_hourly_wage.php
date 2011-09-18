@@ -71,7 +71,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array(),
-		'default'		=> '{hourlyWage}, title, wage, taxRate;'
+		'default'		=> '{wage_legend},title,wage,taxRate;'
 	),
 	'fields' => array
 	(

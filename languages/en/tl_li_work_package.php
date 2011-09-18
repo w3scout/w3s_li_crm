@@ -8,21 +8,20 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_work_package'] = array(
-    'package_legend'    => 'Work package',
-    'settings_legend'   => 'Settings',
-    
-    'title'         => array('Title', 'Please enter a title.'),
-    'hourLimit'     => array('Hour limit', 'Please enter an hour limit.'),
-    'toHourlyWage'  => array('Hourly wage', 'Please choose an hourly wage.'),
-    'isExternal'    => array('External', 'Wether the work package is assigned to an external project.'),
-    'toProject'     => array('Project', 'Please choose a project.'),
-    
-    'new'       => array('New work package', 'Create new work package'),
-    'edit'      => array('Edit work package', 'Edit work package %s'),
-    'copy'      => array('Duplicate work package', 'Dulicate work package %s'),
-    'delete'    => array('Delete work package', 'Delete work package %s'),
-    'show'      => array('Show work package', 'Show work package %s'),
-    
-    'internal' => 'Internal',
-);
+
+$GLOBALS['TL_LANG']['tl_li_work_package']['package_legend'] = 'Work package';
+$GLOBALS['TL_LANG']['tl_li_work_package']['settings_legend'] = 'Settings';
+
+$GLOBALS['TL_LANG']['tl_li_work_package']['title'] = array('Title', 'Please enter a title.');
+$GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit'] = array('Hour limit', 'Please enter an hour limit.');
+$GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage'] = array('Hourly wage', 'Please choose an hourly wage.');
+$GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'] = array('External', 'Wether the work package is assigned to an external project.');
+$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'] = array('Project', 'Please choose a project.');
+
+$GLOBALS['TL_LANG']['tl_li_work_package']['new'] = array('New work package', 'Create new work package');
+$GLOBALS['TL_LANG']['tl_li_work_package']['edit'] = array('Edit work package', 'Edit the work package with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_work_package']['copy'] = array('Duplicate work package', 'Duplicate the work package with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_work_package']['delete'] = array('Delete work package', 'Delete the work package with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_work_package']['show'] = array('Show work package', 'Show the work package with the ID %s');
+
+$GLOBALS['TL_LANG']['tl_li_work_package']['internal'] = 'Internal';

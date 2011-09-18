@@ -17,7 +17,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array('isExternal'),
-		'default'		=> '{legend}, entryDate, toWorkPackage, hours, minutes;'
+		'default'		=> '{hour_legend}, entryDate, toWorkPackage, hours, minutes;'
 	),
 	'fields' => array
 	(
@@ -30,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 			'flag'		=> 8,
 			'inputType'	=> 'text',
 			'eval'		=> array('rgxp' => 'date', 'mandatory' => true,
-				'datepicker' => $this->getDatePickerString(), 'tl_class' => 'w50 wizard')
+			'datepicker' => $this->getDatePickerString(), 'tl_class' => 'w50 wizard')
 		),
         'toWorkPackage' => array
 		(

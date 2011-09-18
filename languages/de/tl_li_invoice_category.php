@@ -8,15 +8,14 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_invoice_category'] = array(
-    'title'         => array('Titel', 'Bitte geben Sie den Titel ein.'),
-    'orderNumber'   => array('Sortiernummer', 'Bitte geben Sie die Sortiernummer ein.'),
-    
-    'category_legend' => 'Rechnungskategorie',
-    
-    'new'       => array('Neue Rechnungskategorie', 'Eine neue Rechnungskategorie anlegen'),
-    'edit'      => array('Rechnungskategorie bearbeiten', 'Rechnungskategorie mit der ID %s bearbeiten'),
-    'copy'      => array('Rechnungskategorie duplizieren', 'Rechnungskategorie mit der ID %s duplizieren'),
-    'delete'    => array('Rechnungskategorie löschen', 'Rechnungskategorie mit der ID %s löschen'),
-    'show'      => array('Rechnungskategoriedetails', 'Details der Rechnungskategorie mit der ID %s anzeigen'),
-);
+
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['category_legend'] = 'Rechnungskategorie';
+
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['title'] = array('Titel', 'Bitte geben Sie den Titel ein.');
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['orderNumber'] = array('Sortiernummer', 'Bitte geben Sie die Sortiernummer ein.');
+
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['new'] = array('Neue Rechnungskategorie', 'Eine neue Rechnungskategorie anlegen');
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['edit'] = array('Rechnungskategorie bearbeiten', 'Die Rechnungskategorie mit der ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['copy'] = array('Rechnungskategorie duplizieren', 'Die Rechnungskategorie mit der ID %s duplizieren');
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['delete'] = array('Rechnungskategorie löschen', 'Die Rechnungskategorie mit der ID %s löschen');
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['show'] = array('Rechnungskategorie anzeigen', 'Die Rechnungskategorie mit der ID %s anzeigen');

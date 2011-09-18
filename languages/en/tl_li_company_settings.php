@@ -8,16 +8,15 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_company_settings'] = array(
-    'li_crm_company_name'       => array('Company name', "Please enter your company's name."),
-    'li_crm_company_tax_number' => array('Tax number', "Please enter your company's tax number."),
-    'li_crm_account_number'     => array('Bank account number', "Please enter your company's bank account number."),
-    'li_crm_bank_code'          => array('Bank code', 'Please enter the bank code of your account.'),
-    'li_crm_bank'               => array('Bank name', 'Please enter the name of your bank.'),
-    
-    'company_legend'    => 'Company',
-    'address_legend'    => 'Address',
-    'bank_legend'       => 'Bank',
-    
-    'edit' => 'Edit company settings',
-);
+
+$GLOBALS['TL_LANG']['tl_li_company_settings']['company_legend'] = 'Company';
+$GLOBALS['TL_LANG']['tl_li_company_settings']['address_legend'] = 'Address';
+$GLOBALS['TL_LANG']['tl_li_company_settings']['bank_legend'] = 'Bank';
+
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_name'] = array('Company name', "Please enter your company's name.");
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number'] = array('Tax number', "Please enter your company's tax number.");
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number'] = array('Bank account number', "Please enter your company's bank account number.");
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank_code'] = array('Bank code', 'Please enter the bank code of your account.');
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank'] = array('Bank name', 'Please enter the name of your bank.');
+
+$GLOBALS['TL_LANG']['tl_li_company_settings']['edit'] = 'Edit company settings';

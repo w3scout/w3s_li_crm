@@ -18,7 +18,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{legend}, toCustomer, toProject, toProduct;'
+		'default'                     => '{product_legend}, toCustomer, toProject, toProduct;'
 	),
 
 	'subpalettes' => array

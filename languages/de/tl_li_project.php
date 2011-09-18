@@ -8,16 +8,15 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_project'] = array(
-    'toCustomer'    => array('Kunde', 'Zu welchem Kunden gehört das Projekt?'),
-    'projectNumber' => array('Projektnummer', 'Bitte geben Sie die Projektnummer ein.'),
-    'title'         => array('Titel', 'Bitte geben Sie den Titel ein.'),
-    
-    'project_legend' => 'Projekt',
-    
-    'new'       => array('Neues Projekt', 'Ein neues Projekt anlegen'),
-    'show'      => array('Projektdetails', 'Details des Projekts ID %s anzeigen'),
-    'edit'      => array('Projekt bearbeiten', 'Projekt ID %s bearbeiten'),
-    'copy'      => array('Projekt duplizieren', 'Projekt ID %s duplizieren'),
-    'delete'    => array('Projekt löschen', 'Projekt ID %s löschen'),
-);
+
+$GLOBALS['TL_LANG']['tl_li_project']['project_legend'] = 'Projekt';
+
+$GLOBALS['TL_LANG']['tl_li_project']['toCustomer'] = array('Kunde', 'Zu welchem Kunden gehört das Projekt?');
+$GLOBALS['TL_LANG']['tl_li_project']['projectNumber'] = array('Projektnummer', 'Bitte geben Sie die Projektnummer ein.');
+$GLOBALS['TL_LANG']['tl_li_project']['title'] = array('Titel', 'Bitte geben Sie den Titel ein.');
+
+$GLOBALS['TL_LANG']['tl_li_project']['new'] = array('Neues Projekt', 'Ein neues Projekt anlegen');
+$GLOBALS['TL_LANG']['tl_li_project']['edit'] = array('Projekt bearbeiten', 'Das Projekt mit der ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_li_project']['copy'] = array('Projekt duplizieren', 'Das Projekt mit der ID %s duplizieren');
+$GLOBALS['TL_LANG']['tl_li_project']['delete'] = array('Projekt löschen', 'Das Projekt mit der ID %s löschen');
+$GLOBALS['TL_LANG']['tl_li_project']['show'] = array('Projekt anzeigen', 'Das Projekt mit der ID %s anzeigen');

@@ -8,19 +8,18 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_service'] = array(
-    'toCustomer'    => array('Kunde', 'Bitte wählen Sie den Kunden aus.'),
-    'toProject'     => array('Projekt', 'Bitte wählen Sie das Projekt aus.'),
-    'toServiceType' => array('Leistungstyp', 'Bitte wählen Sie den Leistungstyp aus.'),
-    'title'         => array('Titel', 'Bitte geben Sie den Titel ein.'),
-    'price'         => array('Preis', 'Bitte geben Sie den Preis ein.'),
-    'taxRate'       => array('Steuersatz in %', 'Bitte geben Sie den Steuersatz in % ein.'),
-    
-    'service_legend' => 'Leistung',
-    
-    'new'       => array('Neue Leistung', 'Ein neue Leistung anlegen'),
-    'show'      => array('Leistungsdetails', 'Details der Leistung ID %s anzeigen'),
-    'edit'      => array('Leistung bearbeiten', 'Leistung ID %s bearbeiten'),
-    'copy'      => array('Leistung duplizieren', 'Leistung ID %s duplizieren'),
-    'delete'    => array('Leistung löschen', 'Leistung ID %s löschen'),
-);
+
+$GLOBALS['TL_LANG']['tl_li_service']['service_legend'] = 'Leistung';
+
+$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'] = array('Kunde', 'Bitte wählen Sie den Kunden aus.');
+$GLOBALS['TL_LANG']['tl_li_service']['toProject'] = array('Projekt', 'Bitte wählen Sie das Projekt aus.');
+$GLOBALS['TL_LANG']['tl_li_service']['toServiceType'] = array('Leistungstyp', 'Bitte wählen Sie den Leistungstyp aus.');
+$GLOBALS['TL_LANG']['tl_li_service']['title'] = array('Titel', 'Bitte geben Sie den Titel ein.');
+$GLOBALS['TL_LANG']['tl_li_service']['price'] = array('Preis', 'Bitte geben Sie den Preis ein.');
+$GLOBALS['TL_LANG']['tl_li_service']['taxRate'] = array('Steuersatz in %', 'Bitte geben Sie den Steuersatz in % ein.');
+
+$GLOBALS['TL_LANG']['tl_li_service']['new'] = array('Neue Leistung', 'Eine neue Leistung anlegen');
+$GLOBALS['TL_LANG']['tl_li_service']['edit'] = array('Leistung bearbeiten', 'Die Leistung mit der ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_li_service']['copy'] = array('Leistung duplizieren', 'Die Leistung mit der ID %s duplizieren');
+$GLOBALS['TL_LANG']['tl_li_service']['delete'] = array('Leistung löschen', 'Die Leistung mit der ID %s löschen');
+$GLOBALS['TL_LANG']['tl_li_service']['show'] = array('Leistung anzeigen', 'Die Leistung mit der ID %s anzeigen');

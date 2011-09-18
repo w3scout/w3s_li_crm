@@ -8,68 +8,75 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_LANG']['tl_li_invoice'] = array(
-    'toCustomer'        => array('Customer', 'Please choose a customer.'),
-    'toCategory'        => array('Invoice category', 'Please choose an invoice category.'),
-    'title'             => array('Title', 'Please enter a title.'),
-    'alias'             => array('Alias', 'Please enter an alias.'),
-    'invoiceDate'       => array('Invoice date', 'Please enter the invoice date.'),
-    'performanceDate'   => array('Performance date', 'Please enter the performance date.'),
-    'price'             => array('Price', 'Please enter the price.'),
-    'file'              => array('Invoice', 'Please choose an invoice.'),
-    'isOut'             => array('Outgoing', 'Is the invoice outgoing?'),
-    'isSingular'        => array('Singular', 'Is the invoice singular?'),
-    'enableGeneration'  => array('Activate creation', 'Activate automatic creation.'),
-    'toTemplate'        => array('Invoice template', 'Please choose an invoice template.'),
-    'toAddress'         => array('Invoice address', 'Please choose an invoice address.'),
-    
-    'invoice_legend'    => 'Invoice',
-    'pdf_legend'        => 'PDF-File',
-    'settings_legend'   => 'Settings',
-    'generation_legend' => 'Creation',
-    
-    'income'                => 'Income',
-    'expense'               => 'Expense',
-    'tax_number'            => 'Tax number',
-    'date'                  => 'Date',
-    'invoice_number'        => 'Invoice number',
-    'introduction_male'     => 'Dear Mr. %s<br />for your order we charge the following services.',
-    'introduction_female'   => 'Dear Ms. %s<br />for your order we charge the following services.',
-    'position_quantity'     => 'Amount',
-    'position_unit'         => 'Unit',
-    'position_label'        => 'Label',
-    'position_tax'          => 'Tax',
-    'position_unit_price'   => 'Unit price',
-    'position_total_price'  => 'Total price',
-    'service_remark'        => 'The invoice date is the performance date.',
-    'transfer_remark'       => 'Please transfer the amount to the following account within the next two weeks.',
-    'account_data'          => 'Account',
-    'account_number'        => 'Account number',
-    'bank_code'             => 'Bank code',
-    'bank'                  => 'Bank name',
-    'greeting'              => 'Sincerely,<br />%s',
-    
-    'total_netto'   => 'Total cost (net)',
-    'total_brutto'  => 'Total cost (gross)',
-    'tax'           => 'Tax',
-    
-    'units' => array(
-        'unit'  => 'Unit',
-        'hour'  => 'Hour',
-        'month' => 'Month',
-        'year'  => 'Year',
-    ),
-    
-    'invoice_generation'    => 'Invoice creation',
-    'path_introduction'     => 'The invoice was successfully created and saved at the given path.',
-    'path'                  => 'Path',
-    'back_overview'         => 'Back to the overview',
-    
-    'new'       => array('New invoice', 'Create new invoice'),
-    'edit'      => array('Edit invoice', 'Edit invoice %s'),
-    'copy'      => array('Duplicate invoice', 'Duplicate invoice %s'),
-    'delete'    => array('Delete invoice', 'Delete invoice %s'),
-    'show'      => array('Show invoice', 'Show invouce %s'),
-    
-    'reminder' => array('Invoice reminder', 'Manage invoice reminder'),
-);
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'] = 'Invoice';
+$GLOBALS['TL_LANG']['tl_li_invoice']['pdf_legend'] = 'PDF-File';
+$GLOBALS['TL_LANG']['tl_li_invoice']['settings_legend'] = 'Settings';
+$GLOBALS['TL_LANG']['tl_li_invoice']['generation_legend'] = 'Creation';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer'] = array('Customer', 'Please choose a customer.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['toCategory'] = array('Invoice category', 'Please choose an invoice category.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['title'] = array('Title', 'Please enter a title.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['alias'] = array('Alias', 'Please enter an alias.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceDate'] = array('Invoice date', 'Please enter the invoice date.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['performanceDate'] = array('Performance date', 'Please enter the performance date.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['price'] = array('Price', 'Please enter the price.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['file'] = array('Invoice', 'Please choose an invoice.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['isOut'] = array('Outgoing', 'Is the invoice outgoing?');
+$GLOBALS['TL_LANG']['tl_li_invoice']['isSingular'] = array('Singular', 'Is the invoice singular?');
+$GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'] = array('Activate creation', 'Activate automatic creation.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Invoice template', 'Please choose an invoice template.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Invoice address', 'Please choose an invoice address.');
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['new'] = array('New invoice', 'Create a new invoice');
+$GLOBALS['TL_LANG']['tl_li_invoice']['edit'] = array('Edit invoice', 'Edit the invoice with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_invoice']['copy'] = array('Duplicate invoice', 'Duplicate the invoice with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array('Delete invoice', 'Delete the invoice with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_invoice']['show'] = array('Show invoice', 'Show the invoice with the ID %s');
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['income'] = 'Income';
+$GLOBALS['TL_LANG']['tl_li_invoice']['expense'] = 'Expense';
+$GLOBALS['TL_LANG']['tl_li_invoice']['tax_number'] = 'Tax number';
+$GLOBALS['TL_LANG']['tl_li_invoice']['date'] = 'Date';
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number'] = 'Invoice number';
+$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] = 'Dear Mr. %s<br />for your order we charge the following services.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'] = 'Dear Ms. %s<br />for your order we charge the following services.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'] = 'Amount';
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'] = 'Unit';
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'] = 'Label';
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_tax'] = 'Tax';
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'] = 'Unit price';
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'] = 'Total price';
+$GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] = 'The invoice date is the performance date.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'] = 'Performance date: %s';
+$GLOBALS['TL_LANG']['tl_li_invoice']['transfer_remark'] = 'Please transfer the amount to the following account within the next two weeks.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['account_data'] = 'Account';
+$GLOBALS['TL_LANG']['tl_li_invoice']['account_number'] = 'Account number';
+$GLOBALS['TL_LANG']['tl_li_invoice']['bank_code'] = 'Bank code';
+$GLOBALS['TL_LANG']['tl_li_invoice']['bank'] = 'Bank name';
+$GLOBALS['TL_LANG']['tl_li_invoice']['greeting'] = 'Sincerely,<br />%s';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'] = 'Total cost (net)';
+$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'] = 'Total cost (gross)';
+$GLOBALS['TL_LANG']['tl_li_invoice']['tax'] = 'Tax';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'] = 'Unit';
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'] = 'Hour';
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'] = 'Month';
+$GLOBALS['TL_LANG']['tl_li_invoice']['units']['year'] = 'Year';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = 'Invoice creation';
+$GLOBALS['TL_LANG']['tl_li_invoice']['path_introduction'] = 'The invoice was successfully created and saved at the given path.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['path'] = 'Path';
+$GLOBALS['TL_LANG']['tl_li_invoice']['back_overview'] = 'Back to the overview';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'] = 'Invoice';
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] = 'Dear Mr. %s,\n\nattached the invoice of %s.\n\nBest regards\n%s';
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'] = 'Dear Mrs. %s,\n\nattached the invoice of %s.\n\nBest regards\n%s';
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] = 'Dear Mr. %s,<br /><br />attached the invoice of %s.<br /><br />Best regards<br />%s';
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'] = 'Dear Mrs. %s,<br /><br />attached the invoice of%s.<br /><br />Best regards<br />%s';
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_dispatch'] = 'Invoice dispatch';
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_successful'] = 'The invoice was delivered successful.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_failed'] = 'The invoice could not be delivered successful. For more information view the system log.';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Invoice reminders', 'Manage invoice reminders');

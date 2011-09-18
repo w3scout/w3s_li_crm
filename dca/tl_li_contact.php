@@ -107,7 +107,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'inputType'               => 'select',
 			'filter'                  => true,
 			'options'                 => array('phone', 'email', 'mail', 'fax', 'direct'),
-			'reference'               => &$GLOBALS['TL_LANG']['tl_li_contact']['categorys'],
+			'reference'               => &$GLOBALS['TL_LANG']['tl_li_contact']['categories'],
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'result' => array
