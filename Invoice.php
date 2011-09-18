@@ -89,7 +89,7 @@ class Invoice extends BackendModule
 
     public function generationIcon($row, $href, $label, $title, $icon, $attributes)
     {
-        if ($row['enableGeneration'] && $row['isOut']) {
+        if ($row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress']) {
             $href = '&amp;do=li_invoices&amp;key=print&amp;id=' . $row['id'];
             return '<a href="' . $this->addToUrl($href) . '"><img src="system/modules/li_crm/icons/invoice_generation.png" alt="" /></a> ';
         }
