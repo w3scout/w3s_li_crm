@@ -9,6 +9,6 @@ if (!defined('TL_ROOT'))
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
-$GLOBALS['TL_LANG']['XPL']['li_crm_timekeeping_calendar_week_mode'][0] = array('Montags / Sonntags', 'Definiert, wann eine neue Kalenderwoche beginnt');
-$GLOBALS['TL_LANG']['XPL']['li_crm_timekeeping_calendar_week_mode'][1] = array('Einheitlich', 'Die erste Kalenderwoche ist die Woche eines Jahres, die das erste Mal den oben definierten Tag besitzt.');
-$GLOBALS['TL_LANG']['XPL']['li_crm_timekeeping_calendar_week_mode'][2] = array('Mehrheitlich', 'Die erste Kalenderwoche ist die Woche eines Jahres, die mehr als drei Tage im "neuen" Jahr besitzt.');
+$GLOBALS['TL_LANG']['XPL']['li_crm_timekeeping_calendar_week_mode'][0] = array('Mondays / Sundays', 'Defines at which day a calendar week starts.');
+$GLOBALS['TL_LANG']['XPL']['li_crm_timekeeping_calendar_week_mode'][1] = array('Uniform', 'The first week of a year is the week that first has the day defined above in it.');
+$GLOBALS['TL_LANG']['XPL']['li_crm_timekeeping_calendar_week_mode'][2] = array('Majoritarian', 'The first week of a a year is the week that has more than three days in that year.');
