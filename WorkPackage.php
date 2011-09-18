@@ -58,7 +58,7 @@ class WorkPackage extends Controller
             FROM tl_li_hourly_wage hw
             WHERE hw.id = ?")->execute($row['toHourlyWage']);
         
-        return $row['title'].' ('.$row['hourLimit'].' - '.$getRow->title.')';
+        return $row['title'].' ('.$row['hourLimit'].'h - '.$getRow->title.')';
     }
     
     /**
