@@ -15,7 +15,8 @@ CREATE TABLE `tl_member` (
   `customerNumber` varchar(255) NOT NULL default '',
   `customerName` varchar(255) NOT NULL default '',
   `isCustomer` char(1) NOT NULL default '',
-  `customerColor` varchar(6) NULL default ''
+  `customerColor` varchar(6) NULL default '',
+  `customerCurrency` varchar(255) NOT NULL default ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -66,6 +67,7 @@ CREATE TABLE `tl_li_service` (
   `title` varchar(255) NOT NULL default '',
   `price` double NOT NULL default '0',
   `taxRate` double NOT NULL default '0',
+  `currency` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -94,6 +96,7 @@ CREATE TABLE `tl_li_product` (
   `title` varchar(255) NOT NULL default '',
   `price` double NOT NULL default '0',
   `taxRate` double NOT NULL default '0',
+  `currency` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -202,6 +205,7 @@ CREATE TABLE `tl_li_invoice` (
   `toTemplate` int(10) unsigned NOT NULL default '0',
   `toAddress` int(10) unsigned NOT NULL default '0',
   `positions` text NOT NULL,
+  `currency` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -268,6 +272,7 @@ CREATE TABLE `tl_li_hourly_wage` (
   `tstamp` int(10) unsigned NULL default '0',
   `title` varchar(20) NOT NULL default '',
   `wage` int(10) unsigned NOT NULL default '0',
+  `currency` varchar(255) NOT NULL default '',
   `taxRate` double NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
