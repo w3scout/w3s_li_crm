@@ -7,7 +7,7 @@
 				   class="tl_img_submit" title="Anwenden" alt="Anwenden">
 		</div>
 		<div class="tl_search tl_subpanel">
-			<strong>Kalenderwoche:</strong>
+			<strong><?php echo $lang['calendarWeek']; ?>:</strong>
 			<input type="text" name="tl_li_week" class="tl_text" value="<?php echo $this->week; ?>">	
 		</div>
 		<div class="clear"></div>
@@ -40,13 +40,13 @@
 	<table id="working_hours_calendar">
 		<thead>
 			<tr>
-				<td>Montag</td>
-				<td>Dienstag</td>
-				<td>Mittwoch</td>
-				<td>Donnerstag</td>
-				<td>Freitag</td>
-				<td>Samstag</td>
-				<td>Sonntag</td>
+				<td><?php echo $lang['monday']; ?></td>
+				<td><?php echo $lang['tuesday']; ?></td>
+				<td><?php echo $lang['wednesday']; ?></td>
+				<td><?php echo $lang['thursday']; ?></td>
+				<td><?php echo $lang['friday']; ?></td>
+				<td><?php echo $lang['saturday']; ?></td>
+				<td><?php echo $lang['sunday']; ?></td>
 			</tr>
 		</thead>
 		<tbody>

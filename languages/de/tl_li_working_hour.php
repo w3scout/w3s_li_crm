@@ -11,6 +11,15 @@ if (!defined('TL_ROOT'))
 
 $GLOBALS['TL_LANG']['tl_li_working_hour']['hour_legend'] = 'Stunden erfassen';
 
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendarWeek'] = 'Kalenderwoche';
+$GLOBALS['TL_LANG']['tl_li_working_hour']['monday'] = 'Montag';
+$GLOBALS['TL_LANG']['tl_li_working_hour']['tuesday'] = 'Dienstag';
+$GLOBALS['TL_LANG']['tl_li_working_hour']['wednesday'] = 'Mittwoch';
+$GLOBALS['TL_LANG']['tl_li_working_hour']['thursay'] = 'Donnerstag';
+$GLOBALS['TL_LANG']['tl_li_working_hour']['friday'] = 'Freitag';
+$GLOBALS['TL_LANG']['tl_li_working_hour']['saturday'] = 'Samstag';
+$GLOBALS['TL_LANG']['tl_li_working_hour']['sunday'] = 'Sonntag';
+
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'] = 'Stundeneintrag bearbeiten';
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'] = 'Stundeneintrag löschen';
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'] = 'Diesen Stundeneintrag wirklich löschen?';
