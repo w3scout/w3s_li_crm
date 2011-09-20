@@ -27,6 +27,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['isSingular'] = array('Einmalige Rechnung?'
 $GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'] = array('Generierung aktivieren', 'Rechnungsgenerierung aktivieren.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Rechnungstemplate', 'Bitte wählen Sie das Rechnungstemplate aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Rechnungsadresse', 'Bitte wählen Sie die Rechnungsadresse aus.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['currency'] = array('Währung', 'Bitte wählen sie die Währung, in der der Preis angegeben ist.');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['new'] = array('Neue Rechnung', 'Eine neue Rechnung erstellen');
 $GLOBALS['TL_LANG']['tl_li_invoice']['edit'] = array('Rechnung editieren', 'Die Rechnung mit der ID %s editieren');

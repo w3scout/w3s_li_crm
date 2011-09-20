@@ -71,7 +71,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array(),
-		'default'		=> '{wage_legend},title,wage,taxRate;'
+		'default'		=> '{wage_legend},title,taxRate,wage,currency'
 	),
 	'fields' => array
 	(
@@ -96,7 +96,14 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate'],
 			'inputType' => 'text',
-			'eval'      => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
-		)
+			'eval'      => array('mandatory' => true, 'maxlength' => 3, 'tl_class' => 'w50', 'rgxp' => 'digit')
+		),
+        'currency' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency'],
+            'inputType'         => 'select',
+            'options_callback'  => array('Currency', 'getCurrencyOptions'),
+            'eval'              => array('tl_class' => 'w50', 'includeBlankOption' => true)
+        )
 	)
 );

@@ -24,11 +24,9 @@ class Currency extends Controller
     public function getCurrencyOptions()
     {
         $this->loadLanguageFile('li_currency');
-        
-        $currencies = array_keys($GLOBALS['TL_LANG']['li_currency']['currency']);
-        
+
         $options = array();
-        foreach ($currencies as $currency => $name)
+        foreach ($GLOBALS['TL_LANG']['li_currency']['currency'] as $currency => $name)
         {
             $options[$currency] = $name;
         }
