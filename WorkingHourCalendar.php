@@ -75,9 +75,10 @@ class WorkingHourCalendar extends BackendModule
 		}
 
 		$this->loadLanguageFile('tl_li_working_hour');
+		$lang = $GLOBALS['TL_LANG']['tl_li_working_hour'];
 
 		$this->Template->hours = $hours;
-		$this->Template->lang = $GLOBALS['TL_LANG']['tl_li_working_hour'];
+		$this->Template->lang = $lang;
 
 		return $this->Template->parse();
 	}

@@ -17,7 +17,6 @@ $GLOBALS['TL_LANG']['tl_li_service']['toServiceType'] = array('Leistungstyp', 'B
 $GLOBALS['TL_LANG']['tl_li_service']['title'] = array('Titel', 'Bitte geben Sie den Titel ein.');
 $GLOBALS['TL_LANG']['tl_li_service']['price'] = array('Preis', 'Bitte geben Sie den Preis ein.');
 $GLOBALS['TL_LANG']['tl_li_service']['taxRate'] = array('Steuersatz in %', 'Bitte geben Sie den Steuersatz in % ein.');
-$GLOBALS['TL_LANG']['tl_li_service']['currency'] = array('Währung', 'Bitte wählen sie die Währung, in der der Preis angegeben ist.');
 
 $GLOBALS['TL_LANG']['tl_li_service']['new'] = array('Neue Leistung', 'Eine neue Leistung anlegen');
 $GLOBALS['TL_LANG']['tl_li_service']['edit'] = array('Leistung bearbeiten', 'Die Leistung mit der ID %s bearbeiten');

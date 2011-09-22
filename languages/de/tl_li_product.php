@@ -15,7 +15,6 @@ $GLOBALS['TL_LANG']['tl_li_product']['title'] = array('Titel', 'Bitte geben Sie 
 $GLOBALS['TL_LANG']['tl_li_product']['toProductType'] = array('Produkttyp', 'Bitte wählen Sie den Produkttyp aus.');
 $GLOBALS['TL_LANG']['tl_li_product']['price'] = array('Preis', 'Bitte geben Sie den Preis ein.');
 $GLOBALS['TL_LANG']['tl_li_product']['taxRate'] = array('Steuersatz in %', 'Bitte geben Sie den Steuersatz in % ein.');
-$GLOBALS['TL_LANG']['tl_li_product']['currency'] = array('Währung', 'Bitte wählen sie die Währung, in der der Preis angegeben ist.');
 
 $GLOBALS['TL_LANG']['tl_li_product']['new'] = array('Neues Produkt', 'Ein neue Produkt anlegen');
 $GLOBALS['TL_LANG']['tl_li_product']['edit'] = array('Produkt bearbeiten', 'Das Produkt mit der ID %s bearbeiten');
