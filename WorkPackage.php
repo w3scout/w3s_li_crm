@@ -69,9 +69,18 @@ class WorkPackage extends Controller
      */
     public function getGroupLabel($currentLabel)
     {
-        // Only modify the label if it's a numeric id - meaning that the foreignKey wasn't matchen
-        if (!empty($currentLabel))
-            return $currentLabel;
+        // Only modify the label if it's a numeric id - meaning that the foreignKey wasn't matched
+        if (!empty($currentLabel)) {
+
+            // Add the customer to the group label
+            $getCustomer = $this->Database->prepare("SELECT c.customerName
+                FROM tl_li_work_package wp
+                INNER JOIN tl_li_project p ON wp.toProject = p.id
+                INNER JOIN tl_member c ON p.toCustomer = c.id
+                WHERE p.title = ?")->execute($currentLabel);
+
+            return $getCustomer->customerName.' - '.$currentLabel;
+        }
         
 		// Load language file for workpackages
 		$this->loadLanguageFile('tl_li_work_package');
