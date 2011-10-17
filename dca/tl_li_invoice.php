@@ -10,6 +10,7 @@
 /**
  * Table tl_li_invoice
  */
+$this->loadLanguageFile('tl_li_invoice_reminder');
 $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 (
 

@@ -89,25 +89,29 @@ class Invoice extends BackendModule
 
     public function generationIcon($row, $href, $label, $title, $icon, $attributes)
     {
-        if ($row['enableGeneration'] && $row['isOut']) {
+    	$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['generate'][0];
+        if ($row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress']) {
             $href = '&amp;do=li_invoices&amp;key=print&amp;id=' . $row['id'];
-            return '<a href="' . $this->addToUrl($href) . '"><img src="system/modules/li_crm/icons/invoice_generation.png" alt="" /></a> ';
+			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['generate'][1], $row['id']);
+            return '<a href="' . $this->addToUrl($href) . '" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_generation.png" alt="'.$alt.'" /></a> ';
         }
         else
         {
-            return '<img src="system/modules/li_crm/icons/invoice_generation_disabled.png" alt="" /> ';
+            return '<img src="system/modules/li_crm/icons/invoice_generation_disabled.png" alt="'.$alt.'" /> ';
         }
     }
 
     public function dispatchIcon($row, $href, $label, $title, $icon, $attributes)
     {
+    	$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][0];
         if ($row['isOut'] && $row['file'] != '') {
             $href = '&amp;do=li_invoices&amp;key=send&amp;id=' . $row['id'];
-            return '<a href="' . $this->addToUrl($href) . '"><img src="system/modules/li_crm/icons/invoice_send.png" alt="" /></a> ';
+			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][1], $row['id']);
+            return '<a href="' . $this->addToUrl($href) . '" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_send.png" alt="'.$alt.'" /></a> ';
         }
         else
         {
-            return '<img src="system/modules/li_crm/icons/invoice_send_disabled.png" alt="" /> ';
+            return '<img src="system/modules/li_crm/icons/invoice_send_disabled.png" alt="'.$alt.'" /> ';
         }
     }
 
