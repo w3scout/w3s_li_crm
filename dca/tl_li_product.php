@@ -26,7 +26,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 		'sorting' => array
 		(
 			'mode'                    => 1,
-			'fields'                  => array('toProductType'),
+			'fields'                  => array('toProductType', 'title'),
 			'flag'                    => 1
 		),
 		'label' => array
