@@ -26,13 +26,13 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 		'sorting' => array
 		(
 			'mode'                    => 1,
-			'fields'                  => array('toProductType', 'title'),
+			'fields'                  => array('toProductType', 'number'),
 			'flag'                    => 1
 		),
 		'label' => array
 		(
-			'fields'                  => array('title'),
-			'format'                  => '%s'
+			'fields'                  => array('number', 'title'),
+			'format'                  => '%s - %s'
 		),
 		'global_operations' => array
 		(
@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend}, title, toProductType, price, taxRate;'
+		'default'                     => '{product_legend}, number, toProductType, title, price, taxRate;'
 	),
 
 	// Subpalettes
@@ -90,6 +90,12 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	// Fields
 	'fields' => array
 	(
+		'number' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['number'],
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+		),
 		'toProductType' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['toProductType'],

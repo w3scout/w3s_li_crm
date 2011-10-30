@@ -90,6 +90,7 @@ CREATE TABLE `tl_li_service_type` (
 CREATE TABLE `tl_li_product` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
+  `number` varchar(255) NOT NULL default '',
   `toProductType` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `price` double NOT NULL default '0',
