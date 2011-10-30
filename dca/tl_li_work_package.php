@@ -71,11 +71,11 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 	'palettes' => array
 	(
 		'__selector__'  => array('isExternal'),
-		'default'       => '{package_legend}, title, hourLimit, toHourlyWage; {settings_legend}, isExternal;'
+		'default'       => '{package_legend},title,hourLimit,toHourlyWage;{settings_legend},isExternal;'
 	),
 	'subpalettes' => array
 	(
-		'isExternal' => 'toProject'
+		'isExternal' => 'toProject,printOnInvoice'
 	),
 	'fields' => array
 	(
@@ -96,22 +96,28 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
             'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage'],
             'inputType'         => 'select',
             'foreignKey'        => 'tl_li_hourly_wage.title',
-            'eval'              => array('mandatory' => true, 'includeBlankOption' => true),
+            'eval'              => array('mandatory' => true, 'includeBlankOption' => true, 'tl_class'=>'clr'),
             'options_callback'  => array('HourlyWage', 'getHourlyWagesList'),
         ),
 		'isExternal' => array
         (
         	'label'     => &$GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'],
         	'inputType' => 'checkbox',
-        	'eval'      => array('submitOnChange' => true, 'tl_class' => 'w50')
+        	'eval'      => array('submitOnChange' => true, 'tl_class' => 'clr')
         ),
         'toProject' => array
 		(
 			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'],
             'foreignKey'        => 'tl_li_project.title',
 			'inputType'         => 'select',
-			'eval'              => array('mandatory' => true, 'tl_class' => 'w50'),
-			'options_callback'  => array('Project', 'getProjectsByCustomerList')
+			'options_callback'  => array('Project', 'getProjectsByCustomerList'),
+			'eval'              => array('mandatory' => true, 'tl_class' => 'w50')
 		),
+		'printOnInvoice' => array
+		(
+			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['printOnInvoice'],
+			'inputType'         => 'checkbox',
+			'eval'              => array('tl_class'=>'w50'),
+		)
 	)
 );

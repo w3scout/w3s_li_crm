@@ -17,6 +17,7 @@ $GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit'] = array('Stundenlimit', '
 $GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage'] = array('Stundensatz', 'Der Stundensatz, der für dieses Arbeitspaket berechnet wird.');
 $GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'] = array('Extern', 'Handelt es sich um ein externes Arbeitspaket?');
 $GLOBALS['TL_LANG']['tl_li_work_package']['toProject'] = array('Projekt', 'Bitte wählen Sie ein Projekt aus.');
+$GLOBALS['TL_LANG']['tl_li_work_package']['printOnInvoice'] = array('Auf Rechnung drucken', 'Sollen die Stunden auf eine Rechnung gedruckt werden können?');
 
 $GLOBALS['TL_LANG']['tl_li_work_package']['new'] = array('Neues Arbeitspaket', 'Ein neues Arbeitspaket anlegen');
 $GLOBALS['TL_LANG']['tl_li_work_package']['edit'] = array('Arbeitspaket bearbeiten', 'Das Arbeitspaket mit der ID %s bearbeiten');
