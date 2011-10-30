@@ -83,6 +83,12 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'href'                => 'act=show',
 				'icon'                => 'show.gif'
 			),
+			'showFile' => array
+			(
+                'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['showFile'],
+				'icon'                => 'system/modules/li_crm/icons/invoice_show.png',
+				'button_callback'     => array('Invoice', 'showFile')
+			),
 			'generate' => array
 			(
                 'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['generate'],

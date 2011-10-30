@@ -35,6 +35,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array('Rechnung löschen', 'Die
 $GLOBALS['TL_LANG']['tl_li_invoice']['show'] = array('Rechnung anzeigen', 'Die Rechnung mit der ID %s anzeigen');
 $GLOBALS['TL_LANG']['tl_li_invoice']['generate'] = array('Rechnung generieren', 'Die Rechnung mit der ID %s generieren');
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array('Rechnung verschicken', 'Die Rechnung mit der ID %s an den Kunden schicken');
+$GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Rechnungsdatei anzeigen', 'Die Rechnungsdatei mit der ID %s anzeigen');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['income'] = 'Einnahme';
 $GLOBALS['TL_LANG']['tl_li_invoice']['expense'] = 'Ausgabe';

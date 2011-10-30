@@ -87,6 +87,21 @@ class Invoice extends BackendModule
         }
     }
 
+	public function showFile($row, $href, $label, $title, $icon, $attributes)
+    {
+    	$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][0];
+        if ($row['file']) {
+            $href = $row['file'];
+			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][1], $row['id']);
+			
+            return '<a href="/'.$href.'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_show_file.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<img src="system/modules/li_crm/icons/invoice_show_file_disabled.png" alt="'.$alt.'" /> ';
+        }
+    }
+
     public function generationIcon($row, $href, $label, $title, $icon, $attributes)
     {
     	$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['generate'][0];

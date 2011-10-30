@@ -35,6 +35,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array('Delete invoice', 'Delete
 $GLOBALS['TL_LANG']['tl_li_invoice']['show'] = array('Show invoice', 'Show the invoice with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_invoice']['generate'] = array('Generate invoice', 'Generate the invoice with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array('Dispatch invoice', 'Dispatch the invoice with the ID %s to the customer');
+$GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Show invoice file', 'Show the invoice file with the ID %s');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['income'] = 'Income';
 $GLOBALS['TL_LANG']['tl_li_invoice']['expense'] = 'Expense';
