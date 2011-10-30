@@ -10,13 +10,14 @@ if (!defined('TL_ROOT'))
  */
 
 $GLOBALS['TL_LANG']['tl_li_service']['service_legend'] = 'Service';
+$GLOBALS['TL_LANG']['tl_li_service']['price_legend'] = 'Price';
 
 $GLOBALS['TL_LANG']['tl_li_service']['toCustomer'] = array('Customer', 'Please choose a customer.');
 $GLOBALS['TL_LANG']['tl_li_service']['toProject'] = array('Project', 'Please choose a project.');
 $GLOBALS['TL_LANG']['tl_li_service']['toServiceType'] = array('Service type', 'Please choose a service type.');
 $GLOBALS['TL_LANG']['tl_li_service']['title'] = array('Title', 'Please enter a title.');
 $GLOBALS['TL_LANG']['tl_li_service']['price'] = array('Price', 'Please enter a price.');
-$GLOBALS['TL_LANG']['tl_li_service']['taxRate'] = array('Tax rate', 'Please enter a tax rate in percent.');
+$GLOBALS['TL_LANG']['tl_li_service']['taxRate'] = array('Tax rate', 'Please choose the tax rate.');
 
 $GLOBALS['TL_LANG']['tl_li_service']['new'] = array('New service', 'Create a new service');
 $GLOBALS['TL_LANG']['tl_li_service']['edit'] = array('Edit service', 'Edit the service with the ID %s');

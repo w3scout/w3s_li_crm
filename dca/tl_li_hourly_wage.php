@@ -5,6 +5,7 @@ if (!defined('TL_ROOT'))
 /**
  * @copyright	Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author		ApoY2k <apoy2k@gmail.com>
+ * @author		Christian Kolb <info@liplex.de>
  * @license		MIT (see /LICENSE.txt for further information)
  */
 $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
@@ -71,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array(),
-		'default'		=> '{wage_legend},title,wage,taxRate;'
+		'default'		=> '{wage_legend},title;{price_legend},wage,taxRate;'
 	),
 	'fields' => array
 	(
@@ -81,7 +82,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'inputType'	=> 'text',
 			'default'	=> '',
             'search'    => true,
-			'eval'		=> array('mandatory' => true, 'tl_class' => 'w50'),
+			'eval'		=> array('mandatory' => true),
 		),
 		'wage' => array
 		(
@@ -94,9 +95,10 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		),
         'taxRate' => array
 		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate'],
-			'inputType' => 'text',
-			'eval'      => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
+			'label'     	   => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate'],
+			'inputType' 	   => 'select',
+			'options_callback' => array('CompanySettings', 'getTaxOptions'),
+			'eval'      	   => array('mandatory'=>true, 'tl_class'=>'w50')
 		)
 	)
 );
