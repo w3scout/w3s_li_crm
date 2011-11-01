@@ -41,6 +41,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		),
 		'global_operations' => array
 		(
+            'reports' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['reports'],
+				'href'                => 'key=graph',
+				'class'               => 'header_invoice_reports',
+				'attributes'          => 'onclick="Backend.getScrollOffset();"'
+			),
             'reminder' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['reminder'],

@@ -35,6 +35,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array('Delete invoice', 'Delete
 $GLOBALS['TL_LANG']['tl_li_invoice']['show'] = array('Show invoice', 'Show the invoice with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_invoice']['generate'] = array('Generate invoice', 'Generate the invoice with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array('Dispatch invoice', 'Dispatch the invoice with the ID %s to the customer');
+$GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array('Reports', 'Show the reports for the invoices');
+$GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Reminders', 'Manage invoice reminders');
 $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Show invoice file', 'Show the invoice file with the ID %s');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['income'] = 'Income';
@@ -81,5 +83,3 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'] = 'Dear Mrs. %s,<br
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_dispatch'] = 'Invoice dispatch';
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_successful'] = 'The invoice was delivered successful.';
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_failed'] = 'The invoice could not be delivered successful. For more information view the system log.';
-
-$GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Invoice reminders', 'Manage invoice reminders');

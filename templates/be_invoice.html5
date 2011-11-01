@@ -9,7 +9,289 @@
             </div>
             <a class="back_link" href="contao/main.php?do=li_invoices"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']; ?></a>
         </div>
-        <?php else: ?>
+        <?php elseif($this->key == 'graph'): ?>
+        <script type="text/javascript" src="system/modules/li_crm/js/MilkChart.yc.js"></script>
+        <h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['graph']; ?>Rechnungsverlauf - Jahresübersicht</h2>
+        <div class="tl_module_desc">
+        	<div class="graph_display">
+	            <table id="graph_year">
+	            	<thead>
+	            		<th>Einnahmen</th>
+	            		<th>Ausgaben</th>
+	            	</thead>
+	            	<tbody>
+	            		<tr>
+	            			<td>10</td>
+	            			<td>20</td>
+	            		</tr>
+	            		<tr>
+	            			<td>30</td>
+	            			<td>40</td>
+	            		</tr>
+	            		<tr>
+	            			<td>30</td>
+	            			<td>40</td>
+	            		</tr>
+	            		<tr>
+	            			<td>50</td>
+	            			<td>80</td>
+	            		</tr>
+	            		<tr>
+	            			<td>50</td>
+	            			<td>90</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>1100</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            	</tbody>
+	            	<tfoot>
+	            		<tr>
+	            			<td>Jan.</td>
+	            			<td>Feb.</td>
+	            			<td>März</td>
+	            			<td>Apr.</td>
+	            			<td>Mai.</td>
+	            			<td>Juni</td>
+	            			<td>Juli</td>
+	            			<td>Aug.</td>
+	            			<td>Sep.</td>
+	            			<td>Okt.</td>
+	            			<td>Nov.</td>
+	            			<td>Dez.</td>
+	            		</tr>
+	            	</tfoot>
+	            </table>
+	            <script>
+	            	window.addEvent('domready', function() {
+					    var graph_year = new MilkChart.Line('graph_year',{
+							width: 680,
+							height: 300,
+							border: 0,
+							font: 'Verdana',
+							fontColor: '#666966',
+							showTicks: false,
+							padding: 15,
+							lineWeight: 2,
+							showValues: true,
+							colors: ['#255d10', '#c32a2a'], 
+							useZero: false,
+							useFooter: true
+						}); 
+					})
+	            </script>
+            </div>
+            <h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['graph']; ?>Rechnungsverlauf - Monatsübersicht</h2>
+        	<div class="graph_display">
+	            <table id="graph_month">
+	            	<thead>
+	            		<th>Einnahmen</th>
+	            		<th>Ausgaben</th>
+	            	</thead>
+	            	<tbody>
+	            		<tr>
+	            			<td>10</td>
+	            			<td>20</td>
+	            		</tr>
+	            		<tr>
+	            			<td>30</td>
+	            			<td>40</td>
+	            		</tr>
+	            		<tr>
+	            			<td>30</td>
+	            			<td>40</td>
+	            		</tr>
+	            		<tr>
+	            			<td>50</td>
+	            			<td>80</td>
+	            		</tr>
+	            		<tr>
+	            			<td>50</td>
+	            			<td>90</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>1100</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            	</tbody>
+	            	<tfoot>
+	            		<tr>
+	            			<td>Jan.</td>
+	            			<td>Feb.</td>
+	            			<td>März</td>
+	            			<td>Apr.</td>
+	            			<td>Mai.</td>
+	            			<td>Juni</td>
+	            			<td>Juli</td>
+	            			<td>Aug.</td>
+	            			<td>Sep.</td>
+	            			<td>Okt.</td>
+	            			<td>Nov.</td>
+	            			<td>Dez.</td>
+	            		</tr>
+	            	</tfoot>
+	            </table>
+	            <script>
+	            	window.addEvent('domready', function() {
+					    var graph_month = new MilkChart.Line('graph_month',{
+							width: 680,
+							height: 300,
+							border: 0,
+							font: 'Verdana',
+							fontColor: '#666966',
+							showTicks: false,
+							padding: 15,
+							lineWeight: 2,
+							showValues: true,
+							useZero: false,
+							useFooter: true
+						}); 
+					})
+	            </script>
+            </div>
+            <h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['graph']; ?>Rechnungsverlauf - Wochenübersicht</h2>
+        	<div class="graph_display">
+	            <table id="graph_week">
+	            	<thead>
+	            		<th>Einnahmen</th>
+	            		<th>Ausgaben</th>
+	            	</thead>
+	            	<tbody>
+	            		<tr>
+	            			<td>10</td>
+	            			<td>20</td>
+	            		</tr>
+	            		<tr>
+	            			<td>30</td>
+	            			<td>40</td>
+	            		</tr>
+	            		<tr>
+	            			<td>30</td>
+	            			<td>40</td>
+	            		</tr>
+	            		<tr>
+	            			<td>50</td>
+	            			<td>80</td>
+	            		</tr>
+	            		<tr>
+	            			<td>50</td>
+	            			<td>90</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>1100</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            		<tr>
+	            			<td>110</td>
+	            			<td>100</td>
+	            		</tr>
+	            	</tbody>
+	            	<tfoot>
+	            		<tr>
+	            			<td>Jan.</td>
+	            			<td>Feb.</td>
+	            			<td>März</td>
+	            			<td>Apr.</td>
+	            			<td>Mai.</td>
+	            			<td>Juni</td>
+	            			<td>Juli</td>
+	            			<td>Aug.</td>
+	            			<td>Sep.</td>
+	            			<td>Okt.</td>
+	            			<td>Nov.</td>
+	            			<td>Dez.</td>
+	            		</tr>
+	            	</tfoot>
+	            </table>
+	            <script>
+	            	window.addEvent('domready', function() {
+					    var graph_week = new MilkChart.Line('graph_week',{
+							width: 680,
+							height: 300,
+							border: 0,
+							font: 'Verdana',
+							fontColor: '#666966',
+							showTicks: false,
+							padding: 15,
+							lineWeight: 2,
+							showValues: true,
+							useZero: false,
+							useFooter: true
+						}); 
+					})
+	            </script>
+            </div>
+            <a class="back_link" href="contao/main.php?do=li_invoices"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']; ?></a>
+        </div>
+        <?php elseif($this->key == 'send'): ?>
         <h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_dispatch']; ?></h2>
         <div class="tl_module_desc">
             <p>

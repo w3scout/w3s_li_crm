@@ -35,6 +35,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array('Rechnung löschen', 'Die
 $GLOBALS['TL_LANG']['tl_li_invoice']['show'] = array('Rechnung anzeigen', 'Die Rechnung mit der ID %s anzeigen');
 $GLOBALS['TL_LANG']['tl_li_invoice']['generate'] = array('Rechnung generieren', 'Die Rechnung mit der ID %s generieren');
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array('Rechnung verschicken', 'Die Rechnung mit der ID %s an den Kunden schicken');
+$GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array('Berichte', 'Den Verlauf der Rechnungen anzeigen');
+$GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Erinnerungen', 'Rechnungserinnerungen verwalten');
 $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Rechnungsdatei anzeigen', 'Die Rechnungsdatei mit der ID %s anzeigen');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['income'] = 'Einnahme';
@@ -81,5 +83,3 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'] = 'Sehr geehrte Fra
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_dispatch'] = 'Rechnungsversand';
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_successful'] = 'Die Rechnung wurde erfolgreich versant.';
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_failed'] = 'Die Rechnung konnte nicht versant werden. Genauere Informationen entnehmen Sie bitte dem System Log.';
-
-$GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Rechnungserinnerungen', 'Rechnungserinnerungen verwalten');
