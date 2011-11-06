@@ -201,6 +201,7 @@ CREATE TABLE `tl_li_invoice` (
   `isSingular` char(1) NOT NULL default '',
   `isOut` char(1) NOT NULL default '',
   `enableGeneration` char(1) NOT NULL default '',
+  `headline` varchar(255) NOT NULL default '',
   `toTemplate` int(10) unsigned NOT NULL default '0',
   `toAddress` int(10) unsigned NOT NULL default '0',
   `positions` text NOT NULL,

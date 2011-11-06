@@ -25,6 +25,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['file'] = array('Rechnung', 'Bitte wählen 
 $GLOBALS['TL_LANG']['tl_li_invoice']['isOut'] = array('Ausgangsrechnung?', 'Ist die Rechnung eine Ausgangsrechnung?');
 $GLOBALS['TL_LANG']['tl_li_invoice']['isSingular'] = array('Einmalige Rechnung?', 'Ist die Rechnung eine einmalige Rechnung?');
 $GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'] = array('Generierung aktivieren', 'Rechnungsgenerierung aktivieren.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['headline'] = array('Überschrift', 'Bitte geben Sie die Überschrift ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Rechnungstemplate', 'Bitte wählen Sie das Rechnungstemplate aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Rechnungsadresse', 'Bitte wählen Sie die Rechnungsadresse aus.');
 

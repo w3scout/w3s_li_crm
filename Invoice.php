@@ -308,7 +308,7 @@ class Invoice extends BackendModule
 		$this->log('Generate new invoice', 'Generate invoice with id '.$id, TL_FILES);
 
 		// Get data
-		$objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.toAddress, i.positions, i.isOut, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder
+		$objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.toAddress, i.positions, i.isOut, i.headline, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder
                                                 FROM tl_li_invoice AS i
                                                 INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
                                                 WHERE i.id = ?")->limit(1)->execute($id);
@@ -454,7 +454,7 @@ class Invoice extends BackendModule
 				'invoice_date' => date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate),
 				'invoice_number_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number'],
 				'invoice_number' => $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']),
-				'invoice_title' => $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
+				'invoice_title' => empty($objInvoice->headline) ? $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'] : $objInvoice->headline,
 				'invoice_introduction' => sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
 				'customer_name' => $objAddress->company,
 				'customer_firstname' => $objAddress->firstname,

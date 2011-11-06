@@ -25,6 +25,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['file'] = array('Invoice', 'Please choose a
 $GLOBALS['TL_LANG']['tl_li_invoice']['isOut'] = array('Outgoing', 'Is the invoice outgoing?');
 $GLOBALS['TL_LANG']['tl_li_invoice']['isSingular'] = array('Singular', 'Is the invoice singular?');
 $GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'] = array('Activate creation', 'Activate automatic creation.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['headline'] = array('Headline', 'Please enter a headline.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Invoice template', 'Please choose an invoice template.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Invoice address', 'Please choose an invoice address.');
 
