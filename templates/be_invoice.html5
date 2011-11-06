@@ -9,17 +9,17 @@
             </div>
             <a class="back_link" href="contao/main.php?do=li_invoices"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']; ?></a>
         </div>
-        <?php elseif($this->key == 'graph'): ?>
+        <?php elseif($this->key == 'reports'): ?>
 		<script type="text/javascript" src="system/modules/li_crm/js/MilkChart.yc.js"></script>
 		    
-		<h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['graph']; ?>Rechnungsverlauf - Monatsübersicht</h2>
+		<h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['report_month']; ?></h2>
 		<div class="tl_module_desc">
 			<div class="graph_display">
 				<table id="graph_month">
 					<thead>
 						<tr>
-							<th>Einnahmen</th>
-							<th>Ausgaben</th>
+							<th><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['report_income']; ?></th>
+							<th><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['report_expenses']; ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -51,7 +51,7 @@
 							lineWeight: 2,
 							showValues: true,
 							colors: ['#255d10', '#c32a2a'], 
-							useZero: false,
+							useZero: true,
 							useFooter: true
 						}); 
 					})
@@ -59,14 +59,14 @@
 			</div>
 		</div>
 
-		<h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['graph']; ?>Rechnungsverlauf - Jahresübersicht</h2>
+		<h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['report_year']; ?></h2>
 		<div class="tl_module_desc">
 			<div class="graph_display">
 				<table id="graph_year">
 					<thead>
 						<tr>
-							<th>Einnahmen</th>
-							<th>Ausgaben</th>
+							<th><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['report_income']; ?></th>
+							<th><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['report_expenses']; ?></th>
 						</tr>
 					</thead>
 					<tbody>

@@ -39,6 +39,11 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array('Berichte', 'Den Verlauf
 $GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Erinnerungen', 'Rechnungserinnerungen verwalten');
 $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Rechnungsdatei anzeigen', 'Die Rechnungsdatei mit der ID %s anzeigen');
 
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_month'] = 'Rechnungsverlauf - Monatsübersicht';
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_year'] = 'Rechnungsverlauf - Jahresübersicht';
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_income'] = 'Einnahmen';
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_expenses'] = 'Ausgaben';
+
 $GLOBALS['TL_LANG']['tl_li_invoice']['income'] = 'Einnahme';
 $GLOBALS['TL_LANG']['tl_li_invoice']['expense'] = 'Ausgabe';
 $GLOBALS['TL_LANG']['tl_li_invoice']['tax_number'] = 'Steuernummer';

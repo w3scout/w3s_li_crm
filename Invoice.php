@@ -34,9 +34,9 @@ class Invoice extends BackendModule
 		{
 			$this->Template->filePath = $this->printInvoice($id);
 		}
-		elseif ($key == 'graph')
+		elseif ($key == 'reports')
 		{
-			$this->Template->graphData = $this->generateGraph();
+			$this->Template->graphData = $this->generateReports();
 		}
 		elseif ($key == 'send')
 		{
@@ -535,13 +535,119 @@ class Invoice extends BackendModule
 		return $templateLink;
 	}
 
-	private function generateGraph()
+	private function generateReports()
 	{
 		$graphData = array(
-				'week',
 				'month',
 				'year'
 		);
+
+		// Month
+		$currentMonth = date('m');
+		$currentYear = date('Y');
+		
+		$startYear = ($currentMonth - 9 > 0) ? $currentYear : $currentYear - 1;
+		$startMonth = ($currentMonth - 9 > 0) ? $currentMonth - 9 : 12 - (($currentMonth - 9) * -1);
+
+		$monthData = array();
+		$tmpMonthData = array();
+
+		if ($currentMonth - 9 > 0)
+		{
+			$monthInSql = "SELECT MONTH(FROM_UNIXTIME(invoiceDate)) AS currentMonth, YEAR(FROM_UNIXTIME(invoiceDate)) AS currentYear, SUM(price) AS sumPrice
+					       FROM tl_li_invoice
+					       WHERE isOut = ''
+					       	AND MONTH(FROM_UNIXTIME(invoiceDate)) >= ?
+					 		AND MONTH(FROM_UNIXTIME(invoiceDate)) <= ? 
+					 		AND YEAR(FROM_UNIXTIME(invoiceDate)) = ? 
+					   	   GROUP BY MONTH(FROM_UNIXTIME(invoiceDate))
+					   	   ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)), MONTH(FROM_UNIXTIME(invoiceDate))";
+			$monthOutSql = "SELECT MONTH(FROM_UNIXTIME(invoiceDate)) AS currentMonth, YEAR(FROM_UNIXTIME(invoiceDate)) AS currentYear, SUM(price) AS sumPrice
+							FROM tl_li_invoice
+							WHERE isOut = '1'
+								AND MONTH(FROM_UNIXTIME(invoiceDate)) >= ?
+					 			AND MONTH(FROM_UNIXTIME(invoiceDate)) <= ?
+					 			AND YEAR(FROM_UNIXTIME(invoiceDate)) = ?
+					 		GROUP BY MONTH(FROM_UNIXTIME(invoiceDate))
+					 		ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)), MONTH(FROM_UNIXTIME(invoiceDate))";
+							
+			$objMonthIn = $this->Database->prepare($monthInSql)->execute($startMonth, $currentMonth, $currentYear);
+			$objMonthOut = $this->Database->prepare($monthOutSql)->execute($startMonth, $currentMonth, $currentYear);
+		}
+		else
+		{
+			$monthInSql = "SELECT MONTH( FROM_UNIXTIME( invoiceDate ) ) AS	currentMonth , YEAR( FROM_UNIXTIME( invoiceDate ) ) AS currentYear, SUM( price ) AS sumPrice
+							FROM tl_li_invoice
+							WHERE isOut = ''
+								AND
+								(
+									(MONTH( FROM_UNIXTIME( invoiceDate ) ) >= ?
+									AND MONTH( FROM_UNIXTIME( invoiceDate ) ) <= 12
+									AND YEAR( FROM_UNIXTIME( invoiceDate ) ) = ?)
+									OR
+									(MONTH( FROM_UNIXTIME( invoiceDate ) ) >= 1
+									AND MONTH( FROM_UNIXTIME( invoiceDate ) ) <= ?
+									AND YEAR( FROM_UNIXTIME( invoiceDate ) ) = ?)
+								)
+							GROUP BY MONTH( FROM_UNIXTIME( invoiceDate ) )";
+			$monthOutSql = "SELECT MONTH( FROM_UNIXTIME( invoiceDate ) ) AS	currentMonth , YEAR( FROM_UNIXTIME( invoiceDate ) ) AS currentYear, SUM( price ) AS sumPrice
+							FROM tl_li_invoice
+							WHERE isOut = '1'
+								AND
+								(
+									(MONTH( FROM_UNIXTIME( invoiceDate ) ) >= ?
+									AND MONTH( FROM_UNIXTIME( invoiceDate ) ) <= 12
+									AND YEAR( FROM_UNIXTIME( invoiceDate ) ) = ?)
+									OR
+									(MONTH( FROM_UNIXTIME( invoiceDate ) ) >= 1
+									AND MONTH( FROM_UNIXTIME( invoiceDate ) ) <= ?
+									AND YEAR( FROM_UNIXTIME( invoiceDate ) ) = ?)
+								)
+							GROUP BY MONTH( FROM_UNIXTIME( invoiceDate ) )";
+			
+			$objMonthIn = $this->Database->prepare($monthInSql)->execute($startMonth, $startYear, $currentMonth, $currentYear);
+			$objMonthOut = $this->Database->prepare($monthOutSql)->execute($startMonth, $startYear, $currentMonth, $currentYear);
+		}
+
+		while ($objMonthIn->next() != null)
+		{
+			$tmpMonthData['in-'.$objMonthIn->currentYear.'-'.$objMonthIn->currentMonth] = $objMonthIn->sumPrice;
+		}
+		while ($objMonthOut->next() != null)
+		{
+			$tmpMonthData['out-'.$objMonthOut->currentYear.'-'.$objMonthOut->currentMonth] = $objMonthOut->sumPrice;
+		}
+
+		$sumIn = 0;
+		$sumOut = 0;
+
+		$countYear = $startYear;
+		$countMonth = $startMonth;
+
+		for ($i = 0; $i < 10; $i++)
+		{
+			$entry = array();
+
+			$sumIn += $tmpMonthData['in-'.$countYear.'-'.$countMonth];
+			$sumOut += $tmpMonthData['out-'.$countYear.'-'.$countMonth];
+
+			$entry['in'] = $sumIn;
+			$entry['out'] = $sumOut;
+
+			$timestamp = mktime(0, 0, 0, $countMonth, 1, $countYear);
+			$entry['label'] = $this->parseDate("M", $timestamp);
+
+			$countMonth++;
+			if ($countMonth > 12)
+			{
+				$countMonth = 1;
+				$countYear++;
+			}
+
+			$monthData[] = $entry;
+		}
+
+		$graphData['month'] = $monthData;
 
 		// Year
 		$currentYear = date('Y');
@@ -591,73 +697,6 @@ class Invoice extends BackendModule
 		}
 
 		$graphData['year'] = $yearData;
-
-		// Month
-		$currentMonth = date('m');
-		$currentYear = date('Y');
-		$startYear = ($currentMonth - 9 > 0) ? $currentYear : $currentYear - 1;
-		$startMonth = ($currentMonth - 9 > 0) ? $currentMonth - 9 : $currentMonth - (($currentMonth - 9) * -1);
-
-		$monthData = array();
-		$tmpMonthData = array();
-
-		$objMonthIn = $this->Database->prepare("SELECT MONTH(FROM_UNIXTIME(invoiceDate)) AS month, SUM(price) AS sumPrice
-											    FROM tl_li_invoice
-											    WHERE isOut = ''
-											   		AND MONTH(FROM_UNIXTIME(invoiceDate)) >= ?
-											   			AND YEAR(FROM_UNIXTIME(invoiceDate)) >= ?
-											 		AND MONTH(FROM_UNIXTIME(invoiceDate)) <= ? 
-											 			AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ? 
-											   	GROUP BY MONTH(FROM_UNIXTIME(invoiceDate))
-											   	ORDER BY MONTH(FROM_UNIXTIME(invoiceDate)) ASC")->execute($startMonth, $startYear, $currentMonth, $currentYear);
-		while ($objMonthIn->next() != null)
-		{
-			$tmpMonthData['in-'.$objMonthIn->month] = $objMonthIn->sumPrice;
-		}
-		// TODO: Check for dates like 08.10 - 07.11
-		$objMonthOut = $this->Database->prepare("SELECT MONTH(FROM_UNIXTIME(invoiceDate)) AS month, SUM(price) AS sumPrice
-											     FROM tl_li_invoice
-											     WHERE isOut = '1'
-											   		AND MONTH(FROM_UNIXTIME(invoiceDate)) >= ?
-											   			AND YEAR(FROM_UNIXTIME(invoiceDate)) >= ?
-											 		AND MONTH(FROM_UNIXTIME(invoiceDate)) <= ? 
-											 			AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ? 
-											   	 GROUP BY MONTH(FROM_UNIXTIME(invoiceDate))
-											   	 ORDER BY MONTH(FROM_UNIXTIME(invoiceDate)) ASC")->execute($startMonth, $startYear, $currentMonth, $currentYear);
-		while ($objMonthOut->next() != null)
-		{
-			$tmpMonthData['out-'.$objMonthOut->month] = $objMonthOut->sumPrice;
-		}
-
-		// TODO: Check for month in sql
-		$objSumIn = $this->Database->prepare("SELECT SUM(price) AS sumPrice
-										   FROM tl_li_invoice
-										   WHERE isOut = ''
-										   	AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ?")->limit(1)->execute($startYear);
-		$sumIn = $objSumIn->sumPrice;
-		$objSumOut = $this->Database->prepare("SELECT SUM(price) AS sumPrice
-										   FROM tl_li_invoice
-										   WHERE isOut = '1'
-										   	AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ?")->limit(1)->execute($startYear);
-		$sumOut = $objSumOut->sumPrice;
-
-		for ($i = $startMonth; $i <= $currentMonth; $i++)
-		{
-			$entry = array();
-
-			$sumIn += $tmpMonthData['in-'.$i];
-			$sumOut += $tmpMonthData['out-'.$i];
-
-			$entry['in'] = $sumIn;
-			$entry['out'] = $sumOut;
-			
-			$timestamp = mktime(0, 0, 0, $i, 1, date('Y'));
-    		$entry['label'] = date("M", $timestamp);
-
-			$monthData[] = $entry;
-		}
-
-		$graphData['month'] = $monthData;
 
 		return $graphData;
 	}

@@ -39,6 +39,11 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array('Reports', 'Show the rep
 $GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Reminders', 'Manage invoice reminders');
 $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Show invoice file', 'Show the invoice file with the ID %s');
 
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_month'] = 'Invoiceprocess - Month overview';
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_year'] = 'Invoiceprocess - Year overview';
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_income'] = 'Income';
+$GLOBALS['TL_LANG']['tl_li_invoice']['report_expenses'] = 'Expenses';
+
 $GLOBALS['TL_LANG']['tl_li_invoice']['income'] = 'Income';
 $GLOBALS['TL_LANG']['tl_li_invoice']['expense'] = 'Expense';
 $GLOBALS['TL_LANG']['tl_li_invoice']['tax_number'] = 'Tax number';
