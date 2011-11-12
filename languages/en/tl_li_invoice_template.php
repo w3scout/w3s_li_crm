@@ -17,6 +17,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice_template']['title'] = array('Title', 'Please 
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'] = array('Invoice template', 'Please choose an invoice template.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'] = array('Logo', 'Please choose a logo.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity'] = array('Maturity', 'Enter the amount of days the customer has left to pay the invoice, if it differs from the standard settings.');
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'] = array('Description before the positions', 'Please enter the description before the positions.');
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter'] = array('Description after the positions', 'Please enter the description after the positions.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'] = array('Base path', 'Please choose a base path.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'] = array('Create periodic folder', 'Wether a periodic folder should be created.');
 

@@ -17,6 +17,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice_template']['title'] = array('Titel', 'Bitte g
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'] = array('Rechnungs-Template', 'Bitte wählen Sie das Rechnungs-Template aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'] = array('Logo', 'Bitte wählen Sie das Logo aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity'] = array('Laufzeit', 'Geben Sie die Anzahl der Tage ein, die der Kunde zur Bezahlung der Rechnung Zeit hat, falls diese von der Standardeinstellungen abweicht.');
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'] = array('Beschreibung vor den Positionen', 'Bitte geben Sie die Beschreibung vor den Positionen ein.');
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter'] = array('Beschreibung nach den Positionen', 'Bitte geben Sie die Beschreibung nach den Positionen ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'] = array('Basispfad', 'Bitte wählen Sie den Basisordner aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'] = array('Periodischen Ordner erstellen?', 'Soll ein zusätzlicher periodischer Ordner erstellt werden?');
 

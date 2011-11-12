@@ -65,7 +65,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array (
 	// Palettes
 	'palettes' => array (
 		'__selector__'                => array(''),
-		'default'                     => '{template_legend},title,html,invoice_template,logo;{invoice_data_legend},maturity;{generation_path_legend},basePath,periodFolder;'
+		'default'                     => '{template_legend},title,html,invoice_template,logo;{invoice_data_legend},maturity,descriptionBefore,descriptionAfter;{generation_path_legend},basePath,periodFolder;'
 	),
 
 	// Subpalettes
@@ -100,6 +100,20 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array (
 			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'w50')
 		),
+		'descriptionBefore' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'],
+            'inputType'               => 'textarea',
+            'exclude'   			  => true,
+			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+		),
+        'descriptionAfter' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter'],
+            'inputType'               => 'textarea',
+            'exclude'   			  => true,
+			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+		),
 		'basePath' => array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'],
 			'inputType'               => 'fileTree',
@@ -107,7 +121,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array (
 			'save_callback'           => array(
 				array('InvoiceTemplate', 'moveHtaccessFile')
 			),
-			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false)
+			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false, 'mandatory'=>true)
 		),
 		'periodFolder' => array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'],

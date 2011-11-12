@@ -29,6 +29,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'] = array('Activate creat
 $GLOBALS['TL_LANG']['tl_li_invoice']['headline'] = array('Headline', 'Please enter a headline.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Invoice template', 'Please choose an invoice template.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Invoice address', 'Please choose an invoice address.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'] = array('Description', 'Please enter the description before the positions.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'] = array('Description', 'Please enter the description after the positions.');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['new'] = array('New invoice', 'Create a new invoice');
 $GLOBALS['TL_LANG']['tl_li_invoice']['edit'] = array('Edit invoice', 'Edit the invoice with the ID %s');

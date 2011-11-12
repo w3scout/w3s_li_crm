@@ -333,7 +333,26 @@ class Invoice extends BackendModule
 		$this->log('Generate new invoice', 'Generate invoice with id '.$id, TL_FILES);
 
 		// Get data
-		$objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.toAddress, i.maturity, i.positions, i.isOut, i.headline, t.title AS templateTitle, t.invoice_template, t.logo, t.maturity AS templateMaturity, t.basePath, t.periodFolder
+		$objInvoice = $this->Database->prepare("SELECT i.title,
+													i.alias, 
+													i.invoiceDate, 
+													i.performanceDate, 
+													i.toCustomer, 
+													i.toAddress, 
+													i.maturity, 
+													i.descriptionBefore, 
+													i.positions, 
+													i.descriptionAfter, 
+													i.isOut, 
+													i.headline, 
+													t.title AS templateTitle, 
+													t.invoice_template, 
+													t.logo, 
+													t.maturity AS templateMaturity, 
+													t.descriptionBefore AS templateDescriptionBefore, 
+													t.descriptionAfter AS templateDescriptionAfter, 
+													t.basePath, 
+													t.periodFolder
                                                 FROM tl_li_invoice AS i
                                                 INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
                                                 WHERE i.id = ?")->limit(1)->execute($id);
@@ -423,6 +442,26 @@ class Invoice extends BackendModule
 		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' &#0128;</td>';
 		$htmlPositions .= '</tr>';
 
+		$descriptionBefore = '';
+		$descriptionAfter = '';
+		if ($objInvoice->descriptionBefore != '')
+		{
+			$descriptionBefore = $objInvoice->descriptionBefore;
+		}
+		elseif ($objInvoice->templateDescriptionBefore != '')
+		{
+			$descriptionBefore = $objInvoice->templateDescriptionBefore;
+		}
+		
+		if ($objInvoice->descriptionAfter != '')
+		{
+			$descriptionAfter = $objInvoice->descriptionAfter;
+		}
+		elseif ($objInvoice->templateDescriptionAfter != '')
+		{
+			$descriptionAfter = $objInvoice->templateDescriptionAfter;
+		}
+
 		if ($objInvoice->maturity != '' && $objInvoice->maturity != 0)
 		{
 			$maturityDays = $objInvoice->maturity;
@@ -470,7 +509,9 @@ class Invoice extends BackendModule
 				'position_label_label' => '/{{position_label_label}}/',
 				'position_unit_price_label' => '/{{position_unit_price_label}}/',
 				'position_total_price_label' => '/{{position_total_price_label}}/',
+				'description_before' => '/{{description_before}}/',
 				'positions' => '/{{positions}}/',
+				'description_after' => '/{{description_after}}/',
 				'performance_date_remark' => '/{{performance_date_remark}}/',
 				'maturity_remark' => '/{{maturity_remark}}/',
 				'account_data_label' => '/{{account_data_label}}/',
@@ -511,7 +552,9 @@ class Invoice extends BackendModule
 				'position_label_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
 				'position_unit_price_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'],
 				'position_total_price_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'],
+				'description_before' => $descriptionBefore,
 				'positions' => $htmlPositions,
+				'description_after' => $descriptionAfter,
 				'performance_date_remark' => $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
 				'maturity_remark' => $maturity_remark,
 				'account_data_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['account_data'],
@@ -775,7 +818,8 @@ class Invoice extends BackendModule
 		return $row % 2 == 0 ? 'odd' : 'even';
 	}
 
-	private function returnFile($id) {
+	private function returnFile($id)
+	{
 		$objInvoice = $this->Database->prepare("SELECT file AS pdfFile
                                                 FROM tl_li_invoice
                                                 WHERE id = ?")->limit(1)->execute($id);

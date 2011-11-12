@@ -29,6 +29,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'] = array('Generierung ak
 $GLOBALS['TL_LANG']['tl_li_invoice']['headline'] = array('Überschrift', 'Bitte geben Sie die Überschrift ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Rechnungstemplate', 'Bitte wählen Sie das Rechnungstemplate aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Rechnungsadresse', 'Bitte wählen Sie die Rechnungsadresse aus.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'] = array('Beschreibung', 'Bitte geben Sie die Beschreibung vor den Positionen ein.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'] = array('Beschreibung', 'Bitte geben Sie die Beschreibung nach den Positionen ein.');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['new'] = array('Neue Rechnung', 'Eine neue Rechnung erstellen');
 $GLOBALS['TL_LANG']['tl_li_invoice']['edit'] = array('Rechnung editieren', 'Die Rechnung mit der ID %s editieren');

@@ -205,7 +205,9 @@ CREATE TABLE `tl_li_invoice` (
   `headline` varchar(255) NOT NULL default '',
   `toTemplate` int(10) unsigned NOT NULL default '0',
   `toAddress` int(10) unsigned NOT NULL default '0',
+  `descriptionBefore` text NOT NULL,
   `positions` text NOT NULL,
+  `descriptionAfter` text NOT NULL,
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -232,6 +234,8 @@ CREATE TABLE `tl_li_invoice_template` (
   `invoice_template` varchar(64) NOT NULL default '',
   `logo` varchar(255) NOT NULL default '',
   `maturity` int(10) unsigned NOT NULL default '0',
+  `descriptionBefore` text NOT NULL,
+  `descriptionAfter` text NOT NULL,
   `basePath` varchar(255) NOT NULL default '',
   `periodFolder` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`id`),

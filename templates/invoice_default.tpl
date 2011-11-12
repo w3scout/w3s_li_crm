@@ -47,6 +47,7 @@
         </table>
         <h1>{{invoice_title}}</h1>
         <p>{{invoice_introduction}}</p>
+        {{description_before}}
         <table class="positions">
             <thead>
                 <tr>
@@ -61,6 +62,7 @@
                 {{positions}}
             </tbody>
         </table>
+        {{description_after}}
         <p>{{performance_date_remark}}</p>
         <p>{{maturity_remark}}</p>
         <table class="account">

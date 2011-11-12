@@ -133,7 +133,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'enableGeneration'            => 'headline,toTemplate,toAddress,positions'
+		'enableGeneration'            => 'headline,toTemplate,toAddress,descriptionBefore,positions,descriptionAfter'
 	),
 
 	// Fields
@@ -269,10 +269,24 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'options_callback'        => array('Invoice', 'getAddressOptions'),
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
+        'descriptionBefore' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'],
+            'inputType'               => 'textarea',
+            'exclude'   			  => true,
+			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+		),
         'positions' => array
         (
             'input_field_callback'    => array('Invoice', 'positionsField')
-        )
+        ),
+        'descriptionAfter' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'],
+            'inputType'               => 'textarea',
+            'exclude'   			  => true,
+			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+		)
 	)
 );
 
