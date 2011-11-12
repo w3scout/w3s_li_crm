@@ -99,12 +99,14 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'category' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['category'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'filter'                  => true,
 			'options'                 => array('phone', 'email', 'mail', 'fax', 'direct'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_li_contact']['categories'],
@@ -116,6 +118,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
             'filter'                  => true,
             'sorting'                 => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
             'options'                 => array('reached', 'not_reached'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_li_contact']['results'],
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
@@ -125,6 +128,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['direction'],
             'filter'                  => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options'                 => array('incoming', 'outgoing'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_li_contact']['directions'],
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
@@ -134,6 +138,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['startDate'],
 			'default'                 => time(),
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
 		),
         'startTime' => array
@@ -144,24 +149,28 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50')
 		),
 		'addEnd' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['addEnd'],
 			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
 			'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'clr')
 		),
 		'endDate' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['endDate'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
 		),
         'endTime' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['endTime'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'time', 'tl_class'=>'w50')
 		),
         'note' => array
@@ -169,18 +178,21 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['note'],
 			'search'                  => true,
             'inputType'               => 'textarea',
+            'exclude'   			  => true,
 			'eval'                    => array('rte'=>'tinyMCE')
 		),
         'addAttachment' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['addAttachment'],
 			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
 			'eval'                    => array('submitOnChange'=>true)
 		),
 		'attachment' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_contact']['attachment'],
 			'inputType'               => 'fileTree',
+			'exclude'   			  => true,
 			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'mandatory'=>true)
 		)
 	)

@@ -78,12 +78,14 @@ $GLOBALS['TL_DCA']['tl_li_product_type'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_type']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'icon' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_type']['icon'],
 			'inputType'               => 'fileTree',
+			'exclude'   			  => true,
 			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
 		)
 	)

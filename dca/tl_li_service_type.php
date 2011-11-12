@@ -95,24 +95,28 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service_type']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'orderNumber' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service_type']['orderNumber'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
 		'standardPrice' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service_type']['standardPrice'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
 		'icon' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service_type']['icon'],
 			'inputType'               => 'fileTree',
+			'exclude'   			  => true,
 			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
 		)
 	)

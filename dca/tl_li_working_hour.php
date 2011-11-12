@@ -29,6 +29,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 			'sorting'	=> true,
 			'flag'		=> 8,
 			'inputType'	=> 'text',
+			'exclude'   => true,
 			'eval'		=> array('rgxp' => 'date', 'mandatory' => true,
 			'datepicker' => $this->getDatePickerString(), 'tl_class' => 'w50 wizard')
 		),
@@ -36,6 +37,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 		(
 			'label'				=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['toWorkPackage'],
 			'inputType'			=> 'select',
+			'exclude'   		=> true,
 			'options_callback'	=> array('WorkPackage', 'getWorkPackages'),
 			'eval'				=> array('mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50')
 		),
@@ -43,12 +45,14 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['hours'],
 			'inputType'	=> 'text',
+			'exclude'   => true,
 			'eval'		=> array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50')
 		),
 		'minutes' => array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['minutes'],
 			'inputType' => 'text',
+			'exclude'   => true,
 			'eval'		=> array('rgxp' => 'digit', 'maxlength' => '2', 'tl_class' => 'w50')
 		)
 	)

@@ -83,7 +83,8 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['toTask'],
 			'inputType'               => 'select',
-            'foreignKey'        => 'tl_li_task.title',
+			'exclude'   			  => true,
+            'foreignKey'        	  => 'tl_li_task.title',
             'options_callback'        => array('TaskReminder', 'getTaskOptions'),
 			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true)
         ),
@@ -91,6 +92,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindOnce'],
 			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
 			'filter'                  => true,
 			'eval'                    => array('submitOnChange' => true)
         ),
@@ -102,6 +104,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'load_callback'           => array(array('TaskReminder', 'getRemindDate')),
 			'eval'                    => array('rgxp' => 'date', 'datepicker' => $this->getDatePickerString(),
                                                'tl_class' => 'w50 wizard')
@@ -110,6 +113,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindRepeatedly'],
 			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
 			'filter'                  => true,
 			'eval'                    => array('submitOnChange' => true)
         ),
@@ -118,6 +122,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindInterval'],
 			'filter'                  => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
             'options'                 => array('daily', 'weekly', 'monthly', 'yearly'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindInterval'],
 			'eval'                    => array('tl_class' => 'w50')

@@ -30,12 +30,14 @@ $GLOBALS['TL_DCA']['tl_li_customer_settings'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_customer_settings']['li_crm_customer_number_generation'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'long')
 		),
 		'li_crm_customer_number_generation_start' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_customer_settings']['li_crm_customer_number_generation_start'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'clr', 'rgxp'=>'digit')
 		)
 	)

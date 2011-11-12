@@ -32,6 +32,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProject'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true),
 			'options_callback'        => array('Project', 'getProjectsByCustomerList')
 		),
@@ -39,6 +40,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProduct'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true),
 			'options_callback'        => array('Product', 'getProductsList')
 		)

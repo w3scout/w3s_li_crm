@@ -94,6 +94,7 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_project']['toCustomer'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
 			'eval'                    => array('mandatory'=>true)
 		),
@@ -104,6 +105,7 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
         	'sorting'                 => true,
         	'flag'                    => 1,
         	'inputType'               => 'text',
+        	'exclude'   			  => true,
         	'load_callback'           => array
             (
                 array('Project', 'createNewProjectNumber')
@@ -114,6 +116,7 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_project']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		)
 	)

@@ -138,6 +138,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer'],
 			'filter'                  => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
             'options_callback'        => array('Customer', 'getCustomerOptions'),
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
         ),
@@ -146,6 +147,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['toCategory'],
 			'filter'                  => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
             'foreignKey'              => 'tl_li_invoice_category.title',
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
         ),
@@ -153,6 +155,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'search'                  => true,
 			'flag'                    => 1,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
@@ -162,6 +165,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['alias'],
 			'search'                  => true,
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'save_callback' => array
 			(
@@ -174,6 +178,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'default'                 => time(),
 			'flag'                    => 8,
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
 		),
 		'performanceDate' => array
@@ -184,6 +189,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
 		),
 		'price' => array
@@ -191,18 +197,21 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['price'],
 			'search'                  => true,
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
 		'file' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['file'],
 			'inputType'               => 'fileTree',
+			'exclude'   			  => true,
 			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr', 'extensions'=>'pdf','path'=>'tl_files')
 		),
 		'isOut' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['isOut'],
 			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
 			'filter'                  => true,
 			'eval'                    => array('tl_class'=>'w50')
 		),
@@ -210,6 +219,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['isSingular'],
 			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
 			'filter'                  => true,
 			'eval'                    => array('tl_class'=>'w50')
         ),
@@ -217,6 +227,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'],
 			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
 			'filter'                  => true,
             'eval'                    => array('submitOnChange'=>true)
         ),
@@ -224,6 +235,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['headline'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'search'                  => true,
 			'flag'                    => 1,
 			'eval'                    => array('maxlength'=>250, 'tl_class'=>'clr')
@@ -232,6 +244,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'foreignKey'              => 'tl_li_invoice_template.title',
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
@@ -239,6 +252,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options_callback'        => array('Invoice', 'getAddressOptions'),
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),

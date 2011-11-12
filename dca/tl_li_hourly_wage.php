@@ -80,6 +80,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['title'],
 			'inputType'	=> 'text',
+			'exclude'   => true,
 			'default'	=> '',
             'search'    => true,
 			'eval'		=> array('mandatory' => true),
@@ -88,6 +89,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['wage'],
 			'inputType'	=> 'text',
+			'exclude'   => true,
 			'default'	=> '',
             'rgxp'      => 'digit',
             'filter'    => true,
@@ -97,6 +99,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		(
 			'label'     	   => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate'],
 			'inputType' 	   => 'select',
+			'exclude'   	   => true,
 			'options_callback' => array('CompanySettings', 'getTaxOptions'),
 			'eval'      	   => array('mandatory'=>true, 'tl_class'=>'w50')
 		)

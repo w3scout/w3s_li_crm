@@ -33,12 +33,14 @@ $GLOBALS['TL_DCA']['tl_li_invoice_settings'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_settings']['li_crm_invoice_number_generation'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'long', 'mandatory'=>true)
 		),
 		'li_crm_invoice_number_generation_start' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_settings']['li_crm_invoice_number_generation_start'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'clr', 'rgxp'=>'digit', 'mandatory'=>true)
 		)
 	)

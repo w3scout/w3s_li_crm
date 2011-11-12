@@ -95,12 +95,14 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_category']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'orderNumber' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_category']['orderNumber'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
 	)

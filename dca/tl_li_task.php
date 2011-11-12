@@ -92,6 +92,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toProject'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options_callback'        => array('Project', 'getProjectsByCustomerList'),
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
 		),
@@ -100,6 +101,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toStatus'],
 			'filter'                  => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
             'foreignKey'              => 'tl_li_task_status.title',
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
@@ -108,6 +110,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toUser'],
 			'filter'                  => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
             'foreignKey'              => 'tl_user.username',
 			'eval'                    => array('tl_class'=>'w50')
         ),
@@ -116,6 +119,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['priority'],
 			'filter'                  => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options_callback'        => array('Task', 'getPriorityOptions'),
 			'eval'                    => array('tl_class'=>'w50')
         ),
@@ -123,6 +127,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'search'                  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
@@ -130,6 +135,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['alias'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'save_callback' => array
 			(
@@ -144,6 +150,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
 		),
 		'description' => array
@@ -151,6 +158,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['description'],
 			'search'                  => true,
 			'inputType'               => 'textarea',
+			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'clr', 'rte'=>'tinyMCE')
         )
 	)

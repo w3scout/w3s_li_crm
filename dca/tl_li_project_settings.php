@@ -33,12 +33,14 @@ $GLOBALS['TL_DCA']['tl_li_project_settings'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_project_settings']['li_crm_project_number_generation'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'long')
 		),
 		'li_crm_project_number_generation_start' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_project_settings']['li_crm_project_number_generation_start'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'clr', 'rgxp'=>'digit')
 		)
 	)

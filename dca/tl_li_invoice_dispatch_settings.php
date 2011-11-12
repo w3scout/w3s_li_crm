@@ -40,6 +40,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_dispatch_settings'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_dispatch_settings']['li_crm_invoice_dispatch_from'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'search'                  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
@@ -47,6 +48,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_dispatch_settings'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_dispatch_settings']['li_crm_invoice_dispatch_fromName'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'search'                  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		)

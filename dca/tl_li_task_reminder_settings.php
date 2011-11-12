@@ -40,6 +40,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder_settings'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder_settings']['li_crm_task_reminder_from'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'search'                  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
@@ -47,6 +48,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder_settings'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_reminder_settings']['li_crm_task_reminder_fromName'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'search'                  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		)

@@ -94,6 +94,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['toProductType'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'foreignKey'              => 'tl_li_product_type.title',
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true, 'tl_class'=>'clr')
 		),
@@ -101,24 +102,28 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['number'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
         'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'price' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['price'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
         'taxRate' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['taxRate'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options_callback'		  => array('CompanySettings', 'getTaxOptions'),
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		)

@@ -78,28 +78,31 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array (
         'title' => array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'invoice_template' => array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'],
-			'exclude'                 => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options_callback'        => array('InvoiceTemplate', 'getInvoiceTemplates')
 		),
 		'logo' => array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'],
 			'inputType'               => 'fileTree',
+			'exclude'   			  => true,
 			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
 		),
 		'basePath' => array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'],
 			'inputType'               => 'fileTree',
+			'exclude'   			  => true,
 			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false)
 		),
 		'periodFolder' => array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'],
-			'exclude'                 => true,
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options'                 => array('daily', 'weekly', 'monthly', 'yearly'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods'],
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')

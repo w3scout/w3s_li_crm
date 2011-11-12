@@ -27,6 +27,7 @@ $GLOBALS['TL_DCA']['tl_li_timekeeping_settings'] = array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_timekeeping_settings']['li_crm_timekeeping_week_mode'],
 			'inputType'	=> 'select',
+			'exclude'   => true,
 			'default'	=> '7',
 			'options'	=> &$GLOBALS['TL_LANG']['tl_li_timekeeping_settings']['calendarWeekModeOptions'],
 			'eval'		=> array('mandatory' => true, 'tl_class'=>'w50', 'helpwizard' => true),

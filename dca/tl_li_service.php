@@ -94,6 +94,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toProject'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 			'options_callback'        => array('Project', 'getProjectsByCustomerList')
 		),
@@ -101,6 +102,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toServiceType'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'foreignKey'              => 'tl_li_service_type.title',
 			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'submitOnChange' => true)
 		),
@@ -108,6 +110,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'default'                 => '-',
 			'eval'                    => array('mandatory' => true, 'maxlength' => 250, 'tl_class' => 'w50')
 		),
@@ -115,6 +118,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['price'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'load_callback'           => array(array('Service', 'getDefaultPrice')),
 			'eval'                    => array('mandatory' => true, 'maxlength' => 12, 'tl_class' => 'w50', 'rgxp' => 'digit', 'alwaysSave' => true)
 		),
@@ -122,6 +126,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['taxRate'],
 			'inputType'               => 'select',
+			'exclude'   			  => true,
 			'options_callback'		  => array('CompanySettings', 'getTaxOptions'),
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
 		)

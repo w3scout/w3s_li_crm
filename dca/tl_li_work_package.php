@@ -83,18 +83,21 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_li_work_package']['title'],
 			'inputType' => 'text',
+			'exclude'   => true,
 			'eval'      => array('mandatory' => true, 'maxlength' => 250, 'tl_class' => 'w50')
 		),
 		'hourLimit' => array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit'],
 			'inputType' => 'text',
+			'exclude'   => true,
 			'eval'      => array('rgxp' => 'digit', 'maxlength' => 4)
 		),
         'toHourlyWage' => array
         (
             'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage'],
             'inputType'         => 'select',
+            'exclude'   		=> true,
             'foreignKey'        => 'tl_li_hourly_wage.title',
             'eval'              => array('mandatory' => true, 'includeBlankOption' => true, 'tl_class'=>'clr'),
             'options_callback'  => array('HourlyWage', 'getHourlyWagesList'),
@@ -103,6 +106,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
         (
         	'label'     => &$GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'],
         	'inputType' => 'checkbox',
+        	'exclude'   => true,
         	'eval'      => array('submitOnChange' => true, 'tl_class' => 'clr')
         ),
         'toProject' => array
@@ -110,6 +114,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'],
             'foreignKey'        => 'tl_li_project.title',
 			'inputType'         => 'select',
+			'exclude'   		=> true,
 			'options_callback'  => array('Project', 'getProjectsByCustomerList'),
 			'eval'              => array('mandatory' => true, 'tl_class' => 'w50')
 		),
@@ -117,6 +122,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 		(
 			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['printOnInvoice'],
 			'inputType'         => 'checkbox',
+			'exclude'   		=> true,
 			'eval'              => array('tl_class'=>'w50'),
 		)
 	)

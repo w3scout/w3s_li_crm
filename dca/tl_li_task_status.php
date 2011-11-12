@@ -96,24 +96,28 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_status']['title'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'orderNumber' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_status']['orderNumber'],
 			'inputType'               => 'text',
+			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
 		'icon' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_status']['icon'],
 			'inputType'               => 'fileTree',
+			'exclude'   			  => true,
 			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
 		),
 		'isTaskDisabled' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDisabled'],
-			'inputType'               => 'checkbox'
+			'inputType'               => 'checkbox',
+			'exclude'   			  => true
 		)
 	)
 );
