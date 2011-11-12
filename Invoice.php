@@ -42,7 +42,19 @@ class Invoice extends BackendModule
 		{
 			$this->Template->dispatchSuccessful = $this->sendInvoice($id);
 		}
+		elseif ($key == 'pdf')
+		{
+			// Return the file and do not render the template
+			$objInvoice = $this->Database->prepare("SELECT file AS pdfFile
+	                                                FROM tl_li_invoice
+	                                                WHERE id = ?")->limit(1)->execute($id);
+			$pdf = '../'.$objInvoice->pdfFile;
+			header('Content-type: application/pdf');
+			header('Content-Disposition: attachment; filename="'.$pdf.'"');
+			return readfile($pdf);
+		}
 
+		$this->Template->id = $id;
 		$this->Template->key = $key;
 
 		return $this->Template->parse();
@@ -99,14 +111,30 @@ class Invoice extends BackendModule
 		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][0];
 		if ($row['file'])
 		{
-			$href = $row['file'];
+			$href = '../contao/main.php?do=li_invoices&key=show&id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][1], $row['id']);
 
-			return '<a href="/'.$href.'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_show_file.png" alt="'.$alt.'" /></a> ';
+			return '<a href="/'.$href.'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_show_file.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
 			return '<img src="system/modules/li_crm/icons/invoice_show_file_disabled.png" alt="'.$alt.'" /> ';
+		}
+	}
+
+	public function downloadFile($row, $href, $label, $title, $icon, $attributes)
+	{
+		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][0];
+		if ($row['file'])
+		{
+			$href = '../contao/main.php?do=li_invoices&key=pdf&id='.$row['id'];
+			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][1], $row['id']);
+
+			return '<a href="/'.$href.'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_download.png" alt="'.$alt.'" /></a> ';
+		}
+		else
+		{
+			return '<img src="system/modules/li_crm/icons/invoice_download_disabled.png" alt="'.$alt.'" /> ';
 		}
 	}
 
@@ -745,6 +773,16 @@ class Invoice extends BackendModule
 	private function getOddEven($row)
 	{
 		return $row % 2 == 0 ? 'odd' : 'even';
+	}
+
+	private function returnFile($id) {
+		$objInvoice = $this->Database->prepare("SELECT file AS pdfFile
+                                                FROM tl_li_invoice
+                                                WHERE id = ?")->limit(1)->execute($id);
+		$pdf = '..'.$objInvoice->pdfFile;
+		header('Content-type: application/pdf');
+		header('Content-Disposition: attachment; filename="'.$pdf.'"');
+		readfile($pdf);
 	}
 
 }

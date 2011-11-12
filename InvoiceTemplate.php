@@ -24,6 +24,23 @@ class InvoiceTemplate extends Controller
 	{
 		return $this->getTemplateGroup('invoice_');
 	}
+	
+	public function moveHtaccessFile($path, DataContainer $dc) {
+		$exportPath = '../'.$path.'/';
+		$htaccess = '.htaccess';
+		
+		if (!file_exists($exportPath))
+		{
+			mkdir($exportPath, 0777, true);
+		}
+		
+		$file = fopen($exportPath.$htaccess, 'w+');
+		fwrite($file, 'deny from all');
+		fclose($file);
+		echo $htaccess;
+		
+		return $path;
+	}
 
 }
 ?>

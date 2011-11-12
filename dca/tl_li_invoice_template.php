@@ -104,6 +104,9 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array (
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'],
 			'inputType'               => 'fileTree',
 			'exclude'   			  => true,
+			'save_callback'           => array(
+				array('InvoiceTemplate', 'moveHtaccessFile')
+			),
 			'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false)
 		),
 		'periodFolder' => array (

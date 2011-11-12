@@ -40,6 +40,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array('Rechnung verschicken',
 $GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array('Berichte', 'Den Verlauf der Rechnungen anzeigen');
 $GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Erinnerungen', 'Rechnungserinnerungen verwalten');
 $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Rechnungsdatei anzeigen', 'Die Rechnungsdatei mit der ID %s anzeigen');
+$GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'] = array('Rechnung herunterladen', 'Die Rechnung mit der ID %s herunterladen');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['report_month'] = 'Rechnungsverlauf - Monatsübersicht';
 $GLOBALS['TL_LANG']['tl_li_invoice']['report_year'] = 'Rechnungsverlauf - Jahresübersicht';
@@ -78,8 +79,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'] = 'Monat';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year'] = 'Jahr';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = 'Rechnungsgenerierung';
-$GLOBALS['TL_LANG']['tl_li_invoice']['path_introduction'] = 'Die Rechnung wurde erfolgreich generiert und unter folgendem Pfad abgelegt';
-$GLOBALS['TL_LANG']['tl_li_invoice']['path'] = 'Pfad';
+$GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = 'Die Rechnung wurde erfolgreich generiert.';
 $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview'] = 'Zurück zur Übersicht';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'] = 'Rechnung';

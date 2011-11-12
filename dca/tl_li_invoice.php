@@ -96,6 +96,12 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'icon'                => 'system/modules/li_crm/icons/invoice_show.png',
 				'button_callback'     => array('Invoice', 'showFile')
 			),
+			'downloadFile' => array
+			(
+                'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'],
+				'icon'                => 'system/modules/li_crm/icons/invoice_download.png',
+				'button_callback'     => array('Invoice', 'downloadFile')
+			),
 			'generate' => array
 			(
                 'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['generate'],

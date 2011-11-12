@@ -40,6 +40,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array('Dispatch invoice', 'Di
 $GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array('Reports', 'Show the reports for the invoices');
 $GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Reminders', 'Manage invoice reminders');
 $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Show invoice file', 'Show the invoice file with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'] = array('Download invoice', 'Download the invoice with the ID %s');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['report_month'] = 'Invoiceprocess - Month overview';
 $GLOBALS['TL_LANG']['tl_li_invoice']['report_year'] = 'Invoiceprocess - Year overview';
@@ -78,8 +79,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'] = 'Month';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year'] = 'Year';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = 'Invoice creation';
-$GLOBALS['TL_LANG']['tl_li_invoice']['path_introduction'] = 'The invoice was successfully created and saved at the given path.';
-$GLOBALS['TL_LANG']['tl_li_invoice']['path'] = 'Path';
+$GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = 'The invoice was successfully created.';
 $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview'] = 'Back to the overview';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'] = 'Invoice';

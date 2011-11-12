@@ -216,3 +216,8 @@ label.print {
 .li_positions .tl_tip {
     clear: left;
 }
+
+.invoice object.pdf {
+	display: block;
+	margin-top: 10px;
+}
