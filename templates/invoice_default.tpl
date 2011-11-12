@@ -62,7 +62,7 @@
             </tbody>
         </table>
         <p>{{performance_date_remark}}</p>
-        <p>{{transfer_remark}}</p>
+        <p>{{maturity_remark}}</p>
         <table class="account">
             <thead>
                 <tr>

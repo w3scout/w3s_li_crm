@@ -163,9 +163,6 @@ class Invoice extends BackendModule
 
 	public function getAddressOptions(DataContainer $dc)
 	{
-		//echo "<pre>";
-		//print_r($dc);
-		//echo "</pre>";
 		$addresses = array();
 		$objAddresses = $this->Database->prepare("SELECT id, firstname, lastname FROM tl_address WHERE isBillingAddress = '1' AND pid = ?")->execute($dc->activeRecord->toCustomer);
 		while ($objAddresses->next())
@@ -308,7 +305,7 @@ class Invoice extends BackendModule
 		$this->log('Generate new invoice', 'Generate invoice with id '.$id, TL_FILES);
 
 		// Get data
-		$objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.toAddress, i.positions, i.isOut, i.headline, t.title AS templateTitle, t.invoice_template, t.logo, t.basePath, t.periodFolder
+		$objInvoice = $this->Database->prepare("SELECT i.title, i.alias, i.invoiceDate, i.performanceDate, i.toCustomer, i.toAddress, i.maturity, i.positions, i.isOut, i.headline, t.title AS templateTitle, t.invoice_template, t.logo, t.maturity AS templateMaturity, t.basePath, t.periodFolder
                                                 FROM tl_li_invoice AS i
                                                 INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
                                                 WHERE i.id = ?")->limit(1)->execute($id);
@@ -398,6 +395,25 @@ class Invoice extends BackendModule
 		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' &#0128;</td>';
 		$htmlPositions .= '</tr>';
 
+		if ($objInvoice->maturity != '' && $objInvoice->maturity != 0)
+		{
+			$maturityDays = $objInvoice->maturity;
+		}
+		elseif ($objInvoice->templateMaturity != '' && $objInvoice->templateMaturity != 0)
+		{
+			$maturityDays = $objInvoice->templateMaturity;
+		}
+		elseif (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_maturity']))
+		{
+			$maturityDays = $GLOBALS['TL_CONFIG']['li_crm_invoice_maturity'];
+		}
+
+		$maturity_remark = '';
+		if (!empty($maturityDays))
+		{
+			$maturity_remark = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark'], $maturityDays);
+		}
+
 		$search = array(
 				'logo' => '/{{logo}}/',
 				'small_address' => '/{{small_address}}/',
@@ -428,7 +444,7 @@ class Invoice extends BackendModule
 				'position_total_price_label' => '/{{position_total_price_label}}/',
 				'positions' => '/{{positions}}/',
 				'performance_date_remark' => '/{{performance_date_remark}}/',
-				'transfer_remark' => '/{{transfer_remark}}/',
+				'maturity_remark' => '/{{maturity_remark}}/',
 				'account_data_label' => '/{{account_data_label}}/',
 				'account_number_label' => '/{{account_number_label}}/',
 				'account_number' => '/{{account_number}}/',
@@ -469,7 +485,7 @@ class Invoice extends BackendModule
 				'position_total_price_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'],
 				'positions' => $htmlPositions,
 				'performance_date_remark' => $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
-				'transfer_remark' => $GLOBALS['TL_LANG']['tl_li_invoice']['transfer_remark'],
+				'maturity_remark' => $maturity_remark,
 				'account_data_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['account_data'],
 				'account_number_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['account_number'],
 				'account_number' => $GLOBALS['TL_CONFIG']['li_crm_account_number'],
@@ -545,7 +561,7 @@ class Invoice extends BackendModule
 		// Month
 		$currentMonth = date('m');
 		$currentYear = date('Y');
-		
+
 		$startYear = ($currentMonth - 9 > 0) ? $currentYear : $currentYear - 1;
 		$startMonth = ($currentMonth - 9 > 0) ? $currentMonth - 9 : 12 - (($currentMonth - 9) * -1);
 
@@ -570,7 +586,7 @@ class Invoice extends BackendModule
 					 			AND YEAR(FROM_UNIXTIME(invoiceDate)) = ?
 					 		GROUP BY MONTH(FROM_UNIXTIME(invoiceDate))
 					 		ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)), MONTH(FROM_UNIXTIME(invoiceDate))";
-							
+
 			$objMonthIn = $this->Database->prepare($monthInSql)->execute($startMonth, $currentMonth, $currentYear);
 			$objMonthOut = $this->Database->prepare($monthOutSql)->execute($startMonth, $currentMonth, $currentYear);
 		}
@@ -604,7 +620,7 @@ class Invoice extends BackendModule
 									AND YEAR( FROM_UNIXTIME( invoiceDate ) ) = ?)
 								)
 							GROUP BY MONTH( FROM_UNIXTIME( invoiceDate ) )";
-			
+
 			$objMonthIn = $this->Database->prepare($monthInSql)->execute($startMonth, $startYear, $currentMonth, $currentYear);
 			$objMonthOut = $this->Database->prepare($monthOutSql)->execute($startMonth, $startYear, $currentMonth, $currentYear);
 		}
