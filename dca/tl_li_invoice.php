@@ -133,7 +133,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'enableGeneration'            => 'headline,toTemplate,toAddress,descriptionBefore,positions,descriptionAfter'
+		'enableGeneration'            => 'headline,toTemplate,toAddress,descriptionBefore,positions,positions_new,descriptionAfter'
 	),
 
 	// Fields
@@ -279,7 +279,64 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
         'positions' => array
         (
             'input_field_callback'    => array('Invoice', 'positionsField')
+            
         ),
+        'positions_new' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['positions_new'],
+			'inputType'               => 'multiColumnWizard',
+			'exclude'   			  => true,
+			'eval'                    => array(
+				'columnFields' => array
+				(
+					'amount' => array
+					(
+						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_browser'],
+						'exclude'               => true,
+						'inputType'             => 'text',
+						'eval' 			=> array('style'=>'width:30px')
+					),
+					'unit' => array
+					(
+						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_os'],
+						'exclude'               => true,
+						'inputType'             => 'select',
+						'options_callback' 		=> array('Invoice', 'getUnitOptions'),
+						'eval' 			=> array('style' => 'width:70px')
+					),
+					'offer' => array
+					(
+						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_browser'],
+						'exclude'               => true,
+						'inputType'             => 'select',
+						'options_callback'      => array('Invoice', 'getOfferOptions'),
+						'eval' 			=> array('style'=>'width:100px', 'includeBlankOption'=>true)
+					),
+					'title' => array
+					(
+						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_browser'],
+						'exclude'               => true,
+						'inputType'             => 'text',
+						'eval' 			=> array('style'=>'width:180px')
+					),
+					'tax' => array
+					(
+						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_mobile'],
+						'exclude'               => true,
+						'inputType'             => 'select',
+						'options'				=> array('7'=>'7%', '19'=>'19%'),
+						'eval'                  => array('style'=>'width:50px')
+		 
+					),
+					'price' => array
+					(
+						'label' 		=> &$GLOBALS['TL_LANG']['tl_theme']['ts_extension'],
+						'inputType' 		=> 'text',
+						'eval'                  => array('mandatory'=>true, 'style'=>'width:50px')
+					),
+				)
+			)
+		),
         'descriptionAfter' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'],

@@ -200,6 +200,55 @@ class Invoice extends BackendModule
 		return $addresses;
 	}
 
+	public function getUnitOptions(MultiColumnWizard $mcw)
+	{
+		$unit_options = array(
+				'unit' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'],
+				'hour' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'],
+				'month' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'],
+				'year' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year']
+		);
+		return $unit_options;
+	}
+	
+	public function getOfferOptions(MultiColumnWizard $mcw)
+	{
+		$options[] = array();
+		$objInvoice = $this->Database->prepare("SELECT toCustomer FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
+		$objPerformances = $this->Database->prepare("SELECT s.id, s.title
+                                                     FROM tl_li_service AS s
+                                                     INNER JOIN tl_li_project AS p ON s.toProject = p.id
+                                                     WHERE p.toCustomer = ?")->execute($objInvoice->toCustomer);
+		while ($objPerformances->next())
+		{
+			$options['services']['s-'.$objPerformances->id] = $objPerformances->title;
+		}
+		
+		$objProducts = $this->Database->prepare("SELECT p.title
+                                                 FROM tl_li_product AS p
+                                                 INNER JOIN tl_li_product_to_project AS pp ON p.id = pp.toProduct
+                                                 INNER JOIN tl_li_project AS pr ON pr.id = pp.toProject
+                                                 WHERE pr.toCustomer = ?")->execute($objInvoice->toCustomer);
+		while ($objProducts->next())
+		{
+			$options['products']['p-'.$objProducts->id] = $objProducts->title;
+		}
+		
+		$objHours = $this->Database->prepare("SELECT wp.title
+                                              FROM tl_li_work_package AS wp
+                                              INNER JOIN tl_li_working_hour AS wh ON wh.toWorkPackage = wp.id
+                                              INNER JOIN tl_li_project AS p ON wp.toProject = p.id
+                                              INNER JOIN tl_li_hourly_wage AS hw ON hw.id = wp.toHourlyWage
+                                              WHERE p.toCustomer = ? AND wp.printOnInvoice = 1
+                                              GROUP BY wp.id")->execute($objInvoice->toCustomer);
+		while ($objHours->next())
+		{
+			$options['hours']['h-'.$objHours->id] = $objHours->title;
+		}
+		
+		return $options;
+	}
+
 	public function positionsField(DataContainer $dc, $label)
 	{
 		$objInvoice = $this->Database->prepare("SELECT toCustomer, positions FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($dc->id);
@@ -452,7 +501,7 @@ class Invoice extends BackendModule
 		{
 			$descriptionBefore = $objInvoice->templateDescriptionBefore;
 		}
-		
+
 		if ($objInvoice->descriptionAfter != '')
 		{
 			$descriptionAfter = $objInvoice->descriptionAfter;
