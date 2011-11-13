@@ -61,8 +61,9 @@ CREATE TABLE `tl_li_contact` (
 CREATE TABLE `tl_li_service` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
-  `toProject` int(10) unsigned NOT NULL default '0',
+  `toProject` int(10) unsigned NULL default '0',
   `toServiceType` int(10) unsigned NOT NULL default '0',
+  `toCustomer` int(10) unsigned NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `price` double NOT NULL default '0',
   `currency` varchar(3) NOT NULL default '',
@@ -80,8 +81,6 @@ CREATE TABLE `tl_li_service_type` (
   `title` varchar(255) NOT NULL default '',
   `icon` varchar(255) NOT NULL default '',
   `orderNumber` int(10) unsigned NOT NULL default '0',
-  `standardPrice` double unsigned NOT NULL default '0',
-  `currency` varchar(3) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

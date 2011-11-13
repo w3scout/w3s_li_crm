@@ -15,7 +15,28 @@ class Project extends Controller
 		parent::__construct();
 		$this->import('Database');
 	}
-    
+
+    /**
+     * Returns an array that can be used to create a select-list with all projects, grouped by the customers
+     *
+     * @return array All projects grouped by customers
+     */
+    public function getProjectsOfCustomer($dc)
+    {
+        $projectsList = array();
+
+        $getProjects = $this->Database->prepare("SELECT id, projectNumber, title
+            FROM tl_li_project
+            WHERE toCustomer = ?
+            ORDER BY projectNumber ASC")->execute($dc->activeRecord->toCustomer);
+        while($getProjects->next())
+        {
+            $projectsList[$getProjects->id] = $getProjects->projectNumber.' '.$getProjects->title;
+        }
+
+        return $projectsList;
+    }
+
     /**
      * Returns an array that can be used to create a select-list with all projects, grouped by the customers
      * 

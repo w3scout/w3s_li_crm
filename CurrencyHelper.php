@@ -12,12 +12,13 @@ class CurrencyHelper extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+        $this->import('Database');
 	}
     
     public function getCurrencySymbolArray()
     {
         return array(
-            'EUR' => '&euro;',
+            'EUR' => '&#x20AC;',
             'USD' => '$',
             'GBP' => '&pound;',
             'CHF' => 'sFR',
@@ -39,4 +40,13 @@ class CurrencyHelper extends Controller
         $list = $this->getCurrencySymbolArray();
         return $list[$code];
     }
+
+	public function getDefaultCurrency($value, $dc)
+	{
+		$objType = $this->Database
+            ->prepare("SELECT currency FROM tl_li_service_type WHERE id = ?")->limit(1)
+            ->execute($dc->activeRecord->toServiceType);
+
+		return $objType->currency;
+	}
 }

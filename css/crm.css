@@ -12,6 +12,10 @@
     padding-right: 3px;
 }
 
+.tree_view .tl_listing .simpleService .tl_left {
+    padding-left: 30px;
+}
+
 .tree_view .tl_listing .project .tl_left {
     padding-left: 28px;
 }

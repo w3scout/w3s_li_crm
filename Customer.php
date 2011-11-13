@@ -39,7 +39,7 @@ class Customer extends Controller
 		}
 		return false;
 	}
-
+    
 	public function getCustomerOptions(DataContainer $dc)
 	{
 		$customers = array();

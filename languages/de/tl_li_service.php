@@ -12,8 +12,8 @@ if (!defined('TL_ROOT'))
 $GLOBALS['TL_LANG']['tl_li_service']['service_legend'] = 'Leistung';
 $GLOBALS['TL_LANG']['tl_li_service']['price_legend'] = 'Preis';
 
-$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'] = array('Kunde', 'Bitte wählen Sie den Kunden aus.');
-$GLOBALS['TL_LANG']['tl_li_service']['toProject'] = array('Projekt', 'Bitte wählen Sie das Projekt aus.');
+$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'] = array('Kunde', 'Bitte wählen Sie den Kunden aus, dem diese Leistung zugeordnet werden soll. Dies überschreibt die bei "Projekt" ausgewählte Option.');
+$GLOBALS['TL_LANG']['tl_li_service']['toProject'] = array('Projekt', 'Bitte wählen Sie das Projekt aus. Nur wirksam, wenn bei "Kunde" kein Kunde ausgewählt ist.');
 $GLOBALS['TL_LANG']['tl_li_service']['toServiceType'] = array('Leistungstyp', 'Bitte wählen Sie den Leistungstyp aus.');
 $GLOBALS['TL_LANG']['tl_li_service']['title'] = array('Titel', 'Bitte geben Sie den Titel ein.');
 $GLOBALS['TL_LANG']['tl_li_service']['price'] = array('Preis', 'Bitte geben Sie den Preis ein.');

@@ -105,6 +105,50 @@
                     <div style="clear:both;"></div>
                 </li>
 				<?php if ($customer['display']): ?>
+                    <?php foreach($customer['services'] as $service) : ?>
+                        <li class="tl_file simpleService" style="" onmouseout="Theme.hoverDiv(this, 0);"
+                            onmouseover="Theme.hoverDiv(this, 1);">
+                            <div class="tl_left">
+                                <span>
+                                    <img class="icon" height="16" width="16"
+                                         alt="<?php echo $service['serviceTitle']; ?>"
+                                         src="<?php echo $service['icon']; ?>" />
+                                </span>
+                                <span><?php echo $service['serviceTitle']; ?></span>
+                            </div>
+                            <div class="tl_right">
+                                <?php if(!$customer['isDisabled']) : ?>
+                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=edit&amp;id=<?php echo $service['id']; ?>"
+                                        title="<?php echo $service['editTitle']; ?>">
+                                        <img src="system/themes/default/images/edit.gif"
+                                            alt="<?php echo $service['editLabel']; ?>" width="12" height="16" />
+                                    </a>
+                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=copy&amp;id=<?php echo $service['id']; ?>"
+                                        title="<?php echo $service['copyTitle']; ?>">
+                                        <img src="system/themes/default/images/copy.gif"
+                                            alt="<?php echo $service['copyLabel']; ?>" width="14" height="16" />
+                                    </a>
+                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=delete&amp;id=<?php echo $service['id']; ?>"
+                                       title="<?php echo $service['deleteTitle']; ?>"
+                                       onclick="if (!confirm('<?php echo $service['deleteDialog']; ?>')) return false; Backend.getScrollOffset();">
+                                        <img src="system/themes/default/images/delete.gif"
+                                             alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" />
+                                    </a>
+                                <?php else: ?>
+                                    <span>
+                                        <img src="system/themes/default/images/delete_.gif"
+                                               alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" />
+                                    </span>
+                                <?php endif; ?>
+                                <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=show&amp;id=<?php echo $service['id']; ?>"
+                                   title="<?php echo $service['infoTitle']; ?>">
+                                    <img src="system/themes/default/images/show.gif"
+                                         alt="<?php echo $service['infoLabel']; ?>" width="14" height="16" />
+                                </a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </li>
+                    <?php endforeach; ?>
 					<?php foreach($customer['projects'] as $project) : ?>
 						<li class="tl_file project" style="" onmouseout="Theme.hoverDiv(this, 0);"
 							onmouseover="Theme.hoverDiv(this, 1);">
@@ -172,7 +216,7 @@
 											<img class="icon" height="16" width="16"
 												 alt="<?php echo $service['serviceTitle']; ?>"
 												 src="<?php echo $service['icon']; ?>" />
-										</span> 
+										</span>
 										<span><?php echo $service['serviceTitle']; ?></span>
 									</div>
 									<div class="tl_right">
@@ -181,23 +225,23 @@
                                                 title="<?php echo $service['editTitle']; ?>">
                                                 <img src="system/themes/default/images/edit.gif"
                                                     alt="<?php echo $service['editLabel']; ?>" width="12" height="16" />
-                                            </a> 
+                                            </a>
                                             <a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=copy&amp;id=<?php echo $service['id']; ?>"
                                                 title="<?php echo $service['copyTitle']; ?>">
                                                 <img src="system/themes/default/images/copy.gif"
                                                     alt="<?php echo $service['copyLabel']; ?>" width="14" height="16" />
-                                            </a> 
+                                            </a>
 											<a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=delete&amp;id=<?php echo $service['id']; ?>"
 											   title="<?php echo $service['deleteTitle']; ?>"
 											   onclick="if (!confirm('<?php echo $service['deleteDialog']; ?>')) return false; Backend.getScrollOffset();">
 												<img src="system/themes/default/images/delete.gif"
 													 alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" />
-											</a> 
+											</a>
 										<?php else: ?>
 											<span>
 												<img src="system/themes/default/images/delete_.gif"
 													   alt="<?php echo $service['deleteLabel']; ?>" width="14" height="16" />
-											</span> 
+											</span>
 										<?php endif; ?>
 										<a href="contao/main.php?do=li_customers&amp;table=tl_li_service&amp;act=show&amp;id=<?php echo $service['id']; ?>"
 										   title="<?php echo $service['infoTitle']; ?>">

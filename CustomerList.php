@@ -41,6 +41,33 @@ class CustomerList extends BackendModule
 		$arrCustomers = array();
 		while ($objCustomers->next())
 		{
+            // Get all services of that customer
+            $objServices = $this->Database->prepare("SELECT p.id, p.title AS serviceTitle, t.icon
+                FROM tl_li_service AS p
+                    INNER JOIN tl_li_service_type AS t ON p.toServiceType = t.id
+                WHERE p.toProject = 0 AND p.toCustomer = ?
+                ORDER BY t.orderNumber ASC")->execute($objCustomers->id);
+            
+            $arrServices = array();
+            while ($objServices->next())
+            {
+                $id = $objServices->id;
+                $arrServices[] = array(
+                    'id' => $id,
+                    'serviceTitle' => $objServices->serviceTitle,
+                    'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
+                    'editLabel' => sprintf($lang['serviceEdit'][0], $id),
+                    'editTitle' => sprintf($lang['serviceEdit'][1], $id),
+                    'copyLabel' => sprintf($lang['serviceCopy'][0], $id),
+                    'copyTitle' => sprintf($lang['serviceCopy'][1], $id),
+                    'deleteLabel' => sprintf($lang['serviceDelete'][0], $id),
+                    'deleteTitle' => sprintf($lang['serviceDelete'][1], $id),
+                    'deleteDialog' => sprintf($lang['serviceDelete'][2], $id),
+                    'infoLabel' => sprintf($lang['serviceInfo'][0], $id),
+                    'infoTitle' => sprintf($lang['serviceInfo'][1], $id)
+                );
+            }
+
 			// Get all projects of this customer
 			$objProjects = $this->Database->prepare("SELECT id, projectNumber, title
 				FROM tl_li_project
@@ -75,7 +102,7 @@ class CustomerList extends BackendModule
                         'infoTitle' => sprintf($lang['serviceInfo'][1], $id)
 					);
 				}
-				
+
 				// Get all products of this project
 				$objProducts = $this->Database->prepare("SELECT pp.id, p.title as productTitle, pt.icon
 					FROM tl_li_product_to_project AS pp
@@ -142,6 +169,7 @@ class CustomerList extends BackendModule
 				'contactsLabel' => sprintf($lang['contactsManage'][0], $id),
 				'contactsTitle' => sprintf($lang['contactsManage'][1], $id),
 				'projects' => $arrProjects,
+                'services' => $arrServices,
 				'isDisabled' => $objCustomers->disable,
 				'display' => $_SESSION['li_crm']['customerList']['customer'][$id]['display']
 			);

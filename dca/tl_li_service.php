@@ -78,25 +78,28 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{service_legend}, toProject, toServiceType, title;{price_legend}, price, currency, taxRate;'
+		'default'                     => '{service_legend}, toCustomer, toProject, toServiceType, title;{price_legend}, price, currency, taxRate;'
 	),
-
-	// Subpalettes
-	'subpalettes' => array
-	(
-		''                            => ''
-	),
-
+    
 	// Fields
 	'fields' => array
 	(
+		'toCustomer' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'],
+			'inputType'               => 'select',
+			'exclude'   			  => true,
+			'options_callback'        => array('Customer', 'getCustomerOptions'),
+			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50','includeBlankOption' => true,
+                'submitOnChange' => true)
+		),
         'toProject' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toProject'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
-			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-			'options_callback'        => array('Project', 'getProjectsByCustomerList')
+			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true),
+			'options_callback'        => array('Project', 'getProjectsOfCustomer')
 		),
 		'toServiceType' => array
 		(
@@ -119,7 +122,6 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['price'],
 			'inputType'               => 'text',
 			'exclude'   			  => true,
-			'load_callback'           => array(array('Service', 'getDefaultPrice')),
 			'eval'                    => array('mandatory' => true, 'maxlength' => 12, 'tl_class' => 'w50', 'rgxp' => 'digit', 'alwaysSave' => true)
 		),
         'currency' => array(
