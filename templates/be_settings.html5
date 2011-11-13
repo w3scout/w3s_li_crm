@@ -129,5 +129,13 @@
             </h3>
             <?php echo $GLOBALS['TL_LANG']['li_settings']['companySettingsDesc']; ?>
         </div>
+        <div class="tl_module_desc">
+            <h3>
+                <a href="contao/main.php?do=li_settings&table=tl_li_tax" class="navigation" style="background-image:url('system/modules/li_crm/icons/company.png')">
+                    <?php echo $GLOBALS['TL_LANG']['li_settings']['taxSettings']; ?>
+                </a>
+            </h3>
+            <?php echo $GLOBALS['TL_LANG']['li_settings']['taxSettingsDesc']; ?>
+        </div>
     </div>
 </div>

@@ -127,7 +127,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('enableGeneration'),
-		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,maturity,invoiceDate,performanceDate;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;'
+		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,maturity,invoiceDate,performanceDate;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;'
 	),
 
 	// Subpalettes
@@ -206,6 +206,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
+        'currency' => array(
+            'label' => &$GLOBALS['TL_LANG']['tl_li_invoice']['currency'],
+            'inputType' => 'select',
+            'exclude' => true,
+            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+        ),
 		'maturity' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['maturity'],

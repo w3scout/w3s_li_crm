@@ -24,7 +24,10 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{company_legend}, li_crm_company_name, li_crm_company_tax_number;{address_legend}, li_crm_company_street, li_crm_company_postal, li_crm_company_city, li_crm_company_country, li_crm_company_phone, li_crm_company_fax;{bank_legend}, li_crm_account_number, li_crm_bank_code, li_crm_bank;{tax_legend},li_crm_taxes;'
+		'default'                     => '{company_legend}, li_crm_company_name, li_crm_company_tax_number;
+		{address_legend}, li_crm_company_street, li_crm_company_postal, li_crm_company_city,
+		li_crm_company_country, li_crm_company_phone, li_crm_company_fax;{bank_legend}, li_crm_account_number,
+		li_crm_bank_code, li_crm_bank;'
 	),
 
 	// Fields
@@ -108,32 +111,6 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 			'inputType'               => 'text',
 			'exclude'   			  => true,
 			'eval'                    => array('maxlength'=>64, 'tl_class'=>'w50'),
-		),
-		'li_crm_taxes' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_taxes'],
-			'inputType'               => 'multiColumnWizard',
-			'exclude'   			  => true,
-			'eval' 			=> array
-			(
-				'columnFields' => array
-				(
-					'label' => array
-					(
-						'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_taxes']['label'],
-						'inputType'             => 'text',
-						'exclude'   			=> true,
-						'eval' 					=> array('style' => 'width:400px')
-					),
-					'rate' => array
-					(
-						'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_taxes']['rate'],
-						'inputType'             => 'text',
-						'exclude'   			=> true,
-						'eval' 					=> array('rgxp' => 'digit', 'style'=>'width:180px')
-					)
-				)
-			)
 		)
 	)
 );

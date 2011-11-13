@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend}, toProductType, number, title;{price_legend}, price, taxRate;'
+		'default'                     => '{product_legend}, toProductType, number, title;{price_legend}, price, currency, taxRate;'
 	),
 
 	// Subpalettes
@@ -96,7 +96,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'foreignKey'              => 'tl_li_product_type.title',
-			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true, 'tl_class'=>'clr')
+			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true, 'tl_class'=>'w50',)
 		),
 		'number' => array
 		(
@@ -119,6 +119,13 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
+        'currency' => array(
+            'label' => &$GLOBALS['TL_LANG']['tl_li_product']['currency'],
+            'inputType' => 'select',
+            'exclude' => true,
+            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+        ),
         'taxRate' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['taxRate'],
