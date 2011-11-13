@@ -21,6 +21,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['alias'] = array('Alias', 'Bitte geben Sie 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoiceDate'] = array('Rechnungsdatum', 'Bitte geben Sie das Rechnungsdatum ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['performanceDate'] = array('Leistungsdatum', 'Bitte geben Sie das Leistungsdatum ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['price'] = array('Preis', 'Bitte geben Sie den Preis ein.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['currency'] = array('Währung', 'Bitte geben Sie die Währung des Preises an.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['maturity'] = array('Laufzeit', 'Geben Sie die Anzahl der Tage ein, die der Kunde zur Bezahlung der Rechnung Zeit hat, falls diese von der Standard- und Templateeinstellungen abweicht.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['file'] = array('Rechnung', 'Bitte wählen Sie die Rechnung aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['isOut'] = array('Ausgangsrechnung?', 'Ist die Rechnung eine Ausgangsrechnung?');

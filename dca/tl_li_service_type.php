@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{servicetype_legend}, title, orderNumber, standardPrice, icon;'
+		'default'                     => '{servicetype_legend}, title, orderNumber, standardPrice, currency, icon;'
 	),
 
 	// Subpalettes
@@ -112,6 +112,13 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
+        'currency' => array(
+            'label' => &$GLOBALS['TL_LANG']['tl_li_service_type']['currency'],
+            'inputType' => 'select',
+            'exclude' => true,
+            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+        ),
 		'icon' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service_type']['icon'],

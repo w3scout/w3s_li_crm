@@ -22,15 +22,13 @@ class CompanySettings extends Controller
 	 */
 	public function getTaxOptions()
 	{
-		$taxes = unserialize($GLOBALS['TL_CONFIG']['li_crm_taxes']);
+        $taxes = $this->Database->prepare("SELECT title, rate
+            FROM tl_li_tax")->execute();
 		$taxOptions = array();
-		if (count($taxes))
-		{
-			foreach ($taxes as $tax)
-			{
-				$taxOptions[$tax['rate']] = $tax['label']." - ".$tax['rate']."%";
-			}
-		}
+        while($taxes->next())
+        {
+            $taxOptions[$taxes->rate] = $taxes->title." - ".$taxes->rate."%";
+        }
 		return $taxOptions;
 	}
 
