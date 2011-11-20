@@ -95,9 +95,9 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
             'filter'    => true,
 			'eval'		=> array('mandatory' => true, 'tl_class' => 'w50'),
 		),
-        'taxRate' => array
+        'toTax' => array
 		(
-			'label'     	   => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate'],
+			'label'     	   => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['toTax'],
 			'inputType' 	   => 'select',
 			'exclude'   	   => true,
 			'options_callback' => array('CompanySettings', 'getTaxOptions'),

@@ -210,31 +210,42 @@ class Invoice extends BackendModule
 		);
 		return $unit_options;
 	}
-	
-	public function getOfferOptions(MultiColumnWizard $mcw)
+
+	public function getServiceOptions(MultiColumnWizard $mcw)
 	{
-		$options[] = array();
-		$objInvoice = $this->Database->prepare("SELECT toCustomer FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
-		$objPerformances = $this->Database->prepare("SELECT s.id, s.title
-                                                     FROM tl_li_service AS s
-                                                     INNER JOIN tl_li_project AS p ON s.toProject = p.id
-                                                     WHERE p.toCustomer = ?")->execute($objInvoice->toCustomer);
-		while ($objPerformances->next())
+		$options = array();
+		$objInvoice = $this->Database->prepare("SELECT toCustomer, currency FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
+		$objServices = $this->Database->prepare("SELECT s.id, s.title
+                                                 FROM tl_li_service AS s
+                                                 INNER JOIN tl_li_project AS p ON s.toProject = p.id
+                                                 WHERE p.toCustomer = ? AND currency = ?")->execute($objInvoice->toCustomer, $objInvoice->currency);
+		while ($objServices->next())
 		{
-			$options['services']['s-'.$objPerformances->id] = $objPerformances->title;
+			$options[$objServices->id] = $objServices->title;
 		}
-		
-		$objProducts = $this->Database->prepare("SELECT p.title
+		return $options;
+	}
+
+	public function getProductOptions(MultiColumnWizard $mcw)
+	{
+		$options = array();
+		$objInvoice = $this->Database->prepare("SELECT toCustomer, currency FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
+		$objProducts = $this->Database->prepare("SELECT p.id, p.title
                                                  FROM tl_li_product AS p
                                                  INNER JOIN tl_li_product_to_project AS pp ON p.id = pp.toProduct
-                                                 INNER JOIN tl_li_project AS pr ON pr.id = pp.toProject
-                                                 WHERE pr.toCustomer = ?")->execute($objInvoice->toCustomer);
+                                                 WHERE pp.toCustomer = ? AND p.currency = ?")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objProducts->next())
 		{
-			$options['products']['p-'.$objProducts->id] = $objProducts->title;
+			$options[$objProducts->id] = $objProducts->title;
 		}
-		
-		$objHours = $this->Database->prepare("SELECT wp.title
+		return $options;
+	}
+
+	public function getHourOptions(MultiColumnWizard $mcw)
+	{
+		$options = array();
+		$objInvoice = $this->Database->prepare("SELECT toCustomer FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
+		$objHours = $this->Database->prepare("SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
                                               FROM tl_li_work_package AS wp
                                               INNER JOIN tl_li_working_hour AS wh ON wh.toWorkPackage = wp.id
                                               INNER JOIN tl_li_project AS p ON wp.toProject = p.id
@@ -243,137 +254,14 @@ class Invoice extends BackendModule
                                               GROUP BY wp.id")->execute($objInvoice->toCustomer);
 		while ($objHours->next())
 		{
-			$options['hours']['h-'.$objHours->id] = $objHours->title;
+			$hours = $objHours->sumHours;
+			$minutes = $objHours->sumMinutes;
+
+			$hours = $this->getTotalHours($objHours->sumHours, $objHours->sumMinutes);
+
+			$options[$objHours->id] = $objHours->title.' ('.$hours.')';
 		}
-		
 		return $options;
-	}
-
-	public function positionsField(DataContainer $dc, $label)
-	{
-		$objInvoice = $this->Database->prepare("SELECT toCustomer, positions FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($dc->id);
-		$positions = array();
-
-		$unit_options = array(
-				'unit' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'],
-				'hour' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'],
-				'month' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'],
-				'year' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year']
-		);
-
-		if ($objInvoice->positions == '')
-		{
-			$objPerformances = $this->Database->prepare("SELECT s.title, s.taxRate, s.price
-                                                         FROM tl_li_service AS s
-                                                         INNER JOIN tl_li_project AS p ON s.toProject = p.id
-                                                         WHERE p.toCustomer = ?")->execute($objInvoice->toCustomer);
-			$positions = array();
-			while ($objPerformances->next())
-			{
-				$position = array();
-				$position['quantity'] = 1;
-				$position['label'] = $objPerformances->title;
-				$position['tax'] = $objPerformances->taxRate;
-				$position['price'] = $objPerformances->price;
-				$positions[] = $position;
-			}
-			$objProducts = $this->Database->prepare("SELECT p.title, p.taxRate, p.price
-                                                     FROM tl_li_product AS p
-                                                     INNER JOIN tl_li_product_to_project AS pp ON p.id = pp.toProduct
-                                                     INNER JOIN tl_li_project AS pr ON pr.id = pp.toProject
-                                                     WHERE pr.toCustomer = ?")->execute($objInvoice->toCustomer);
-			while ($objProducts->next())
-			{
-				$position = array();
-				$position['quantity'] = 1;
-				$position['label'] = $objProducts->title;
-				$position['tax'] = $objProducts->taxRate;
-				$position['price'] = $objProducts->price;
-				$positions[] = $position;
-			}
-			$objHours = $this->Database->prepare("SELECT wp.title, (SUM(wh.hours) *60 + SUM(wh.minutes)) AS minutes, hw.wage AS price, hw.taxRate AS taxRate
-                                                  FROM tl_li_work_package AS wp
-                                                  INNER JOIN tl_li_working_hour AS wh ON wh.toWorkPackage = wp.id
-                                                  INNER JOIN tl_li_project AS p ON wp.toProject = p.id
-                                                  INNER JOIN tl_li_hourly_wage AS hw ON hw.id = wp.toHourlyWage
-                                                  WHERE p.toCustomer = ? AND wp.printOnInvoice = 1
-                                                  GROUP BY wp.id")->execute($objInvoice->toCustomer);
-			while ($objHours->next())
-			{
-				$position = array();
-				$position['quantity'] = $objHours->minutes / 60;
-				$position['unit'] = 'hour';
-				$position['label'] = $objHours->title;
-				$position['tax'] = $objHours->taxRate;
-				$position['price'] = $objHours->price;
-				$positions[] = $position;
-			}
-		}
-		else
-		{
-			$positions = unserialize($objInvoice->positions);
-		}
-		$field = '<div class="clr li_positions"><h3><label>Positionen</label></h3>';
-		$field .= '<div class="header">';
-		$field .= '<span class="quantity">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'].'</span>';
-		$field .= '<span class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'].'</span>';
-		$field .= '<span class="label">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'].'</span>';
-		$field .= '<span class="tax">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_tax'].'</span>';
-		$field .= '<span class="unit_price">'.$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'].'</span>';
-		$field .= '</div>';
-		$field .= '<div class="positions">';
-		$counter = count($positions);
-		for ($i = 0; $i < $counter; $i++)
-		{
-			$field .= '<div class="position">';
-			$position = $positions[$i];
-			$checked = $position['print'] ? " checked" : "";
-
-			$unit_field = '<select name="position_unit_'.$i.'" class="tl_select unit">';
-			foreach ($unit_options as $key => $value)
-			{
-				$unit_field .= '<option value="'.$key.'"'.($position['unit'] == $key ? ' selected' : '').'>'.$value.'</option>';
-			}
-			$unit_field .= '</select>';
-
-			$field .= '<input type="text" name="position_quantity_'.$i.'" class="tl_text quantity" value="'.$position['quantity'].'" />';
-			$field .= $unit_field;
-			$field .= '<input name="position_label_'.$i.'" class="tl_text label" value="'.$position['label'].'" type="text" />';
-			$field .= '<input name="position_tax_'.$i.'" class="tl_text tax" value="'.$position['tax'].'" type="text" />';
-			$field .= '<input class="tl_text price" value="'.$position['price'].'" type="text" name="position_price_'.$i.'" />';
-			$field .= '<input type="checkbox" class="checkbox print" name="position_print_'.$i.'"'.$checked.' />';
-			$field .= '<label class="print" for="position_print_'.$i.'"><img src="system/modules/li_crm/icons/invoice_generation.png" /></label>';
-			$field .= '</div>';
-		}
-		$field .= '<input type="hidden" name="positions_count" value="'.count($positions).'" />';
-		$field .= '</div>';
-		$field .= '<p class="tl_help tl_tip">Bitte wählen Sie das Rechnungstemplate aus.</p></div>';
-		return $field;
-	}
-
-	public function savePositionsField(DataContainer $dc)
-	{
-		$counter = $this->Input->post('positions_count');
-
-		$positions = array();
-		for ($i = 0; $i < $counter; $i++)
-		{
-			$position = array();
-			$position['quantity'] = $this->Input->post('position_quantity_'.$i);
-			$position['unit'] = $this->Input->post('position_unit_'.$i);
-			$position['label'] = $this->Input->post('position_label_'.$i);
-			$position['price'] = $this->Input->post('position_price_'.$i);
-			$position['tax'] = $this->Input->post('position_tax_'.$i);
-			$position['print'] = $this->Input->post('position_print_'.$i);
-			$positions[] = $position;
-		}
-		if (!empty($positions))
-		{
-			$this->Database->prepare("UPDATE tl_li_invoice
-                                     SET positions=?
-                                     WHERE id=?")->execute(serialize($positions), $dc->id);
-		}
-
 	}
 
 	public function printInvoice($id)
@@ -386,14 +274,17 @@ class Invoice extends BackendModule
 													i.alias, 
 													i.invoiceDate, 
 													i.performanceDate, 
-													i.toCustomer, 
+													i.toCustomer,
+													i.currency, 
 													i.toAddress, 
 													i.maturity, 
 													i.descriptionBefore, 
-													i.positions, 
 													i.descriptionAfter, 
 													i.isOut, 
-													i.headline, 
+													i.headline,
+													i.servicePositions,
+													i.productPositions,
+													i.hourPositions, 
 													t.title AS templateTitle, 
 													t.invoice_template, 
 													t.logo, 
@@ -427,41 +318,147 @@ class Invoice extends BackendModule
 			$templateFile = TL_ROOT.'/system/modules/li_crm/templates/'.$templateName.'.tpl';
 		}
 
-		$template = file_get_contents($templateFile);
+		$templateFile = 'invoice_default';
 
-		$invoicePositions = unserialize($objInvoice->positions);
+		$template = array();
+		$template['logo'] = $objInvoice->logo;
+		$template['company_name'] = $GLOBALS['TL_CONFIG']['li_crm_company_name'];
+		$template['company_street'] = $GLOBALS['TL_CONFIG']['li_crm_company_street'];
+		$template['company_postal'] = $GLOBALS['TL_CONFIG']['li_crm_company_postal'];
+		$template['company_city'] = $GLOBALS['TL_CONFIG']['li_crm_company_city'];
+		$template['company_phone'] = $GLOBALS['TL_CONFIG']['li_crm_company_phone'];
+		$template['company_tax_number_label'] = "Steuernummer:";
+		$template['company_tax_number'] = $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'];
+
+		$template['customer_company'] = $objAddress->company;
+		$template['customer_firstname'] = $objAddress->firstname;
+		$template['customer_lastname'] = $objAddress->lastname;
+		$template['customer_street'] = $objAddress->street;
+		$template['customer_postal'] = $objAddress->postal;
+		$template['customer_city'] = $objAddress->city;
+
+		$template['invoice_date_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['date'];
+		$template['invoice_date'] = date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate);
+		$template['invoice_number_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number'];
+		$template['invoice_number'] = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+
+		$template['invoice_title'] = $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'];
+		$template['invoice_introduction'] = sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname);
+
+		$template['position_quantity_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'][0];
+		$template['position_unit_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'][0];
+		$template['position_label_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_label'][0];
+		$template['position_unit_price_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'][0];
+		$template['position_total_price_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'];
+
+		$template['greeting'] = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+
+		$template['phone_label'] = 'Telefon';
+		
+		$currencyHelper = new CurrencyHelper();
+		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
 
 		$rowCounter = 1;
 		$fullNetto = 0;
 		$fullTaxes = 0;
 		$taxes = array();
 
-		foreach ($invoicePositions as $invoicePosition)
+		$services = unserialize($objInvoice->servicePositions);
+		foreach ($services as $service)
 		{
-			if (!$invoicePosition['print'])
-			{
-				continue;
-			}
+			$objService = $this->Database->prepare("SELECT s.title, s.price, t.rate AS taxRate
+													FROM tl_li_service AS s
+													INNER JOIN tl_li_tax AS t ON s.toTax = t.id
+													WHERE s.id = ?")->execute($service['item']);
 
-			$position_total_price = $invoicePosition['quantity'] * $invoicePosition['price'];
+			$position_total_price = $service['quantity'] * $objService->price;
 
-			if (!array_key_exists($invoicePosition['tax'], $taxes))
+			if (!array_key_exists($objService->taxRate, $taxes))
 			{
-				$taxes[$invoicePosition['tax']] = $position_total_price;
+				$taxes[$objService->taxRate] = $position_total_price;
 			}
 			else
 			{
-				$taxes[$invoicePosition['tax']] += $position_total_price;
+				$taxes[$objService->taxRate] += $position_total_price;
 			}
 
-			$fullNetto += $invoicePosition['quantity'] * $invoicePosition['price'];
+			$fullNetto += $service['quantity'] * $objService->price;
+
+			$title = $service['title'] != '' ? $service['title'] : $objService->title;
 
 			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
-			$htmlPositions .= '<td class="quantity">'.$invoicePosition['quantity'].'</td>';
-			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$invoicePosition['unit']].'</td>';
-			$htmlPositions .= '<td class="label">'.$invoicePosition['label'].'</td>';
-			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($invoicePosition['price']).' &#0128;</td>';
-			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' &#0128;</td>';
+			$htmlPositions .= '<td class="quantity">'.$service['quantity'].'</td>';
+			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$service['unit']].'</td>';
+			$htmlPositions .= '<td class="label">'.$title.'</td>';
+			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objService->price).' '.$symbol.'</td>';
+			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
+			$htmlPositions .= '</tr>';
+
+			$rowCounter++;
+		}
+
+		$products = unserialize($objInvoice->productPositions);
+		foreach($products as $product) {
+			$objProduct = $this->Database->prepare("SELECT p.title, p.price, t.rate AS taxRate
+													FROM tl_li_product AS p
+													INNER JOIN tl_li_tax AS t ON p.toTax = t.id
+													WHERE p.id = ?")->execute($product['item']);
+
+			$position_total_price = $product['quantity'] * $objProduct->price;
+
+			if (!array_key_exists($objProduct->taxRate, $taxes))
+			{
+				$taxes[$objProduct->taxRate] = $position_total_price;
+			}
+			else
+			{
+				$taxes[$objProduct->taxRate] += $position_total_price;
+			}
+
+			$fullNetto += $service['quantity'] * $objProduct->price;
+
+			$title = $product['title'] != '' ? $product['title'] : $objProduct->title;
+
+			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+			$htmlPositions .= '<td class="quantity">'.$product['quantity'].'</td>';
+			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$product['unit']].'</td>';
+			$htmlPositions .= '<td class="label">'.$title.'</td>';
+			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objProduct->price).' '.$symbol.'</td>';
+			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
+			$htmlPositions .= '</tr>';
+
+			$rowCounter++;
+		}
+
+		$hours = unserialize($objInvoice->hourPositions);
+		foreach($hours as $hour) {
+			$objHour = $this->Database->prepare("SELECT wp.title, hw.wage, t.rate AS taxRate
+												 FROM tl_li_work_package AS wp
+												 INNER JOIN tl_li_hourly_wage AS hw ON wp.toHourlyWage = hw.id
+												 INNER JOIN tl_li_tax AS t ON hw.toTax = t.id
+												 WHERE wp.id = ?")->execute($hour['item']);
+
+			$position_total_price = $hour['quantity'] * $objHour->wage;
+
+			if (!array_key_exists($objHour->taxRate, $taxes))
+			{
+				$taxes[$objHour->taxRate] = $position_total_price;
+			}
+			else
+			{
+				$taxes[$objHour->taxRate] += $position_total_price;
+			}
+
+			$fullNetto += $service['quantity'] * $objHour->wage;
+
+			$title = $hour['title'] != '' ? $hour['title'] : $objProduct->title;
+
+			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+			$htmlPositions .= '<td class="quantity">'.$hour['quantity'].'</td>';
+			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'].'</td>';
+			$htmlPositions .= '<td class="label">'.$title.'</td>';
+			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objHour->wage).' '.$symbol.'</td>';
+			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
 			$htmlPositions .= '</tr>';
 
 			$rowCounter++;
@@ -473,22 +470,23 @@ class Invoice extends BackendModule
 		$rowCounter++;
 
 		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
-		$htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' &#0128;</td>';
+		$htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
 		$htmlPositions .= '</tr>';
 		$rowCounter++;
 
+		ksort($taxes);
 		foreach ($taxes as $tax => $price)
 		{
 			$taxPrice = $price * $tax / 100;
 			$fullTaxes += $taxPrice;
 			$htmlPositions .= '<tr class="total '.$this->getOddEven($rowCounter).'">';
-			$htmlPositions .= '<td class="amount tax" colspan="4">'.$tax.'% '.$GLOBALS['TL_LANG']['tl_li_invoice']['tax'].'</td><td class="price">'.$this->getFormattedNumber($taxPrice).' &#0128;</td>';
+			$htmlPositions .= '<td class="amount tax" colspan="4">'.$tax.'% '.$GLOBALS['TL_LANG']['tl_li_invoice']['tax'].'</td><td class="price">'.$this->getFormattedNumber($taxPrice).' '.$symbol.'</td>';
 			$htmlPositions .= '</tr>';
 			$rowCounter++;
 		}
 
 		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
-		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' &#0128;</td>';
+		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' '.$symbol.'</td>';
 		$htmlPositions .= '</tr>';
 
 		$descriptionBefore = '';
@@ -530,95 +528,27 @@ class Invoice extends BackendModule
 			$maturity_remark = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark'], $maturityDays);
 		}
 
-		$search = array(
-				'logo' => '/{{logo}}/',
-				'small_address' => '/{{small_address}}/',
-				'company_name' => '/{{company_name}}/',
-				'company_street' => '/{{company_street}}/',
-				'company_postal' => '/{{company_postal}}/',
-				'company_place' => '/{{company_place}}/',
-				'company_phone_label' => '/{{company_phone_label}}/',
-				'company_phone' => '/{{company_phone}}/',
-				'company_tax_number_label' => '/{{company_tax_number_label}}/',
-				'company_tax_number' => '/{{company_tax_number}}/',
-				'invoice_date_label' => '/{{invoice_date_label}}/',
-				'invoice_date' => '/{{invoice_date}}/',
-				'invoice_number_label' => '/{{invoice_number_label}}/',
-				'invoice_number' => '/{{invoice_number}}/',
-				'invoice_title' => '/{{invoice_title}}/',
-				'invoice_introduction' => '/{{invoice_introduction}}/',
-				'customer_name' => '/{{customer_name}}/',
-				'customer_firstname' => '/{{customer_firstname}}/',
-				'customer_lastname' => '/{{customer_lastname}}/',
-				'customer_street' => '/{{customer_street}}/',
-				'customer_postal' => '/{{customer_postal}}/',
-				'customer_place' => '/{{customer_place}}/',
-				'position_quantity_label' => '/{{position_quantity_label}}/',
-				'position_unit_label' => '/{{position_unit_label}}/',
-				'position_label_label' => '/{{position_label_label}}/',
-				'position_unit_price_label' => '/{{position_unit_price_label}}/',
-				'position_total_price_label' => '/{{position_total_price_label}}/',
-				'description_before' => '/{{description_before}}/',
-				'positions' => '/{{positions}}/',
-				'description_after' => '/{{description_after}}/',
-				'performance_date_remark' => '/{{performance_date_remark}}/',
-				'maturity_remark' => '/{{maturity_remark}}/',
-				'account_data_label' => '/{{account_data_label}}/',
-				'account_number_label' => '/{{account_number_label}}/',
-				'account_number' => '/{{account_number}}/',
-				'bank_code_label' => '/{{bank_code_label}}/',
-				'bank_code' => '/{{bank_code}}/',
-				'bank_label' => '/{{bank_label}}/',
-				'bank' => '/{{bank}}/',
-				'greeting' => '/{{greeting}}/'
-		);
+		$template['description_before'] = $descriptionBefore;
+		$template['positions'] = $htmlPositions;
+		$template['description_after'] = $descriptionAfter;
 
-		$replace = array(
-				'logo' => '<img src="'.$objInvoice->logo.'" title="Logo" alt="Logo">',
-				'small_address' => $GLOBALS['TL_CONFIG']['li_crm_company_name'].'<br />'.$GLOBALS['TL_CONFIG']['li_crm_company_street'].', '.$GLOBALS['TL_CONFIG']['li_crm_company_postal'].' '.$GLOBALS['TL_CONFIG']['li_crm_company_city'],
-				'company_name' => $GLOBALS['TL_CONFIG']['li_crm_company_name'],
-				'company_street' => $GLOBALS['TL_CONFIG']['li_crm_company_street'],
-				'company_postal' => $GLOBALS['TL_CONFIG']['li_crm_company_postal'],
-				'company_place' => $GLOBALS['TL_CONFIG']['li_crm_company_city'],
-				'company_phone_label' => $GLOBALS['TL_LANG']['tl_member']['phone'][0],
-				'company_phone' => $GLOBALS['TL_CONFIG']['li_crm_company_phone'],
-				'company_tax_number_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['tax_number'],
-				'company_tax_number' => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
-				'invoice_date_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['date'],
-				'invoice_date' => date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate),
-				'invoice_number_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number'],
-				'invoice_number' => $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']),
-				'invoice_title' => empty($objInvoice->headline) ? $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'] : $objInvoice->headline,
-				'invoice_introduction' => sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
-				'customer_name' => $objAddress->company,
-				'customer_firstname' => $objAddress->firstname,
-				'customer_lastname' => $objAddress->lastname,
-				'customer_street' => $objAddress->street,
-				'customer_postal' => $objAddress->postal,
-				'customer_place' => $objAddress->city,
-				'position_quantity_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'],
-				'position_unit_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'],
-				'position_label_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
-				'position_unit_price_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'],
-				'position_total_price_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'],
-				'description_before' => $descriptionBefore,
-				'positions' => $htmlPositions,
-				'description_after' => $descriptionAfter,
-				'performance_date_remark' => $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
-				'maturity_remark' => $maturity_remark,
-				'account_data_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['account_data'],
-				'account_number_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['account_number'],
-				'account_number' => $GLOBALS['TL_CONFIG']['li_crm_account_number'],
-				'bank_code_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['bank_code'],
-				'bank_code' => $GLOBALS['TL_CONFIG']['li_crm_bank_code'],
-				'bank_label' => $GLOBALS['TL_LANG']['tl_li_invoice']['bank'],
-				'bank' => $GLOBALS['TL_CONFIG']['li_crm_bank'],
-				'greeting' => sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name'])
-		);
+		$template['performance_date_remark'] = $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate));
+		$template['maturity_remark'] = $maturity_remark;
+		$template['account_data_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['account_data'];
+		$template['account_number_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['account_number'];
+		$template['account_number'] = $GLOBALS['TL_CONFIG']['li_crm_account_number'];
+		$template['bank_code_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['bank_code'];
+		$template['bank_code'] = $GLOBALS['TL_CONFIG']['li_crm_bank_code'];
+		$template['bank_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['bank'];
+		$template['bank'] = $GLOBALS['TL_CONFIG']['li_crm_bank'];
+		$template['greeting'] = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 
-		$template = preg_replace($search, $replace, $template);
+		ob_start();
+		include ($this->getTemplate($templateFile, 'tpl'));
+		$html = ob_get_contents();
+		ob_end_clean();
 
-		$html = utf8_decode($template);
+		$html = utf8_decode($html);
 
 		$dompdf->set_paper('a4');
 		$dompdf->set_base_path(TL_ROOT);
@@ -876,6 +806,30 @@ class Invoice extends BackendModule
 		header('Content-type: application/pdf');
 		header('Content-Disposition: attachment; filename="'.$pdf.'"');
 		readfile($pdf);
+	}
+
+	private function getTotalHours($hours, $minutes)
+	{
+		$minutes = Abs($minutes);
+		$iHours = Floor($minutes / 60);
+		$minutes = ($minutes - ($iHours * 60)) / 100;
+		$tHours = $iHours + $minutes;
+		if ($minutes < 0)
+		{
+			$tHours = $tHours * (-1);
+		}
+		$aHours = explode(".", $tHours);
+		$iHours = $aHours[0];
+		if (empty($aHours[1]))
+		{
+			$aHours[1] = "00";
+		}
+		$minutes = $aHours[1];
+		if (strlen($minutes) < 2)
+		{
+			$minutes = $minutes."0";
+		}
+		return ($iHours + $hours).":".$minutes;
 	}
 
 }

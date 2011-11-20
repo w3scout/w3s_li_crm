@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{service_legend}, toCustomer, toProject, toServiceType, title;{price_legend}, price, currency, taxRate;'
+		'default'                     => '{service_legend}, toCustomer, toProject, toServiceType, title;{price_legend}, price, currency, toTax;'
 	),
     
 	// Fields
@@ -131,9 +131,9 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
             'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
             'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
         ),
-        'taxRate' => array
+        'toTax' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['taxRate'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toTax'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'		  => array('CompanySettings', 'getTaxOptions'),

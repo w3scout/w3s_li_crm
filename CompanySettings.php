@@ -22,12 +22,12 @@ class CompanySettings extends Controller
 	 */
 	public function getTaxOptions()
 	{
-        $taxes = $this->Database->prepare("SELECT title, rate
+        $taxes = $this->Database->prepare("SELECT id, title, rate
             FROM tl_li_tax")->execute();
 		$taxOptions = array();
         while($taxes->next())
         {
-            $taxOptions[$taxes->rate] = $taxes->title." - ".$taxes->rate."%";
+            $taxOptions[$taxes->id] = $taxes->title." - ".$taxes->rate."%";
         }
 		return $taxOptions;
 	}

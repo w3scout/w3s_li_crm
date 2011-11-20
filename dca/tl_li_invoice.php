@@ -18,11 +18,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
-		'enableVersioning'            => true,
-		'onsubmit_callback' => array
-		(
-			array('Invoice', 'savePositionsField')
-		)
+		'enableVersioning'            => true
 	),
 
 	// List
@@ -127,13 +123,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('enableGeneration'),
-		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,maturity,invoiceDate,performanceDate;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;'
+		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'enableGeneration'            => 'headline,toTemplate,toAddress,descriptionBefore,positions,positions_new,descriptionAfter'
+		'enableGeneration'            => 'headline,toTemplate,toAddress,descriptionBefore,servicePositions,productPositions,hourPositions,descriptionAfter'
 	),
 
 	// Fields
@@ -211,7 +207,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType' => 'select',
             'exclude' => true,
             'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+            'eval' => array('mandatory' => true, 'tl_class' => 'w50', 'submitOnChange'=>true),
         ),
 		'maturity' => array
 		(
@@ -283,64 +279,118 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'exclude'   			  => true,
 			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
 		),
-        'positions' => array
-        (
-            'input_field_callback'    => array('Invoice', 'positionsField')
-            
-        ),
-        'positions_new' => array
+        'servicePositions' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['positions_new'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['servicePositions'],
 			'inputType'               => 'multiColumnWizard',
 			'exclude'   			  => true,
 			'eval'                    => array(
 				'columnFields' => array
 				(
-					'amount' => array
+					'quantity' => array
 					(
-						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_browser'],
-						'exclude'               => true,
-						'inputType'             => 'text',
-						'eval' 			=> array('style'=>'width:30px')
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'],
+						'exclude'           => true,
+						'inputType'         => 'text',
+						'eval' 				=> array('style'=>'width:40px;text-align:center;')
 					),
 					'unit' => array
 					(
-						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_os'],
-						'exclude'               => true,
-						'inputType'             => 'select',
-						'options_callback' 		=> array('Invoice', 'getUnitOptions'),
-						'eval' 			=> array('style' => 'width:70px')
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'],
+						'exclude'           => true,
+						'inputType'         => 'select',
+						'options_callback' 	=> array('Invoice', 'getUnitOptions'),
+						'eval' 				=> array('style' => 'width:80px;')
 					),
-					'offer' => array
+					'item' => array
 					(
-						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_browser'],
-						'exclude'               => true,
-						'inputType'             => 'select',
-						'options_callback'      => array('Invoice', 'getOfferOptions'),
-						'eval' 			=> array('style'=>'width:100px', 'includeBlankOption'=>true)
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_item'],
+						'exclude'           => true,
+						'inputType'         => 'select',
+						'options_callback'  => array('Invoice', 'getServiceOptions'),
+						'eval' 				=> array('style'=>'width:160px;', 'includeBlankOption'=>true)
 					),
 					'title' => array
 					(
-						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_browser'],
-						'exclude'               => true,
-						'inputType'             => 'text',
-						'eval' 			=> array('style'=>'width:180px')
-					),
-					'tax' => array
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
+						'exclude'           => true,
+						'inputType'         => 'text',
+						'eval' 				=> array('style'=>'width:300px;')
+					)
+				)
+			)
+		),
+		'productPositions' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['productPositions'],
+			'inputType'               => 'multiColumnWizard',
+			'exclude'   			  => true,
+			'eval'                    => array(
+				'columnFields' => array
+				(
+					'quantity' => array
 					(
-						'label'                 => &$GLOBALS['TL_LANG']['tl_theme']['ts_client_mobile'],
-						'exclude'               => true,
-						'inputType'             => 'select',
-						'options'				=> array('7'=>'7%', '19'=>'19%'),
-						'eval'                  => array('style'=>'width:50px')
-		 
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'],
+						'exclude'           => true,
+						'inputType'         => 'text',
+						'eval' 				=> array('style'=>'width:40px;text-align:center;')
 					),
-					'price' => array
+					'unit' => array
 					(
-						'label' 		=> &$GLOBALS['TL_LANG']['tl_theme']['ts_extension'],
-						'inputType' 		=> 'text',
-						'eval'                  => array('mandatory'=>true, 'style'=>'width:50px')
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'],
+						'exclude'           => true,
+						'inputType'         => 'select',
+						'options_callback' 	=> array('Invoice', 'getUnitOptions'),
+						'eval' 				=> array('style' => 'width:80px;')
 					),
+					'item' => array
+					(
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_item'],
+						'exclude'           => true,
+						'inputType'         => 'select',
+						'options_callback'  => array('Invoice', 'getProductOptions'),
+						'eval' 				=> array('style'=>'width:160px;', 'includeBlankOption'=>true)
+					),
+					'title' => array
+					(
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
+						'exclude'           => true,
+						'inputType'         => 'text',
+						'eval' 				=> array('style'=>'width:300px;')
+					)
+				)
+			)
+		),
+		'hourPositions' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['hourPositions'],
+			'inputType'               => 'multiColumnWizard',
+			'exclude'   			  => true,
+			'eval'                    => array(
+				'columnFields' => array
+				(
+					'quantity' => array
+					(
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'],
+						'exclude'           => true,
+						'inputType'         => 'text',
+						'eval' 				=> array('style'=>'width:40px;text-align:center;')
+					),
+					'item' => array
+					(
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_item'],
+						'exclude'           => true,
+						'inputType'         => 'select',
+						'options_callback'  => array('Invoice', 'getHourOptions'),
+						'eval' 				=> array('style'=>'width:247px;', 'includeBlankOption'=>true)
+					),
+					'title' => array
+					(
+						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
+						'exclude'           => true,
+						'inputType'         => 'text',
+						'eval' 				=> array('style'=>'width:300px;')
+					)
 				)
 			)
 		),

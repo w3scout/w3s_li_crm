@@ -28,13 +28,21 @@ $GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
 
 	'fields' => array
 	(
+        'toCustomer' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_project']['toCustomer'],
+			'inputType'               => 'select',
+			'exclude'   			  => true,
+			'options_callback'        => array('Customer', 'getCustomerOptions'),
+			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true, 'submitOnChange'=>true)
+		),
         'toProject' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProject'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
-			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true),
-			'options_callback'        => array('Project', 'getProjectsByCustomerList')
+			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true),
+			'options_callback'        => array('Project', 'getProjectsOfCustomer')
 		),
 		'toProduct' => array
 		(

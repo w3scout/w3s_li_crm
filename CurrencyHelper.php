@@ -18,10 +18,10 @@ class CurrencyHelper extends Controller
     public function getCurrencySymbolArray()
     {
         return array(
-            'EUR' => '&#x20AC;',
+            'EUR' => '&#0128;',
             'USD' => '$',
-            'GBP' => '&pound;',
-            'CHF' => 'sFR',
+            'GBP' => '&#0163;',
+            'CHF' => 'CHF',
         );
     }
 

@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend}, toProductType, number, title;{price_legend}, price, currency, taxRate;'
+		'default'                     => '{product_legend}, toProductType, number, title;{price_legend}, price, currency, toTax;'
 	),
 
 	// Subpalettes
@@ -126,9 +126,9 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
             'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
             'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
         ),
-        'taxRate' => array
+        'toTax' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['taxRate'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['toTax'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'		  => array('CompanySettings', 'getTaxOptions'),
