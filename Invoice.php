@@ -45,13 +45,7 @@ class Invoice extends BackendModule
 		elseif ($key == 'pdf')
 		{
 			// Return the file and do not render the template
-			$objInvoice = $this->Database->prepare("SELECT file AS pdfFile
-	                                                FROM tl_li_invoice
-	                                                WHERE id = ?")->limit(1)->execute($id);
-			$pdf = '../'.$objInvoice->pdfFile;
-			header('Content-type: application/pdf');
-			header('Content-Disposition: attachment; filename="'.$pdf.'"');
-			return readfile($pdf);
+			$this->returnFile($id);
 		}
 
 		$this->Template->id = $id;
@@ -802,10 +796,11 @@ class Invoice extends BackendModule
 		$objInvoice = $this->Database->prepare("SELECT file AS pdfFile
                                                 FROM tl_li_invoice
                                                 WHERE id = ?")->limit(1)->execute($id);
-		$pdf = '..'.$objInvoice->pdfFile;
+		$path = '../'.$objInvoice->pdfFile;
+		$filename = basename($path);
 		header('Content-type: application/pdf');
-		header('Content-Disposition: attachment; filename="'.$pdf.'"');
-		readfile($pdf);
+		header('Content-Disposition: attachment; filename="'.$filename.'"');
+		readfile($path);
 	}
 
 	private function getTotalHours($hours, $minutes)
