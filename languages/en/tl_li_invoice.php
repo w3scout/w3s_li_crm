@@ -64,6 +64,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'] = array('Quantity', 'P
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'] = array('Unit', 'Please choose the unit for this position.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_item'] = array('Reference', 'Please choose the reference in the crm.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_label'] = array('Label', 'Please enter the label for this position.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'] = array('Unit price', 'Please enter the unit price for this position.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'] = 'Total price';
 $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] = 'The invoice date is the performance date.';
 $GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'] = 'Performance date: %s';

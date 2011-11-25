@@ -14,7 +14,7 @@ $GLOBALS['TL_LANG']['tl_li_hourly_wage']['price_legend'] = 'Preis';
 
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['title'] = array('Bezeichnung', 'Bitte geben Sie die Bezeichnung des Stundensatzes ein.');
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['wage'] = array('Stundensatz', 'Bitte geben Sie die Bezahlung pro Stunde in diesem Stundensatz (Netto) ein.');
-$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate'] = array('Steuersatz', 'Bitte wählen Sie den Steuersatz aus.');
+$GLOBALS['TL_LANG']['tl_li_hourly_wage']['toTax'] = array('Steuersatz', 'Bitte wählen Sie den Steuersatz aus.');
 
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['new'] = array('Neuer Stundensatz', 'Einen neuen Stundensatz erstellen');
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['edit'] = array('Stundensatz bearbeiten', 'Den Stundensatz mit der ID %s bearbeiten');

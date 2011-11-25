@@ -443,7 +443,7 @@ class Invoice extends BackendModule
 				$taxes[$objHour->taxRate] += $position_total_price;
 			}
 
-			$fullNetto += $service['quantity'] * $objHour->wage;
+			$fullNetto += $hour['quantity'] * $objHour->wage;
 
 			$title = $hour['title'] != '' ? $hour['title'] : $objProduct->title;
 
