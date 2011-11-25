@@ -23,3 +23,5 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['entryDate'] = array('Datum', 'Datum a
 $GLOBALS['TL_LANG']['tl_li_working_hour']['toWorkPackage'] = array('Arbeitspaket', 'Das Arbeitspaket, dem die Arbeitsstunden zugeordnet werden sollen.');
 $GLOBALS['TL_LANG']['tl_li_working_hour']['hours'] = array('Stunden', 'Anzahl der Stunden');
 $GLOBALS['TL_LANG']['tl_li_working_hour']['minutes'] = array('Minuten', 'Anzahl der Minuten');
+
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = 'Kalenderwoche';

@@ -24,3 +24,5 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['addHours'] = 'Add the entry';
 $GLOBALS['TL_LANG']['tl_li_working_hour']['manageWorkPackages'] = 'Manage work packages';
 $GLOBALS['TL_LANG']['tl_li_working_hour']['hours'] = array('Hours', 'Amount of hours');
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editWorkPackage'] = 'Edit the work package';
+
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = 'Calendar week';
