@@ -64,7 +64,6 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'] = array('Anzahl', 'Bit
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'] = array('Einheit', 'Bitte wählen Sie die Einheit für diese Position aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_item'] = array('Referenz', 'Bitte wählen Sie die Referenz im CRM aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_label'] = array('Bezeichnung', 'Bitte geben Sie die Bezeichnung für diese Position ein.');
-$GLOBALS['TL_LANG']['tl_li_invoice']['position_tax'] = array('Steuer', 'Bitte wählen Sie die Steuer für diese Position aus.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'] = array('Einzelpreis', 'Bitte geben Sie den Einzelpreis für diese Position ein.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'] = 'Gesamtpreis';
 $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] = 'Das Rechnungsdatum entspricht dem Leistungsdatum.';

@@ -60,3 +60,6 @@ $GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettingsDesc'] = 'General set
 $GLOBALS['TL_LANG']['li_settings']['company'] = 'Company';
 $GLOBALS['TL_LANG']['li_settings']['companySettings'] = 'Company settings';
 $GLOBALS['TL_LANG']['li_settings']['companySettingsDesc'] = 'General company settings, e.g. address and bank account.';
+
+$GLOBALS['TL_LANG']['li_settings']['taxSettings'] = 'Tax settings';
+$GLOBALS['TL_LANG']['li_settings']['taxSettingsDesc'] = 'Through tax settings you can define the taxes you use for services, products and hourly wages.';

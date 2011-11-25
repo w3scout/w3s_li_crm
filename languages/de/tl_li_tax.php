@@ -12,7 +12,7 @@ if (!defined('TL_ROOT'))
 $GLOBALS['TL_LANG']['tl_li_tax']['tax_legend'] = 'Steuersätze';
 
 $GLOBALS['TL_LANG']['tl_li_tax']['title'] = array('Titel', 'Bitte geben Sie den Titel ein.');
-$GLOBALS['TL_LANG']['tl_li_tax']['rate'] = array('Preis', 'Bitte geben Sie den Steuersatz ein.');
+$GLOBALS['TL_LANG']['tl_li_tax']['rate'] = array('Steuersatz', 'Bitte geben Sie den Steuersatz ein.');
 
 $GLOBALS['TL_LANG']['tl_li_tax']['new'] = array('Neuer Steuersatz', 'Einen neuen Steuersatz anlegen');
 $GLOBALS['TL_LANG']['tl_li_tax']['edit'] = array('Steuersatz bearbeiten', 'Den Steuersatz mit der ID %s bearbeiten');
