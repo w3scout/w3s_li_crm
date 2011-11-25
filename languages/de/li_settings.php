@@ -62,4 +62,4 @@ $GLOBALS['TL_LANG']['li_settings']['companySettings'] = 'Unternehmenseinstellung
 $GLOBALS['TL_LANG']['li_settings']['companySettingsDesc'] = 'Über die Unternehmenseinstellungen können Sie Ihre Unternehmensdaten wie z.B. Ihre Adresse oder Steuernummer festlegen. Diese müssen gesetzt sein um erfolgreich Rechnungen zu generieren.';
 
 $GLOBALS['TL_LANG']['li_settings']['taxSettings'] = 'Steuersätze';
-$GLOBALS['TL_LANG']['li_settings']['taxSettingsDesc'] = 'Über die Einstellungen für Steuersätze können Sie definieren, welche Steuersätze für Produkte und Leistungen berechnet werden können.';
+$GLOBALS['TL_LANG']['li_settings']['taxSettingsDesc'] = 'Über die Einstellungen für Steuersätze können Sie definieren, welche Steuersätze für Produkte, Leistungen und Stundensätze berechnet werden können.';
