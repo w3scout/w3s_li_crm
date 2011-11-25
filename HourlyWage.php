@@ -22,14 +22,14 @@ class HourlyWage extends Controller
      */
     public function getHourlyWagesList()
     {
-        $getHourlyWages = $this->Database->prepare("SELECT id, title, wage
+        $getHourlyWages = $this->Database->prepare("SELECT id, title, wage, currency
             FROM tl_li_hourly_wage
             ORDER BY title")->execute();
         
         $hourlyWages = array();
         while($getHourlyWages->next())
         {
-            $hourlyWages[$getHourlyWages->id] = $getHourlyWages->title.' ('.$getHourlyWages->wage.')';
+            $hourlyWages[$getHourlyWages->id] = $getHourlyWages->title.' ('.$getHourlyWages->wage.' '.$getHourlyWages->currency.')';
         }
         
         return $hourlyWages;

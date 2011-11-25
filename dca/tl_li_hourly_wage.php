@@ -20,14 +20,14 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		'sorting' => array
 		(
 			'mode'                    => 1,
-			'fields'                  => array('wage'),
+			'fields'                  => array('currency', 'wage'),
 			'flag'                    => 11,
             'panelLayout'             => 'search,filter,limit',
 		),
 		'label' => array
 		(
-			'fields'                  => array('title'),
-			'format'                  => '%s',
+			'fields'                  => array('wage', 'title'),
+			'format'                  => '(%s) %s',
 		),
 		'global_operations' => array
 		(
@@ -72,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 	'palettes' => array
 	(
 		'__selector__'	=> array(),
-		'default'		=> '{wage_legend},title;{price_legend},wage,toTax;'
+		'default'		=> '{wage_legend},title;{price_legend},wage,toTax,currency;'
 	),
 	'fields' => array
 	(
@@ -102,6 +102,13 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'exclude'   	   => true,
 			'options_callback' => array('CompanySettings', 'getTaxOptions'),
 			'eval'      	   => array('mandatory'=>true, 'tl_class'=>'w50')
-		)
+		),
+        'currency' => array(
+            'label' => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency'],
+            'inputType' => 'select',
+            'exclude' => true,
+            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+        )
 	)
 );

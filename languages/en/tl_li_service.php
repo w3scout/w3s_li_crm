@@ -17,8 +17,8 @@ $GLOBALS['TL_LANG']['tl_li_service']['toProject'] = array('Project', 'Please cho
 $GLOBALS['TL_LANG']['tl_li_service']['toServiceType'] = array('Service type', 'Please choose a service type.');
 $GLOBALS['TL_LANG']['tl_li_service']['title'] = array('Title', 'Please enter a title.');
 $GLOBALS['TL_LANG']['tl_li_service']['price'] = array('Price', 'Please enter a price.');
-$GLOBALS['TL_LANG']['tl_li_service']['currency'] = array('Currency', 'Please choose the currency.');
 $GLOBALS['TL_LANG']['tl_li_service']['toTax'] = array('Tax rate', 'Please choose the tax rate.');
+$GLOBALS['TL_LANG']['tl_li_service']['currency'] = array('Currency', 'Please choose the currency.');
 
 $GLOBALS['TL_LANG']['tl_li_service']['new'] = array('New service', 'Create a new service');
 $GLOBALS['TL_LANG']['tl_li_service']['edit'] = array('Edit service', 'Edit the service with the ID %s');

@@ -16,6 +16,7 @@ $GLOBALS['TL_LANG']['tl_li_work_package']['title'] = array('Title', 'Please ente
 $GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit'] = array('Hour limit', 'Please enter an hour limit.');
 $GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage'] = array('Hourly wage', 'Please choose an hourly wage.');
 $GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'] = array('External', 'Wether the work package is assigned to an external project.');
+$GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer'] = array('Customer', 'Please choose a customer.');
 $GLOBALS['TL_LANG']['tl_li_work_package']['toProject'] = array('Project', 'Please choose a project.');
 $GLOBALS['TL_LANG']['tl_li_work_package']['printOnInvoice'] = array('Print on invoice', 'Should it be possible to print the hours of this workpackage on an invoice?');
 

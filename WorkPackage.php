@@ -64,27 +64,20 @@ class WorkPackage extends Controller
     /**
      * Gets a label of a group or returns a default label for groups without one
      * 
-     * @param string $currentLabel The current label of a group
      * @return string The group label
      */
-    public function getGroupLabel($currentLabel)
+    public function getGroupLabel($group, $sortingMode, $firstOrderBy, $row, $dc)
     {
-        // Only modify the label if it's a numeric id - meaning that the foreignKey wasn't matched
-        if (!empty($currentLabel)) {
-
-            // Add the customer to the group label
-            $getCustomer = $this->Database->prepare("SELECT c.customerName
-                FROM tl_li_work_package wp
-                INNER JOIN tl_li_project p ON wp.toProject = p.id
-                INNER JOIN tl_member c ON p.toCustomer = c.id
-                WHERE p.title = ?")->execute($currentLabel);
-
-            return $getCustomer->customerName.' - '.$currentLabel;
+        $customerId = $row['toCustomer'];
+        if($customerId != 0) {
+            $objCustomer = $this->Database->prepare("SELECT customerNumber, customerName
+                                                     FROM tl_member
+                                                     WHERE id = ?")->execute($customerId);
+            $customer = $objCustomer->customerNumber.' '.$objCustomer->customerName;
+            return $customer;
+        } else {
+            $this->loadLanguageFile('tl_li_work_package');
+            return $GLOBALS['TL_LANG']['tl_li_work_package']['internal'];
         }
-        
-		// Load language file for workpackages
-		$this->loadLanguageFile('tl_li_work_package');
-        
-        return $GLOBALS['TL_LANG']['tl_li_work_package']['internal'];
     }
 }

@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{service_legend}, toCustomer, toProject, toServiceType, title;{price_legend}, price, currency, toTax;'
+		'default'                     => '{service_legend},toCustomer,toProject,title,toServiceType;{price_legend},price,toTax,currency;'
 	),
     
 	// Fields
@@ -124,13 +124,6 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory' => true, 'maxlength' => 12, 'tl_class' => 'w50', 'rgxp' => 'digit', 'alwaysSave' => true)
 		),
-        'currency' => array(
-            'label' => &$GLOBALS['TL_LANG']['tl_li_service']['currency'],
-            'inputType' => 'select',
-            'exclude' => true,
-            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
-        ),
         'toTax' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['toTax'],
@@ -138,7 +131,14 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'exclude'   			  => true,
 			'options_callback'		  => array('CompanySettings', 'getTaxOptions'),
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
-		)
+		),
+        'currency' => array(
+            'label' => &$GLOBALS['TL_LANG']['tl_li_service']['currency'],
+            'inputType' => 'select',
+            'exclude' => true,
+            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+        )
 	)
 );
 

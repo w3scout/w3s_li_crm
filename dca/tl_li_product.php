@@ -78,13 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend}, toProductType, number, title;{price_legend}, price, currency, toTax;'
-	),
-
-	// Subpalettes
-	'subpalettes' => array
-	(
-		''                            => ''
+		'default'                     => '{product_legend},toProductType,number,title;{price_legend},price,toTax,currency;'
 	),
 
 	// Fields
@@ -119,13 +113,6 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
-        'currency' => array(
-            'label' => &$GLOBALS['TL_LANG']['tl_li_product']['currency'],
-            'inputType' => 'select',
-            'exclude' => true,
-            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
-        ),
         'toTax' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['toTax'],
@@ -133,7 +120,14 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'exclude'   			  => true,
 			'options_callback'		  => array('CompanySettings', 'getTaxOptions'),
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
-		)
+		),
+        'currency' => array(
+            'label' => &$GLOBALS['TL_LANG']['tl_li_product']['currency'],
+            'inputType' => 'select',
+            'exclude' => true,
+            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+        )
 	)
 );
 

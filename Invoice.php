@@ -238,14 +238,14 @@ class Invoice extends BackendModule
 	public function getHourOptions(MultiColumnWizard $mcw)
 	{
 		$options = array();
-		$objInvoice = $this->Database->prepare("SELECT toCustomer FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
+		$objInvoice = $this->Database->prepare("SELECT toCustomer, currency FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
 		$objHours = $this->Database->prepare("SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
                                               FROM tl_li_work_package AS wp
                                               INNER JOIN tl_li_working_hour AS wh ON wh.toWorkPackage = wp.id
                                               INNER JOIN tl_li_project AS p ON wp.toProject = p.id
                                               INNER JOIN tl_li_hourly_wage AS hw ON hw.id = wp.toHourlyWage
-                                              WHERE p.toCustomer = ? AND wp.printOnInvoice = 1
-                                              GROUP BY wp.id")->execute($objInvoice->toCustomer);
+                                              WHERE p.toCustomer = ? AND hw.currency = ? AND wp.printOnInvoice = 1
+                                              GROUP BY wp.id")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objHours->next())
 		{
 			$hours = $objHours->sumHours;
