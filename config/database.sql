@@ -101,9 +101,9 @@ CREATE TABLE `tl_li_product` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Table `tl_li_product_to_project`
+-- Table `tl_li_product_to_customer`
 --
-CREATE TABLE `tl_li_product_to_project` (
+CREATE TABLE `tl_li_product_to_customer` (
    `id` int(10) unsigned NOT NULL auto_increment,
    `tstamp` int(10) unsigned NOT NULL default '0',
    `toCustomer` int(10) unsigned NULL default '0',

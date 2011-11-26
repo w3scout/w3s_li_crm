@@ -13,7 +13,7 @@
         <?php echo $lang['serviceNew'][0]; ?>
     </a> :: 
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['productNew'][1]; ?>"
-	   class="header_new product" href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_project&amp;act=create">
+	   class="header_new product" href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=create">
         <?php echo $lang['productNew'][0]; ?>
     </a>
 </div>
@@ -149,6 +149,58 @@
                             <div style="clear:both;"></div>
                         </li>
                     <?php endforeach; ?>
+                    <?php foreach($customer['products'] as $product): ?>
+                        <li class="tl_file simpleProduct" style="" onmouseout="Theme.hoverDiv(this, 0);"
+                            onmouseover="Theme.hoverDiv(this, 1);">
+                            <div class="tl_left">
+                                <span>
+                                    <img class="icon" height="16" width="16"
+                                         alt="<?php echo $product['productTitle']; ?>"
+                                         src="<?php echo $product['icon']; ?>" />
+                                </span>
+                                <span><?php echo $product['productTitle']; ?></span>
+                            </div>
+                            <div class="tl_right">
+                                <?php if(!$customer['isDisabled']) : ?>
+                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=edit&amp;id=<?php echo $product['id']; ?>"
+                                        title="<?php echo $product['editTitle']; ?>">
+                                        <img src="system/themes/default/images/edit.gif"
+                                            alt="<?php echo $product['editLabel']; ?>" width="12" height="16" />
+                                    </a>
+                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=copy&amp;id=<?php echo $product['id']; ?>"
+                                       title="<?php echo $product['copyTitle']; ?>">
+                                        <img src="system/themes/default/images/copy.gif"
+                                             alt="<?php echo $product['copyLabel']; ?>" width="14" height="16" />
+                                    </a>
+                                    <a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=delete&amp;id=<?php echo $product['id']; ?>"
+                                       title="<?php echo $product['deleteTitle']; ?>"
+                                       onclick="if (!confirm('<?php echo $product['deleteDialog']; ?>')) return false; Backend.getScrollOffset();">
+                                        <img src="system/themes/default/images/delete.gif"
+                                             alt="<?php echo $product['deleteLabel']; ?>" width="14" height="16" />
+                                    </a>
+                                <?php else: ?>
+                                    <span>
+                                        <img src="system/themes/default/images/edit_.gif"
+                                               alt="<?php echo $product['editLabel']; ?>" width="14" height="16" />
+                                    </span>
+                                    <span>
+                                        <img src="system/themes/default/images/copy_.gif"
+                                               alt="<?php echo $product['copyLabel']; ?>" width="14" height="16" />
+                                    </span>
+                                    <span>
+                                        <img src="system/themes/default/images/delete_.gif"
+                                               alt="<?php echo $product['deleteLabel']; ?>" width="14" height="16" />
+                                    </span>
+                                <?php endif; ?>
+                                <a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=show&amp;id=<?php echo $product['id']; ?>"
+                                   title="<?php echo $product['infoTitle']; ?>">
+                                    <img src="system/themes/default/images/show.gif"
+                                         alt="<?php echo $product['infoLabel']; ?>" width="14" height="16" />
+                                </a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </li>
+                    <?php endforeach; ?>
 					<?php foreach($customer['projects'] as $project) : ?>
 						<li class="tl_file project" style="" onmouseout="Theme.hoverDiv(this, 0);"
 							onmouseover="Theme.hoverDiv(this, 1);">
@@ -265,17 +317,17 @@
 									</div>
 									<div class="tl_right">
 										<?php if(!$customer['isDisabled']) : ?>
-                                            <a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_project&amp;act=edit&amp;id=<?php echo $product['id']; ?>"
+                                            <a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=edit&amp;id=<?php echo $product['id']; ?>"
                                                 title="<?php echo $product['editTitle']; ?>">
                                                 <img src="system/themes/default/images/edit.gif"
                                                     alt="<?php echo $product['editLabel']; ?>" width="12" height="16" />
                                             </a> 
-											<a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_project&amp;act=copy&amp;id=<?php echo $product['id']; ?>"
+											<a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=copy&amp;id=<?php echo $product['id']; ?>"
 											   title="<?php echo $product['copyTitle']; ?>">
 												<img src="system/themes/default/images/copy.gif"
 													 alt="<?php echo $product['copyLabel']; ?>" width="14" height="16" />
 											</a> 
-											<a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_project&amp;act=delete&amp;id=<?php echo $product['id']; ?>"
+											<a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=delete&amp;id=<?php echo $product['id']; ?>"
 											   title="<?php echo $product['deleteTitle']; ?>"
 											   onclick="if (!confirm('<?php echo $product['deleteDialog']; ?>')) return false; Backend.getScrollOffset();">
 												<img src="system/themes/default/images/delete.gif"
@@ -295,7 +347,7 @@
 													   alt="<?php echo $product['deleteLabel']; ?>" width="14" height="16" />
 											</span> 
 										<?php endif; ?>
-										<a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_project&amp;act=show&amp;id=<?php echo $product['id']; ?>"
+										<a href="contao/main.php?do=li_customers&amp;table=tl_li_product_to_customer&amp;act=show&amp;id=<?php echo $product['id']; ?>"
 										   title="<?php echo $product['infoTitle']; ?>">
 											<img src="system/themes/default/images/show.gif"
 												 alt="<?php echo $product['infoLabel']; ?>" width="14" height="16" />

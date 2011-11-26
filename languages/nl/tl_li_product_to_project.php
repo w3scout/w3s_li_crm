@@ -1,6 +1,6 @@
 <?php
 /**
- * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_product_to_project.php 
+ * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_product_to_customer.php
  * 
  * Contao extension: li_crm 0.3.0 alpha1 
  * Dutch translation file 
@@ -15,12 +15,12 @@
  * permanent text corrections which are update-safe. 
  */
  
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['product_legend'] = "Producten";
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toCustomer']['0'] = "Klanten";
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toCustomer']['1'] = "Selecteer een klant.";
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProject']['0'] = "Project";
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProject']['1'] = "Selecteer een project.";
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProduct']['0'] = "Product";
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProduct']['1'] = "Selecteer een product.";
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['product_legend'] = "Producten";
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer']['0'] = "Klanten";
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer']['1'] = "Selecteer een klant.";
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject']['0'] = "Project";
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject']['1'] = "Selecteer een project.";
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct']['0'] = "Product";
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct']['1'] = "Selecteer een product.";
  
 ?>

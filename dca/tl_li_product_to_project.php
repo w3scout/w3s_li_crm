@@ -7,7 +7,7 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-$GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
+$GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 (
 	'config' => array
 	(
@@ -30,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
 	(
         'toCustomer' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_project']['toCustomer'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
 		),
         'toProject' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProject'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true),
@@ -46,7 +46,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_project'] = array
 		),
 		'toProduct' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProduct'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true),

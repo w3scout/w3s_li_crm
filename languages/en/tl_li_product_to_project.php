@@ -9,8 +9,8 @@ if (!defined('TL_ROOT'))
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['product_legend'] = 'Products';
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['product_legend'] = 'Products';
 
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toCustomer'] = array('Customer', 'Please choose a customer.');
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProject'] = array('Project', 'Please choose a project.');
-$GLOBALS['TL_LANG']['tl_li_product_to_project']['toProduct'] = array('Product', 'Please choose a product.');
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer'] = array('Customer', 'Please choose a customer.');
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject'] = array('Project', 'Please choose a project.');
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct'] = array('Product', 'Please choose a product.');

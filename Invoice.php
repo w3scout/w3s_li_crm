@@ -226,7 +226,7 @@ class Invoice extends BackendModule
 		$objInvoice = $this->Database->prepare("SELECT toCustomer, currency FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
 		$objProducts = $this->Database->prepare("SELECT p.id, p.title
                                                  FROM tl_li_product AS p
-                                                 INNER JOIN tl_li_product_to_project AS pp ON p.id = pp.toProduct
+                                                 INNER JOIN tl_li_product_to_customer AS pp ON p.id = pp.toProduct
                                                  WHERE pp.toCustomer = ? AND p.currency = ?")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objProducts->next())
 		{
