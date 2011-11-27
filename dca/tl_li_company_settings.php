@@ -56,7 +56,7 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 		),
 		'li_crm_company_postal' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_member']['postal'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal'],
 			'inputType'               => 'text',
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>32, 'tl_class'=>'w50'),

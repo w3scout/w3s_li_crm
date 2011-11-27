@@ -16,6 +16,7 @@ $GLOBALS['TL_LANG']['tl_li_company_settings']['tax_legend'] = 'Steuersätze';
 
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_name'] = array('Name des Unternehmens', 'Bitte geben Sie den Namen Ihres Unternehmens ein.');
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number'] = array('Steuernummer', 'Bitte geben Sie die Steuernummer Ihres Unternehmens ein.');
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal'] = array('Postleitzahl', 'Bitte geben Sie die Postleitzahl ohne führende Nullen ein.');
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number'] = array('Kontonummer', 'Bitte geben Sie Ihre Kontonummer Ihres Kontos ein.');
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank_code'] = array('BLZ', 'Bitte geben Sie die BLZ Ihrer Bank ein.');
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank'] = array('Bank', 'Bitte geben Sie den Namen Ihrer Bank ein.');
