@@ -37,8 +37,7 @@ class InvoiceTemplate extends Controller
 		$file = fopen($exportPath.$htaccess, 'w+');
 		fwrite($file, 'deny from all');
 		fclose($file);
-		echo $htaccess;
-		
+
 		return $path;
 	}
 
