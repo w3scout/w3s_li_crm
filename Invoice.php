@@ -92,12 +92,15 @@ class Invoice extends BackendModule
 	{
 		if ($row['isOut'] == '1')
 		{
-			return "<img src=\"system/modules/li_crm/icons/income.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['income']."\" style=\"vertical-align:-3px;\" /> ".$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title'];
+			$icon = "<img src=\"system/modules/li_crm/icons/income.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['income']."\" style=\"vertical-align:-3px;\" /> ";
 		}
 		else
 		{
-			return "<img src=\"system/modules/li_crm/icons/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ".$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title'];
+			$icon = "<img src=\"system/modules/li_crm/icons/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ";
 		}
+        $currencyHelper = new CurrencyHelper();
+		$symbol = $currencyHelper->getSymbolOfCode($row['currency']);
+        return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
 	}
 
 	public function showFile($row, $href, $label, $title, $icon, $attributes)

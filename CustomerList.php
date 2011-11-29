@@ -42,10 +42,10 @@ class CustomerList extends BackendModule
 		while ($objCustomers->next())
 		{
             // Get all services of that customer which aren't connected to a project
-            $objCustomerServices = $this->Database->prepare("SELECT p.id, p.title AS serviceTitle, t.icon
-                FROM tl_li_service AS p
-                    INNER JOIN tl_li_service_type AS t ON p.toServiceType = t.id
-                WHERE p.toProject = 0 AND p.toCustomer = ?
+            $objCustomerServices = $this->Database->prepare("SELECT s.id, s.title AS serviceTitle, t.icon
+                FROM tl_li_service AS s
+                    INNER JOIN tl_li_service_type AS t ON s.toServiceType = t.id
+                WHERE s.toProject = 0 AND s.toCustomer = ?
                 ORDER BY t.orderNumber ASC")->execute($objCustomers->id);
             
             $arrCustomerServices = array();
