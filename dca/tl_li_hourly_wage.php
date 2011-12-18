@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'exclude'   => true,
 			'default'	=> '',
             'search'    => true,
-			'eval'		=> array('mandatory' => true),
+			'eval'		=> array('mandatory' => true, 'maxlength'=>250),
 		),
 		'wage' => array
 		(

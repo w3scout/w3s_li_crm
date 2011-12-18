@@ -282,7 +282,7 @@ CREATE TABLE `tl_li_working_hour` (
 CREATE TABLE `tl_li_hourly_wage` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NULL default '0',
-  `title` varchar(20) NOT NULL default '',
+  `title` varchar(250) NOT NULL default '',
   `wage` int(10) unsigned NOT NULL default '0',
   `toTax` int(10) unsigned NOT NULL default '0',
   `currency` varchar(3) NOT NULL default '',
