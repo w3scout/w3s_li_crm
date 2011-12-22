@@ -34,7 +34,7 @@
 					class="tl_folder customer<?php echo $customer['isDisabled'] ? " disabled" : ""; ?>"
 					onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
                     <div class="tl_left">
-						<?php if (count($customer['projects']) > 0): ?>
+						<?php if (count($customer['projects']) > 0 || count($customer['services']) > 0 || count($customer['products']) > 0): ?>
 							<a href="contao/main.php?do=li_customers&amp;toggle=customer&amp;id=<?php echo $customer['id']; ?>">
 								<?php if ($customer['display']): ?>
 									<img src="system/themes/default/images/folMinus.gif" />
