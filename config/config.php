@@ -30,6 +30,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         'li_tasks' => array
         (
             'tables'     => array('tl_li_task', 'tl_li_task_reminder'),
+            'callback'   => 'Task',
             'icon'       => 'system/modules/li_crm/icons/tasks.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
@@ -61,6 +62,18 @@ array_insert($GLOBALS['BE_MOD'], 0, array
     )
 ));
 
+// Front end modules
+array_insert($GLOBALS['FE_MOD'], 2, array
+(
+	'li_crm' => array
+	(
+		'tasklist'      => 'ModuleTaskList',
+		'taskreader'    => 'ModuleTaskReader',
+		'invoicelist'   => 'ModuleInvoiceList',
+		'invoicereader' => 'ModuleInvoiceReader'
+	)
+));
+
 // Add customer fields to members
 $GLOBALS['BE_MOD']['accounts']['member']['tables'][] = 'tl_li_contact';
 
@@ -69,6 +82,10 @@ $GLOBALS['BE_MOD']['accounts']['member']['tables'][] = 'tl_li_contact';
 if ($_GET['do'] == 'li_customers' && !empty($_GET['table']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_customers']['callback']);
+}
+if ($_GET['do'] == 'li_tasks' && empty($_GET['key']))
+{
+	unset($GLOBALS['BE_MOD']['li_crm']['li_tasks']['callback']);
 }
 if ($_GET['do'] == 'li_invoices' && empty($_GET['key']))
 {

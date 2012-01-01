@@ -1,0 +1,53 @@
+
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+	<?php if ($this->headline): ?>
+	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+	<?php endif; ?>
+	<div class="invoice">
+		<?php if($this->invoiceFound): ?>
+		<?php $invoice = $this->invoice; ?>
+		<div class="attribute title">
+			<span class="label"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['title']['0']; ?></span>
+			<span class="value"><?php echo $invoice['title']; ?></span>
+			<br class="clear" />
+		</div>
+		<div class="attribute date">
+			<span class="label"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['invoiceDate']['0']; ?></span>
+			<span class="value"><?php echo $invoice['date'] != '' ? date('d.m.Y', $invoice['date']) : '-'; ?></span>
+			<br class="clear" />
+		</div>
+		<div class="attribute price currency <?php echo $invoice['currency']; ?>">
+			<span class="label"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['price']['0']; ?></span>
+			<span class="value"><?php echo $invoice['price']; ?></span>
+			<br class="clear" />
+		</div>
+		<div class="attribute download icon">
+			<span class="label"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice']; ?></span>
+			<span class="value">
+				<?php if($invoice['fileAvailable']): ?>
+					<a href="<?php echo $invoice['file']; ?>" title="<?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice']; ?>" target="blank">
+						<img src="system/modules/li_crm/icons/invoice_download.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice']; ?>" />
+					</a>
+				<?php else: ?>
+					<img src="system/modules/li_crm/icons/invoice_download_disabled.png" alt="" />
+				<?php endif; ?>
+			</span>
+			<br class="clear" />
+		</div>
+		<?php if($invoice['fileAvailable']): ?>
+			<div class="attribute invoice object">
+				<span class="label"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend']; ?></span>
+				<span class="value">
+					<object class="pdf" data="<?php echo $invoice['file']; ?>" type="application/pdf" width="680" height="900"> </object>
+				</span>
+				<br class="clear" />
+			</div>
+		<?php endif; ?>
+		<?php else: ?>
+		<span class="error"><?php echo $GLOBALS['TL_LANG']['tl_li_task']['taskNotFound']; ?></span>
+		<?php endif; ?>
+		<a href="javascript:history.go(-1)" title="<?php echo $GLOBALS['TL_LANG']['MSC']['goBack']; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['goBack']; ?></a>
+	</div>
+</div>
+<!-- indexer::continue -->

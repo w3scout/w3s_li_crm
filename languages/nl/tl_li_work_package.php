@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_work_package.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -25,8 +25,12 @@ $GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage']['0'] = "Uurtarief";
 $GLOBALS['TL_LANG']['tl_li_work_package']['toHourlyWage']['1'] = "Kies een uurtarief";
 $GLOBALS['TL_LANG']['tl_li_work_package']['isExternal']['0'] = "Extern";
 $GLOBALS['TL_LANG']['tl_li_work_package']['isExternal']['1'] = "Is het werkpakket toegewezen aan een extern project?";
+$GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer']['0'] = "Klant";
+$GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer']['1'] = "Kies een klant.";
 $GLOBALS['TL_LANG']['tl_li_work_package']['toProject']['0'] = "Project";
 $GLOBALS['TL_LANG']['tl_li_work_package']['toProject']['1'] = "Kies een project";
+$GLOBALS['TL_LANG']['tl_li_work_package']['printOnInvoice']['0'] = "Plaats op factuur";
+$GLOBALS['TL_LANG']['tl_li_work_package']['printOnInvoice']['1'] = "Mogen deze uren van dit werkpakket worden gefactureerd.";
 $GLOBALS['TL_LANG']['tl_li_work_package']['new']['0'] = "Nieuw werkpakket";
 $GLOBALS['TL_LANG']['tl_li_work_package']['new']['1'] = "Maak een nieuw werkpakket";
 $GLOBALS['TL_LANG']['tl_li_work_package']['edit']['0'] = "Werkpakket bewerken";

@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/li_customer.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -23,7 +23,7 @@ $GLOBALS['TL_LANG']['li_customers']['customerNew']['1'] = "Maak een nieuwe klant
 $GLOBALS['TL_LANG']['li_customers']['customerEdit']['0'] = "Klant Wijzigen";
 $GLOBALS['TL_LANG']['li_customers']['customerEdit']['1'] = "Wijzig klant ID %s";
 $GLOBALS['TL_LANG']['li_customers']['customerCopy']['0'] = "Klant dupliceeren";
-$GLOBALS['TL_LANG']['li_customers']['customerCopy']['1'] = "dupliceer klant ID %s";
+$GLOBALS['TL_LANG']['li_customers']['customerCopy']['1'] = "Dupliceer klant ID %s";
 $GLOBALS['TL_LANG']['li_customers']['customerDelete']['0'] = "Klant verwijderen";
 $GLOBALS['TL_LANG']['li_customers']['customerDelete']['1'] = "Verwijder klant ID %s";
 $GLOBALS['TL_LANG']['li_customers']['customerDelete']['2'] = "Weet u zeker dat u klant ID %s wil verwijderen?";

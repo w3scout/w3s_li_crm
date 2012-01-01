@@ -13,7 +13,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
-		'enableVersioning'            => true,
+		'enableVersioning'            => true
 	),
 	'list' => array
 	(
@@ -67,6 +67,13 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
 			),
+			'toggle' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_task']['toggle'],
+				'icon'                => 'visible.gif',
+				'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.toggleVisibility(this, %s);"',
+				'button_callback'     => array('Task', 'toggleIcon')
+			),
 			'show' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_task']['show'],
@@ -78,23 +85,38 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['new'],
 				'href'                => 'table=tl_li_task_reminder&act=create',
 				'icon'                => 'system/modules/li_crm/icons/reminder_add.png'
+			),
+			'done' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_task']['done'],
+				'icon'                => 'system/modules/li_crm/icons/task_done_disabled.png',
+				'attributes'          => 'onclick="Backend.getScrollOffset();"',
+				'button_callback'     => array('Task', 'taskDoneIcon')
 			)
 		)
 	),
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{settings_legend}, toProject, toStatus, toUser, priority;{task_legend}, title, alias, deadline, description;'
+		'default'                     => '{settings_legend}, toCustomer, toProject, toStatus, toUser, priority;{task_legend}, title, alias, deadline, description;{publish_legend},published;'
 	),
 	'fields' => array
 	(
+        'toCustomer' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toCustomer'],
+			'inputType'               => 'select',
+			'exclude'   			  => true,
+			'options_callback'        => array('Customer', 'getCustomerOptions'),
+			'eval'                    => array('tl_class' => 'w50','includeBlankOption' => true, 'submitOnChange' => true)
+		),
         'toProject' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toProject'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
-			'options_callback'        => array('Project', 'getProjectsByCustomerList'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true),
+			'options_callback'        => array('Project', 'getProjectsOfCustomer')
 		),
         'toStatus' => array
 		(
@@ -151,7 +173,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'flag'                    => 8,
 			'inputType'               => 'text',
 			'exclude'   			  => true,
-			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                    => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
 		),
 		'description' => array
 		(
@@ -160,6 +182,13 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'               => 'textarea',
 			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'clr', 'rte'=>'tinyMCE')
+        ),
+		'published' => array
+		(
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['published'],
+			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
+			'filter'                  => true
         )
 	)
 );

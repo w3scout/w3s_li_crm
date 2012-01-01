@@ -16,3 +16,9 @@ $GLOBALS['TL_LANG']['MOD']['li_tasks'] = array('Tasks', 'Manage tasks.');
 $GLOBALS['TL_LANG']['MOD']['li_timekeeping'] = array('Timekeeping', 'Manage timekeeping.');
 $GLOBALS['TL_LANG']['MOD']['li_invoices'] = array('Invoices', 'Manage invoicess.');
 $GLOBALS['TL_LANG']['MOD']['li_settings'] = array('Settings', 'Manage CRM settings.');
+
+$GLOBALS['TL_LANG']['FMD']['li_crm'] = "CRM";
+$GLOBALS['TL_LANG']['FMD']['tasklist'] = array('Task list', 'Adds a list of tasks to the page.');
+$GLOBALS['TL_LANG']['FMD']['taskreader'] = array('Task reader', 'Shows the details of a task.');
+$GLOBALS['TL_LANG']['FMD']['invoicelist'] = array('Invoice list', 'Adds a list of invoices to the page.');
+$GLOBALS['TL_LANG']['FMD']['invoicereader'] = array('Invoice reader', 'Shows the details of an invoice.');

@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{category_legend}, title, orderNumber;'
+		'default'                     => '{category_legend}, title, orderNumber, cssClass;'
 	),
 
 	// Subpalettes
@@ -104,6 +104,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 			'inputType'               => 'text',
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
+		),
+		'cssClass' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_category']['cssClass'],
+			'inputType'               => 'text',
+			'exclude'   			  => true,
+			'eval'                    => array('maxlength'=>250, 'tl_class'=>'w50')
 		),
 	)
 );

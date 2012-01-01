@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_invoice_template.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -16,6 +16,7 @@
  */
  
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['template_legend'] = "Factuur sjabloon";
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_data_legend'] = "Factuur data";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['generation_path_legend'] = "Factuurgeneratie map";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['title']['0'] = "Titel";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['title']['1'] = "Voer een titel in.";
@@ -23,6 +24,12 @@ $GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template']['0'] = "Factuu
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template']['1'] = "Kies een factuur sjabloon.";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['logo']['0'] = "Logo";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['logo']['1'] = "Kies een logo.";
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity']['0'] = "Vervalperiode";
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity']['1'] = "Voer het aantal dagen van de factuur vervalperiode in.";
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore']['0'] = "Omschrijving voor factuur-regels";
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore']['1'] = "Voer de omschrijving voor de factuur-regels in.";
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter']['0'] = "Omschrijving na factuur-regels";
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter']['1'] = "Voer de omschrijving na de factuurregels in.";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath']['0'] = "Basismap";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath']['1'] = "Kies een basismap.";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder']['0'] = "Maak periodieke map";

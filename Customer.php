@@ -23,7 +23,7 @@ class Customer extends Controller
 
 		if ($arrSplit[0] == 'countCustomers')
 		{
-			if (isset($arrSplit[1]))
+			if (isset($arrSplit[1]) && is_numeric($arrSplit[1]))
 			{
 				$objCustomer = $this->Database->prepare("SELECT COUNT(id) AS count
 				    FROM tl_member
@@ -39,21 +39,19 @@ class Customer extends Controller
 		}
 		return false;
 	}
-    
+
 	public function getCustomerOptions(DataContainer $dc)
 	{
-		$customers = array();
-
 		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName
-		    FROM tl_member
-		    WHERE disable = ''
-		        AND isCustomer = '1'")->execute();
+											      FROM tl_member
+											      WHERE disable = ''
+											      	AND isCustomer = '1'")->execute();
 
+		$customers = array();
 		while ($objCustomers->next())
 		{
 			$customers[$objCustomers->id] = $objCustomers->customerNumber." ".$objCustomers->customerName;
 		}
-
 		return $customers;
 	}
 
@@ -68,7 +66,7 @@ class Customer extends Controller
 		            FROM tl_li_project AS p
 		            WHERE p.toCustomer = m.id
 		        ) > 0")->execute();
-        
+
 		while ($objCustomers->next())
 		{
 			$customers[$objCustomers->id] = $objCustomers->customerNumber." ".$objCustomers->customerName;
@@ -92,7 +90,8 @@ class Customer extends Controller
 		}
 
 		// Generate new customer number
-		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);;
+		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);
+		;
 	}
 
 }

@@ -131,6 +131,7 @@ CREATE TABLE `tl_li_product_type` (
 CREATE TABLE `tl_li_task` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
+  `toCustomer` int(10) unsigned NOT NULL default '0',
   `toProject` int(10) unsigned NOT NULL default '0',
   `toStatus` int(10) unsigned NOT NULL default '0',
   `toUser` int(10) unsigned NOT NULL default '0',
@@ -139,6 +140,7 @@ CREATE TABLE `tl_li_task` (
   `alias` varchar(64) NOT NULL default '',
   `deadline` varchar(10) NOT NULL default '',
   `description` text NULL,
+  `published` char(1) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -153,6 +155,8 @@ CREATE TABLE `tl_li_task_status` (
   `orderNumber` int(10) unsigned NOT NULL default '0',
   `icon` varchar(255) NOT NULL default '',
   `isTaskDisabled` char(1) NOT NULL default '0',
+  `isTaskDone` char(1) NOT NULL default '0',
+  `cssClass` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -215,6 +219,7 @@ CREATE TABLE `tl_li_invoice` (
   `productPositions` text NOT NULL,
   `hourPositions` text NOT NULL,
   `descriptionAfter` text NOT NULL,
+  `published` char(1) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -227,6 +232,7 @@ CREATE TABLE `tl_li_invoice_category` (
   `tstamp` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `orderNumber` int(10) unsigned NOT NULL default '0',
+  `cssClass` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -294,5 +300,22 @@ CREATE TABLE `tl_li_tax`  (
   `tstamp` int(10) unsigned NULL default '0',
   `title` varchar(50) NOT NULL default '',
   `rate` double unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tl_li_configurator`  (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `pid` int(10) unsigned NULL default '0',
+  `sorting` int(10) unsigned NULL default '0',
+  `tstamp` int(10) unsigned NULL default '0',
+  `title` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tl_li_configurator_item`  (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `tstamp` int(10) unsigned NULL default '0',
+  `pid` int(10) unsigned NULL default '0',
+  `title` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

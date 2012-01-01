@@ -98,9 +98,9 @@ class Invoice extends BackendModule
 		{
 			$icon = "<img src=\"system/modules/li_crm/icons/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ";
 		}
-        $currencyHelper = new CurrencyHelper();
+		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($row['currency']);
-        return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
+		return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
 	}
 
 	public function showFile($row, $href, $label, $title, $icon, $attributes)
@@ -245,9 +245,8 @@ class Invoice extends BackendModule
 		$objHours = $this->Database->prepare("SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
                                               FROM tl_li_work_package AS wp
                                               INNER JOIN tl_li_working_hour AS wh ON wh.toWorkPackage = wp.id
-                                              INNER JOIN tl_li_project AS p ON wp.toProject = p.id
                                               INNER JOIN tl_li_hourly_wage AS hw ON hw.id = wp.toHourlyWage
-                                              WHERE p.toCustomer = ? AND hw.currency = ? AND wp.printOnInvoice = 1
+                                              WHERE wp.toCustomer = ? AND hw.currency = ? AND wp.printOnInvoice = 1
                                               GROUP BY wp.id")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objHours->next())
 		{
@@ -351,7 +350,7 @@ class Invoice extends BackendModule
 		$template['greeting'] = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 
 		$template['phone_label'] = 'Telefon';
-		
+
 		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
 
@@ -363,6 +362,10 @@ class Invoice extends BackendModule
 		$services = unserialize($objInvoice->servicePositions);
 		foreach ($services as $service)
 		{
+			if (empty($service['quantity']))
+			{
+				continue;
+			}
 			$objService = $this->Database->prepare("SELECT s.title, s.price, t.rate AS taxRate
 													FROM tl_li_service AS s
 													INNER JOIN tl_li_tax AS t ON s.toTax = t.id
@@ -395,7 +398,12 @@ class Invoice extends BackendModule
 		}
 
 		$products = unserialize($objInvoice->productPositions);
-		foreach($products as $product) {
+		foreach ($products as $product)
+		{
+			if (empty($product['quantity']))
+			{
+				continue;
+			}
 			$objProduct = $this->Database->prepare("SELECT p.title, p.price, t.rate AS taxRate
 													FROM tl_li_product AS p
 													INNER JOIN tl_li_tax AS t ON p.toTax = t.id
@@ -428,7 +436,12 @@ class Invoice extends BackendModule
 		}
 
 		$hours = unserialize($objInvoice->hourPositions);
-		foreach($hours as $hour) {
+		foreach ($hours as $hour)
+		{
+			if (empty($hour['item']))
+			{
+				continue;
+			}
 			$objHour = $this->Database->prepare("SELECT wp.title, hw.wage, t.rate AS taxRate
 												 FROM tl_li_work_package AS wp
 												 INNER JOIN tl_li_hourly_wage AS hw ON wp.toHourlyWage = hw.id
@@ -448,7 +461,7 @@ class Invoice extends BackendModule
 
 			$fullNetto += $hour['quantity'] * $objHour->wage;
 
-			$title = $hour['title'] != '' ? $hour['title'] : $objProduct->title;
+			$title = $hour['title'] != '' ? $hour['title'] : $objHour->title;
 
 			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
 			$htmlPositions .= '<td class="quantity">'.$hour['quantity'].'</td>';
@@ -591,8 +604,8 @@ class Invoice extends BackendModule
 		$filePath = substr($exportFile, 3);
 
 		$this->Database->prepare("UPDATE tl_li_invoice
-                                  SET file = ?
-                                  WHERE id = ?")->execute($filePath, $id);
+                                  SET file = ?, price = ?
+                                  WHERE id = ?")->execute($filePath, $fullNetto, $id);
 
 		// Return link to template
 		return $templateLink;
@@ -806,6 +819,37 @@ class Invoice extends BackendModule
 		readfile($path);
 	}
 
+	public function returnFileForFrontend($id)
+	{
+		$this->import('FrontendUser', 'User');
+		$objInvoice = $this->Database->prepare("SELECT toCustomer, file AS pdfFile
+                                                FROM tl_li_invoice
+                                                WHERE id = ?")->limit(1)->execute($id);
+		if ($this->User->id != '')
+		{
+			if ($objInvoice->toCustomer == $this->User->id)
+			{
+				$path = $objInvoice->pdfFile;
+				$filename = basename($path);
+				header('Content-type: application/pdf');
+				header('Content-Disposition: attachment; filename="'.$filename.'"');
+				readfile($path);
+			}
+			else
+			{
+				$this->sendTo403();
+			}
+		}
+		else
+		{
+			$path = $objInvoice->pdfFile;
+			$filename = basename($path);
+			header('Content-type: application/pdf');
+			header('Content-Disposition: attachment; filename="'.$filename.'"');
+			readfile($path);
+		}
+	}
+
 	private function getTotalHours($hours, $minutes)
 	{
 		$minutes = Abs($minutes);
@@ -828,6 +872,77 @@ class Invoice extends BackendModule
 			$minutes = $minutes."0";
 		}
 		return ($iHours + $hours).":".$minutes;
+	}
+
+	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+	{
+		if (strlen($this->Input->get('tid')))
+		{
+			$this->toggleVisibility($this->Input->get('tid'), ($this->Input->get('state') == 1));
+			$this->redirect($this->getReferer());
+		}
+
+		$href .= '&amp;tid='.$row['id'].'&amp;state='.($row['published'] ? '' : 1);
+		if (!$row['published'])
+		{
+			$icon = 'invisible.gif';
+		}
+		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+	}
+
+	public function toggleVisibility($intId, $blnVisible)
+	{
+		$this->Input->setGet('id', $intId);
+		$this->Input->setGet('act', 'toggle');
+
+		// Update the database
+		$this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
+		$this->createNewVersion('tl_li_invoice', $intId);
+	}
+
+	private function sendTo403()
+	{
+		// Add a log entry
+		$this->log('Access to page ID "'.$pageId.'" denied', 'PageError403 generate()', TL_ERROR);
+
+		$host = $this->Environment->host;
+		$accept_language = $this->Environment->httpAcceptLanguage;
+		$time = time();
+
+		// Find the matching root pages (thanks to Andreas Schempp)
+		$objRootPage = $this->Database->prepare("SELECT id, dns, language, fallback FROM tl_page WHERE type='root' AND (dns=? OR dns='')".((count($accept_language) > 0) ? " AND (language IN('".implode("','", $accept_language)."') OR fallback=1)" : " AND fallback=1").(!BE_USER_LOGGED_IN ? " AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1" : "")." ORDER BY dns DESC".((count($accept_language) > 0) ? ", ".$this->Database->findInSet('language', array_reverse($accept_language))." DESC" : "").", sorting")->limit(1)->execute($host);
+
+		$rootId = $objRootPage->numRows ? $objRootPage->id : 0;
+
+		// Look for an error_403 page within the website root
+		$obj403 = $this->Database->prepare("SELECT * FROM tl_page WHERE type=? AND pid=?".(!BE_USER_LOGGED_IN ? " AND (start='' OR start<?) AND (stop='' OR stop>?) AND published=1" : ""))->limit(1)->execute('error_403', $rootId, $time, $time);
+
+		// Look for a global error_403 page
+		if ($obj403->numRows < 1)
+		{
+			$obj403 = $this->Database->prepare("SELECT * FROM tl_page WHERE type='error_403' AND pid=0".(!BE_USER_LOGGED_IN ? " AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1" : ""))->limit(1)->execute();
+		}
+
+		// Die if there is no page at all
+		if ($obj403->numRows < 1)
+		{
+			header('HTTP/1.1 403 Forbidden');
+			die('Forbidden');
+		}
+
+		// Generate the error page
+		if (!$obj403->autoforward || $obj403->jumpTo < 1)
+		{
+			global $objPage;
+
+			$objPage = $this->getPageDetails($obj403->id);
+			$objHandler = new $GLOBALS['TL_PTY']['regular']();
+
+			header('HTTP/1.1 403 Forbidden');
+			$objHandler->generate($objPage);
+
+			exit ;
+		}
 	}
 
 }

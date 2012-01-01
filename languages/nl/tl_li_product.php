@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_product.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -16,14 +16,19 @@
  */
  
 $GLOBALS['TL_LANG']['tl_li_product']['product_legend'] = "Product";
-$GLOBALS['TL_LANG']['tl_li_product']['title']['0'] = "Titel";
-$GLOBALS['TL_LANG']['tl_li_product']['title']['1'] = "Voer een titel in.";
+$GLOBALS['TL_LANG']['tl_li_product']['price_legend'] = "Prijs";
 $GLOBALS['TL_LANG']['tl_li_product']['toProductType']['0'] = "Productsoort";
 $GLOBALS['TL_LANG']['tl_li_product']['toProductType']['1'] = "Kies een productsoort.";
+$GLOBALS['TL_LANG']['tl_li_product']['number']['0'] = "Nummer";
+$GLOBALS['TL_LANG']['tl_li_product']['number']['1'] = "Voer een nummer in.";
+$GLOBALS['TL_LANG']['tl_li_product']['title']['0'] = "Titel";
+$GLOBALS['TL_LANG']['tl_li_product']['title']['1'] = "Voer een titel in.";
 $GLOBALS['TL_LANG']['tl_li_product']['price']['0'] = "Prijs";
 $GLOBALS['TL_LANG']['tl_li_product']['price']['1'] = "Voer een prijs in";
-$GLOBALS['TL_LANG']['tl_li_product']['taxRate']['0'] = "BTW percentage";
-$GLOBALS['TL_LANG']['tl_li_product']['taxRate']['1'] = "Voer een BTW percentage in.";
+$GLOBALS['TL_LANG']['tl_li_product']['currency']['0'] = "Valuta";
+$GLOBALS['TL_LANG']['tl_li_product']['currency']['1'] = "Kies een valuta.";
+$GLOBALS['TL_LANG']['tl_li_product']['toTax']['0'] = "BTW percentage";
+$GLOBALS['TL_LANG']['tl_li_product']['toTax']['1'] = "Kies een BTW percentage";
 $GLOBALS['TL_LANG']['tl_li_product']['new']['0'] = "Nieuw product";
 $GLOBALS['TL_LANG']['tl_li_product']['new']['1'] = "Maak een nieuw product";
 $GLOBALS['TL_LANG']['tl_li_product']['edit']['0'] = "Product bewerken";

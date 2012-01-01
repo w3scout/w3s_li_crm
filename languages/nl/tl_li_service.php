@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_service.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -16,6 +16,7 @@
  */
  
 $GLOBALS['TL_LANG']['tl_li_service']['service_legend'] = "Opdracht";
+$GLOBALS['TL_LANG']['tl_li_service']['price_legend'] = "Prijs";
 $GLOBALS['TL_LANG']['tl_li_service']['toCustomer']['0'] = "Klant";
 $GLOBALS['TL_LANG']['tl_li_service']['toCustomer']['1'] = "Selecteer een klant.";
 $GLOBALS['TL_LANG']['tl_li_service']['toProject']['0'] = "Project";
@@ -26,8 +27,10 @@ $GLOBALS['TL_LANG']['tl_li_service']['title']['0'] = "Titel";
 $GLOBALS['TL_LANG']['tl_li_service']['title']['1'] = "Voer een titel in.";
 $GLOBALS['TL_LANG']['tl_li_service']['price']['0'] = "Prijs";
 $GLOBALS['TL_LANG']['tl_li_service']['price']['1'] = "Voer een prijs in.";
-$GLOBALS['TL_LANG']['tl_li_service']['taxRate']['0'] = "BTW percentage";
-$GLOBALS['TL_LANG']['tl_li_service']['taxRate']['1'] = "Voer het BTW percentage in % in.";
+$GLOBALS['TL_LANG']['tl_li_service']['toTax']['0'] = "BTW percentage";
+$GLOBALS['TL_LANG']['tl_li_service']['toTax']['1'] = "Kies een BTW percentage";
+$GLOBALS['TL_LANG']['tl_li_service']['currency']['0'] = "Valuta";
+$GLOBALS['TL_LANG']['tl_li_service']['currency']['1'] = "Kies de valuta";
 $GLOBALS['TL_LANG']['tl_li_service']['new']['0'] = "Nieuwe opdracht";
 $GLOBALS['TL_LANG']['tl_li_service']['new']['1'] = "Maak een nieuwe opdracht";
 $GLOBALS['TL_LANG']['tl_li_service']['edit']['0'] = "Opdracht bewerken";

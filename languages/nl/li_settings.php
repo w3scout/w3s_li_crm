@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/li_settings.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -52,5 +52,7 @@ $GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettingsDesc'] = "Met de heri
 $GLOBALS['TL_LANG']['li_settings']['company'] = "Bedrijf";
 $GLOBALS['TL_LANG']['li_settings']['companySettings'] = "Bedrijfsgegevens";
 $GLOBALS['TL_LANG']['li_settings']['companySettingsDesc'] = "Algemene bedrijfsgegevens zoals adressen en bankinformatie.";
+$GLOBALS['TL_LANG']['li_settings']['taxSettings'] = "BTW Instellingen";
+$GLOBALS['TL_LANG']['li_settings']['taxSettingsDesc'] = "Hier kunt u de BTW tarieven instellen voor producten en uw uurtarief.";
  
 ?>

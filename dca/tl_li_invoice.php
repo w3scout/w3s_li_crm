@@ -80,6 +80,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
 			),
+			'toggle' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_task']['toggle'],
+				'icon'                => 'visible.gif',
+				'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.toggleVisibility(this, %s);"',
+				'button_callback'     => array('Invoice', 'toggleIcon')
+			),
 			'show' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['show'],
@@ -123,7 +130,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('enableGeneration'),
-		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;'
+		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;{publish_legend},published;'
 	),
 
 	// Subpalettes
@@ -400,7 +407,14 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'               => 'textarea',
             'exclude'   			  => true,
 			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
-		)
+		),
+		'published' => array
+		(
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['published'],
+			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
+			'filter'                  => true
+        )
 	)
 );
 

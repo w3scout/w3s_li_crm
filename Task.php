@@ -12,12 +12,40 @@ if (!defined('TL_ROOT'))
 /**
  * Class Task
  */
-class Task extends Controller
+class Task extends BackendModule
 {
-	public function __construct()
+	/**
+	 * Template
+	 */
+	protected $strTemplate = 'be_task';
+
+	/**
+	 * Generate the module
+	 * @return string
+	 */
+	public function generate()
 	{
-		parent::__construct();
-		$this->import('Database');
+		parent::generate();
+
+		$key = $this->Input->get('key');
+		$id = $this->Input->get('id');
+
+		if ($key == 'done')
+		{
+			$this->Template->success = $this->taskDone($id);
+		}
+
+		$this->Template->id = $id;
+		$this->Template->key = $key;
+
+		return $this->Template->parse();
+	}
+	
+	/**
+	 * Generate module
+	 */
+	protected function compile()
+	{
 	}
 
 	public function generateAlias($varValue, DataContainer $dc)
@@ -50,16 +78,13 @@ class Task extends Controller
 
 	public function renderLabel($row, $label)
 	{
-		$statusIcon = '<img src="system/modules/li_crm/icons/status_default.png" alt="'
-                      .$GLOBALS['TL_LANG']['tl_li_task']['defaultIcon'].'" style="vertical-align:-3px;" />';
+		$statusIcon = '<img src="system/modules/li_crm/icons/status_default.png" alt="'.$GLOBALS['TL_LANG']['tl_li_task']['defaultIcon'].'" style="vertical-align:-3px;" />';
 
 		if ($row['toStatus'] != 0)
 		{
 			$objStatus = $this->Database->prepare("SELECT title, icon, isTaskDisabled
 			    FROM tl_li_task_status
-			    WHERE id = ?")
-                    ->limit(1)
-                    ->execute($row['toStatus']);
+			    WHERE id = ?")->limit(1)->execute($row['toStatus']);
 
 			if ($objStatus->icon != '')
 			{
@@ -76,9 +101,7 @@ class Task extends Controller
 			$objCustomer = $this->Database->prepare("SELECT c.customerNumber, c.customerName
 			    FROM tl_li_project AS p
 			        INNER JOIN tl_member AS c ON p.toCustomer = c.id
-			    WHERE p.id = ?")
-                    ->limit(1)
-                    ->execute($row['toProject']);
+			    WHERE p.id = ?")->limit(1)->execute($row['toProject']);
 
 			$customer = $objCustomer->customerNumber." ".$objCustomer->customerName;
 		}
@@ -89,16 +112,14 @@ class Task extends Controller
 
 		if (!$taskDisabled)
 		{
-			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'.png" alt="'
-                            .$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
+			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'.png" alt="'.$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
 
 			return $priorityIcon." ".$statusIcon." ".$customer." - ".$row['title'];
 		}
 		else
 		{
-			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'_disabled.png" alt="'
-                            .$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
-            
+			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'_disabled.png" alt="'.$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
+
 			return $priorityIcon." ".$statusIcon." <span class=\"disabled\">".$customer." - ".$row['title']."</span>";
 		}
 	}
@@ -111,6 +132,69 @@ class Task extends Controller
 			$options[$i] = $GLOBALS['TL_LANG']['tl_li_task']['priority'][0]." ".$i;
 		}
 		return $options;
+	}
+
+	public function taskDoneIcon($row, $href, $label, $title, $icon, $attributes)
+	{
+		$alt = $GLOBALS['TL_LANG']['tl_li_task']['done'][0];
+		$objTask = $this->Database->prepare('SELECT s.isTaskDone
+											 FROM tl_li_task AS t
+											 INNER JOIN tl_li_task_status AS s ON s.id = t.toStatus
+											 WHERE t.id = ?')->limit(1)->execute($row['id']);
+		if (!$objTask->isTaskDone)
+		{
+			$href = '&amp;do=li_tasks&amp;key=done&amp;id='.$row['id'];
+			$title = sprintf($GLOBALS['TL_LANG']['tl_li_task']['done'][1], $row['id']);
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/task_done.png" alt="'.$alt.'" /></a> ';
+		}
+		else
+		{
+			return '<img src="system/modules/li_crm/icons/task_done_disabled.png" alt="'.$alt.'" /> ';
+		}
+	}
+
+	public function taskDone($id)
+	{
+		$objTaskStatus = $this->Database->prepare("SELECT id
+												   FROM tl_li_task_status
+												   WHERE isTaskDone = 1")->limit(1)->execute();
+		if ($objTaskStatus->numRows == 1)
+		{
+			$this->Database->prepare("UPDATE tl_li_task
+									  SET toStatus = ?
+									  WHERE id = ?")->execute($objTaskStatus->id, $id);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+	{
+		if (strlen($this->Input->get('tid')))
+		{
+			$this->toggleVisibility($this->Input->get('tid'), ($this->Input->get('state') == 1));
+			$this->redirect($this->getReferer());
+		}
+
+		$href .= '&amp;tid='.$row['id'].'&amp;state='.($row['published'] ? '' : 1);
+		if (!$row['published'])
+		{
+			$icon = 'invisible.gif';
+		}
+		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+	}
+
+	public function toggleVisibility($intId, $blnVisible)
+	{
+		$this->Input->setGet('id', $intId);
+		$this->Input->setGet('act', 'toggle');
+
+		// Update the database
+		$this->Database->prepare("UPDATE tl_li_task SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
+		$this->createNewVersion('tl_li_task', $intId);
 	}
 
 }

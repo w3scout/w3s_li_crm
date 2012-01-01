@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_hourly_wage.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -16,12 +16,15 @@
  */
  
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['wage_legend'] = "Uurtarief";
+$GLOBALS['TL_LANG']['tl_li_hourly_wage']['price_legend'] = "Prijs";
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['title']['0'] = "Titel";
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['title']['1'] = "Voer een titel in.";
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['wage']['0'] = "Tarief";
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['wage']['1'] = "Voer het netto uurtarief in";
-$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate']['0'] = "BTW percentage";
-$GLOBALS['TL_LANG']['tl_li_hourly_wage']['taxRate']['1'] = "Voer het btw percentage in % in";
+$GLOBALS['TL_LANG']['tl_li_hourly_wage']['toTax']['0'] = "BTW Percentage";
+$GLOBALS['TL_LANG']['tl_li_hourly_wage']['toTax']['1'] = "Kies een BTW percentage";
+$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency']['0'] = "Valuta";
+$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency']['1'] = "Kies de te gebruiken valuta";
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['new']['0'] = "Nieuw uurtarief";
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['new']['1'] = "Maak nieuw uurtarief aan";
 $GLOBALS['TL_LANG']['tl_li_hourly_wage']['edit']['0'] = "Uurtarief bewerken";

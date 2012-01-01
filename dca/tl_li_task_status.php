@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{status_legend}, title, orderNumber, icon;{settings_legend}, isTaskDisabled;'
+		'default'                     => '{status_legend}, title, orderNumber, icon;{settings_legend}, isTaskDisabled, isTaskDone, cssClass;'
 	),
 
 	// Subpalettes
@@ -117,7 +117,22 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDisabled'],
 			'inputType'               => 'checkbox',
-			'exclude'   			  => true
+			'exclude'   			  => true,
+			'eval'                    => array('tl_class'=>'w50')
+		),
+		'isTaskDone' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDone'],
+			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
+			'eval'                    => array('tl_class'=>'w50')
+		),
+		'cssClass' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task_status']['cssClass'],
+			'inputType'               => 'text',
+			'exclude'   			  => true,
+			'eval'                    => array('maxlength'=>250, 'tl_class'=>'w50')
 		)
 	)
 );

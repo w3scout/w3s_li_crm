@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_working_hour.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -30,5 +30,6 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'] = "Weet u zeker
 $GLOBALS['TL_LANG']['tl_li_working_hour']['addHours'] = "Boeking toevoegen";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['manageWorkPackages'] = "Werkpakketten beheren";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editWorkPackage'] = "Werkpakket bewerken";
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = "Kalenderweek";
  
 ?>

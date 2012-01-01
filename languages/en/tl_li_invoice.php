@@ -13,6 +13,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'] = 'Invoice';
 $GLOBALS['TL_LANG']['tl_li_invoice']['pdf_legend'] = 'PDF-File';
 $GLOBALS['TL_LANG']['tl_li_invoice']['settings_legend'] = 'Settings';
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_legend'] = 'Creation';
+$GLOBALS['TL_LANG']['tl_li_invoice']['publish_legend'] = 'Publish settings';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer'] = array('Customer', 'Please choose a customer.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toCategory'] = array('Invoice category', 'Please choose an invoice category.');
@@ -32,6 +33,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Invoice template', '
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Invoice address', 'Please choose an invoice address.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'] = array('Description', 'Please enter the description before the positions.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'] = array('Description', 'Please enter the description after the positions.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['published'] = array('Publish invoice', 'Make the event publicly visible on the frontend.');
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['new'] = array('New invoice', 'Create a new invoice');
 $GLOBALS['TL_LANG']['tl_li_invoice']['edit'] = array('Edit invoice', 'Edit the invoice with the ID %s');
@@ -87,6 +89,10 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'] = 'Unit';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'] = 'Hour';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'] = 'Month';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year'] = 'Year';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['details'] = 'Details';
+$GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice'] = 'Download invoice';
+$GLOBALS['TL_LANG']['tl_li_invoice']['noInvoicesAvailable'] = 'No invoices available';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = 'Invoice creation';
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = 'The invoice was successfully created.';

@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/nl/tl_li_company_settings.php 
  * 
- * Contao extension: li_crm 0.3.0 alpha1 
+ * Contao extension: li_crm 0.3.1 beta2 
  * Dutch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -22,6 +22,8 @@ $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_name']['0'] = "Bed
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_name']['1'] = "Voer bedrijfsnaam in.";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number']['0'] = "BTW nummer";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number']['1'] = "Voer BTW nummer in.";
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal']['0'] = "Postcode";
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal']['1'] = "Voer de postcode in zonder nullen.";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number']['0'] = "Rekeningnummer";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number']['1'] = "Voer het rekeningnummer van het bedrijf in.";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank_code']['0'] = "Bank code";
