@@ -68,6 +68,10 @@ CREATE TABLE `tl_li_service` (
   `price` double NOT NULL default '0',
   `toTax` int(10) unsigned NOT NULL default '0',
   `currency` varchar(3) NOT NULL default '',
+  `startDate` varchar(10) NOT NULL default '',
+  `endDate` varchar(10) NOT NULL default '',
+  `repetition` char(1) NOT NULL default '',
+  `period` varchar(3) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -300,22 +304,5 @@ CREATE TABLE `tl_li_tax`  (
   `tstamp` int(10) unsigned NULL default '0',
   `title` varchar(50) NOT NULL default '',
   `rate` double unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `tl_li_configurator`  (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `pid` int(10) unsigned NULL default '0',
-  `sorting` int(10) unsigned NULL default '0',
-  `tstamp` int(10) unsigned NULL default '0',
-  `title` varchar(50) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `tl_li_configurator_item`  (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `tstamp` int(10) unsigned NULL default '0',
-  `pid` int(10) unsigned NULL default '0',
-  `title` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

@@ -77,8 +77,14 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array(''),
-		'default'                     => '{service_legend},toCustomer,toProject,title,toServiceType;{price_legend},price,toTax,currency;'
+		'__selector__'                => array('repetition'),
+		'default'                     => '{service_legend},toCustomer,toProject,title,toServiceType;{price_legend},price,toTax,currency;{date_legend},startDate,endDate,repetition;'
+	),
+	
+	// Subpalettes
+	'subpalettes' => array
+	(
+		'repetition'            => 'period'
 	),
     
 	// Fields
@@ -90,8 +96,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50','includeBlankOption' => true,
-                'submitOnChange' => true)
+			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50','includeBlankOption' => true, 'submitOnChange' => true)
 		),
         'toProject' => array
 		(
@@ -133,12 +138,51 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
 		),
         'currency' => array(
-            'label' => &$GLOBALS['TL_LANG']['tl_li_service']['currency'],
-            'inputType' => 'select',
-            'exclude' => true,
-            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
-        )
+            'label' 				  => &$GLOBALS['TL_LANG']['tl_li_service']['currency'],
+            'inputType' 			  => 'select',
+            'exclude' 				  => true,
+            'options_callback' 		  => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval' 					  => array('mandatory' => true, 'tl_class' => 'w50'),
+        ),
+        'startDate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['startDate'],
+			'default'                 => time(),
+			'filter'                  => true,
+			'sorting'                 => true,
+			'flag'                    => 8,
+			'inputType'               => 'text',
+			'exclude'   			  => true,
+			'eval'                    => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+		),
+		'endDate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['endDate'],
+			'default'                 => time(),
+			'filter'                  => true,
+			'sorting'                 => true,
+			'flag'                    => 8,
+			'inputType'               => 'text',
+			'exclude'   			  => true,
+			'eval'                    => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+		),
+		'repetition' => array
+		(
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['repetition'],
+			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
+			'filter'                  => true,
+			'eval'					  => array('tl_class'=>'clr', 'submitOnChange'=>true)
+        ),
+		'period' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_service']['period'],
+			'inputType'               => 'select',
+			'exclude'   			  => true,
+			'options'                 => array(1,3,6,12),
+			'reference'				  => &$GLOBALS['TL_LANG']['tl_li_service']['periods'],
+			'eval'                    => array('includeBlankOption' => true)
+		)
 	)
 );
 
