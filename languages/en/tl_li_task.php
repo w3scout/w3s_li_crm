@@ -31,8 +31,8 @@ $GLOBALS['TL_LANG']['tl_li_task']['delete'] = array('Delete task', 'Delete the t
 $GLOBALS['TL_LANG']['tl_li_task']['show'] = array('Show task', 'Show the task with the ID %s');
 
 $GLOBALS['TL_LANG']['tl_li_task']['noCustomer'] = 'No customer';
-$GLOBALS['TL_LANG']['tl_li_task']['taskNotFound'] = 'Task not found';
-$GLOBALS['TL_LANG']['tl_li_task']['noTasksAvailable'] = 'No tasks available';
+$GLOBALS['TL_LANG']['tl_li_task']['noTasksAvailable'] = 'No tasks available.';
+$GLOBALS['TL_LANG']['tl_li_task']['taskNotFound'] = 'Task not found.';
 $GLOBALS['TL_LANG']['tl_li_task']['details'] = 'Details';
 
 $GLOBALS['TL_LANG']['tl_li_task']['task_done'] = 'Task done';

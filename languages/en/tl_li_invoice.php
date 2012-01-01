@@ -92,7 +92,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year'] = 'Year';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['details'] = 'Details';
 $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice'] = 'Download invoice';
-$GLOBALS['TL_LANG']['tl_li_invoice']['noInvoicesAvailable'] = 'No invoices available';
+$GLOBALS['TL_LANG']['tl_li_invoice']['noInvoicesAvailable'] = 'No invoices available.';
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound'] = 'Invoice not found.';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = 'Invoice creation';
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = 'The invoice was successfully created.';

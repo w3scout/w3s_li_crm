@@ -52,12 +52,25 @@ class ModuleInvoiceReader extends Module
 		if ($key == '')
 		{
 			$this->loadLanguageFile('tl_li_invoice');
+			$this->import('FrontendUser', 'User');
 			$alias = $this->Input->get('items');
 
-			$objInvoice = $this->Database->prepare('SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
-													FROM tl_li_invoice AS i
-													LEFT JOIN tl_li_invoice_category AS c ON c.id = i.toCategory
-													WHERE i.alias = ? AND i.published = 1')->execute($alias);
+			if($this->User->id != '')
+			{
+				$objInvoice = $this->Database->prepare('SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
+														FROM tl_li_invoice AS i
+														LEFT JOIN tl_li_invoice_category AS c ON c.id = i.toCategory
+														WHERE i.alias = ? AND i.toCustomer = ? AND i.published = 1')->execute($alias, $this->User->id);
+			}
+			else
+			{
+				$objInvoice = $this->Database->prepare('SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
+														FROM tl_li_invoice AS i
+														LEFT JOIN tl_li_invoice_category AS c ON c.id = i.toCategory
+														WHERE i.alias = ? AND i.published = 1')->execute($alias);
+			}
+			
+			
 			if ($objInvoice->numRows == 1)
 			{
 				$currencyHelper = new CurrencyHelper();
