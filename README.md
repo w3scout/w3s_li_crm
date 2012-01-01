@@ -1,7 +1,7 @@
-Contao CRM
+Liplex CRM
 ==========
 
-The contao Customer Relationship Management (CRM) module enables you to manage customers, products, services, invoices, timekeeping, tasks and alike in a Contao system.
+The Liplex CRM (Customer Relationship Management) module enables you to manage customers, products, services, invoices, timekeeping and tasks directly in your Contao system.
 
 Installation
 ------------
