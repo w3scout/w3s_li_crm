@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/de/tl_li_task_status.php 
  * 
- * Contao extension: li_crm 0.3.1 beta2 
+ * Contao extension: li_crm 0.4.0 alpha1 
  * Deutsch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -27,6 +27,8 @@ $GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDisabled']['0'] = "Aufgabe deakt
 $GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDisabled']['1'] = "Soll die Aufgabe mit diesem Status deaktiviert dargestellt werden?";
 $GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDone']['0'] = "Aufgabe erledigt";
 $GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDone']['1'] = "Soll die Aufgabe mit diesem Status erledigt dargestellt werden?";
+$GLOBALS['TL_LANG']['tl_li_task_status']['cssClass']['0'] = "CSS Klasse";
+$GLOBALS['TL_LANG']['tl_li_task_status']['cssClass']['1'] = "Bitte geben Sie die CSS Klasse ein.";
 $GLOBALS['TL_LANG']['tl_li_task_status']['new']['0'] = "Neuer Status";
 $GLOBALS['TL_LANG']['tl_li_task_status']['new']['1'] = "Einen neuen Status anlegen";
 $GLOBALS['TL_LANG']['tl_li_task_status']['edit']['0'] = "Status bearbeiten";

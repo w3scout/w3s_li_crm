@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/de/tl_li_invoice.php 
  * 
- * Contao extension: li_crm 0.3.1 beta2 
+ * Contao extension: li_crm 0.4.0 alpha1 
  * Deutsch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -19,6 +19,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'] = "Rechnung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['pdf_legend'] = "PDF-Datei";
 $GLOBALS['TL_LANG']['tl_li_invoice']['settings_legend'] = "Einstellungen";
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_legend'] = "Generierung";
+$GLOBALS['TL_LANG']['tl_li_invoice']['publish_legend'] = "Veröffentlichung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer']['0'] = "Kunde";
 $GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer']['1'] = "Bitte wählen Sie einen Kunden aus.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['toCategory']['0'] = "Rechnungskategorie";
@@ -55,6 +56,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore']['0'] = "Beschreibung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore']['1'] = "Bitte geben Sie die Beschreibung vor den Positionen ein.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter']['0'] = "Beschreibung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter']['1'] = "Bitte geben Sie die Beschreibung nach den Positionen ein.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['published']['0'] = "Rechnung veröffentlichen";
+$GLOBALS['TL_LANG']['tl_li_invoice']['published']['1'] = "Die Rechnung auf der Website anzeigen.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['new']['0'] = "Neue Rechnung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['new']['1'] = "Eine neue Rechnung erstellen";
 $GLOBALS['TL_LANG']['tl_li_invoice']['edit']['0'] = "Rechnung editieren";
@@ -123,6 +126,10 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'] = "Stück";
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'] = "Stunde";
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'] = "Monat";
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year'] = "Jahr";
+$GLOBALS['TL_LANG']['tl_li_invoice']['details'] = "Details";
+$GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice'] = "Rechnung runterladen";
+$GLOBALS['TL_LANG']['tl_li_invoice']['noInvoicesAvailable'] = "Keine Rechnungen verfügbar.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound'] = "Rechnung nicht gefunden.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = "Rechnungsgenerierung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = "Die Rechnung wurde erfolgreich generiert.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview'] = "Zurück zur Übersicht";

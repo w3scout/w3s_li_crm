@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/de/tl_li_task.php 
  * 
- * Contao extension: li_crm 0.3.1 beta2 
+ * Contao extension: li_crm 0.4.0 alpha1 
  * Deutsch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -17,6 +17,7 @@
  
 $GLOBALS['TL_LANG']['tl_li_task']['settings_legend'] = "Einstellungen";
 $GLOBALS['TL_LANG']['tl_li_task']['task_legend'] = "Aufgabe";
+$GLOBALS['TL_LANG']['tl_li_task']['publish_legend'] = "Veröffentlichung";
 $GLOBALS['TL_LANG']['tl_li_task']['toCustomer']['0'] = "Kunde";
 $GLOBALS['TL_LANG']['tl_li_task']['toCustomer']['1'] = "Bitte wählen Sie einen Kunden aus.";
 $GLOBALS['TL_LANG']['tl_li_task']['toProject']['0'] = "Projekt";
@@ -35,6 +36,8 @@ $GLOBALS['TL_LANG']['tl_li_task']['deadline']['0'] = "Deadline";
 $GLOBALS['TL_LANG']['tl_li_task']['deadline']['1'] = "Bitte geben Sie das Datum ein bis zu dem die Aufgabe abgeschlossen sein muss.";
 $GLOBALS['TL_LANG']['tl_li_task']['description']['0'] = "Beschreibung";
 $GLOBALS['TL_LANG']['tl_li_task']['description']['1'] = "Bitte geben Sie die Beschreibung ein.";
+$GLOBALS['TL_LANG']['tl_li_task']['published']['0'] = "Aufgabe veröffentlichen";
+$GLOBALS['TL_LANG']['tl_li_task']['published']['1'] = "Die Aufgabe auf der Website anzeigen.";
 $GLOBALS['TL_LANG']['tl_li_task']['new']['0'] = "Neue Aufgabe";
 $GLOBALS['TL_LANG']['tl_li_task']['new']['1'] = "Eine neue Aufgabe erstellen";
 $GLOBALS['TL_LANG']['tl_li_task']['edit']['0'] = "Aufgabe editieren";
@@ -46,6 +49,13 @@ $GLOBALS['TL_LANG']['tl_li_task']['delete']['1'] = "Die Aufgabe mit der ID %s l�
 $GLOBALS['TL_LANG']['tl_li_task']['show']['0'] = "Aufgabe anzeigen";
 $GLOBALS['TL_LANG']['tl_li_task']['show']['1'] = "Die Aufgabe mit der ID %s anzeigen";
 $GLOBALS['TL_LANG']['tl_li_task']['noCustomer'] = "Kein Kunde";
+$GLOBALS['TL_LANG']['tl_li_task']['noTasksAvailable'] = "Keine Aufgaben verfügbar.";
+$GLOBALS['TL_LANG']['tl_li_task']['taskNotFound'] = "Aufgabe nicht gefunden.";
+$GLOBALS['TL_LANG']['tl_li_task']['details'] = "Details";
+$GLOBALS['TL_LANG']['tl_li_task']['task_done'] = "Aufgabe erledigt";
+$GLOBALS['TL_LANG']['tl_li_task']['done_success'] = "Die Aufgabe wurde erfolgreich abgeschlossen.";
+$GLOBALS['TL_LANG']['tl_li_task']['done_fail'] = "Die Aufgabe konnte nicht erfolgreich abgeschlossen werden.";
+$GLOBALS['TL_LANG']['tl_li_task']['back_overview'] = "Zurück zur Übersicht";
 $GLOBALS['TL_LANG']['tl_li_task']['reminder']['0'] = "Aufgabenerinnerungen";
 $GLOBALS['TL_LANG']['tl_li_task']['reminder']['1'] = "Aufgabenerinnerungen verwalten";
  

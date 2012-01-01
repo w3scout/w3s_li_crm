@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/de/tl_li_invoice_category.php 
  * 
- * Contao extension: li_crm 0.3.1 beta2 
+ * Contao extension: li_crm 0.4.0 alpha1 
  * Deutsch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -20,6 +20,8 @@ $GLOBALS['TL_LANG']['tl_li_invoice_category']['title']['0'] = "Titel";
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['title']['1'] = "Bitte geben Sie den Titel ein.";
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['orderNumber']['0'] = "Sortiernummer";
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['orderNumber']['1'] = "Bitte geben Sie die Sortiernummer ein.";
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['cssClass']['0'] = "CSS Klasse";
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['cssClass']['1'] = "Bitte geben Sie die CSS Klasse ein.";
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['new']['0'] = "Neue Rechnungskategorie";
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['new']['1'] = "Eine neue Rechnungskategorie anlegen";
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['edit']['0'] = "Rechnungskategorie bearbeiten";

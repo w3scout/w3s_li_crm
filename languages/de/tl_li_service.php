@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/de/tl_li_service.php 
  * 
- * Contao extension: li_crm 0.3.1 beta2 
+ * Contao extension: li_crm 0.4.0 alpha1 
  * Deutsch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -17,6 +17,7 @@
  
 $GLOBALS['TL_LANG']['tl_li_service']['service_legend'] = "Leistung";
 $GLOBALS['TL_LANG']['tl_li_service']['price_legend'] = "Preis";
+$GLOBALS['TL_LANG']['tl_li_service']['date_legend'] = "Datum";
 $GLOBALS['TL_LANG']['tl_li_service']['toCustomer']['0'] = "Kunde";
 $GLOBALS['TL_LANG']['tl_li_service']['toCustomer']['1'] = "Bitte wählen Sie den Kunden aus, dem diese Leistung zugeordnet werden soll. Dies überschreibt die bei \"Projekt\" ausgewählte Option.";
 $GLOBALS['TL_LANG']['tl_li_service']['toProject']['0'] = "Projekt";
@@ -31,6 +32,18 @@ $GLOBALS['TL_LANG']['tl_li_service']['toTax']['0'] = "Steuersatz";
 $GLOBALS['TL_LANG']['tl_li_service']['toTax']['1'] = "Bitte wählen Sie den Steuersatz aus.";
 $GLOBALS['TL_LANG']['tl_li_service']['currency']['0'] = "Währung";
 $GLOBALS['TL_LANG']['tl_li_service']['currency']['1'] = "Bitte geben Sie die Währung des Preises an.";
+$GLOBALS['TL_LANG']['tl_li_service']['startDate']['0'] = "Startdatum";
+$GLOBALS['TL_LANG']['tl_li_service']['startDate']['1'] = "Bitte geben Sie das Startdatum ein.";
+$GLOBALS['TL_LANG']['tl_li_service']['endDate']['0'] = "Enddatum";
+$GLOBALS['TL_LANG']['tl_li_service']['endDate']['1'] = "Bitte geben Sie das Enddatum ein.";
+$GLOBALS['TL_LANG']['tl_li_service']['repetition']['0'] = "Wiederholung";
+$GLOBALS['TL_LANG']['tl_li_service']['repetition']['1'] = "Soll die Leistung wiederholt werden?";
+$GLOBALS['TL_LANG']['tl_li_service']['period']['0'] = "Periode";
+$GLOBALS['TL_LANG']['tl_li_service']['period']['1'] = "Bitte wählen Sie eine Periode.";
+$GLOBALS['TL_LANG']['tl_li_service']['periods']['1'] = "1 Monat";
+$GLOBALS['TL_LANG']['tl_li_service']['periods']['3'] = "3 Monate";
+$GLOBALS['TL_LANG']['tl_li_service']['periods']['6'] = "6 Monate";
+$GLOBALS['TL_LANG']['tl_li_service']['periods']['12'] = "12 Monate";
 $GLOBALS['TL_LANG']['tl_li_service']['new']['0'] = "Neue Leistung";
 $GLOBALS['TL_LANG']['tl_li_service']['new']['1'] = "Eine neue Leistung anlegen";
 $GLOBALS['TL_LANG']['tl_li_service']['edit']['0'] = "Leistung bearbeiten";

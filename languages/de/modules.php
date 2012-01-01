@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/de/modules.php 
  * 
- * Contao extension: li_crm 0.3.1 beta2 
+ * Contao extension: li_crm 0.4.0 alpha1 
  * Deutsch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -28,11 +28,14 @@ $GLOBALS['TL_LANG']['MOD']['li_invoices']['0'] = "Rechnungen";
 $GLOBALS['TL_LANG']['MOD']['li_invoices']['1'] = "Rechnungen verwalten.";
 $GLOBALS['TL_LANG']['MOD']['li_settings']['0'] = "Einstellungen";
 $GLOBALS['TL_LANG']['MOD']['li_settings']['1'] = "Einstellungen des CRM System verwalten.";
- 
 $GLOBALS['TL_LANG']['FMD']['li_crm'] = "CRM";
-$GLOBALS['TL_LANG']['FMD']['tasklist'] = array('Aufgabenliste', 'Fügt der Seite eine Aufgabenliste hinzu.');
-$GLOBALS['TL_LANG']['FMD']['taskreader'] = array('Aufgabenleser', 'Stellt eine einzelne Aufgabe dar.');
-$GLOBALS['TL_LANG']['FMD']['invoicelist'] = array('Rechnungsliste', 'Fügt der Seite eine Rechnungsliste hinzu.');
-$GLOBALS['TL_LANG']['FMD']['invoicereader'] = array('Rechnungsleser', 'Stellt eine einzelne Rechnung dar.');
+$GLOBALS['TL_LANG']['FMD']['tasklist']['0'] = "Aufgabenliste";
+$GLOBALS['TL_LANG']['FMD']['tasklist']['1'] = "Fügt der Seite eine Aufgabenliste hinzu.";
+$GLOBALS['TL_LANG']['FMD']['taskreader']['0'] = "Aufgabenleser";
+$GLOBALS['TL_LANG']['FMD']['taskreader']['1'] = "Stellt eine einzelne Aufgabe dar.";
+$GLOBALS['TL_LANG']['FMD']['invoicelist']['0'] = "Rechnungsliste";
+$GLOBALS['TL_LANG']['FMD']['invoicelist']['1'] = "Fügt der Seite eine Rechnungsliste hinzu.";
+$GLOBALS['TL_LANG']['FMD']['invoicereader']['0'] = "Rechnungsleser";
+$GLOBALS['TL_LANG']['FMD']['invoicereader']['1'] = "Stellt eine einzelne Rechnung dar.";
  
 ?>

@@ -2,7 +2,7 @@
 /**
  * TL_ROOT/system/modules/li_crm/languages/de/li_settings.php 
  * 
- * Contao extension: li_crm 0.3.1 beta2 
+ * Contao extension: li_crm 0.4.0 alpha1 
  * Deutsch translation file 
  * 
  * Copyright : &copy; 2011 Liplex Webprogrammierung und -design Christian Kolb 
@@ -35,7 +35,7 @@ $GLOBALS['TL_LANG']['li_settings']['taskReminderSettings'] = "Erinnerungseinstel
 $GLOBALS['TL_LANG']['li_settings']['taskReminderSettingsDesc'] = "Über die Erinnerungseinstellungen können allgemeine Einstellungen bezüglich der Aufgabenerinnerungen getroffen werden. Hier wird z. B. festlegen welche Benutzter per E-Mail an Aufgaben erinnert werden.";
 $GLOBALS['TL_LANG']['li_settings']['timekeeping'] = "Zeiterfassung";
 $GLOBALS['TL_LANG']['li_settings']['workingHours'] = "Stunden erfassen";
-$GLOBALS['TL_LANG']['li_settings']['workingHoursDesc'] = "Über die Einstellungen zum Stunden erfassen können sie die Verwaltung der erfassten Stunden anpassen, wie z.&nbsp;B. den Beginn von Kalenderwochen.";
+$GLOBALS['TL_LANG']['li_settings']['workingHoursDesc'] = "Über die Einstellungen zum Stunden erfassen können sie die Verwaltung der erfassten Stunden anpassen, wie z.[nbsp]B. den Beginn von Kalenderwochen.";
 $GLOBALS['TL_LANG']['li_settings']['hourlyWage'] = "Stundensätze";
 $GLOBALS['TL_LANG']['li_settings']['hourlyWageDesc'] = "Über die Einstellungen für Stundensätze können sie festlegen, wie die über die Zeiterfassung eingetragenen Stunden in einer Ausgangsrechnung verrechnet werden sollen.";
 $GLOBALS['TL_LANG']['li_settings']['invoices'] = "Rechnungen";

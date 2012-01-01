@@ -22,7 +22,7 @@ $GLOBALS['TL_LANG']['tl_li_task']['title'] = array('Title', 'Please enter a titl
 $GLOBALS['TL_LANG']['tl_li_task']['alias'] = array('Alias', 'Please enter an alias.');
 $GLOBALS['TL_LANG']['tl_li_task']['deadline'] = array('Deadline', 'Please enter the date until this task should be done.');
 $GLOBALS['TL_LANG']['tl_li_task']['description'] = array('Description', 'Please enter a description');
-$GLOBALS['TL_LANG']['tl_li_task']['published'] = array('Publish invoice', 'Make the event publicly visible on the frontend.');
+$GLOBALS['TL_LANG']['tl_li_task']['published'] = array('Publish task', 'Make the task publicly visible on the frontend.');
 
 $GLOBALS['TL_LANG']['tl_li_task']['new'] = array('New task', 'Create a new task');
 $GLOBALS['TL_LANG']['tl_li_task']['edit'] = array('Edit task', 'Edit the task with the ID %s');
@@ -37,7 +37,7 @@ $GLOBALS['TL_LANG']['tl_li_task']['details'] = 'Details';
 
 $GLOBALS['TL_LANG']['tl_li_task']['task_done'] = 'Task done';
 $GLOBALS['TL_LANG']['tl_li_task']['done_success'] = 'Task was completed successfully.';
-$GLOBALS['TL_LANG']['tl_li_task']['done_fail'] = 'Task was not completed successfully';
+$GLOBALS['TL_LANG']['tl_li_task']['done_fail'] = 'Task could not be completed successfully.';
 $GLOBALS['TL_LANG']['tl_li_task']['back_overview'] = 'Back to overview';
 
 $GLOBALS['TL_LANG']['tl_li_task']['reminder'] = array('Task reminder', 'Manage task reminder');
