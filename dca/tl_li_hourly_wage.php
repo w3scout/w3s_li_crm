@@ -27,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		'label' => array
 		(
 			'fields'                  => array('wage', 'title'),
-			'format'                  => '(%s) %s',
+			'label_callback'          => array('HourlyWage', 'renderLabel')
 		),
 		'global_operations' => array
 		(

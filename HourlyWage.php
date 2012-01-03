@@ -34,4 +34,9 @@ class HourlyWage extends Controller
         
         return $hourlyWages;
     }
+    
+    public function renderLabel($row, $label)
+    {
+    	return '('.$this->getFormattedNumber($row['wage']).') '.$row['title'];
+    }
 }
