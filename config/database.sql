@@ -179,6 +179,27 @@ CREATE TABLE `tl_li_task_reminder` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
+-- Table `tl_li_date`
+--
+
+CREATE TABLE `tl_li_date` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `tstamp` int(10) unsigned NOT NULL default '0',
+  `toCustomer` int(10) unsigned NOT NULL default '0',
+  `creator` int(10) unsigned NOT NULL default '0',
+  `subject` varchar(255) NOT NULL default '',
+  `toTask` int(10) unsigned NOT NULL default '0',
+  `participants` blob NULL,
+  `place` varchar(255) NOT NULL default '',
+  `repetition` char(1) NOT NULL default '',
+  `interval` varchar(20) NOT NULL default '',
+  `color` varchar(6) NOT NULL default '',
+  `note` text NOT NULL,
+  `private` char(1) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
 -- Table `tl_li_work_package`
 --
 

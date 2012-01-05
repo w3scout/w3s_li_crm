@@ -34,6 +34,13 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'icon'       => 'system/modules/li_crm/icons/tasks.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
+        'li_dates' => array
+        (
+            'tables'     => array('tl_li_date'),
+            'callback'   => 'Date',
+            'icon'       => 'system/modules/li_crm/icons/dates.png',
+            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+        ),
         'li_timekeeping' => array
         (
             'tables'     => array('tl_li_work_package', 'tl_li_working_hour'),
