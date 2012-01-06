@@ -94,6 +94,14 @@ if ($_GET['do'] == 'li_tasks' && empty($_GET['key']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_tasks']['callback']);
 }
+if ($_GET['do'] == 'li_dates' && !empty($_GET['table']))
+{
+	unset($GLOBALS['BE_MOD']['li_crm']['li_dates']['callback']);
+}
+if ($_GET['do'] == 'li_timekeeping' && !empty($_GET['table']))
+{
+	unset($GLOBALS['BE_MOD']['li_crm']['li_timekeeping']['callback']);
+}
 if ($_GET['do'] == 'li_invoices' && empty($_GET['key']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_invoices']['callback']);
@@ -101,10 +109,6 @@ if ($_GET['do'] == 'li_invoices' && empty($_GET['key']))
 if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_settings']['callback']);
-}
-if ($_GET['do'] == 'li_timekeeping' && !empty($_GET['table']))
-{
-	unset($GLOBALS['BE_MOD']['li_crm']['li_timekeeping']['callback']);
 }
 
 // Reminder cronjob
