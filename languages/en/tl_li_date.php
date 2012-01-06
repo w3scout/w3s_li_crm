@@ -17,8 +17,20 @@ $GLOBALS['TL_LANG']['tl_li_date']['creator'] = array('Creator', 'Please choose t
 $GLOBALS['TL_LANG']['tl_li_date']['subject'] = array('Subject', 'Please enter the subject.');
 $GLOBALS['TL_LANG']['tl_li_date']['toTask'] = array('Task', 'Please choose a task.');
 $GLOBALS['TL_LANG']['tl_li_date']['participants'] = array('Participants', 'Please choose the participants.');
+$GLOBALS['TL_LANG']['tl_li_date']['place'] = array('Place', 'Please enter the place.');
+$GLOBALS['TL_LANG']['tl_li_date']['color'] = array('Color', 'Please choose the color.');
 $GLOBALS['TL_LANG']['tl_li_date']['note'] = array('Note', 'Please enter a note.');
+$GLOBALS['TL_LANG']['tl_li_date']['startTime'] = array('Start time', 'Please enter the start time according to the global time format.');
+$GLOBALS['TL_LANG']['tl_li_date']['endTime'] = array('End time', 'Use the same value for start and end time to create an open-ended event.');
+$GLOBALS['TL_LANG']['tl_li_date']['startDate'] = array('Start date', 'Please enter the start date according to the global date format.');
+$GLOBALS['TL_LANG']['tl_li_date']['endDate'] = array('End date', 'Leave blank to create a single day event.');
+$GLOBALS['TL_LANG']['tl_li_date']['repetition'] = array('Repetition', 'Should the service be repeated?');
+$GLOBALS['TL_LANG']['tl_li_date']['period'] = array('Period', 'Please choose the period.');
 $GLOBALS['TL_LANG']['tl_li_date']['private'] = array('Private', 'Should the date be marked as private?');
+
+$GLOBALS['TL_LANG']['tl_li_date']['periods']['weekly'] = 'Weekly';
+$GLOBALS['TL_LANG']['tl_li_date']['periods']['biweekly'] = 'Biweekly';
+$GLOBALS['TL_LANG']['tl_li_date']['periods']['monthly'] = 'Monthly';
 
 $GLOBALS['TL_LANG']['tl_li_date']['new'] = array('New date', 'Create a new date');
 $GLOBALS['TL_LANG']['tl_li_date']['edit'] = array('Edit date', 'Edit the date with the ID %s');

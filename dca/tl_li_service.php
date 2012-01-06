@@ -84,7 +84,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'repetition'            => 'period'
+		'repetition'            	  => 'period'
 	),
     
 	// Fields

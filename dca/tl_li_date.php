@@ -8,6 +8,10 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
+
+// Import tl_style class to use the colorpicker
+require_once(dirname(__FILE__).'/../../backend/dca/tl_style.php');
+ 
 $GLOBALS['TL_DCA']['tl_li_date'] = array
 (
 	'config' => array
@@ -62,11 +66,21 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 			)
 		)
 	),
+	
+	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array(''),
-		'default'                     => '{date_legend},toCustomer,creator,subject,toTask,participants,place,note,repetition,interval,color;{time_legend},startDate,endDate,startTime,endTime;{visibility_legend},private;'
+		'__selector__'                => array('repetition'),
+		'default'                     => '{date_legend},toCustomer,creator,subject,toTask,participants,place,color,note;{time_legend},startDate,endDate,startTime,endTime,repetition;{visibility_legend},private;'
 	),
+	
+	// Subpalettes
+	'subpalettes' => array
+	(
+		'repetition' 				  => 'period'
+	),
+	
+	// Fields
 	'fields' => array
 	(
         'toCustomer' => array
@@ -110,6 +124,25 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 			'foreignKey'              => 'tl_user.name',
 			'eval'                    => array('tl_class'=>'clr', 'multiple'=>true)
 		),
+		'place' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['place'],
+			'inputType'               => 'text',
+			'exclude'   			  => true,
+			'search'                  => true,
+			'eval'                    => array('maxlength'=>250, 'tl_class'=>'w50')
+		),
+		'color' => array
+		(
+			'label'     			  => &$GLOBALS['TL_LANG']['tl_li_date']['color'],
+			'search'    			  => true,
+			'sorting'   			  => true,
+			'flag'      			  => 1,
+			'inputType' 			  => 'text',
+			'exclude'   			  => true,
+			'eval'      			  => array('maxlength' => 6, 'isHexColor' => true, 'tl_class' => 'w50'),
+			'wizard'    			  => array(array('tl_style', 'colorPicker'))
+		),
 		'note' => array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['note'],
@@ -118,6 +151,56 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'clr', 'rte'=>'tinyMCE')
         ),
+        'startDate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['startDate'],
+			'default'                 => time(),
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+		),
+		'endDate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['endDate'],
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+		),
+        'startTime' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['startTime'],
+			'default'                 => time(),
+			'exclude'                 => true,
+			'filter'                  => true,
+			'sorting'                 => true,
+			'flag'                    => 8,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50')
+		),
+		'endTime' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['endTime'],
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'time', 'tl_class'=>'w50')
+		),
+        'repetition' => array
+		(
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['repetition'],
+			'inputType'               => 'checkbox',
+			'exclude'   			  => true,
+			'filter'                  => true,
+			'eval'					  => array('tl_class'=>'clr', 'submitOnChange'=>true)
+        ),
+        'period' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['period'],
+			'inputType'               => 'select',
+			'exclude'   			  => true,
+			'options'                 => array('weekly', 'biweekly', 'monthly'),
+			'reference'				  => &$GLOBALS['TL_LANG']['tl_li_date']['periods'],
+			'eval'                    => array('includeBlankOption' => true)
+		),
 		'private' => array
 		(
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['private'],
