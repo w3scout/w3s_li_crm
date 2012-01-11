@@ -54,7 +54,14 @@ class ModuleInvoiceList extends Module
 								  ->limit(1)
 								  ->execute($this->jumpTo);
 		$jumpToAssoc = $objPage->fetchAssoc();
-		$jumpTo = $this->generateFrontendUrl($jumpToAssoc, array_key_exists($objPage->alias, $GLOBALS['TL_CONFIG']['arrUrlFragments']) ? '/%s' : '/items/%s');
+		if($GLOBALS['TL_CONFIG']['arrUrlFragments'] != null &&
+			is_array($GLOBALS['TL_CONFIG']['arrUrlFragments']) &&
+			array_key_exists($objPage->alias, $GLOBALS['TL_CONFIG']['arrUrlFragments'])) {
+			$folder = '/%s';
+		} else {
+			$folder = '/items/%s';
+		}
+		$jumpTo = $this->generateFrontendUrl($jumpToAssoc, $folder);
 		
 		if($this->User->id != 0) {
 			$objInvoices = $this->Database->prepare('SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
