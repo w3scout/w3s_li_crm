@@ -28,6 +28,7 @@ class Project extends Controller
         $getProjects = $this->Database->prepare("SELECT id, projectNumber, title
             FROM tl_li_project
             WHERE toCustomer = ?
+            	AND NOT title = ''
             ORDER BY projectNumber ASC")->execute($dc->activeRecord->toCustomer);
         while($getProjects->next())
         {
@@ -49,6 +50,7 @@ class Project extends Controller
         $getProjects = $this->Database->prepare("SELECT p.id, p.projectNumber, p.title, c.customerName, c.customerNumber
             FROM tl_li_project AS p
                 INNER JOIN tl_member AS c ON p.toCustomer = c.id
+            WHERE NOT p.title = ''
             ORDER BY customerNumber ASC, projectNumber ASC")->execute();
         while($getProjects->next())
         {
@@ -107,6 +109,7 @@ class Project extends Controller
 		$objProjects = $this->Database->prepare("SELECT id, projectNumber, title
            FROM tl_li_project
            WHERE toCustomer = ?
+           	AND NOT title = ''
            ORDER BY projectNumber ASC")->execute($cid);
 
 		while ($objProjects->next())
