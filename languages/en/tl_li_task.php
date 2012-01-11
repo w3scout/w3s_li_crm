@@ -28,7 +28,9 @@ $GLOBALS['TL_LANG']['tl_li_task']['new'] = array('New task', 'Create a new task'
 $GLOBALS['TL_LANG']['tl_li_task']['edit'] = array('Edit task', 'Edit the task with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_task']['copy'] = array('Duplicate task', 'Duplicate the task with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_task']['delete'] = array('Delete task', 'Delete the task with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_task']['toggle'] = array('Publish/unpublish task', 'Publish/unpublish the task with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_task']['show'] = array('Show task', 'Show the task with the ID %s');
+$GLOBALS['TL_LANG']['tl_li_task']['done'] = array('Finish task', 'Finish the task with the ID %s');
 
 $GLOBALS['TL_LANG']['tl_li_task']['noCustomer'] = 'No customer';
 $GLOBALS['TL_LANG']['tl_li_task']['noTasksAvailable'] = 'No tasks available.';

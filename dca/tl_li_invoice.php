@@ -82,7 +82,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			),
 			'toggle' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_task']['toggle'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.toggleVisibility(this, %s);"',
 				'button_callback'     => array('Invoice', 'toggleIcon')

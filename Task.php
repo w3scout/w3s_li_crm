@@ -184,6 +184,8 @@ class Task extends BackendModule
 		{
 			$icon = 'invisible.gif';
 		}
+		$label = $GLOBALS['TL_LANG']['tl_li_task']['toggle']['0'];
+		$title = sprintf($GLOBALS['TL_LANG']['tl_li_task']['toggle']['1'], $row['id']);
 		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
 	}
 

@@ -8,6 +8,7 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
+$this->loadLanguageFile('tl_li_task_reminder');
 $GLOBALS['TL_DCA']['tl_li_task'] = array
 (
 	'config' => array
