@@ -108,10 +108,10 @@ class Invoice extends BackendModule
 		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][0];
 		if ($row['file'])
 		{
-			$href = '../contao/main.php?do=li_invoices&key=show&id='.$row['id'];
+			$href = '&do=li_invoices&key=show&id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][1], $row['id']);
 
-			return '<a href="/'.$href.'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_show_file.png" alt="'.$alt.'" /></a> ';
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_show_file.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
@@ -124,10 +124,10 @@ class Invoice extends BackendModule
 		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][0];
 		if ($row['file'])
 		{
-			$href = '../contao/main.php?do=li_invoices&key=pdf&id='.$row['id'];
+			$href = '&do=li_invoices&key=pdf&id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][1], $row['id']);
 
-			return '<a href="/'.$href.'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_download.png" alt="'.$alt.'" /></a> ';
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_download.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
