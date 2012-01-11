@@ -18,21 +18,35 @@ class Date extends BackendModule
 		parent::generate();
 		
 		// Get the desired week range or set default values
-		if (!empty($_REQUEST['tl_li_week']))
+		if (!empty($_REQUEST['dates_year']))
 		{
-			$week = $_REQUEST['tl_li_week'];
+			$year = $_REQUEST['dates_year'];
 		}
-		elseif (!empty($_SESSION['tl_li_week']))
+		elseif (!empty($_SESSION['dates_year']))
 		{
-			$week = $_SESSION['tl_li_week'];
+			$year = $_SESSION['dates_year'];
 		}
 		else
 		{
-			$week = date('W');
+			$year = date('Y');
+		}
+		
+		if (!empty($_REQUEST['dates_month']))
+		{
+			$month = $_REQUEST['dates_month'];
+		}
+		elseif (!empty($_SESSION['dates_month']))
+		{
+			$month = $_SESSION['dates_month'];
+		}
+		else
+		{
+			$month = date('m');
 		}
 		
 		// Save the displayed week in the session so it will be restored if the user leaves the page
-		$_SESSION['tl_li_week'] = $week;
+		$_SESSION['dates_year'] = $year;
+		$_SESSION['dates_month'] = $month;
 		
 		// Save template variables for previous, current and next week numbers
 		$this->Template->week = $week;
@@ -79,6 +93,24 @@ class Date extends BackendModule
 		$this->loadLanguageFile('tl_li_date');
 
 		$this->Template->hours = $hours;
+		
+		$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+		$days = array();
+		for($i = 1; $i <= $daysInMonth; $i++) {
+			$day = array();
+			$day['date'] = date('d.m.Y', strtotime($year.'-'.$month.'-'.$i));
+			$days[] = $day;
+		}
+		$this->Template->days = $days;
+		
+		$this->Template->year = $year;
+		$this->Template->month = $month;
+		
+		$this->Template->prevYear = $month > 1 ? $year : $year - 1;
+		$this->Template->prevMonth = $month > 1 ? $month - 1 : 12;
+		
+		$this->Template->nextYear = $month < 12 ? $year : $year + 1;
+		$this->Template->nextMonth = $month < 12 ? $month + 1 : 1;
 
 		return $this->Template->parse();
 	}

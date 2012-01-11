@@ -229,3 +229,28 @@ label.print {
 	display: block;
 	margin-top: 10px;
 }
+
+#dates_wrapper {
+    margin: 0 15px 15px;
+}
+
+#dates {
+    width: 100%;
+    background: #fdfdfd;
+    border-collapse: collapse;
+}
+
+#dates th {
+    font-weight: bold;
+    background: #F3F3F3;
+    width: 95px;
+}
+
+#dates, #dates td, #dates th {
+    border: 1px solid #bbb;
+    padding: 5px;
+}
+
+#dates td {
+    padding: 5px;
+}

@@ -7,8 +7,12 @@
 				   class="tl_img_submit" title="Anwenden" alt="Anwenden">
 		</div>
 		<div class="tl_search tl_subpanel">
-			<strong><?php echo $lang['calendar_week']; ?>:</strong>
-			<input type="text" name="tl_li_week" class="tl_text" value="<?php echo $this->week; ?>">	
+			<strong><?php echo "Jahr"; ?>:</strong>
+			<input type="text" name="dates_year" class="tl_text" value="<?php echo $this->year; ?>">	
+		</div>
+		<div class="tl_search tl_subpanel">
+			<strong><?php echo "Monat"; ?>:</strong>
+			<input type="text" name="dates_month" class="tl_text" value="<?php echo $this->month; ?>">	
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -39,15 +43,22 @@
     </a>
 </div>
 <div id="week_buttons">
-	<a href="contao/main.php?do=li_timekeeping&amp;tl_li_week=<?php echo $this->prevWeek; ?>"
+	<a href="contao/main.php?do=li_dates&amp;dates_year=<?php echo $this->prevYear; ?>&dates_month=<?php echo $this->prevMonth; ?>"
 	   title="<?php echo $lang['prevWeek']; ?>">
 		<img src="system/modules/li_crm/icons/arrow_left.png" alt="<?php echo $lang['prevWeek']; ?>"/>
 	</a>
-	<a style="float:right;" href="contao/main.php?do=li_timekeeping&amp;tl_li_week=<?php echo $this->nextWeek; ?>"
+	<a style="float:right;" href="contao/main.php?do=li_dates&amp;dates_year=<?php echo $this->nextYear; ?>&dates_month=<?php echo $this->nextMonth; ?>"
 	   title="<?php echo $lang['nextWeek']; ?>">
 		<img src="system/modules/li_crm/icons/arrow_right.png" alt="<?php echo $lang['nextWeek']; ?>"/>
 	</a>
 </div>
-<div id="workin_hours_calendar_wrapper">
-	
+<div id="dates_wrapper">
+	<table id="dates">
+		<?php foreach($this->days as $day): ?>
+		<tr>
+			<th><?php echo $day['date']; ?></th>
+			<td></td>
+		</t>
+		<?php endforeach; ?>
+	</table>
 </div>
