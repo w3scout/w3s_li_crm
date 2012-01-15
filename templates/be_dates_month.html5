@@ -1,0 +1,86 @@
+<?php $lang = $this->lang; ?>
+<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+	<input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>" />
+	<div class="tl_panel">
+		<div class="tl_submit_panel tl_subpanel">
+			<input type="image" name="filter" id="filter" src="system/themes/default/images/reload.gif"
+				   class="tl_img_submit" title="Anwenden" alt="Anwenden">
+		</div>
+		<div class="tl_search tl_subpanel">
+			<strong><?php echo "Jahr"; ?>:</strong>
+			<input type="text" name="dates_year" class="tl_text" value="<?php echo $this->year; ?>">	
+		</div>
+		<div class="tl_search tl_subpanel">
+			<strong><?php echo "Monat"; ?>:</strong>
+			<input type="text" name="dates_month" class="tl_text" value="<?php echo $this->month; ?>">	
+		</div>
+		<div class="clear"></div>
+	</div>
+</form>
+<div id="tl_buttons">
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_date']['new'][1]; ?>"
+		class="add_date" href="contao/main.php?do=li_dates&amp;table=tl_li_date&amp;act=create"
+		style="background-image: url('../../system/themes/default/images/new.gif');">
+		<?php echo $GLOBALS['TL_LANG']['tl_li_date']['new'][0]; ?>
+    </a>
+     &nbsp; :: &nbsp;
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['manageWorkPackages']; ?>"
+		class="manage_work_packages" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package"
+		style="background-image: url(system/modules/li_crm/icons/dates_month.png);">
+        Monatsansicht
+    </a>
+    &nbsp; :: &nbsp;
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['manageWorkPackages']; ?>"
+		class="manage_work_packages" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package"
+		style="background-image: url(system/modules/li_crm/icons/dates_week.png);">
+        Wochenansicht
+    </a>
+    &nbsp; :: &nbsp;
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['manageWorkPackages']; ?>"
+		class="manage_work_packages" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package"
+		style="background-image: url(system/modules/li_crm/icons/dates_day.png);">
+        Tagesansicht
+    </a>
+</div>
+<div id="week_buttons">
+	<a href="contao/main.php?do=li_dates&amp;dates_year=<?php echo $this->prevYear; ?>&dates_month=<?php echo $this->prevMonth; ?>"
+	   title="<?php echo $lang['prevWeek']; ?>">
+		<img src="system/modules/li_crm/icons/arrow_left.png" alt="<?php echo $lang['prevWeek']; ?>"/>
+	</a>
+	<a style="float:right;" href="contao/main.php?do=li_dates&amp;dates_year=<?php echo $this->nextYear; ?>&dates_month=<?php echo $this->nextMonth; ?>"
+	   title="<?php echo $lang['nextWeek']; ?>">
+		<img src="system/modules/li_crm/icons/arrow_right.png" alt="<?php echo $lang['nextWeek']; ?>"/>
+	</a>
+</div>
+<div id="dates_wrapper">
+	<table id="dates">
+		<?php foreach($this->days as $day): ?>
+		<tr>
+			<th><?php echo $day['date']; ?></th>
+			<td class="dates">
+				<!--<pre>
+				<?php print_r($day); ?>
+				</pre>-->
+				<?php $dates = $day['dates']; ?>
+				<?php if($dates != null): ?>
+				<?php $counter = 1; ?>
+				<?php foreach($dates as $date): ?>
+				<div class="<?php echo $date['css']; ?>" style="background-color:#<?php echo $date['color']; ?>">
+					<span class="subject"><?php echo $date['subject']; ?></span>
+					<div class="options">
+						<a href="contao/main.php?do=li_dates&amp;table=tl_li_date&amp;act=edit&amp;id=<?php echo $date['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_date']['edit'][1], $date['id']); ?>">
+							<img src="system/modules/li_crm/icons/edit.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_date']['edit'][0]; ?>" width="16" height="16">
+						</a>
+						<a href="contao/main.php?do=li_dates&amp;table=tl_li_date&amp;act=delete&amp;id=<?php echo $date['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_date']['delete'][1], $date['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['MSC']['deleteConfirm'], $date['id']); ?>')) return false; Backend.getScrollOffset();" "="">
+							<img src="system/modules/li_crm/icons/delete.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_date']['delete'][0]; ?>" width="16" height="16">
+						</a>
+					</div>
+				</div>
+				<?php $counter++; ?>
+				<?php endforeach; ?>
+				<?php endif; ?>
+			</td>
+		</t>
+		<?php endforeach; ?>
+	</table>
+</div>

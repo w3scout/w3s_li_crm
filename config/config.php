@@ -34,6 +34,13 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'icon'       => 'system/modules/li_crm/icons/tasks.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
+        'li_dates' => array
+        (
+            'tables'     => array('tl_li_date'),
+            'callback'   => 'Appointment',
+            'icon'       => 'system/modules/li_crm/icons/dates.png',
+            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+        ),
         'li_timekeeping' => array
         (
             'tables'     => array('tl_li_work_package', 'tl_li_working_hour'),
@@ -87,6 +94,14 @@ if ($_GET['do'] == 'li_tasks' && empty($_GET['key']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_tasks']['callback']);
 }
+if ($_GET['do'] == 'li_dates' && !empty($_GET['table']))
+{
+	unset($GLOBALS['BE_MOD']['li_crm']['li_dates']['callback']);
+}
+if ($_GET['do'] == 'li_timekeeping' && !empty($_GET['table']))
+{
+	unset($GLOBALS['BE_MOD']['li_crm']['li_timekeeping']['callback']);
+}
 if ($_GET['do'] == 'li_invoices' && empty($_GET['key']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_invoices']['callback']);
@@ -94,10 +109,6 @@ if ($_GET['do'] == 'li_invoices' && empty($_GET['key']))
 if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_settings']['callback']);
-}
-if ($_GET['do'] == 'li_timekeeping' && !empty($_GET['table']))
-{
-	unset($GLOBALS['BE_MOD']['li_crm']['li_timekeeping']['callback']);
 }
 
 // Reminder cronjob

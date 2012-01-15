@@ -16,13 +16,13 @@
 <div id="tl_buttons">
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['addHoursLabel']; ?>"
 		class="add_hours" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_working_hour&amp;act=create"
-		style="background-image: url(system/modules/li_crm/icons/add.png);">
+		style="background-image: url('../../system/themes/default/images/new.gif');">
 		<?php echo $lang['addHours']; ?>
     </a>
      &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $lang['manageWorkPackages']; ?>"
 		class="manage_work_packages" href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package"
-		style="background-image: url(system/modules/li_crm/icons/workpackage.png);">
+		style="background-image: url('system/modules/li_crm/icons/workpackage.png');">
         <?php echo $lang['manageWorkPackages']; ?>
     </a>
 </div>

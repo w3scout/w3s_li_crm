@@ -198,6 +198,17 @@ class Task extends BackendModule
 		$this->Database->prepare("UPDATE tl_li_task SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
 		$this->createNewVersion('tl_li_task', $intId);
 	}
+	
+	public function getTaskOptions(DataContainer $dc)
+	{
+		$tasks = array();
+		$objTasks = $this->Database->prepare("SELECT id, title FROM tl_li_task ORDER BY id ASC")->execute();
+		while ($objTasks->next())
+		{
+			$tasks[$objTasks->id] = $objTasks->title;
+		}
+		return $tasks;
+	}
 
 }
 ?>
