@@ -37,7 +37,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         'li_dates' => array
         (
             'tables'     => array('tl_li_date'),
-            'callback'   => 'Date',
+            'callback'   => 'Appointment',
             'icon'       => 'system/modules/li_crm/icons/dates.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),

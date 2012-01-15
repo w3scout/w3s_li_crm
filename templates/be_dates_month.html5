@@ -57,7 +57,29 @@
 		<?php foreach($this->days as $day): ?>
 		<tr>
 			<th><?php echo $day['date']; ?></th>
-			<td></td>
+			<td class="dates">
+				<!--<pre>
+				<?php print_r($day); ?>
+				</pre>-->
+				<?php $dates = $day['dates']; ?>
+				<?php if($dates != null): ?>
+				<?php $counter = 1; ?>
+				<?php foreach($dates as $date): ?>
+				<div class="<?php echo $date['css']; ?>" style="background-color:#<?php echo $date['color']; ?>">
+					<span class="subject"><?php echo $date['subject']; ?></span>
+					<div class="options">
+						<a href="contao/main.php?do=li_dates&amp;table=tl_li_date&amp;act=edit&amp;id=<?php echo $date['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_date']['edit'][1], $date['id']); ?>">
+							<img src="system/modules/li_crm/icons/edit.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_date']['edit'][0]; ?>" width="16" height="16">
+						</a>
+						<a href="contao/main.php?do=li_dates&amp;table=tl_li_date&amp;act=delete&amp;id=<?php echo $date['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_date']['delete'][1], $date['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['MSC']['deleteConfirm'], $date['id']); ?>')) return false; Backend.getScrollOffset();" "="">
+							<img src="system/modules/li_crm/icons/delete.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_date']['delete'][0]; ?>" width="16" height="16">
+						</a>
+					</div>
+				</div>
+				<?php $counter++; ?>
+				<?php endforeach; ?>
+				<?php endif; ?>
+			</td>
 		</t>
 		<?php endforeach; ?>
 	</table>

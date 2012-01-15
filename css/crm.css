@@ -254,3 +254,21 @@ label.print {
 #dates td {
     padding: 5px;
 }
+#dates td.dates {
+	padding: 0;
+}
+#dates td .date {
+	padding: 5px;
+	border-bottom: 1px solid #bbb;
+}
+#dates td .date.last {
+	border-bottom: none;
+}
+#dates td .date .options {
+	float: right;
+}
+#dates td .date .options img {
+	position: relative;
+	top: -1px;
+	padding-right: 2px;
+}

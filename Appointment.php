@@ -9,7 +9,7 @@ if (!defined('TL_ROOT'))
  * @author     ApoY2k
  * @license    MIT (see /LICENSE.txt for further information)
  */
-class Date extends BackendModule
+class Appointment extends BackendModule
 {
 	protected $strTemplate = 'be_dates_month';
 
@@ -99,6 +99,32 @@ class Date extends BackendModule
 		for($i = 1; $i <= $daysInMonth; $i++) {
 			$day = array();
 			$day['date'] = date('d.m.Y', strtotime($year.'-'.$month.'-'.$i));
+			$objDates = $this->Database->prepare("SELECT id, subject, color
+												  FROM tl_li_date
+												  WHERE YEAR(FROM_UNIXTIME(startDate)) = ?
+												  	AND MONTH(FROM_UNIXTIME(startDate)) = ?
+												  	AND DAY(FROM_UNIXTIME(startDate)) = ?")->execute($year, $month, $i);
+			$dates = array();
+			$counter = 1;
+			$countDates = $objDates->numRows;
+			while($objDates->next()) {
+				$color = $objDates->color != '' ? $objDates->color : 'ddd';
+				$css = 'date';
+				if($counter == 1) {
+					$css .= ' first';
+				}
+				if($counter == $countDates) {
+					$css .= ' last';
+				}
+				$dates[] = array(
+					'id' => $objDates->id,
+					'subject' => $objDates->subject,
+					'color' => $color,
+					'css' => $css
+				);
+				$counter++;
+			}
+			$day['dates'] = $dates;
 			$days[] = $day;
 		}
 		$this->Template->days = $days;
