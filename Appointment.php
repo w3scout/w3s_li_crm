@@ -11,12 +11,18 @@ if (!defined('TL_ROOT'))
  */
 class Appointment extends BackendModule
 {
-	protected $strTemplate = 'be_dates_month';
+	protected $strTemplate = 'be_appointments_month';
 
 	public function generate()
 	{
 		parent::generate();
+
+		$this->showAppointmentsOfThisMonth();
 		
+		return $this->Template->parse();
+	}
+	
+	private function showAppointmentsOfThisMonth() {
 		// Get the desired week range or set default values
 		if (!empty($_REQUEST['dates_year']))
 		{
@@ -90,7 +96,7 @@ class Appointment extends BackendModule
 			$hours[$getWorkingHours->weekday][] = $entry;
 		}
 
-		$this->loadLanguageFile('tl_li_date');
+		$this->loadLanguageFile('tl_li_appointment');
 
 		$this->Template->hours = $hours;
 		
@@ -99,8 +105,8 @@ class Appointment extends BackendModule
 		for($i = 1; $i <= $daysInMonth; $i++) {
 			$day = array();
 			$day['date'] = date('d.m.Y', strtotime($year.'-'.$month.'-'.$i));
-			$objDates = $this->Database->prepare("SELECT id, subject, color
-												  FROM tl_li_date
+			$objDates = $this->Database->prepare("SELECT id, subject, startDate, color
+												  FROM tl_li_appointment
 												  WHERE YEAR(FROM_UNIXTIME(startDate)) = ?
 												  	AND MONTH(FROM_UNIXTIME(startDate)) = ?
 												  	AND DAY(FROM_UNIXTIME(startDate)) = ?")->execute($year, $month, $i);
@@ -137,8 +143,6 @@ class Appointment extends BackendModule
 		
 		$this->Template->nextYear = $month < 12 ? $year : $year + 1;
 		$this->Template->nextMonth = $month < 12 ? $month + 1 : 1;
-
-		return $this->Template->parse();
 	}
 
 	protected function compile()

@@ -34,11 +34,11 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'icon'       => 'system/modules/li_crm/icons/tasks.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
-        'li_dates' => array
+        'li_appointments' => array
         (
-            'tables'     => array('tl_li_date'),
+            'tables'     => array('tl_li_appointment'),
             'callback'   => 'Appointment',
-            'icon'       => 'system/modules/li_crm/icons/dates.png',
+            'icon'       => 'system/modules/li_crm/icons/appointments.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'
         ),
         'li_timekeeping' => array
@@ -94,9 +94,9 @@ if ($_GET['do'] == 'li_tasks' && empty($_GET['key']))
 {
 	unset($GLOBALS['BE_MOD']['li_crm']['li_tasks']['callback']);
 }
-if ($_GET['do'] == 'li_dates' && !empty($_GET['table']))
+if ($_GET['do'] == 'li_appointments' && !empty($_GET['table']))
 {
-	unset($GLOBALS['BE_MOD']['li_crm']['li_dates']['callback']);
+	unset($GLOBALS['BE_MOD']['li_crm']['li_appointments']['callback']);
 }
 if ($_GET['do'] == 'li_timekeeping' && !empty($_GET['table']))
 {

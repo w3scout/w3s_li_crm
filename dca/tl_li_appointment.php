@@ -12,7 +12,7 @@ if (!defined('TL_ROOT'))
 // Import tl_style class to use the colorpicker
 require_once(dirname(__FILE__).'/../../backend/dca/tl_style.php');
  
-$GLOBALS['TL_DCA']['tl_li_date'] = array
+$GLOBALS['TL_DCA']['tl_li_appointment'] = array
 (
 	'config' => array
 	(
@@ -47,19 +47,19 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		(
 			'edit' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_date']['edit'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_appointment']['edit'],
 				'href'                => 'act=edit',
 				'icon'                => 'edit.gif'
 			),
 			'copy' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_date']['copy'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_appointment']['copy'],
 				'href'                => 'act=copy',
 				'icon'                => 'copy.gif'
 			),
 			'delete' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_date']['delete'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_li_appointment']['delete'],
 				'href'                => 'act=delete',
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
@@ -85,7 +85,7 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 	(
         'toCustomer' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['toCustomer'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['toCustomer'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
@@ -93,15 +93,15 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
         'creator' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['creator'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['creator'],
 			'inputType'               => 'select',
 			'foreignKey'			  => 'tl_user.name',
 			'exclude'   			  => true,
-			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true)
+			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true)
 		),
         'subject' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['subject'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['subject'],
 			'inputType'               => 'text',
 			'exclude'   			  => true,
 			'search'                  => true,
@@ -109,7 +109,7 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
 		'toTask' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['toTask'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['task'],
 			'inputType'               => 'select',
 			'options_callback'		  => array('Task', 'getTaskOptions'),
 			'exclude'   			  => true,
@@ -117,7 +117,7 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
 		'participants' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['participants'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['participants'],
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkboxWizard',
@@ -126,7 +126,7 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
 		'place' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['place'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['place'],
 			'inputType'               => 'text',
 			'exclude'   			  => true,
 			'search'                  => true,
@@ -134,7 +134,7 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
 		'color' => array
 		(
-			'label'     			  => &$GLOBALS['TL_LANG']['tl_li_date']['color'],
+			'label'     			  => &$GLOBALS['TL_LANG']['tl_li_appointment']['color'],
 			'search'    			  => true,
 			'sorting'   			  => true,
 			'flag'      			  => 1,
@@ -145,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
 		'note' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['note'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['note'],
 			'search'                  => true,
 			'inputType'               => 'textarea',
 			'exclude'   			  => true,
@@ -153,7 +153,7 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
         ),
         'startDate' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['startDate'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['startDate'],
 			'default'                 => time(),
 			'exclude'                 => true,
 			'inputType'               => 'text',
@@ -161,14 +161,14 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
 		'endDate' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['endDate'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['endDate'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
 		),
         'startTime' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['startTime'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['startTime'],
 			'default'                 => time(),
 			'exclude'                 => true,
 			'filter'                  => true,
@@ -179,14 +179,14 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
 		),
 		'endTime' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['endTime'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['endTime'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'time', 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50')
 		),
         'repetition' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['repetition'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['repetition'],
 			'inputType'               => 'checkbox',
 			'exclude'   			  => true,
 			'filter'                  => true,
@@ -194,16 +194,16 @@ $GLOBALS['TL_DCA']['tl_li_date'] = array
         ),
         'period' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['period'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['period'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options'                 => array('weekly', 'biweekly', 'monthly'),
-			'reference'				  => &$GLOBALS['TL_LANG']['tl_li_date']['periods'],
+			'reference'				  => &$GLOBALS['TL_LANG']['tl_li_appointment']['periods'],
 			'eval'                    => array('includeBlankOption' => true)
 		),
 		'private' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_date']['private'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_appointment']['private'],
 			'inputType'               => 'checkbox',
 			'exclude'   			  => true,
 			'filter'                  => true

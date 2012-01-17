@@ -179,10 +179,10 @@ CREATE TABLE `tl_li_task_reminder` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Table `tl_li_date`
+-- Table `tl_li_appointment`
 --
 
-CREATE TABLE `tl_li_date` (
+CREATE TABLE `tl_li_appointment` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
   `toCustomer` int(10) unsigned NOT NULL default '0',
