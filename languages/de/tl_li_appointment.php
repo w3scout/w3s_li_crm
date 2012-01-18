@@ -32,6 +32,20 @@ $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['weekly'] = 'Wöchentlich';
 $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['biweekly'] = 'Zweiwöchentlich';
 $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['monthly'] = 'Monatlich';
 
+$GLOBALS['TL_LANG']['tl_li_appointment']['details'] = 'Details';
+$GLOBALS['TL_LANG']['tl_li_appointment']['appointmentNotFound'] = 'Termin nicht gefunden';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['week'] = 'Woche';
+$GLOBALS['TL_LANG']['tl_li_appointment']['month'] = 'Monat';
+$GLOBALS['TL_LANG']['tl_li_appointment']['year'] = 'Jahr';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth'] = 'Vorheriger Monat';
+$GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth'] = 'Nächster Monat';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['dayView'] = array('Tagesansicht', 'Zeigt alle Termine eines Tages an.');
+$GLOBALS['TL_LANG']['tl_li_appointment']['weekView'] = array('Wochenansicht', 'Zeigt alle Termine einer Woche an.');
+$GLOBALS['TL_LANG']['tl_li_appointment']['monthView'] = array('Monatsansicht', 'Zeigt alle Termine eines Monats an.');
+
 $GLOBALS['TL_LANG']['tl_li_appointment']['new'] = array('Neuer Termin', 'Einen neuen Termin erstellen');
 $GLOBALS['TL_LANG']['tl_li_appointment']['edit'] = array('Termin bearbeiten', 'Den Termin mit der ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_li_appointment']['copy'] = array('Termin kopieren', 'Den Termin mit der ID %s kopieren');

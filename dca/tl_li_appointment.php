@@ -8,9 +8,6 @@ if (!defined('TL_ROOT'))
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
-
-// Import tl_style class to use the colorpicker
-require_once(dirname(__FILE__).'/../../backend/dca/tl_style.php');
  
 $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 (
@@ -140,8 +137,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'flag'      			  => 1,
 			'inputType' 			  => 'text',
 			'exclude'   			  => true,
-			'eval'      			  => array('maxlength' => 6, 'isHexColor' => true, 'tl_class' => 'w50'),
-			'wizard'    			  => array(array('tl_style', 'colorPicker'))
+			'eval'      			  => array('maxlength' => 6, 'isHexColor' => true, 'tl_class' => 'w50')
 		),
 		'note' => array
 		(

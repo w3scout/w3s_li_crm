@@ -11,13 +11,27 @@ if (!defined('TL_ROOT'))
  */
 class Appointment extends BackendModule
 {
-	protected $strTemplate = 'be_appointments_month';
-
 	public function generate()
 	{
-		parent::generate();
+		$this->import('BackendUser', 'User');
 
-		$this->showAppointmentsOfThisMonth();
+		$view = $this->Input->get('view');
+
+		if($view == '' or ($view != 'week' && $view != 'day'))
+		{
+			$this->Template = new BackendTemplate('be_appointments_month');
+			$this->showAppointmentsOfThisMonth();
+		}
+		elseif($view == 'week')
+		{
+			$this->Template = new BackendTemplate('be_appointments_week');
+			$this->showAppointmentsOfThisWeek();
+		}
+		elseif($view == 'day')
+		{
+			$this->Template = new BackendTemplate('be_appointments_day');
+			$this->showAppointmentsOfThisDay();
+		}
 		
 		return $this->Template->parse();
 	}
@@ -53,82 +67,75 @@ class Appointment extends BackendModule
 		// Save the displayed week in the session so it will be restored if the user leaves the page
 		$_SESSION['dates_year'] = $year;
 		$_SESSION['dates_month'] = $month;
-		
-		// Save template variables for previous, current and next week numbers
-		$this->Template->week = $week;
-		$this->Template->prevWeek = ($week - 1 <= 0) ? 53 : $week - 1;
-		$this->Template->nextWeek = ($week + 1 > 53) ? 1 : $week + 1;
-
-		// Get the configured week mode from the configuration
-		$weekMode = !empty($GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode']) ?
-			$GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode'] : '7';
-
-		// Only get the working hours in the desired week range
-		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) AS weekday,
-				(wh.hours * 60 + wh.minutes) AS minutes, wp.id AS workPackageId, c.customerColor
-			FROM tl_li_working_hour wh
-				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
-				LEFT JOIN tl_li_project p ON wp.toProject = p.id
-				LEFT JOIN tl_member c ON p.toCustomer = c.id
-			WHERE hours IS NOT NULL
-				AND WEEK(FROM_UNIXTIME(wh.entryDate), ?) = ?
-			ORDER BY wh.entryDate")->execute($weekMode, $week);
-
-		// Build an array of the working hours per day. The first index is the week of the year,
-		// the second is the day within that week
-		$hours = array();
-		while ($getWorkingHours->next())
-		{
-			// Calculate the amount of full hours and minutes worked on an entry
-			$minutes = $getWorkingHours->minutes % 60;
-			$hoursWorked = ($getWorkingHours->minutes - $minutes) / 60;
-
-            $entry = array(
-					'id' => $getWorkingHours->id,
-					'hours' => $hoursWorked,
-					'minutes' => $minutes,
-					'hourLimit' => $getWorkingHours->hourLimit,
-					'customerColor' => $getWorkingHours->customerColor != '' ? $getWorkingHours->customerColor : 'eee',
-					'customerId' => $getWorkingHours->customerId,
-					'workPackageId' => $getWorkingHours->workPackageId,
-			);
-			
-			$hours[$getWorkingHours->weekday][] = $entry;
-		}
 
 		$this->loadLanguageFile('tl_li_appointment');
-
-		$this->Template->hours = $hours;
 		
 		$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 		$days = array();
 		for($i = 1; $i <= $daysInMonth; $i++) {
 			$day = array();
-			$day['date'] = date('d.m.Y', strtotime($year.'-'.$month.'-'.$i));
-			$objDates = $this->Database->prepare("SELECT id, subject, startDate, color
+			$currentDate = strtotime($year.'-'.$month.'-'.$i);
+			$day['date'] = date('d.m.Y', $currentDate);
+			$dayOfWeek = date('w', $currentDate) + 1;
+			$week = date('W', $currentDate);
+			$objDates = $this->Database->prepare("SELECT id, creator, subject, participants, startDate, color
 												  FROM tl_li_appointment
-												  WHERE YEAR(FROM_UNIXTIME(startDate)) = ?
+												  WHERE
+												  (
+												  	YEAR(FROM_UNIXTIME(startDate)) = ?
 												  	AND MONTH(FROM_UNIXTIME(startDate)) = ?
-												  	AND DAY(FROM_UNIXTIME(startDate)) = ?")->execute($year, $month, $i);
+												  	AND DAY(FROM_UNIXTIME(startDate)) = ?
+												  )
+												  OR
+												  (
+												  	repetition = 1
+												  	AND period = 'weekly'
+												  	AND DAYOFWEEK(FROM_UNIXTIME(startdate)) = ?
+												  	AND
+												  	(
+												  		(
+												  			WEEK(FROM_UNIXTIME(startdate)) < ?
+												  			AND YEAR(FROM_UNIXTIME(startDate)) = ?
+												  		)
+												  		OR
+												  		(
+												  			YEAR(FROM_UNIXTIME(startDate)) < ?
+												  		)
+												  	)
+												  )")->execute($year, $month, $i, $dayOfWeek, $week, $year, $year);
 			$dates = array();
-			$counter = 1;
 			$countDates = $objDates->numRows;
 			while($objDates->next()) {
+				// User has to be creator, a participant or an admin
+				// Skip check if user is admin
+				if(!$this->User->isAdmin) {
+					$userId = $this->User->id;
+					// Skip appointment if appointment is private and user is not creator
+					if($userId != $objDates->creator && $objDates->private) {
+						continue;
+					}
+					$found = $userId == $objDates->creator;
+					$participants = unserialize($objDates->participants);
+					if(!$found && $participants) {
+						foreach($participants as $participant) {
+							if($participant == $userId) {
+								$found = true;
+								break;
+							}
+						}
+					}
+					if(!$found) {
+						continue;
+					}
+				}
+				
+			
 				$color = $objDates->color != '' ? $objDates->color : 'ddd';
-				$css = 'date';
-				if($counter == 1) {
-					$css .= ' first';
-				}
-				if($counter == $countDates) {
-					$css .= ' last';
-				}
 				$dates[] = array(
 					'id' => $objDates->id,
 					'subject' => $objDates->subject,
-					'color' => $color,
-					'css' => $css
+					'color' => $color
 				);
-				$counter++;
 			}
 			$day['dates'] = $dates;
 			$days[] = $day;
@@ -145,7 +152,13 @@ class Appointment extends BackendModule
 		$this->Template->nextMonth = $month < 12 ? $month + 1 : 1;
 	}
 
-	protected function compile()
-	{
+	private function showAppointmentsOfThisWeek() {
+		
 	}
+	
+	private function showAppointmentsOfThisDay() {
+		
+	}
+
+	protected function compile() {}
 }

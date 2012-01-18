@@ -10,8 +10,8 @@
 			<input type="text" name="dates_year" class="tl_text" value="<?php echo $this->year; ?>">	
 		</div>
 		<div class="tl_search tl_subpanel">
-			<strong><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['month']; ?>:</strong>
-			<input type="text" name="dates_month" class="tl_text" value="<?php echo $this->month; ?>">	
+			<strong><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['week']; ?>:</strong>
+			<input type="text" name="dates_week" class="tl_text" value="<?php echo $this->week; ?>">	
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -42,16 +42,15 @@
     </a>
 </div>
 <div id="week_buttons">
-	<a href="contao/main.php?do=li_appointments&amp;dates_year=<?php echo $this->prevYear; ?>&dates_month=<?php echo $this->prevMonth; ?>"
-	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth']; ?>">
-		<img src="system/modules/li_crm/icons/arrow_left.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth']; ?>"/>
+	<a href="contao/main.php?do=li_appointments&amp;dates_year=<?php echo $this->prevYear; ?>&dates_week=<?php echo $this->prevWeek; ?>"
+	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevWeek']; ?>">
+		<img src="system/modules/li_crm/icons/arrow_left.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevWeek']; ?>"/>
 	</a>
-	<a style="float:right;" href="contao/main.php?do=li_appointments&amp;dates_year=<?php echo $this->nextYear; ?>&dates_month=<?php echo $this->nextMonth; ?>"
-	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth']; ?>">
-		<img src="system/modules/li_crm/icons/arrow_right.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth']; ?>"/>
+	<a style="float:right;" href="contao/main.php?do=li_appointments&amp;dates_year=<?php echo $this->nextYear; ?>&dates_week=<?php echo $this->nextWeek; ?>"
+	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextWeek']; ?>">
+		<img src="system/modules/li_crm/icons/arrow_right.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextWeek']; ?>"/>
 	</a>
 </div>
-<pre><?php print_r($this->test); ?></pre>
 <div id="dates_wrapper">
 	<table id="dates">
 		<?php foreach($this->days as $day): ?>

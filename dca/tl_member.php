@@ -10,9 +10,6 @@ if (!defined('TL_ROOT'))
  */
 if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
-// Import tl_style class to use the colorpicker
-require_once(dirname(__FILE__).'/../../backend/dca/tl_style.php');
-
 // Modify member dca to add customer fields
 $GLOBALS['TL_DCA']['tl_member']['config']['ctable'][]           = 'tl_li_contact';
 $GLOBALS['TL_DCA']['tl_member']['palettes']['default']          = "{customer_legend}, isCustomer; ".$GLOBALS['TL_DCA']['tl_member']['palettes']['default'];
@@ -70,6 +67,5 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerColor'] = array
 	'flag'      => 1,
 	'inputType' => 'text',
 	'exclude'   => true,
-	'eval'      => array('maxlength' => 6, 'isHexColor' => true, 'tl_class' => 'w50'),
-	'wizard'    => array(array('tl_style', 'colorPicker'))
+	'eval'      => array('maxlength' => 6, 'isHexColor' => true, 'tl_class' => 'w50')
 );

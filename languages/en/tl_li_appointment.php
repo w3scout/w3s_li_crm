@@ -32,6 +32,24 @@ $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['weekly'] = 'Weekly';
 $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['biweekly'] = 'Biweekly';
 $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['monthly'] = 'Monthly';
 
+$GLOBALS['TL_LANG']['tl_li_appointment']['details'] = 'Details';
+$GLOBALS['TL_LANG']['tl_li_appointment']['appointmentNotFound'] = 'Appointment not found.';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['week'] = 'Week';
+$GLOBALS['TL_LANG']['tl_li_appointment']['month'] = 'Month';
+$GLOBALS['TL_LANG']['tl_li_appointment']['year'] = 'Year';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['prevDay'] = 'Previous day';
+$GLOBALS['TL_LANG']['tl_li_appointment']['nextDay'] = 'Next day';
+$GLOBALS['TL_LANG']['tl_li_appointment']['prevWeek'] = 'Previous week';
+$GLOBALS['TL_LANG']['tl_li_appointment']['nextWeek'] = 'Next week';
+$GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth'] = 'Previous month';
+$GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth'] = 'Next month';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['dayView'] = array('Day view', 'View all appointments of a day.');
+$GLOBALS['TL_LANG']['tl_li_appointment']['weekView'] = array('Week view', 'View all appointments of a week.');
+$GLOBALS['TL_LANG']['tl_li_appointment']['monthView'] = array('Month view', 'View all appointments of a month');
+
 $GLOBALS['TL_LANG']['tl_li_appointment']['new'] = array('New date', 'Create a new date');
 $GLOBALS['TL_LANG']['tl_li_appointment']['edit'] = array('Edit date', 'Edit the date with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_appointment']['copy'] = array('Duplicate date', 'Duplicate the date with the ID %s');

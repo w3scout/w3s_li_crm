@@ -17,9 +17,9 @@
 <div id="container">
 <div id="main">
 
-<h1>Termin</h1>
+<h1><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['date_legend']; ?></h1>
 
-<h2>Details<?php echo $this->headline; ?></h2>
+<h2><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['details']; ?></h2>
 
 <?php echo $this->explanation; ?>
 <?php if ($this->appointment != null): ?>
@@ -79,7 +79,7 @@
 	<?php endif; ?>
 </table>
 <?php else: ?>
-<?php // TODO: Show error message ?>error
+<p><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['appointmentNotFound']; ?></p>
 <?php endif; ?>
 
 </div>
