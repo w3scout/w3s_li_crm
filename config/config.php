@@ -6,6 +6,7 @@ if (!defined('TL_ROOT'))
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author      Christian Kolb <info@liplex.de>
  * @author      ApoY2k <apoy2k@gmail.com>
+ * @author      Tristan Lins <tristan.lins@infinitysoft.de>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
@@ -29,10 +30,11 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         ),
         'li_tasks' => array
         (
-            'tables'     => array('tl_li_task', 'tl_li_task_reminder'),
+            'tables'     => array('tl_li_task', 'tl_li_task_comment', 'tl_li_task_reminder'),
             'callback'   => 'Task',
             'icon'       => 'system/modules/li_crm/icons/tasks.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'stylesheet' => 'system/modules/li_crm/css/crm.css',
+	        'javascript' => 'system/modules/li_crm/js/Task.js'
         ),
         'li_appointments' => array
         (

@@ -14,10 +14,9 @@ class WorkingHourCalendar extends BackendModule
 	public function generate()
 	{
 		parent::generate();
-		
+
 		// Get the desired week range or set default values
-		if (!empty($_REQUEST['tl_li_week']))
-		{
+		if (!empty($_REQUEST['tl_li_week'])) {
 			$week = $_REQUEST['tl_li_week'];
 		}
 		elseif (!empty($_SESSION['tl_li_week']))
@@ -28,12 +27,12 @@ class WorkingHourCalendar extends BackendModule
 		{
 			$week = date('W');
 		}
-		
+
 		// Save the displayed week in the session so it will be restored if the user leaves the page
 		$_SESSION['tl_li_week'] = $week;
-		
+
 		// Save template variables for previous, current and next week numbers
-		$this->Template->week = $week;
+		$this->Template->week     = $week;
 		$this->Template->prevWeek = ($week - 1 <= 0) ? 53 : $week - 1;
 		$this->Template->nextWeek = ($week + 1 > 53) ? 1 : $week + 1;
 
@@ -60,20 +59,21 @@ class WorkingHourCalendar extends BackendModule
 		while ($getWorkingHours->next())
 		{
 			// Calculate the amount of full hours and minutes worked on an entry
-			$minutes = $getWorkingHours->minutes % 60;
+			$minutes     = $getWorkingHours->minutes % 60;
 			$hoursWorked = ($getWorkingHours->minutes - $minutes) / 60;
 
-            $entry = array(
-					'id' => $getWorkingHours->id,
-					'hours' => $hoursWorked,
-					'minutes' => $minutes,
-					'hourLimit' => $getWorkingHours->hourLimit,
-					'customerColor' => $getWorkingHours->customerColor != '' ? $getWorkingHours->customerColor : 'eee',
-					'customerId' => $getWorkingHours->customerId,
-					'workPackageId' => $getWorkingHours->workPackageId,
-	                'user' => $getWorkingHours->user ? $getWorkingHours->user : $getWorkingHours->username
+			$entry = array(
+				'id'            => $getWorkingHours->id,
+				'hours'         => $hoursWorked,
+				'minutes'       => $minutes,
+				'hourLimit'     => $getWorkingHours->hourLimit,
+				'customerColor' => $getWorkingHours->customerColor != '' ? $getWorkingHours->customerColor : 'eee',
+				'customerId'    => $getWorkingHours->customerId,
+				'workPackageId' => $getWorkingHours->workPackageId,
+				'user'          => $getWorkingHours->user ? $getWorkingHours->user : $getWorkingHours->username,
+				'foo'           => $getWorkingHours->row()
 			);
-			
+
 			$hours[$getWorkingHours->weekday][] = $entry;
 		}
 
@@ -81,12 +81,52 @@ class WorkingHourCalendar extends BackendModule
 		$lang = $GLOBALS['TL_LANG']['tl_li_working_hour'];
 
 		$this->Template->hours = $hours;
-		$this->Template->lang = $lang;
+		$this->Template->lang  = $lang;
 
 		return $this->Template->parse();
 	}
 
 	protected function compile()
 	{
+	}
+
+	/**
+	 * DataContainer submit callback
+	 *
+	 * @param DataContainer $dc
+	 */
+	public function onSubmit(DataContainer $dc)
+	{
+		// if there is a task comment associated to this working hour ...
+		$objComment = $this->Database
+			->prepare("SELECT * FROM tl_li_task_comment WHERE working_hour_dataset=?")
+			->execute($dc->id);
+
+		if ($objComment->next()) {
+			// ... update the hours and minutes of the task comment
+			$this->Database
+				->prepare("UPDATE tl_li_task_comment SET hours=?, minutes=? WHERE id=?")
+				->execute($dc->activeRecord->hours, $dc->activeRecord->minutes, $objComment->id);
+		}
+	}
+
+	/**
+	 * DataContainer delete callback
+	 *
+	 * @param DataContainer $dc
+	 */
+	public function onDelete(DataContainer $dc)
+	{
+		// if there is a task comment associated to this working hour ...
+		$objComment = $this->Database
+			->prepare("SELECT * FROM tl_li_task_comment WHERE working_hour_dataset=?")
+			->execute($dc->id);
+
+		if ($objComment->next()) {
+			// ... remove the time tracking
+			$this->Database
+				->prepare("UPDATE tl_li_task_comment SET keeptime=? WHERE id=?")
+				->execute('', $objComment->id);
+		}
 	}
 }

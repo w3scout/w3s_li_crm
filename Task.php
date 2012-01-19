@@ -15,7 +15,13 @@ if (!defined('TL_ROOT'))
 class Task extends BackendModule
 {
 	/**
+	 * @var TaskComment
+	 */
+	protected $TaskComment;
+	
+	/**
 	 * Template
+	 * @var string
 	 */
 	protected $strTemplate = 'be_task';
 
@@ -109,18 +115,37 @@ class Task extends BackendModule
 		{
 			$customer = $GLOBALS['TL_LANG']['tl_li_task']['noCustomer'];
 		}
+		
+		/**
+		 * Add the expand comments icon.
+		 */
+		$expandIcon = '<span class="toggle_comments">' . $this->generateImage('system/themes/' . $this->getTheme() . '/images/folPlus.gif', '') . '</span> ';
+		
+		/**
+		 * Add the last 3 comments.
+		 */
+		$this->import('TaskComment');
+		$strComments = '';
+		$objComment = $this->Database
+			->prepare("SELECT * FROM tl_li_task_comment WHERE pid=? ORDER BY tstamp DESC")
+			->limit(3)
+			->execute($row['id']);
+		while ($objComment->next()) {
+			$strComments .= $this->TaskComment->renderComment($objComment->row());
+		}
+		$strComments = '<div class="task_comments" id="comments_' . $row['id'] . '">' . $strComments . '</div>';
 
 		if (!$taskDisabled)
 		{
 			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'.png" alt="'.$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
 
-			return $priorityIcon." ".$statusIcon." ".$customer." - ".$row['title'];
+			return '<div>' . $expandIcon . $priorityIcon." ".$statusIcon." ".$customer." - ".$row['title'] . '</div>' . $strComments;
 		}
 		else
 		{
 			$priorityIcon = '<img src="system/modules/li_crm/icons/priority_'.$row['priority'].'_disabled.png" alt="'.$GLOBALS['TL_LANG']['tl_li_task']['priority'][0].' '.$row['priority'].'" style="vertical-align:-3px;" />';
 
-			return $priorityIcon." ".$statusIcon." <span class=\"disabled\">".$customer." - ".$row['title']."</span>";
+			return '<div>' . $expandIcon . $priorityIcon." ".$statusIcon." <span class=\"disabled\">".$customer." - ".$row['title']."</span>" . '</div>' . $strComments;
 		}
 	}
 
