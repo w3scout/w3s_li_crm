@@ -43,11 +43,13 @@ class WorkingHourCalendar extends BackendModule
 
 		// Only get the working hours in the desired week range
 		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) AS weekday,
-				(wh.hours * 60 + wh.minutes) AS minutes, wp.id AS workPackageId, c.customerColor
+				(wh.hours * 60 + wh.minutes) AS minutes, wp.id AS workPackageId, c.customerColor,
+				u.username AS username, u.name as `user`
 			FROM tl_li_working_hour wh
 				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
 				LEFT JOIN tl_li_project p ON wp.toProject = p.id
 				LEFT JOIN tl_member c ON p.toCustomer = c.id
+				LEFT JOIN tl_user u ON wh.user = u.id
 			WHERE hours IS NOT NULL
 				AND WEEK(FROM_UNIXTIME(wh.entryDate), ?) = ?
 			ORDER BY wh.entryDate")->execute($weekMode, $week);
@@ -69,6 +71,7 @@ class WorkingHourCalendar extends BackendModule
 					'customerColor' => $getWorkingHours->customerColor != '' ? $getWorkingHours->customerColor : 'eee',
 					'customerId' => $getWorkingHours->customerId,
 					'workPackageId' => $getWorkingHours->workPackageId,
+	                'user' => $getWorkingHours->user ? $getWorkingHours->user : $getWorkingHours->username
 			);
 			
 			$hours[$getWorkingHours->weekday][] = $entry;

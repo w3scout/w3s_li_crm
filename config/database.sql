@@ -304,6 +304,7 @@ CREATE TABLE `tl_li_invoice_reminder` (
 CREATE TABLE `tl_li_working_hour` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NULL default '0',
+  `user` int(10) unsigned NULL default '0',
   `entryDate` int(10) unsigned NULL default '0',
   `hours` int(10) unsigned NULL default '0',
   `minutes` int(10) unsigned NULL default '0',

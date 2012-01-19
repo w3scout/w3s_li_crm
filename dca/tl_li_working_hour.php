@@ -12,7 +12,11 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 	'config' => array
 	(
 		'dataContainer'		=> 'Table',
-		'enableVersioning'	=> true
+		'enableVersioning'	=> true,
+		'onsubmit_callback'           => array
+		(
+			array('WorkingHourCalendar', 'onSubmit')
+		)
 	),
 	'palettes' => array
 	(
@@ -21,6 +25,9 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 	),
 	'fields' => array
 	(
+		'user' => array(
+			'default' => $this->User->id
+		),
 		'entryDate' => array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['entryDate'],
