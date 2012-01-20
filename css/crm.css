@@ -281,13 +281,15 @@ label.print {
 	padding-top: 4px;
 }
 .task_comments .be_task_comment {
-	overflow: hidden;
 }
 .task_comments .be_task_comment .datetime {
 	color: #A30000;
 }
+.task_comments .be_task_comment .comment .user {
+	color: #0000A3;
+}
 .task_comments .be_task_comment .comment .datetime,
-.task_comments .be_task_comment .comment .rarr {
+.task_comments .be_task_comment .comment .user {
 	float: left;
 }
 .task_comments .be_task_comment .details .changeCustomerProject,
@@ -296,15 +298,9 @@ label.print {
 .task_comments .be_task_comment .details .changeDeadline,
 .task_comments .be_task_comment .details .changeStatus,
 .task_comments .be_task_comment .details .changeUser,
-.task_comments .be_task_comment .details .keeptime {
-	margin-top: 4px;
-	padding: 3px;
-	border: 1px solid #ccc;
-	-webkit-border-radius: 5px;
-	-webkit-box-shadow: 3px 0 0 rgba(0, 0, 0, .3);
-	box-shadow: 3px 0 0 rgba(0, 0, 0, .3);
-}
+.task_comments .be_task_comment .details .keeptime,
 .task_comments .be_task_comment .comment {
 	margin-top: 4px;
-	padding: 3px 3px 0;
+	padding: 3px 4px 0;
+	border-top: 1px solid #ccc;
 }

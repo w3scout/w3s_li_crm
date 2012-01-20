@@ -207,6 +207,10 @@ class TaskComment extends Backend
 		$objTemplate->datetime = $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $row['tstamp']);
 		$objTemplate->date     = $this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['tstamp']);
 
+		$objTemplate->user = $this->Database
+			->prepare("SELECT * FROM tl_user WHERE id=?")
+			->execute($row['user']);
+
 		if ($row['toCustomer']) {
 			$objTemplate->customer = $this->Database
 				->prepare("SELECT * FROM tl_member WHERE id=?")
@@ -231,7 +235,7 @@ class TaskComment extends Backend
 			->prepare("SELECT * FROM tl_user WHERE id=?")
 			->execute($row['previousUser']);
 
-		$objTemplate->user = $this->Database
+		$objTemplate->tuser = $this->Database
 			->prepare("SELECT * FROM tl_user WHERE id=?")
 			->execute($row['toUser']);
 
