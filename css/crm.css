@@ -145,7 +145,7 @@ label.print {
     margin-top: 20px;
 }
 
-#week_buttons {
+#day_buttons, #week_buttons, #month_buttons {
     padding: 10px 16px 0;
 }
 
@@ -230,45 +230,56 @@ label.print {
 	margin-top: 10px;
 }
 
-#dates_wrapper {
+#appointments_wrapper {
     margin: 0 15px 15px;
 }
 
-#dates {
+#appointments {
     width: 100%;
     background: #fdfdfd;
     border-collapse: collapse;
 }
 
-#dates th {
+#appointments th {
     font-weight: bold;
     background: #F3F3F3;
     width: 95px;
 }
 
-#dates, #dates td, #dates th {
+#appointments, #appointments td, #appointments th {
     border: 1px solid #bbb;
     padding: 5px;
 }
 
-#dates td {
+#appointments td {
     padding: 5px;
 }
-#dates td.dates {
+#appointments td.appointments {
 	padding: 0;
 }
-#dates td .date {
+#appointments td .appointment {
 	padding: 5px;
 	border-bottom: 1px solid #bbb;
 }
-#dates td .date.last {
+#appointments td .appointment.last {
 	border-bottom: none;
 }
-#dates td .date .options {
+#appointments td .appointment .options {
 	float: right;
 }
-#dates td .date .options img {
+#appointments td .appointment .options img {
 	position: relative;
 	top: -1px;
 	padding-right: 2px;
+}
+#tl_listing.tl_li_appointments {
+	margin: 0 18px 24px;
+}
+#tl_listing.tl_li_appointments .tl_li_appointment span {
+	padding: 3px 0;
+}
+#tl_listing.tl_li_appointments .tl_folder_top label {
+	display: block;
+	font-weight: bold;
+	padding: 2px 0;
 }

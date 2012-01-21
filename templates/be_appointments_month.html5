@@ -7,11 +7,11 @@
 		</div>
 		<div class="tl_search tl_subpanel">
 			<strong><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['year']; ?>:</strong>
-			<input type="text" name="dates_year" class="tl_text" value="<?php echo $this->year; ?>">	
+			<input type="text" name="appointments_year" class="tl_text" value="<?php echo $this->year; ?>">	
 		</div>
 		<div class="tl_search tl_subpanel">
 			<strong><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['month']; ?>:</strong>
-			<input type="text" name="dates_month" class="tl_text" value="<?php echo $this->month; ?>">	
+			<input type="text" name="appointments_month" class="tl_text" value="<?php echo $this->month; ?>">	
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -41,39 +41,38 @@
         <?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['dayView'][0]; ?>
     </a>
 </div>
-<div id="week_buttons">
-	<a href="contao/main.php?do=li_appointments&amp;dates_year=<?php echo $this->prevYear; ?>&dates_month=<?php echo $this->prevMonth; ?>"
+<div id="month_buttons">
+	<a href="contao/main.php?do=li_appointments&amp;appointments_year=<?php echo $this->prevYear; ?>&appointments_month=<?php echo $this->prevMonth; ?>"
 	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth']; ?>">
 		<img src="system/modules/li_crm/icons/arrow_left.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth']; ?>"/>
 	</a>
-	<a style="float:right;" href="contao/main.php?do=li_appointments&amp;dates_year=<?php echo $this->nextYear; ?>&dates_month=<?php echo $this->nextMonth; ?>"
+	<a style="float:right;" href="contao/main.php?do=li_appointments&amp;appointments_year=<?php echo $this->nextYear; ?>&appointments_month=<?php echo $this->nextMonth; ?>"
 	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth']; ?>">
 		<img src="system/modules/li_crm/icons/arrow_right.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth']; ?>"/>
 	</a>
 </div>
-<pre><?php print_r($this->test); ?></pre>
-<div id="dates_wrapper">
-	<table id="dates">
+<div id="appointments_wrapper">
+	<table id="appointments">
 		<?php foreach($this->days as $day): ?>
 		<tr>
 			<th><?php echo $day['date']; ?></th>
-			<td class="dates">
-				<?php $dates = $day['dates']; ?>
-				<?php if($dates != null): ?>
+			<td class="appointments">
+				<?php $appointments = $day['appointments']; ?>
+				<?php if($appointments != null): ?>
 				<?php $counter = 1; ?>
-				<?php $countDates = count($dates); ?>
-				<?php foreach($dates as $date): ?>
-				<div class="date<?php echo $counter == 1 ? ' first' : ''; ?><?php echo $counter == $countDates ? ' last' : ''; ?>" style="background-color:#<?php echo $date['color']; ?>">
+				<?php $countAppointments = count($appointments); ?>
+				<?php foreach($appointments as $appointment): ?>
+				<div class="appointment<?php echo $counter == 1 ? ' first' : ''; ?><?php echo $counter == $countAppointments ? ' last' : ''; ?>" style="background-color:#<?php echo $appointment['color']; ?>">
 					<span class="subject">
-						<a href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $date['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $date['id']); ?>" rel="lightbox[610 80%]">
-							<?php echo $date['subject']; ?>
+						<a href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>" rel="lightbox[610 80%]">
+							<?php echo $appointment['subject']; ?>
 						</a>
 					</span>
 					<div class="options">
-						<a href="contao/main.php?do=li_appointments&amp;table=tl_li_appointment&amp;act=edit&amp;id=<?php echo $date['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $date['id']); ?>">
+						<a href="contao/main.php?do=li_appointments&amp;table=tl_li_appointment&amp;act=edit&amp;id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>">
 							<img src="system/modules/li_crm/icons/edit.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['edit'][0]; ?>" width="16" height="16">
 						</a>
-						<a href="contao/main.php?do=li_appointments&amp;table=tl_li_appointment&amp;act=delete&amp;id=<?php echo $date['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['delete'][1], $date['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['MSC']['deleteConfirm'], $date['id']); ?>')) return false; Backend.getScrollOffset();" "="">
+						<a href="contao/main.php?do=li_appointments&amp;table=tl_li_appointment&amp;act=delete&amp;id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['delete'][1], $appointment['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['MSC']['deleteConfirm'], $appointment['id']); ?>')) return false; Backend.getScrollOffset();" "="">
 							<img src="system/modules/li_crm/icons/delete.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['delete'][0]; ?>" width="16" height="16">
 						</a>
 					</div>

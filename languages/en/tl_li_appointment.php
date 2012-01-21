@@ -35,6 +35,7 @@ $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['monthly'] = 'Monthly';
 $GLOBALS['TL_LANG']['tl_li_appointment']['details'] = 'Details';
 $GLOBALS['TL_LANG']['tl_li_appointment']['appointmentNotFound'] = 'Appointment not found.';
 
+$GLOBALS['TL_LANG']['tl_li_appointment']['day'] = 'Day';
 $GLOBALS['TL_LANG']['tl_li_appointment']['week'] = 'Week';
 $GLOBALS['TL_LANG']['tl_li_appointment']['month'] = 'Month';
 $GLOBALS['TL_LANG']['tl_li_appointment']['year'] = 'Year';
@@ -45,6 +46,9 @@ $GLOBALS['TL_LANG']['tl_li_appointment']['prevWeek'] = 'Previous week';
 $GLOBALS['TL_LANG']['tl_li_appointment']['nextWeek'] = 'Next week';
 $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth'] = 'Previous month';
 $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth'] = 'Next month';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['appointmentsAtDay'] = 'Appointments at %s';
+$GLOBALS['TL_LANG']['tl_li_appointment']['noAppointmentsAtDay'] = 'No appointments at this day.';
 
 $GLOBALS['TL_LANG']['tl_li_appointment']['dayView'] = array('Day view', 'View all appointments of a day.');
 $GLOBALS['TL_LANG']['tl_li_appointment']['weekView'] = array('Week view', 'View all appointments of a week.');

@@ -35,12 +35,20 @@ $GLOBALS['TL_LANG']['tl_li_appointment']['periods']['monthly'] = 'Monatlich';
 $GLOBALS['TL_LANG']['tl_li_appointment']['details'] = 'Details';
 $GLOBALS['TL_LANG']['tl_li_appointment']['appointmentNotFound'] = 'Termin nicht gefunden';
 
+$GLOBALS['TL_LANG']['tl_li_appointment']['day'] = 'Tag';
 $GLOBALS['TL_LANG']['tl_li_appointment']['week'] = 'Woche';
 $GLOBALS['TL_LANG']['tl_li_appointment']['month'] = 'Monat';
 $GLOBALS['TL_LANG']['tl_li_appointment']['year'] = 'Jahr';
 
+$GLOBALS['TL_LANG']['tl_li_appointment']['prevDay'] = 'Vorheriger Tag';
+$GLOBALS['TL_LANG']['tl_li_appointment']['nextDay'] = 'Nächster Tag';
+$GLOBALS['TL_LANG']['tl_li_appointment']['prevWeek'] = 'Vorherige Woche';
+$GLOBALS['TL_LANG']['tl_li_appointment']['nextWeek'] = 'Nächste Woche';
 $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth'] = 'Vorheriger Monat';
 $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth'] = 'Nächster Monat';
+
+$GLOBALS['TL_LANG']['tl_li_appointment']['appointmentsAtDay'] = 'Termine am %s';
+$GLOBALS['TL_LANG']['tl_li_appointment']['noAppointmentsAtDay'] = 'Keine Termine an diesem Tag eingetragen.';
 
 $GLOBALS['TL_LANG']['tl_li_appointment']['dayView'] = array('Tagesansicht', 'Zeigt alle Termine eines Tages an.');
 $GLOBALS['TL_LANG']['tl_li_appointment']['weekView'] = array('Wochenansicht', 'Zeigt alle Termine einer Woche an.');
