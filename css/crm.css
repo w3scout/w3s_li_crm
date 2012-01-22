@@ -229,7 +229,7 @@ label.print {
 	display: block;
 	margin-top: 10px;
 }
-
+/* Appointments month */
 #appointments_wrapper {
     margin: 0 15px 15px;
 }
@@ -250,7 +250,6 @@ label.print {
     border: 1px solid #bbb;
     padding: 5px;
 }
-
 #appointments td {
     padding: 5px;
 }
@@ -272,6 +271,76 @@ label.print {
 	top: -1px;
 	padding-right: 2px;
 }
+/* Appointments week */
+#appointments_week {
+	border: 1px solid #bbb;
+}
+#appointments_week .ruler, #appointments_week .day {
+	width: 89px;
+	float: left;
+	border-right: 1px solid #bbb;
+	position: relative;
+}
+#appointments_week .ruler {
+	width: 64px;
+}
+#appointments_week .ruler .hour {
+	font-weight: bold;
+	line-height: 20px;
+	background: #F3F3F3;
+	text-align: center;
+}
+#appointments_week .day.last {
+	border-right: none;
+}
+#appointments_week .ruler .headline, #appointments_week .day .headline {
+	height: 22px;
+	font-weight: bold;
+	line-height: 22px;
+	background: #F3F3F3;
+	text-align: center;
+	border-bottom: 1px solid #bbb;
+}
+#appointments_week .ruler .hour, #appointments_week .day .hour {
+	height: 20px;
+	border-bottom: 1px solid #bbb;
+}
+#appointments_week .ruler .hour.last, #appointments_week .day .hour.last {
+	border-bottom: none;
+}
+#appointments_week .day .appointment {
+	padding: 2px;
+	overflow: hidden;
+	position: absolute;
+	border: solid #bbb;
+	border-width: 1px;
+}
+#appointments_week .day .appointment:hover {
+	left: -1px !important;
+	width: 85px !important;
+	z-index: 5000;
+}
+#appointments_week .day .appointment a.details {
+	font-size: 10px;
+	width: 100%;
+	height: 100%;
+	display: block;
+	float: left;
+}
+#appointments_week .day .appointment:hover a.details,
+#appointments_week .day .appointment a.details:hover {
+	width: 67px !important;
+}
+#appointments_week .day .appointment .options {
+	position: absolute;
+	right: 0;
+	width: 16px;
+	padding-right: 2px;
+}
+#appointments_week .day .appointment .options .delete {
+	margin: 1px 0;
+}
+/* Appointments day */
 #tl_listing.tl_li_appointments {
 	margin: 0 18px 24px;
 }
@@ -282,4 +351,37 @@ label.print {
 	display: block;
 	font-weight: bold;
 	padding: 2px 0;
+}
+/**
+ * Task comments
+ */
+.tl_right_nowrap {
+	vertical-align: top;
+	padding-top: 4px;
+}
+.task_comments .be_task_comment {
+}
+.task_comments .be_task_comment .rownum {
+	color: #666;
+}
+.task_comments .be_task_comment .datetime {
+	color: #A30000;
+}
+.task_comments .be_task_comment .user {
+	color: #0000A3;
+}
+.task_comments .be_task_comment .rownum,
+.task_comments .be_task_comment .datetime,
+.task_comments .be_task_comment .user {
+	float: left;
+}
+.task_comments .be_task_comment {
+	margin-top: 4px;
+	padding: 3px 4px 0;
+	border-top: 1px solid #ccc;
+}
+.task_comments div.count {
+	margin-top: 4px;
+	padding: 3px 4px 0;
+	border-top: 1px solid #ccc;
 }

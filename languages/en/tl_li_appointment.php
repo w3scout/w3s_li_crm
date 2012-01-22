@@ -47,6 +47,8 @@ $GLOBALS['TL_LANG']['tl_li_appointment']['nextWeek'] = 'Next week';
 $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth'] = 'Previous month';
 $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth'] = 'Next month';
 
+$GLOBALS['TL_LANG']['tl_li_appointment']['time'] = 'Time';
+
 $GLOBALS['TL_LANG']['tl_li_appointment']['appointmentsAtDay'] = 'Appointments at %s';
 $GLOBALS['TL_LANG']['tl_li_appointment']['noAppointmentsAtDay'] = 'No appointments at this day.';
 

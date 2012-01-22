@@ -307,14 +307,7 @@ class Invoice extends BackendModule
 		// Generate DOMPDF object
 		$dompdf = new DOMPDF();
 
-		$templateName = $objInvoice->invoice_template;
-		$templateFile = TL_ROOT.'/templates/'.$templateName.'.tpl';
-		if (!file_exists($templateFile))
-		{
-			$templateFile = TL_ROOT.'/system/modules/li_crm/templates/'.$templateName.'.tpl';
-		}
-
-		$templateFile = 'invoice_default';
+		$templateFile = $objInvoice->invoice_template;
 
 		$template = array();
 		$template['logo'] = $objInvoice->logo;
@@ -332,6 +325,7 @@ class Invoice extends BackendModule
 		$template['customer_street'] = $objAddress->street;
 		$template['customer_postal'] = $objAddress->postal;
 		$template['customer_city'] = $objAddress->city;
+		$template['customer_country'] = $objAddress->country;
 
 		$template['invoice_date_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['date'];
 		$template['invoice_date'] = date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate);

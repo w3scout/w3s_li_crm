@@ -56,7 +56,8 @@
 	<?php if (!empty($this->hours[$day])): ?>
 		<?php foreach ($this->hours[$day] as $entry): ?>
 					<div class="working_hour_entry" style="background-color: #<?php echo $entry['customerColor']; ?>">
-						<?php echo $entry['hours'].'h'.(!empty($entry['minutes']) ? ' '.$entry['minutes'].'m ' : ''); ?>
+						<span class="user"><?php echo $entry['user']; ?></span>
+						<span class="time"><?php echo $entry['hours'].'h'.(!empty($entry['minutes']) ? ' '.$entry['minutes'].'m ' : ''); ?></span>
 						<div class="entry_buttons">
 							<a href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package&amp;act=edit&amp;id=<?php echo $entry['workPackageId']; ?>"
 							   title="<?php echo $lang['editWorkPackage']; ?>">

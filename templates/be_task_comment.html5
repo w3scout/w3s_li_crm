@@ -1,0 +1,88 @@
+<div class="be_task_comment">
+	<span class="rownum">#<?php echo $this->rownum; ?>&nbsp;</span>
+	<span class="datetime"><?php echo $this->datetime ?>&nbsp;</span>
+	<span class="user"><?php echo $this->user->name; ?>:&nbsp;</span>
+
+	<?php if ($this->comment): ?>
+		<div class="comment">
+			<?php echo $this->comment; ?>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->changeCustomerProject): ?>
+		<div class="changeCustomerProject">
+			<?php
+			if ($this->toCustomer > 0 && $this->toProject > 0):
+				printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeCustomerProject'],
+					$this->customer->customerNumber,
+					$this->customer->customerName,
+					$this->project->title);
+			elseif ($this->toCustomer > 0):
+				printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeCustomer'],
+					$this->customer->customerNumber,
+					$this->customer->customerName);
+			else:
+				echo $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeNoCustomer'];
+			endif;
+			?>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->changePriority): ?>
+		<div class="changePriority">
+			<?php
+			printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changePriority'],
+				$this->priority);
+			?>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->changeTitle): ?>
+		<div class="changeTitle">
+			<?php
+			printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeTitle'],
+				$this->title);
+			?>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->changeDeadline): ?>
+		<div class="changeDeadline">
+			<?php
+			printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeDeadline'],
+				$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $this->deadline));
+			?>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->previousStatus != $this->toStatus): ?>
+		<div class="changeStatus">
+			<?php
+			printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeStatus'],
+				$this->pstatus->title,
+				$this->status->title);
+			?>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->previousUser != $this->toUser): ?>
+		<div class="changeUser">
+			<?php
+			printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeUser'],
+				$this->puser->name,
+				$this->tuser->name);
+			?>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->keeptime): ?>
+		<div class="keeptime">
+			<?php
+			printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['keeptime'],
+				$this->hours,
+				$this->minutes,
+				$this->workPackage->title);
+			?>
+		</div>
+	<?php endif; ?>
+</div>

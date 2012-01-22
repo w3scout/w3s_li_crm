@@ -47,6 +47,8 @@ $GLOBALS['TL_LANG']['tl_li_appointment']['nextWeek'] = 'Nächste Woche';
 $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth'] = 'Vorheriger Monat';
 $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth'] = 'Nächster Monat';
 
+$GLOBALS['TL_LANG']['tl_li_appointment']['time'] = 'Uhrzeit';
+
 $GLOBALS['TL_LANG']['tl_li_appointment']['appointmentsAtDay'] = 'Termine am %s';
 $GLOBALS['TL_LANG']['tl_li_appointment']['noAppointmentsAtDay'] = 'Keine Termine an diesem Tag eingetragen.';
 
