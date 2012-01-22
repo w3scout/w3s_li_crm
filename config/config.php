@@ -124,3 +124,9 @@ $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Invoice', 'getInvoiceCount'
 $GLOBALS['TL_HOOKS']['executePreActions'][] = array('TaskComment', 'hookExecutePreActions');
 
 $GLOBALS['TL_HOOKS']['executePostActions'][] = array('Invoice', 'generateInvoice');
+
+
+/**
+ * Form fields
+ */
+$GLOBALS['BE_FFL']['liplexCrmTaskHistory'] = 'LiplexCrmTaskHistory';

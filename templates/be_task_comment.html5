@@ -1,7 +1,6 @@
 <div class="be_task_comment">
 	<span class="rownum">#<?php echo $this->rownum; ?>&nbsp;</span>
-	<span class="datetime"><?php echo $this->datetime ?></span>
-	<span class="arrow">&nbsp;&rarr;&nbsp;</span>
+	<span class="datetime"><?php echo $this->datetime ?>&nbsp;</span>
 	<span class="user"><?php echo $this->user->name; ?>:&nbsp;</span>
 
 	<?php if ($this->comment): ?>
@@ -15,11 +14,13 @@
 			<?php
 			if ($this->toCustomer > 0 && $this->toProject > 0):
 				printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeCustomerProject'],
-					$this->customer->name,
-					$this->project->name);
+					$this->customer->customerNumber,
+					$this->customer->customerName,
+					$this->project->title);
 			elseif ($this->toCustomer > 0):
 				printf($GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeCustomer'],
-					$this->customer->name);
+					$this->customer->customerNumber,
+					$this->customer->customerName);
 			else:
 				echo $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeNoCustomer'];
 			endif;

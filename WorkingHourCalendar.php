@@ -105,8 +105,8 @@ class WorkingHourCalendar extends BackendModule
 		if ($objComment->next()) {
 			// ... update the hours and minutes of the task comment
 			$this->Database
-				->prepare("UPDATE tl_li_task_comment SET hours=?, minutes=? WHERE id=?")
-				->execute($dc->activeRecord->hours, $dc->activeRecord->minutes, $objComment->id);
+				->prepare("UPDATE tl_li_task_comment SET hours=?, minutes=?, toWorkPackage=? WHERE id=?")
+				->execute($dc->activeRecord->hours, $dc->activeRecord->minutes, $dc->activeRecord->toWorkPackage, $objComment->id);
 		}
 	}
 

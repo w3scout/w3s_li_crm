@@ -293,7 +293,6 @@ label.print {
 }
 .task_comments .be_task_comment .rownum,
 .task_comments .be_task_comment .datetime,
-.task_comments .be_task_comment .arrow,
 .task_comments .be_task_comment .user {
 	float: left;
 }

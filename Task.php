@@ -140,7 +140,6 @@ class Task extends BackendModule
 		$intCommentCount = $this->Database
 			->prepare("SELECT COUNT(id) as `count` FROM tl_li_task_comment WHERE pid=? ORDER BY tstamp DESC")
 			->execute($row['id'])
-			->next()
 			->count;
 		$objComment = $this->Database
 			->prepare("SELECT @rownum:=@rownum-1 rownum, c.*
