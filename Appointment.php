@@ -74,7 +74,7 @@ class Appointment extends BackendModule
 		for($i = 1; $i <= $daysInMonth; $i++) {
 			$day = array();
 			$currentDate = strtotime($year.'-'.$month.'-'.$i);
-			$day['date'] = date('d.m.Y', $currentDate);
+			$day['date'] = date($GLOBALS['TL_CONFIG']['dateFormat'], $currentDate);
 			$dayOfWeek = date('w', $currentDate) + 1;
 			$week = date('W', $currentDate);
 			$evenWeek = $week % 2 == 0 ? '0' : '1';
@@ -179,7 +179,173 @@ class Appointment extends BackendModule
 	}
 
 	private function showAppointmentsOfThisWeek() {
+		// Get the desired week range or set default values
+		if (!empty($_REQUEST['appointments_year']))
+		{
+			$year = $_REQUEST['appointments_year'];
+		}
+		elseif (!empty($_SESSION['appointments_year']))
+		{
+			$year = $_SESSION['appointments_year'];
+		}
+		else
+		{
+			$year = date('Y');
+		}
 		
+		if (!empty($_REQUEST['appointments_week']))
+		{
+			$week = $_REQUEST['appointments_week'];
+		}
+		elseif (!empty($_SESSION['appointments_week']))
+		{
+			$week = $_SESSION['appointments_week'];
+		}
+		else
+		{
+			$week = date('W');
+		}
+		
+		// Save the displayed month and year in the session so they will be restored if the user leaves the page
+		$_SESSION['appointments_year'] = $year;
+		$_SESSION['appointments_week'] = $week;
+		
+		$addWeeks = $week - 1;
+		$wk_ts  = strtotime('+' . $addWeeks . ' weeks', strtotime($year . '0101'));
+    	$mon_ts = strtotime('-' . date('w', $wk_ts) + $first . ' days', $wk_ts);
+    	$currentDate = $mon_ts;
+		
+		$days = array();
+		for($i = 1; $i <= 7; $i++) {
+			$day = array();
+			$currentDate = strtotime(date('Y-m-d', $currentDate).' +1 days');
+			$day['date'] = date('d.m.Y', $currentDate);
+			$dayOfWeek = date('w', $currentDate) + 1;
+			$currentDay = date('d', $currentDate);
+			$month = date('m', $currentDate);
+			$evenWeek = $week % 2 == 0 ? '0' : '1';
+			$objAppointments = $this->Database->prepare("
+				SELECT id, creator, subject, participants, startDate, endDate, startTime, endTime, color
+				FROM tl_li_appointment
+				WHERE
+				(
+					YEAR(FROM_UNIXTIME(startDate)) = ?
+					AND MONTH(FROM_UNIXTIME(startDate)) = ?
+					AND DAY(FROM_UNIXTIME(startDate)) = ?
+				)
+				OR
+				(
+					repetition = 1
+					AND period = 'weekly'
+					AND DAYOFWEEK(FROM_UNIXTIME(startdate)) = ?
+					AND
+					(
+						(
+							WEEK(FROM_UNIXTIME(startdate)) < ?
+							AND YEAR(FROM_UNIXTIME(startDate)) = ?
+						)
+						OR(YEAR(FROM_UNIXTIME(startDate)) < ?)
+					)
+				)
+				OR
+				(
+					repetition = 1
+					AND period = 'biweekly'
+					AND DAYOFWEEK(FROM_UNIXTIME(startdate)) = ?
+					AND WEEK(FROM_UNIXTIME(startdate)) % 2 = ?
+					AND
+						(
+							(
+								WEEK(FROM_UNIXTIME(startdate)) < ?
+								AND YEAR(FROM_UNIXTIME(startDate)) = ?
+							)
+							OR(YEAR(FROM_UNIXTIME(startDate)) < ?)
+						)
+					)
+				OR
+				(
+					repetition = 1
+					AND period = 'monthly'
+					AND DAYOFMONTH(FROM_UNIXTIME(startdate)) = ?
+					AND
+					(
+						(
+							MONTH(FROM_UNIXTIME(startdate)) < ?
+							AND YEAR(FROM_UNIXTIME(startDate)) = ?
+						)
+						OR(YEAR(FROM_UNIXTIME(startDate)) < ?)
+					)
+				)
+				ORDER BY startDate, startTime ASC")->execute($year, $month, $currentDay, $dayOfWeek, $week, $year, $year, $dayOfWeek, $evenWeek, $week, $year, $year, $currentDay, $month, $year, $year);
+			$appointments = array();
+			while($objAppointments->next()) {
+				// User has to be creator, a participant or an admin
+				// Skip check if user is admin
+				if(!$this->User->isAdmin) {
+					$userId = $this->User->id;
+					// Skip appointment if appointment is private and user is not creator
+					if($userId != $objAppointments->creator && $objAppointments->private) {
+						continue;
+					}
+					$found = $userId == $objAppointments->creator;
+					$participants = unserialize($objAppointments->participants);
+					if(!$found && $participants) {
+						foreach($participants as $participant) {
+							if($participant == $userId) {
+								$found = true;
+								break;
+							}
+						}
+					}
+					if(!$found) {
+						continue;
+					}
+				}
+				
+			
+				$color = $objAppointments->color != '' ? $objAppointments->color : 'ddd';
+				$start = date('G', $objAppointments->startTime) + (date('i', $objAppointments->startTime) >= 30 ? 0.5 : 0);
+				$end = date('G', $objAppointments->endTime) + (date('i', $objAppointments->endTime) >= 30 ? 0.5 : 0);
+				if($end > $start) {
+					$length = $end - $start;
+				} elseif($objAppointments->endDate > $objAppointments->startDate) {
+					$length = 24 - $start;
+				} else {
+					$length = 2;
+				}
+				
+				$hour = date('G', $objAppointments->startTime);
+				$appointments[$hour*2][] = array(
+					'id' => $objAppointments->id,
+					'subject' => $objAppointments->subject,
+					'color' => $color,
+					'top' => $start * 2 * 21 + 22,
+					'height' => 37 + 21 * ($length - 1) * 2
+				);
+			}
+			
+			$leftCounter = 0;
+			foreach($appointments as $hourKey => $appointmentHour) {
+				foreach($appointmentHour as $key => $appointment) {
+					$appointments[$hourKey][$key]['left'] = $leftCounter++ * 10;
+				}
+			}
+			
+			$day['appointments'] = $appointments;
+			//$day['objects'] = $objAppointments;
+			$days[] = $day;
+		}
+		
+		$this->Template->days = $days;
+		
+		$this->Template->year = $year;
+		$this->Template->week = $week;
+		
+		$this->Template->prevYear = $week > 1 ? $year : $year - 1;
+		$this->Template->prevWeek = $week > 1 ? $week - 1 : 53;
+		
+		$this->Template->nextYear = $week < 53 ? $year : $year + 1;
+		$this->Template->nextWeek = $week < 53 ? $week + 1 : 1;
 	}
 	
 	private function showAppointmentsOfThisDay() {
@@ -208,7 +374,7 @@ class Appointment extends BackendModule
 			$dayOfWeek = date('w', $currentDate) + 1;
 			$evenWeek = $week % 2 == 0 ? '0' : '1';
 			$objAppointments = $this->Database->prepare("
-				SELECT id, creator, subject, participants, startDate, color
+				SELECT id, creator, subject, participants, startTime, endTime, color
 				FROM tl_li_appointment
 				WHERE
 				(
@@ -288,6 +454,8 @@ class Appointment extends BackendModule
 				$appointments[] = array(
 					'id' => $objAppointments->id,
 					'subject' => $objAppointments->subject,
+					'startTime' => date('H:i', $objAppointments->startTime),
+					'endTime' => date('H:i', $objAppointments->endTime),
 					'color' => $color
 				);
 			}
