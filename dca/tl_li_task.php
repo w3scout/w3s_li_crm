@@ -16,7 +16,11 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 	(
 		'dataContainer'               => 'Table',
 		'ctable'                      => array('tl_li_task_comment'),
-		'enableVersioning'            => true
+		'enableVersioning'            => true,
+		'onsubmit_callback'			  => array
+		(
+			array('Task', 'onSubmit')
+		)
 	),
 	'list'     => array
 	(

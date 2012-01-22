@@ -18,6 +18,11 @@ class Task extends BackendModule
 	 * @var TaskComment
 	 */
 	protected $TaskComment;
+
+	/**
+	 * @var BackendUser
+	 */
+	protected $User;
 	
 	/**
 	 * Template
@@ -257,6 +262,57 @@ class Task extends BackendModule
 			$tasks[$objTasks->id] = $objTasks->title;
 		}
 		return $tasks;
+	}
+
+
+	/**
+	 * DataContainer submit callback
+	 *
+	 * @param DataContainer $dc
+	 */
+	public function onSubmit(DataContainer $dc)
+	{
+		$this->import('BackendUser', 'User');
+		$this->User->authenticate();
+
+		$objTask = $dc->activeRecord;
+
+		$arrSet = array(
+			'pid' => $objTask->id,
+			'tstamp' => $objTask->tstamp,
+			'user' => $this->User->id,
+			'changeCustomerProject' => $objTask->toCustomer > 0 ? 1 : '',
+			'toCustomer' => $objTask->toCustomer,
+			'toProject' => $objTask->toProject,
+			'changePriority' => 1,
+			'priority' => $objTask->priority,
+			'changeTitle' => 1,
+			'title' => $objTask->title,
+			'changeDeadline' => 1,
+			'deadline' => $objTask->deadline,
+			'previousStatus' => 0,
+			'toStatus' => $objTask->toStatus,
+			'previousUser' => 0,
+			'toUser' => $objTask->toUser,
+			'comment' => $objTask->description
+		);
+
+		$objComment = $this->Database
+			->prepare("SELECT * FROM tl_li_task_comment WHERE pid=? ORDER BY tstamp ASC")
+			->limit(1)
+			->execute($objTask->id);
+		if ($objComment->next()) {
+			unset($arrSet['user']); // do not update user
+			$this->Database
+				->prepare("UPDATE tl_li_task_comment %s WHERE id=?")
+				->set($arrSet)
+				->execute($objComment->id);
+		} else {
+			$this->Database
+				->prepare("INSERT INTO tl_li_task_comment %s")
+				->set($arrSet)
+				->execute();
+		}
 	}
 
 }
