@@ -121,4 +121,6 @@ $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Customer', 'getCustomerCoun
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Project', 'getProjectCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Invoice', 'getInvoiceCount');
 
+$GLOBALS['TL_HOOKS']['executePreActions'][] = array('TaskComment', 'hookExecutePreActions');
+
 $GLOBALS['TL_HOOKS']['executePostActions'][] = array('Invoice', 'generateInvoice');

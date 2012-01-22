@@ -13,3 +13,30 @@ $(window).addEvent('domready', function() {
 			}
 		});
 });
+
+function moreComments(id) {
+	var link = $('more_comments_' + id);
+	var countElement = link.getParent();
+	var comments = $('comments_' + id);
+	var offset = parseInt(comments.getProperty('data-offset'));
+	var count = parseInt(comments.getProperty('data-count'));
+
+	new Request.Contao({
+	    onSuccess: function(html, json) {
+		    new Element('div').set('html', html).getChildren().each(function(child) {
+			    child.inject(countElement, 'before');
+		    });
+
+		    if (offset+3 >= count) {
+			    link.destroy();
+		    } else {
+			    comments.setProperty('data-offset', offset+3);
+		    }
+	    }
+	}).post({
+		'pid': id,
+		'offset': offset,
+		'action': 'moreComments',
+		'REQUEST_TOKEN': REQUEST_TOKEN
+	});
+}

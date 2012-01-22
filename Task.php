@@ -111,6 +111,17 @@ class Task extends BackendModule
 
 			$customer = $objCustomer->customerNumber." ".$objCustomer->customerName;
 		}
+		else if ($row['toCustomer'] != 0)
+		{
+			$objCustomer = $this->Database
+				->prepare("SELECT c.customerNumber, c.customerName
+					       FROM tl_member c
+					       WHERE id = ?")
+				->limit(1)
+				->execute($row['toCustomer']);
+
+			$customer = $objCustomer->customerNumber." ".$objCustomer->customerName;
+		}
 		else
 		{
 			$customer = $GLOBALS['TL_LANG']['tl_li_task']['noCustomer'];
@@ -126,14 +137,28 @@ class Task extends BackendModule
 		 */
 		$this->import('TaskComment');
 		$strComments = '';
+		$intCommentCount = $this->Database
+			->prepare("SELECT COUNT(id) as `count` FROM tl_li_task_comment WHERE pid=? ORDER BY tstamp DESC")
+			->execute($row['id'])
+			->next()
+			->count;
 		$objComment = $this->Database
-			->prepare("SELECT * FROM tl_li_task_comment WHERE pid=? ORDER BY tstamp DESC")
+			->prepare("SELECT @rownum:=@rownum-1 rownum, c.*
+				       FROM (SELECT @rownum:=?) r, tl_li_task_comment c
+				       WHERE pid=?
+				       ORDER BY tstamp DESC")
 			->limit(3)
-			->execute($row['id']);
+			->execute($intCommentCount+1, $row['id']);
 		while ($objComment->next()) {
 			$strComments .= $this->TaskComment->renderComment($objComment->row());
 		}
-		$strComments = '<div class="task_comments" id="comments_' . $row['id'] . '">' . $strComments . '</div>';
+		$strComments = '<div class="task_comments" id="comments_' . $row['id'] . '" data-offset="3" data-count="' . $intCommentCount . '">'
+			. $strComments
+			. '<div class="count">'
+			. sprintf($GLOBALS['TL_LANG']['tl_li_task']['comment_count'], $intCommentCount)
+			. ($intCommentCount > 3 ? '<a id="more_comments_' . $row['id'] . '" href="javascript:moreComments(' . $row['id'] . ')"> &rarr; ' . $GLOBALS['TL_LANG']['tl_li_task']['more_comments'] . '</a>' : '')
+			. '</div>'
+			. '</div>';
 
 		if (!$taskDisabled)
 		{

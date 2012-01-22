@@ -21,6 +21,41 @@ class TaskComment extends Backend
 	protected $Database;
 
 	/**
+	 * @param $strAction
+	 */
+	public function hookExecutePreActions($strAction)
+	{
+		if ($strAction == 'moreComments') {
+			$intPid    = intval($this->Input->post('pid'));
+			$intOffset = intval($this->Input->post('offset'));
+
+			$strBuffer = '';
+			$intCommentCount = $this->Database
+				->prepare("SELECT COUNT(id) as `count` FROM tl_li_task_comment WHERE pid=? ORDER BY tstamp DESC")
+				->execute($intPid)
+				->next()
+				->count;
+			$objComment = $this->Database
+				->prepare("SELECT @rownum:=@rownum-1 rownum, c.*
+				           FROM (SELECT @rownum:=?) r, tl_li_task_comment c
+				           WHERE pid=?
+				           ORDER BY tstamp DESC")
+				->limit(3, $intOffset)
+				->execute($intCommentCount-$intOffset+1, $intPid);
+			while ($objComment->next()) {
+				$strBuffer .= $this->renderComment($objComment->row());
+			}
+
+			header('Content-Type: application/javascript');
+			echo json_encode(array(
+				'token'   => REQUEST_TOKEN,
+				'content' => $strBuffer
+			));
+			exit;
+		}
+	}
+
+	/**
 	 * DataContainer load callback
 	 *
 	 * @param DataContainer $dc
@@ -33,7 +68,7 @@ class TaskComment extends Backend
 				$this->User->authenticate();
 
 				$objComment = $this->Database
-					->prepare("SELECT * FROM tl_li_task_comment")
+					->prepare("SELECT * FROM tl_li_task_comment WHERE id=?")
 					->execute($dc->id);
 				if (!$objComment->next()) {
 					$this->log('Could not found task comment ID ' . $dc->id, 'tl_li_task_comment::onLoad', TL_ERROR);
