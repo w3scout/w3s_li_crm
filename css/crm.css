@@ -352,3 +352,36 @@ label.print {
 	font-weight: bold;
 	padding: 2px 0;
 }
+/**
+ * Task comments
+ */
+.tl_right_nowrap {
+	vertical-align: top;
+	padding-top: 4px;
+}
+.task_comments .be_task_comment {
+}
+.task_comments .be_task_comment .rownum {
+	color: #666;
+}
+.task_comments .be_task_comment .datetime {
+	color: #A30000;
+}
+.task_comments .be_task_comment .user {
+	color: #0000A3;
+}
+.task_comments .be_task_comment .rownum,
+.task_comments .be_task_comment .datetime,
+.task_comments .be_task_comment .user {
+	float: left;
+}
+.task_comments .be_task_comment {
+	margin-top: 4px;
+	padding: 3px 4px 0;
+	border-top: 1px solid #ccc;
+}
+.task_comments div.count {
+	margin-top: 4px;
+	padding: 3px 4px 0;
+	border-top: 1px solid #ccc;
+}

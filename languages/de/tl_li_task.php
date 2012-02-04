@@ -62,5 +62,8 @@ $GLOBALS['TL_LANG']['tl_li_task']['done_fail'] = "Die Aufgabe konnte nicht erfol
 $GLOBALS['TL_LANG']['tl_li_task']['back_overview'] = "Zurück zur Übersicht";
 $GLOBALS['TL_LANG']['tl_li_task']['reminder']['0'] = "Aufgabenerinnerungen";
 $GLOBALS['TL_LANG']['tl_li_task']['reminder']['1'] = "Aufgabenerinnerungen verwalten";
- 
+
+$GLOBALS['TL_LANG']['tl_li_task']['more_comments'] = 'weitere Kommentare anzeigen';
+$GLOBALS['TL_LANG']['tl_li_task']['comment_count'] = 'insgesamt %d Kommentare';
+
 ?>

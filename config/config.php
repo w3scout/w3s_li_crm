@@ -6,6 +6,7 @@ if (!defined('TL_ROOT'))
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author      Christian Kolb <info@liplex.de>
  * @author      ApoY2k <apoy2k@gmail.com>
+ * @author      Tristan Lins <tristan.lins@infinitysoft.de>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
@@ -29,10 +30,11 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         ),
         'li_tasks' => array
         (
-            'tables'     => array('tl_li_task', 'tl_li_task_reminder'),
+            'tables'     => array('tl_li_task', 'tl_li_task_comment', 'tl_li_task_reminder'),
             'callback'   => 'Task',
             'icon'       => 'system/modules/li_crm/icons/tasks.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'stylesheet' => 'system/modules/li_crm/css/crm.css',
+	        'javascript' => 'system/modules/li_crm/js/Task.js'
         ),
         'li_appointments' => array
         (
@@ -115,8 +117,18 @@ if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 $GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');  
 
 // Hooks
+// Replace insert tags
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Customer', 'getCustomerCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Project', 'getProjectCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Invoice', 'getInvoiceCount');
 
+// Rre actions
+$GLOBALS['TL_HOOKS']['executePreActions'][] = array('TaskComment', 'hookExecutePreActions');
+
+// Post actions
 $GLOBALS['TL_HOOKS']['executePostActions'][] = array('Invoice', 'generateInvoice');
+
+/**
+ * Form fields
+ */
+$GLOBALS['BE_FFL']['TaskHistory'] = 'TaskHistory';

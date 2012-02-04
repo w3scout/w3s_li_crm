@@ -149,6 +149,37 @@ CREATE TABLE `tl_li_task` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
+-- Table `tl_li_task_comment`
+--
+
+CREATE TABLE `tl_li_task_comment` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `pid` int(10) unsigned NOT NULL default '0',
+  `tstamp` int(10) unsigned NOT NULL default '0',
+  `user` int(10) unsigned NOT NULL default '0',
+  `changeCustomerProject` char(1) NOT NULL default '',
+  `toCustomer` int(10) unsigned NOT NULL default '0',
+  `toProject` int(10) unsigned NOT NULL default '0',
+  `changePriority` char(1) NOT NULL default '',
+  `priority` int(3) unsigned NOT NULL default '0',
+  `changeTitle` char(1) NOT NULL default '',
+  `title` varchar(255) NOT NULL default '',
+  `changeDeadline` char(1) NOT NULL default '',
+  `deadline` varchar(10) NOT NULL default '',
+  `previousStatus` int(10) unsigned NOT NULL default '0',
+  `toStatus` int(10) unsigned NOT NULL default '0',
+  `previousUser` int(10) unsigned NOT NULL default '0',
+  `toUser` int(10) unsigned NOT NULL default '0',
+  `comment` text NULL,
+  `keeptime` char(1) NOT NULL default '',
+  `hours` int(10) unsigned NOT NULL default '0',
+  `minutes` int(10) unsigned NOT NULL default '0',
+  `toWorkPackage` int(10) unsigned NOT NULL default '0',
+  `working_hour_dataset` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
 -- Table `tl_li_task_status`
 --
 
@@ -304,6 +335,7 @@ CREATE TABLE `tl_li_invoice_reminder` (
 CREATE TABLE `tl_li_working_hour` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NULL default '0',
+  `user` int(10) unsigned NULL default '0',
   `entryDate` int(10) unsigned NULL default '0',
   `hours` int(10) unsigned NULL default '0',
   `minutes` int(10) unsigned NULL default '0',

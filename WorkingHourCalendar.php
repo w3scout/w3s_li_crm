@@ -43,11 +43,13 @@ class WorkingHourCalendar extends BackendModule
 
 		// Only get the working hours in the desired week range
 		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) AS weekday,
-				(wh.hours * 60 + wh.minutes) AS minutes, wp.id AS workPackageId, c.customerColor
+				(wh.hours * 60 + wh.minutes) AS minutes, wp.id AS workPackageId, c.customerColor,
+				u.username AS username, u.name as `user`
 			FROM tl_li_working_hour wh
 				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
 				LEFT JOIN tl_li_project p ON wp.toProject = p.id
 				LEFT JOIN tl_member c ON p.toCustomer = c.id
+				LEFT JOIN tl_user u ON wh.user = u.id
 			WHERE hours IS NOT NULL
 				AND WEEK(FROM_UNIXTIME(wh.entryDate), ?) = ?
 			ORDER BY wh.entryDate")->execute($weekMode, $week);
@@ -61,14 +63,16 @@ class WorkingHourCalendar extends BackendModule
 			$minutes = $getWorkingHours->minutes % 60;
 			$hoursWorked = ($getWorkingHours->minutes - $minutes) / 60;
 
-            $entry = array(
-					'id' => $getWorkingHours->id,
-					'hours' => $hoursWorked,
-					'minutes' => $minutes,
-					'hourLimit' => $getWorkingHours->hourLimit,
-					'customerColor' => $getWorkingHours->customerColor != '' ? $getWorkingHours->customerColor : 'eee',
-					'customerId' => $getWorkingHours->customerId,
-					'workPackageId' => $getWorkingHours->workPackageId,
+			$entry = array(
+				'id'            => $getWorkingHours->id,
+				'hours'         => $hoursWorked,
+				'minutes'       => $minutes,
+				'hourLimit'     => $getWorkingHours->hourLimit,
+				'customerColor' => $getWorkingHours->customerColor != '' ? $getWorkingHours->customerColor : 'eee',
+				'customerId'    => $getWorkingHours->customerId,
+				'workPackageId' => $getWorkingHours->workPackageId,
+				'user'          => $getWorkingHours->user ? $getWorkingHours->user : $getWorkingHours->username,
+				'foo'           => $getWorkingHours->row()
 			);
 			
 			$hours[$getWorkingHours->weekday][] = $entry;
@@ -85,5 +89,45 @@ class WorkingHourCalendar extends BackendModule
 
 	protected function compile()
 	{
+	}
+
+	/**
+	 * DataContainer submit callback
+	 *
+	 * @param DataContainer $dc
+	 */
+	public function onSubmit(DataContainer $dc)
+	{
+		// if there is a task comment associated to this working hour ...
+		$objComment = $this->Database
+			->prepare("SELECT * FROM tl_li_task_comment WHERE working_hour_dataset=?")
+			->execute($dc->id);
+
+		if ($objComment->next()) {
+			// ... update the hours and minutes of the task comment
+			$this->Database
+				->prepare("UPDATE tl_li_task_comment SET hours=?, minutes=?, toWorkPackage=? WHERE id=?")
+				->execute($dc->activeRecord->hours, $dc->activeRecord->minutes, $dc->activeRecord->toWorkPackage, $objComment->id);
+		}
+	}
+
+	/**
+	 * DataContainer delete callback
+	 *
+	 * @param DataContainer $dc
+	 */
+	public function onDelete(DataContainer $dc)
+	{
+		// if there is a task comment associated to this working hour ...
+		$objComment = $this->Database
+			->prepare("SELECT * FROM tl_li_task_comment WHERE working_hour_dataset=?")
+			->execute($dc->id);
+
+		if ($objComment->next()) {
+			// ... remove the time tracking
+			$this->Database
+				->prepare("UPDATE tl_li_task_comment SET keeptime=? WHERE id=?")
+				->execute('', $objComment->id);
+		}
 	}
 }
