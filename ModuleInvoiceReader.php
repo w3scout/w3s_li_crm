@@ -46,6 +46,7 @@ class ModuleInvoiceReader extends Module
 	 */
 	protected function compile()
 	{
+		global $objPage;
 		$key = $this->Input->get('key');
 		$id = $this->Input->get('id');
 
@@ -81,7 +82,7 @@ class ModuleInvoiceReader extends Module
 						'price' => $this->getFormattedNumber($objInvoice->price).' '.$currencyHelper->getSymbolOfCode($objInvoice->currency),
 						'currency' => strtolower($objInvoice->currency),
 						'fileAvailable' => $objInvoice->file != '',
-						'file' => 'rechnungen/rechnung.html?key=pdf&id='.$objInvoice->id,
+						'file' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoice->alias).'?key=pdf&id='.$objInvoice->id,
 						'cssClass' => $objInvoice->cssClass
 				);
 				$this->Template->invoice = $arrInvoice;

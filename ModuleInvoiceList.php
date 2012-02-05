@@ -50,19 +50,6 @@ class ModuleInvoiceList extends Module
 		$this->loadLanguageFile('tl_li_invoice');
 		$this->import('FrontendUser', 'User');
 		
-		$objPage = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
-								  ->limit(1)
-								  ->execute($this->jumpTo);
-		$jumpToAssoc = $objPage->fetchAssoc();
-		if($GLOBALS['TL_CONFIG']['arrUrlFragments'] != null &&
-			is_array($GLOBALS['TL_CONFIG']['arrUrlFragments']) &&
-			array_key_exists($objPage->alias, $GLOBALS['TL_CONFIG']['arrUrlFragments'])) {
-			$folder = '/%s';
-		} else {
-			$folder = '/items/%s';
-		}
-		$jumpTo = $this->generateFrontendUrl($jumpToAssoc, $folder);
-		
 		if($this->User->id != 0) {
 			$objInvoices = $this->Database->prepare('SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
 												  	 FROM tl_li_invoice AS i
@@ -77,12 +64,13 @@ class ModuleInvoiceList extends Module
 												  	 ORDER BY invoiceDate DESC');
 		}
 		
-		$jumpToFile = $this->generateFrontendUrl($jumpToAssoc);
+		$objPage = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
+								  ->limit(1)
+								  ->execute($this->jumpTo);
 		
 		$arrInvoices = array();
 		$currencyHelper = new CurrencyHelper();
 		while($objInvoices->next() != null) {
-			$curJumpTo = sprintf($jumpTo, $objInvoices->alias);
 			$newArray = array(
 				'id' => $objInvoices->id,
 				'title' => $objInvoices->title,
@@ -90,9 +78,9 @@ class ModuleInvoiceList extends Module
 				'price' => $this->getFormattedNumber($objInvoices->price).' '.$currencyHelper->getSymbolOfCode($objInvoices->currency),
 				'currency' => strtolower($objInvoices->currency),
 				'fileAvailable' => $objInvoices->file != '',
-				'jumpTo' => $curJumpTo,
-				'file' => $jumpToFile.'?key=pdf&id='.$objInvoices->id,
-				'cssClass' => $objInvoices->cssClass
+				'file' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias).'?key=pdf&id='.$objInvoices->id,
+				'cssClass' => $objInvoices->cssClass,
+				'details' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias)
 			);
 			$arrInvoices[] = $newArray;
 		}

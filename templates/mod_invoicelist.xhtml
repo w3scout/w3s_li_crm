@@ -33,7 +33,7 @@
 					<?php endif; ?>
 				</td>
 				<td class="details">
-					<a href="<?php echo $invoice['jumpTo']; ?>" title="<?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['details']; ?>"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['details']; ?></a>
+					<a href="<?php echo $invoice['details']; ?>" title="<?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['details']; ?>"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['details']; ?></a>
 				</td>
 			</tr>
 			<?php endforeach; ?>

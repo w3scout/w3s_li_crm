@@ -76,8 +76,7 @@ class ModuleTaskList extends Module
 				'status' => $objTasks->status,
 				'icon' => $objTasks->icon,
 				'cssClass' => $objTasks->cssClass,
-				'pageAlias' => $objPage->alias,
-				'taskAlias' => $objTasks->alias
+				'details' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objTasks->alias)
 			);
 			$arrTasks[] = $newArray;
 		}

@@ -28,7 +28,7 @@
 					<span><?php echo $task['status']; ?></span>
 				</td>
 				<td class="details">
-					<a href="<?php echo $task['pageAlias'].'/items/'.$task['taskAlias'].'.html'; ?>" title="<?php echo $GLOBALS['TL_LANG']['tl_li_task']['details']; ?>"><?php echo $GLOBALS['TL_LANG']['tl_li_task']['details']; ?></a>
+					<a href="<?php echo $task['details']; ?>" title="<?php echo $GLOBALS['TL_LANG']['tl_li_task']['details']; ?>"><?php echo $GLOBALS['TL_LANG']['tl_li_task']['details']; ?></a>
 				</td>
 			</tr>
 			<?php endforeach; ?>
