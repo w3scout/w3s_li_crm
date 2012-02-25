@@ -34,6 +34,10 @@ class Invoice extends BackendModule
 		{
 			$this->Template->filePath = $this->printInvoice($id);
 		}
+		elseif($key == 'html')
+		{
+			$this->generateHtmlInvoice($id);
+		}
 		elseif ($key == 'reports')
 		{
 			$this->Template->graphData = $this->generateReports();
@@ -119,7 +123,7 @@ class Invoice extends BackendModule
 		}
 	}
 
-	public function downloadFile($row, $href, $label, $title, $icon, $attributes)
+	public function downloadFileIcon($row, $href, $label, $title, $icon, $attributes)
 	{
 		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][0];
 		if ($row['file'])
@@ -132,6 +136,21 @@ class Invoice extends BackendModule
 		else
 		{
 			return '<img src="system/modules/li_crm/icons/invoice_download_disabled.png" alt="'.$alt.'" /> ';
+		}
+	}
+	
+	public function htmlGenerationIcon($row, $href, $label, $title, $icon, $attributes)
+	{
+		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['html'][0];
+		if ($row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress'])
+		{
+			$href = '&amp;do=li_invoices&amp;key=html&amp;id='.$row['id'];
+			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['html'][1], $row['id']);
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_html.png" alt="'.$alt.'" /></a> ';
+		}
+		else
+		{
+			return '<img src="system/modules/li_crm/icons/invoice_html_disabled.png" alt="'.$alt.'" /> ';
 		}
 	}
 
@@ -265,6 +284,92 @@ class Invoice extends BackendModule
 		// Log process
 		$this->log('Generate new invoice', 'Generate invoice with id '.$id, TL_FILES);
 
+		$html = $this->getInvoiceHtml($id);
+		
+		$objInvoice = $this->Database->prepare("SELECT i.title,
+													i.alias, 
+													i.invoiceDate, 
+													i.performanceDate, 
+													i.toCustomer,
+													i.currency, 
+													i.toAddress, 
+													i.maturity, 
+													i.descriptionBefore, 
+													i.descriptionAfter, 
+													i.isOut, 
+													i.headline,
+													i.servicePositions,
+													i.productPositions,
+													i.hourPositions, 
+													t.title AS templateTitle, 
+													t.invoice_template, 
+													t.logo, 
+													t.maturity AS templateMaturity, 
+													t.descriptionBefore AS templateDescriptionBefore, 
+													t.descriptionAfter AS templateDescriptionAfter, 
+													t.basePath, 
+													t.periodFolder
+                                                FROM tl_li_invoice AS i
+                                                INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
+                                                WHERE i.id = ?")->limit(1)->execute($id);
+		
+		require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
+
+		// Generate DOMPDF object
+		$dompdf = new DOMPDF();
+		$dompdf->set_paper('a4');
+		$dompdf->set_base_path(TL_ROOT);
+		$dompdf->load_html($html);
+		$dompdf->render();
+
+		// Generate export path
+		$exportPath = $objInvoice->basePath == '' ? '../'.TL_ROOT.'/' : '../'.$objInvoice->basePath.'/';
+
+		if ($objInvoice->periodFolder != '')
+		{
+			if ($objInvoice->periodFolder == 'daily')
+			{
+				$exportPath .= date('Y-z', $objInvoice->invoiceDate).'/';
+			}
+			elseif ($objInvoice->periodFolder == 'weekly')
+			{
+				$exportPath .= date('Y-W', $objInvoice->invoiceDate).'/';
+			}
+			elseif ($objInvoice->periodFolder == 'monthly')
+			{
+				$exportPath .= date('Y-m', $objInvoice->invoiceDate).'/';
+			}
+			elseif ($objInvoice->periodFolder == 'yearly')
+			{
+				$exportPath .= date('Y', $objInvoice->invoiceDate).'/';
+			}
+		}
+
+		if (!file_exists($exportPath))
+		{
+			mkdir($exportPath, 0777, true);
+		}
+
+		$exportFile = $exportPath.$objInvoice->alias.'.pdf';
+
+		// Export pdf
+		$pdfInvoice = fopen($exportFile, 'w');
+		fwrite($pdfInvoice, $dompdf->output());
+		fclose($pdfInvoice);
+
+		$templateLink = substr($exportFile, 2);
+		$filePath = substr($exportFile, 3);
+
+		$this->Database->prepare("UPDATE tl_li_invoice
+                                  SET file = ?, price = ?
+                                  WHERE id = ?")->execute($filePath, $fullNetto, $id);
+
+		// Return link to template
+		return $templateLink;
+	}
+	
+	private function getInvoiceHtml($id)
+	{
 		// Get data
 		$objInvoice = $this->Database->prepare("SELECT i.title,
 													i.alias, 
@@ -302,10 +407,6 @@ class Invoice extends BackendModule
 
 		// Import required systems
 		$this->import('BackendUser', 'User');
-		require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
-
-		// Generate DOMPDF object
-		$dompdf = new DOMPDF();
 
 		$templateFile = $objInvoice->invoice_template;
 
@@ -552,57 +653,7 @@ class Invoice extends BackendModule
 		$html = ob_get_contents();
 		ob_end_clean();
 
-		$html = utf8_decode($html);
-
-		$dompdf->set_paper('a4');
-		$dompdf->set_base_path(TL_ROOT);
-		$dompdf->load_html($html);
-		$dompdf->render();
-
-		// Generate export path
-		$exportPath = $objInvoice->basePath == '' ? '../'.TL_ROOT.'/' : '../'.$objInvoice->basePath.'/';
-
-		if ($objInvoice->periodFolder != '')
-		{
-			if ($objInvoice->periodFolder == 'daily')
-			{
-				$exportPath .= date('Y-z', $objInvoice->invoiceDate).'/';
-			}
-			elseif ($objInvoice->periodFolder == 'weekly')
-			{
-				$exportPath .= date('Y-W', $objInvoice->invoiceDate).'/';
-			}
-			elseif ($objInvoice->periodFolder == 'monthly')
-			{
-				$exportPath .= date('Y-m', $objInvoice->invoiceDate).'/';
-			}
-			elseif ($objInvoice->periodFolder == 'yearly')
-			{
-				$exportPath .= date('Y', $objInvoice->invoiceDate).'/';
-			}
-		}
-
-		if (!file_exists($exportPath))
-		{
-			mkdir($exportPath, 0777, true);
-		}
-
-		$exportFile = $exportPath.$objInvoice->alias.'.pdf';
-
-		// Export pdf
-		$pdfInvoice = fopen($exportFile, 'w');
-		fwrite($pdfInvoice, $dompdf->output());
-		fclose($pdfInvoice);
-
-		$templateLink = substr($exportFile, 2);
-		$filePath = substr($exportFile, 3);
-
-		$this->Database->prepare("UPDATE tl_li_invoice
-                                  SET file = ?, price = ?
-                                  WHERE id = ?")->execute($filePath, $fullNetto, $id);
-
-		// Return link to template
-		return $templateLink;
+		return utf8_decode($html);
 	}
 
 	private function generateReports()
@@ -769,6 +820,12 @@ class Invoice extends BackendModule
 		$graphData['year'] = $yearData;
 
 		return $graphData;
+	}
+	
+	private function generateHtmlInvoice($id)
+	{
+		echo $this->getInvoiceHtml($id);
+		exit;
 	}
 
 	private function sendInvoice($id)
