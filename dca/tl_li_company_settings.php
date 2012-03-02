@@ -15,19 +15,18 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 (
 
 	// Config
-	'config' => array
-	(
-		'dataContainer'               => 'File',
-		'closed'                      => true
-	),
+'config' => array
+(
+    'dataContainer'               => 'File',
+    'closed'                      => true
+),
 
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{company_legend}, li_crm_company_name, li_crm_company_tax_number;
-		{address_legend}, li_crm_company_street, li_crm_company_postal, li_crm_company_city,
-		li_crm_company_country, li_crm_company_phone, li_crm_company_fax;{bank_legend}, li_crm_account_number,
-		li_crm_bank_code, li_crm_bank;'
+		'default'                     => '{company_legend},li_crm_company_name,li_crm_company_tax_number;
+		    {address_legend},li_crm_company_street,li_crm_company_postal,li_crm_company_city,li_crm_company_country,li_crm_company_phone,li_crm_company_fax;
+		    {bank_legend}, li_crm_account_number,li_crm_bank_code, li_crm_bank;'
 	),
 
 	// Fields
@@ -54,13 +53,13 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
 		),
-		'li_crm_company_postal' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal'],
-			'inputType'               => 'text',
-			'exclude'   			  => true,
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>32, 'tl_class'=>'w50'),
-		),
+        'li_crm_company_postal' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal'],
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>32, 'tl_class'=>'w50'),
+        ),
 		'li_crm_company_city' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_member']['city'],

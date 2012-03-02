@@ -414,7 +414,7 @@ class Invoice extends BackendModule
 		$template['logo'] = $objInvoice->logo;
 		$template['company_name'] = $GLOBALS['TL_CONFIG']['li_crm_company_name'];
 		$template['company_street'] = $GLOBALS['TL_CONFIG']['li_crm_company_street'];
-		$template['company_postal'] = strlen($GLOBALS['TL_CONFIG']['li_crm_company_postal']) == 5 ? $GLOBALS['TL_CONFIG']['li_crm_company_postal'] : str_pad($GLOBALS['TL_CONFIG']['li_crm_company_postal'], 5, "0", STR_PAD_LEFT);
+		$template['company_postal'] = $GLOBALS['TL_CONFIG']['li_crm_company_postal'];
 		$template['company_city'] = $GLOBALS['TL_CONFIG']['li_crm_company_city'];
 		$template['company_phone'] = $GLOBALS['TL_CONFIG']['li_crm_company_phone'];
 		$template['company_tax_number_label'] = "Steuernummer:";
