@@ -17,12 +17,28 @@ class CurrencyHelper extends Controller
     
     public function getCurrencySymbolArray()
     {
-        return array(
+        $currencies = array(
             'EUR' => '&#0128;',
             'USD' => '$',
             'GBP' => '&#0163;',
             'CHF' => 'CHF',
         );
+        if($GLOBALS['TL_CONFIG']['li_crm_company_default_currency'] != '') {
+            $ordnerdCurrencies = array();
+            foreach($currencies as $key => $currency) {
+                if($GLOBALS['TL_CONFIG']['li_crm_company_default_currency'] == $key) {
+                    $ordnerdCurrencies[$key] = $currency;
+                    unset($currencies[$key]);
+                    break;
+                }
+            }
+            foreach($currencies as $key => $currency) {
+                $ordnerdCurrencies[$key] = $currency;
+            }
+            $currencies = $ordnerdCurrencies;
+        }
+
+        return $currencies;
     }
 
     public function getCurrencyOptions()
