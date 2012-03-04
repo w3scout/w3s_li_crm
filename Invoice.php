@@ -443,7 +443,7 @@ class Invoice extends BackendModule
             WHERE i.id = ?
         ")->limit(1)->execute($id);
 		$objAddress = $this->Database->prepare("
-            SELECT company, firstname, lastname, street, postal, city, gender
+            SELECT company, firstname, lastname, street, postal, city, gender, country
             FROM tl_address
             WHERE id = ?
         ")->limit(1)->execute($objInvoice->toAddress);
@@ -457,6 +457,9 @@ class Invoice extends BackendModule
 		$this->import('BackendUser', 'User');
 
 		$templateFile = $objInvoice->invoice_template;
+
+        $countries = $this->getCountries();
+        $country = $objAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objAddress->country] : '';
 
 		$template = array(
             'logo' => $objInvoice->logo,
@@ -474,7 +477,7 @@ class Invoice extends BackendModule
             'customer_street' => $objAddress->street,
             'customer_postal' => $objAddress->postal,
             'customer_city' => $objAddress->city,
-            'customer_country' => $objAddress->country,
+            'customer_country' => $country,
 
             'invoice_date' => date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate),
             'invoice_number' => $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']),

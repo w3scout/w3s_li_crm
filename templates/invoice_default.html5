@@ -35,7 +35,10 @@
                         <?php echo $template['customer_company']; ?><br />
                         <?php echo $template['customer_firstname']; ?> <?php echo $template['customer_lastname']; ?><br />
                         <?php echo $template['customer_street']; ?><br />
-                        <?php echo $template['customer_postal']; ?> <?php echo $template['customer_city']; ?><br />
+                        <?php echo $template['customer_postal']; ?> <?php echo $template['customer_city']; ?>
+                        <?php if($template['customer_country'] != ''): ?>
+                        <br /><?php echo $template['customer_country']; ?>
+                        <?php endif; ?>
                     </td>
                     <td class="invoice_data">
                         <table>
