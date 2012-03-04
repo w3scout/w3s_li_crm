@@ -29,8 +29,12 @@ class CustomerList extends BackendModule
 		
 		// Load language file for customers
 		$this->loadLanguageFile('li_customer');
-		$lang = $GLOBALS['TL_LANG']['li_customers'];
-		
+        $this->loadLanguageFile('tl_member');
+        $this->loadLanguageFile('tl_li_project');
+        $this->loadLanguageFile('tl_li_service');
+        $this->loadLanguageFile('tl_li_product');
+        $this->loadLanguageFile('tl_address');
+
 		// Get all valid customers
 		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName, disable
 			FROM tl_member
@@ -56,15 +60,6 @@ class CustomerList extends BackendModule
                     'id' => $id,
                     'serviceTitle' => $objCustomerServices->serviceTitle,
                     'icon' => $objCustomerServices->icon != '' ? $objCustomerServices->icon : 'system/modules/li_crm/icons/service_default.png',
-                    'editLabel' => sprintf($lang['serviceEdit'][0], $id),
-                    'editTitle' => sprintf($lang['serviceEdit'][1], $id),
-                    'copyLabel' => sprintf($lang['serviceCopy'][0], $id),
-                    'copyTitle' => sprintf($lang['serviceCopy'][1], $id),
-                    'deleteLabel' => sprintf($lang['serviceDelete'][0], $id),
-                    'deleteTitle' => sprintf($lang['serviceDelete'][1], $id),
-                    'deleteDialog' => sprintf($lang['serviceDelete'][2], $id),
-                    'infoLabel' => sprintf($lang['serviceInfo'][0], $id),
-                    'infoTitle' => sprintf($lang['serviceInfo'][1], $id)
                 );
             }
 
@@ -83,15 +78,6 @@ class CustomerList extends BackendModule
                     'id' => $id,
                     'productTitle' => $objCustomerProducts->productTitle,
                     'icon' => $objCustomerProducts->icon != '' ? $objCustomerProducts->icon : 'system/modules/li_crm/icons/products.png',
-                    'editTitle' => sprintf($lang['productEdit'][0], $id),
-                    'editLabel' => sprintf($lang['productEdit'][1], $id),
-                    'copyLabel' => sprintf($lang['productCopy'][0], $id),
-                    'copyTitle' => sprintf($lang['productCopy'][1], $id),
-                    'deleteLabel' => sprintf($lang['productDelete'][0], $id),
-                    'deleteTitle' => sprintf($lang['productDelete'][1], $id),
-                    'deleteDialog' => sprintf($lang['productDelete'][2], $id),
-                    'infoLabel' => sprintf($lang['productInfo'][0], $id),
-                    'infoTitle' => sprintf($lang['productInfo'][1], $id)
                 );
             }
 
@@ -118,15 +104,6 @@ class CustomerList extends BackendModule
                         'id' => $id,
                         'serviceTitle' => $objServices->serviceTitle,
                         'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
-                        'editLabel' => sprintf($lang['serviceEdit'][0], $id),
-                        'editTitle' => sprintf($lang['serviceEdit'][1], $id),
-                        'copyLabel' => sprintf($lang['serviceCopy'][0], $id),
-                        'copyTitle' => sprintf($lang['serviceCopy'][1], $id),
-                        'deleteLabel' => sprintf($lang['serviceDelete'][0], $id),
-                        'deleteTitle' => sprintf($lang['serviceDelete'][1], $id),
-                        'deleteDialog' => sprintf($lang['serviceDelete'][2], $id),
-                        'infoLabel' => sprintf($lang['serviceInfo'][0], $id),
-                        'infoTitle' => sprintf($lang['serviceInfo'][1], $id)
 					);
 				}
 
@@ -145,15 +122,6 @@ class CustomerList extends BackendModule
 						'id' => $id,
 						'productTitle' => $objProducts->productTitle,
 						'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
-                        'editTitle' => sprintf($lang['productEdit'][0], $id),
-                        'editLabel' => sprintf($lang['productEdit'][1], $id),
-                        'copyLabel' => sprintf($lang['productCopy'][0], $id),
-                        'copyTitle' => sprintf($lang['productCopy'][1], $id),
-                        'deleteLabel' => sprintf($lang['productDelete'][0], $id),
-                        'deleteTitle' => sprintf($lang['productDelete'][1], $id),
-                        'deleteDialog' => sprintf($lang['productDelete'][2], $id),
-                        'infoLabel' => sprintf($lang['productInfo'][0], $id),
-                        'infoTitle' => sprintf($lang['productInfo'][1], $id)
 					);
 				}
                 
@@ -162,15 +130,6 @@ class CustomerList extends BackendModule
 						'id' => $id,
 						'projectNumber' => $objProjects->projectNumber,
 						'title' => $objProjects->title,
-						'editLabel' => sprintf($lang['projectEdit'][0], $id),
-						'editTitle' => sprintf($lang['projectEdit'][1], $id),
-						'copyLabel' => sprintf($lang['projectCopy'][0], $id),
-						'copyTitle' => sprintf($lang['projectCopy'][1], $id),
-						'deleteLabel' => sprintf($lang['projectDelete'][0], $id),
-						'deleteTitle' => sprintf($lang['projectDelete'][1], $id),
-						'deleteDialog' => sprintf($lang['projectDelete'][2], $id),
-						'infoLabel' => sprintf($lang['projectInfo'][0], $id),
-						'infoTitle' => sprintf($lang['projectInfo'][1], $id),
 						'services' => $arrServices,
                         'products' => $arrProducts,
 						'display' => $_SESSION['li_crm']['customerList']['project'][$id]['display']
@@ -182,19 +141,6 @@ class CustomerList extends BackendModule
 				'id' => $id,
 				'customerNumber' => $objCustomers->customerNumber,
 				'customerName' => $objCustomers->customerName,
-				'editLabel' => sprintf($lang['customerEdit'][0], $id),
-				'editTitle' => sprintf($lang['customerEdit'][1], $id),
-				'copyLabel' => sprintf($lang['customerCopy'][0], $id),
-				'copyTitle' => sprintf($lang['customerCopy'][1], $id),
-				'deleteLabel' => sprintf($lang['customerDelete'][0], $id),
-				'deleteTitle' => sprintf($lang['customerDelete'][1], $id),
-				'deleteDialog' => sprintf($lang['customerDelete'][2], $id),
-				'infoLabel' => sprintf($lang['customerInfo'][0], $id),
-				'infoTitle' => sprintf($lang['customerInfo'][1], $id),
-				'addressesLabel' => sprintf($lang['addressesManage'][0], $id),
-				'addressesTitle' => sprintf($lang['addressesManage'][1], $id),
-				'contactsLabel' => sprintf($lang['contactsManage'][0], $id),
-				'contactsTitle' => sprintf($lang['contactsManage'][1], $id),
 				'projects' => $arrProjects,
                 'services' => $arrCustomerServices,
                 'products' => $arrCustomerProducts,
@@ -204,8 +150,7 @@ class CustomerList extends BackendModule
 		}
 
 		$this->Template->customers = $arrCustomers;
-		$this->Template->lang = $lang;
-        
+
 		return $this->Template->parse();
 	}
 	
