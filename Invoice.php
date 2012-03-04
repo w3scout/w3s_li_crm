@@ -321,35 +321,14 @@ class Invoice extends BackendModule
 
 		$data = $this->getInvoiceData($id);
         $html = $data['html'];
+        $invoiceNumber = $data['invoiceNumber'];
         $fullNetto = $data['fullNetto'];
 		
 		$objInvoice = $this->Database->prepare("
-            SELECT i.title,
-                i.alias,
-                i.invoiceDate,
-                i.performanceDate,
-                i.toCustomer,
-                i.currency,
-                i.toAddress,
-                i.maturity,
-                i.descriptionBefore,
-                i.descriptionAfter,
-                i.isOut,
-                i.headline,
-                i.servicePositions,
-                i.productPositions,
-                i.hourPositions,
-                t.title AS templateTitle,
-                t.invoice_template,
-                t.logo,
-                t.maturity AS templateMaturity,
-                t.descriptionBefore AS templateDescriptionBefore,
-                t.descriptionAfter AS templateDescriptionAfter,
-                t.basePath,
-                t.periodFolder
+            SELECT i.alias, t.basePath, t.periodFolder
             FROM tl_li_invoice AS i
             INNER JOIN tl_li_invoice_template AS t
-              ON i.toTemplate = t.id
+                ON i.toTemplate = t.id
             WHERE i.id = ?
         ")->limit(1)->execute($id);
 		
@@ -402,9 +381,9 @@ class Invoice extends BackendModule
 
 		$this->Database->prepare("
             UPDATE tl_li_invoice
-            SET file = ?, price = ?
+            SET file = ?, invoiceNumber = ?, price = ?
             WHERE id = ?
-        ")->execute($filePath, $fullNetto, $id);
+        ")->execute($filePath, $invoiceNumber, $fullNetto, $id);
 
 		// Return link to template
 		return $templateLink;
@@ -416,6 +395,7 @@ class Invoice extends BackendModule
 		$objInvoice = $this->Database->prepare("
             SELECT i.title,
                 i.alias,
+                i.invoiceNumber,
                 i.invoiceDate,
                 i.performanceDate,
                 i.toCustomer,
@@ -439,7 +419,7 @@ class Invoice extends BackendModule
                 t.periodFolder
             FROM tl_li_invoice AS i
             INNER JOIN tl_li_invoice_template AS t
-              ON i.toTemplate = t.id
+                ON i.toTemplate = t.id
             WHERE i.id = ?
         ")->limit(1)->execute($id);
 		$objAddress = $this->Database->prepare("
@@ -461,6 +441,8 @@ class Invoice extends BackendModule
         $countries = $this->getCountries();
         $country = $objAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objAddress->country] : '';
 
+        $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+
 		$template = array(
             'logo' => $objInvoice->logo,
             'company_name' => $GLOBALS['TL_CONFIG']['li_crm_company_name'],
@@ -480,7 +462,7 @@ class Invoice extends BackendModule
             'customer_country' => $country,
 
             'invoice_date' => date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate),
-            'invoice_number' => $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']),
+            'invoice_number' => $invoiceNumber,
 
             'title' => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
             'introduction' => sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
@@ -706,6 +688,7 @@ class Invoice extends BackendModule
 
 		return array(
             'html' => utf8_decode($html),
+            'invoiceNumber' => $invoiceNumber,
             'fullNetto' => $fullNetto
         );
 	}

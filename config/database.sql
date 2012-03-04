@@ -262,6 +262,7 @@ CREATE TABLE `tl_li_invoice` (
   `toCategory` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `alias` varchar(64) NOT NULL default '',
+  `invoiceNumber` varchar(64) NOT NULL default '',
   `invoiceDate` varchar(10) NOT NULL default '',
   `performanceDate` varchar(10) NOT NULL default '',
   `price` double unsigned NOT NULL default '0',
