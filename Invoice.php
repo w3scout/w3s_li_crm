@@ -76,7 +76,11 @@ class Invoice extends BackendModule
 			$varValue = standardize($dc->activeRecord->title);
 		}
 
-		$objAlias = $this->Database->prepare("SELECT id FROM tl_li_invoice WHERE alias=?")->execute($varValue);
+		$objAlias = $this->Database->prepare("
+		    SELECT id
+		    FROM tl_li_invoice
+		    WHERE alias = ?
+		")->execute($varValue);
 
 		// Check whether the news alias exists
 		if ($objAlias->numRows > 1 && !$autoAlias)
@@ -192,8 +196,12 @@ class Invoice extends BackendModule
 		{
 			if (isset($arrSplit[1]))
 			{
-				$objInvoice = $this->Database->prepare("SELECT COUNT(id) AS count FROM tl_li_invoice WHERE isOut = '1'")->limit(1)->execute();
-				$count = $objInvoice->count;
+				$objInvoice = $this->Database->prepare("
+				    SELECT COUNT(id) AS countInvoices
+				    FROM tl_li_invoice
+				    WHERE isOut = '1'
+				")->limit(1)->execute();
+				$count = $objInvoice->countInvoices;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start']))
 				{
 					$count += $GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start'];
@@ -208,7 +216,12 @@ class Invoice extends BackendModule
 	public function getAddressOptions(DataContainer $dc)
 	{
 		$addresses = array();
-		$objAddresses = $this->Database->prepare("SELECT id, firstname, lastname FROM tl_address WHERE isBillingAddress = '1' AND pid = ?")->execute($dc->activeRecord->toCustomer);
+		$objAddresses = $this->Database->prepare("
+		    SELECT id, firstname, lastname
+		    FROM tl_address
+		    WHERE isBillingAddress = '1'
+		        AND pid = ?
+		")->execute($dc->activeRecord->toCustomer);
 		while ($objAddresses->next())
 		{
 			$addresses[$objAddresses->id] = $objAddresses->firstname." ".$objAddresses->lastname;
@@ -230,11 +243,17 @@ class Invoice extends BackendModule
 	public function getServiceOptions(MultiColumnWizard $mcw)
 	{
 		$options = array();
-		$objInvoice = $this->Database->prepare("SELECT toCustomer, currency FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
-		$objServices = $this->Database->prepare("SELECT s.id, s.title
-                                                 FROM tl_li_service AS s
-                                                 INNER JOIN tl_li_project AS p ON s.toProject = p.id
-                                                 WHERE p.toCustomer = ? AND currency = ?")->execute($objInvoice->toCustomer, $objInvoice->currency);
+		$objInvoice = $this->Database->prepare("
+		    SELECT toCustomer, currency
+		    FROM tl_li_invoice
+		    WHERE id = ?
+		")->limit(1)->execute($mcw->currentRecord);
+		$objServices = $this->Database->prepare("
+            SELECT id, title
+            FROM tl_li_service AS s
+            WHERE toCustomer = ?
+              AND currency = ?
+        ")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objServices->next())
 		{
 			$options[$objServices->id] = $objServices->title;
@@ -245,11 +264,17 @@ class Invoice extends BackendModule
 	public function getProductOptions(MultiColumnWizard $mcw)
 	{
 		$options = array();
-		$objInvoice = $this->Database->prepare("SELECT toCustomer, currency FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
-		$objProducts = $this->Database->prepare("SELECT p.id, p.title
-                                                 FROM tl_li_product AS p
-                                                 INNER JOIN tl_li_product_to_customer AS pp ON p.id = pp.toProduct
-                                                 WHERE pp.toCustomer = ? AND p.currency = ?")->execute($objInvoice->toCustomer, $objInvoice->currency);
+		$objInvoice = $this->Database->prepare("
+		    SELECT toCustomer, currency
+		    FROM tl_li_invoice
+		    WHERE id = ?
+		")->limit(1)->execute($mcw->currentRecord);
+		$objProducts = $this->Database->prepare("
+            SELECT id, title
+            FROM tl_li_product
+            WHERE toCustomer = ?
+              AND currency = ?
+        ")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objProducts->next())
 		{
 			$options[$objProducts->id] = $objProducts->title;
@@ -260,13 +285,23 @@ class Invoice extends BackendModule
 	public function getHourOptions(MultiColumnWizard $mcw)
 	{
 		$options = array();
-		$objInvoice = $this->Database->prepare("SELECT toCustomer, currency FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($mcw->currentRecord);
-		$objHours = $this->Database->prepare("SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
-                                              FROM tl_li_work_package AS wp
-                                              INNER JOIN tl_li_working_hour AS wh ON wh.toWorkPackage = wp.id
-                                              INNER JOIN tl_li_hourly_wage AS hw ON hw.id = wp.toHourlyWage
-                                              WHERE wp.toCustomer = ? AND hw.currency = ? AND wp.printOnInvoice = 1
-                                              GROUP BY wp.id")->execute($objInvoice->toCustomer, $objInvoice->currency);
+		$objInvoice = $this->Database->prepare("
+		    SELECT toCustomer, currency
+		    FROM tl_li_invoice
+		    WHERE id = ?
+		")->limit(1)->execute($mcw->currentRecord);
+		$objHours = $this->Database->prepare("
+            SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
+            FROM tl_li_work_package AS wp
+            INNER JOIN tl_li_working_hour AS wh
+              ON wh.toWorkPackage = wp.id
+            INNER JOIN tl_li_hourly_wage AS hw
+              ON hw.id = wp.toHourlyWage
+            WHERE wp.toCustomer = ?
+              AND hw.currency = ?
+              AND wp.printOnInvoice = 1
+            GROUP BY wp.id
+        ")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objHours->next())
 		{
 			$hours = $objHours->sumHours;
@@ -284,34 +319,39 @@ class Invoice extends BackendModule
 		// Log process
 		$this->log('Generate new invoice', 'Generate invoice with id '.$id, TL_FILES);
 
-		$html = $this->getInvoiceHtml($id);
+		$data = $this->getInvoiceData($id);
+        $html = $data['html'];
+        $fullNetto = $data['fullNetto'];
 		
-		$objInvoice = $this->Database->prepare("SELECT i.title,
-													i.alias, 
-													i.invoiceDate, 
-													i.performanceDate, 
-													i.toCustomer,
-													i.currency, 
-													i.toAddress, 
-													i.maturity, 
-													i.descriptionBefore, 
-													i.descriptionAfter, 
-													i.isOut, 
-													i.headline,
-													i.servicePositions,
-													i.productPositions,
-													i.hourPositions, 
-													t.title AS templateTitle, 
-													t.invoice_template, 
-													t.logo, 
-													t.maturity AS templateMaturity, 
-													t.descriptionBefore AS templateDescriptionBefore, 
-													t.descriptionAfter AS templateDescriptionAfter, 
-													t.basePath, 
-													t.periodFolder
-                                                FROM tl_li_invoice AS i
-                                                INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
-                                                WHERE i.id = ?")->limit(1)->execute($id);
+		$objInvoice = $this->Database->prepare("
+            SELECT i.title,
+                i.alias,
+                i.invoiceDate,
+                i.performanceDate,
+                i.toCustomer,
+                i.currency,
+                i.toAddress,
+                i.maturity,
+                i.descriptionBefore,
+                i.descriptionAfter,
+                i.isOut,
+                i.headline,
+                i.servicePositions,
+                i.productPositions,
+                i.hourPositions,
+                t.title AS templateTitle,
+                t.invoice_template,
+                t.logo,
+                t.maturity AS templateMaturity,
+                t.descriptionBefore AS templateDescriptionBefore,
+                t.descriptionAfter AS templateDescriptionAfter,
+                t.basePath,
+                t.periodFolder
+            FROM tl_li_invoice AS i
+            INNER JOIN tl_li_invoice_template AS t
+              ON i.toTemplate = t.id
+            WHERE i.id = ?
+        ")->limit(1)->execute($id);
 		
 		require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
 
@@ -360,91 +400,97 @@ class Invoice extends BackendModule
 		$templateLink = substr($exportFile, 2);
 		$filePath = substr($exportFile, 3);
 
-		$this->Database->prepare("UPDATE tl_li_invoice
-                                  SET file = ?, price = ?
-                                  WHERE id = ?")->execute($filePath, $fullNetto, $id);
+		$this->Database->prepare("
+            UPDATE tl_li_invoice
+            SET file = ?, price = ?
+            WHERE id = ?
+        ")->execute($filePath, $fullNetto, $id);
 
 		// Return link to template
 		return $templateLink;
 	}
 	
-	private function getInvoiceHtml($id)
+	private function getInvoiceData($id)
 	{
 		// Get data
-		$objInvoice = $this->Database->prepare("SELECT i.title,
-													i.alias, 
-													i.invoiceDate, 
-													i.performanceDate, 
-													i.toCustomer,
-													i.currency, 
-													i.toAddress, 
-													i.maturity, 
-													i.descriptionBefore, 
-													i.descriptionAfter, 
-													i.isOut, 
-													i.headline,
-													i.servicePositions,
-													i.productPositions,
-													i.hourPositions, 
-													t.title AS templateTitle, 
-													t.invoice_template, 
-													t.logo, 
-													t.maturity AS templateMaturity, 
-													t.descriptionBefore AS templateDescriptionBefore, 
-													t.descriptionAfter AS templateDescriptionAfter, 
-													t.basePath, 
-													t.periodFolder
-                                                FROM tl_li_invoice AS i
-                                                INNER JOIN tl_li_invoice_template AS t ON i.toTemplate = t.id
-                                                WHERE i.id = ?")->limit(1)->execute($id);
-		$objAddress = $this->Database->prepare("SELECT company, firstname, lastname, street, postal, city, gender
-                                                FROM tl_address
-                                                WHERE id = ?")->limit(1)->execute($objInvoice->toAddress);
+		$objInvoice = $this->Database->prepare("
+            SELECT i.title,
+                i.alias,
+                i.invoiceDate,
+                i.performanceDate,
+                i.toCustomer,
+                i.currency,
+                i.toAddress,
+                i.maturity,
+                i.descriptionBefore,
+                i.descriptionAfter,
+                i.isOut,
+                i.headline,
+                i.servicePositions,
+                i.productPositions,
+                i.hourPositions,
+                t.title AS templateTitle,
+                t.invoice_template,
+                t.logo,
+                t.maturity AS templateMaturity,
+                t.descriptionBefore AS templateDescriptionBefore,
+                t.descriptionAfter AS templateDescriptionAfter,
+                t.basePath,
+                t.periodFolder
+            FROM tl_li_invoice AS i
+            INNER JOIN tl_li_invoice_template AS t
+              ON i.toTemplate = t.id
+            WHERE i.id = ?
+        ")->limit(1)->execute($id);
+		$objAddress = $this->Database->prepare("
+            SELECT company, firstname, lastname, street, postal, city, gender
+            FROM tl_address
+            WHERE id = ?
+        ")->limit(1)->execute($objInvoice->toAddress);
 
 		// Load language file
 		$this->loadLanguageFile('tl_member');
 		$this->loadLanguageFile('tl_li_invoice');
+        $this->loadLanguageFile('tl_li_company_settings');
 
 		// Import required systems
 		$this->import('BackendUser', 'User');
 
 		$templateFile = $objInvoice->invoice_template;
 
-		$template = array();
-		$template['logo'] = $objInvoice->logo;
-		$template['company_name'] = $GLOBALS['TL_CONFIG']['li_crm_company_name'];
-		$template['company_street'] = $GLOBALS['TL_CONFIG']['li_crm_company_street'];
-		$template['company_postal'] = $GLOBALS['TL_CONFIG']['li_crm_company_postal'];
-		$template['company_city'] = $GLOBALS['TL_CONFIG']['li_crm_company_city'];
-		$template['company_phone'] = $GLOBALS['TL_CONFIG']['li_crm_company_phone'];
-		$template['company_tax_number_label'] = "Steuernummer:";
-		$template['company_tax_number'] = $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'];
+		$template = array(
+            'logo' => $objInvoice->logo,
+            'company_name' => $GLOBALS['TL_CONFIG']['li_crm_company_name'],
+            'company_street' => $GLOBALS['TL_CONFIG']['li_crm_company_street'],
+            'company_postal' => $GLOBALS['TL_CONFIG']['li_crm_company_postal'],
+            'company_city' => $GLOBALS['TL_CONFIG']['li_crm_company_city'],
+            'company_phone' => $GLOBALS['TL_CONFIG']['li_crm_company_phone'],
+            'company_tax_number' => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
+            'company_ustid' => $GLOBALS['TL_CONFIG']['li_crm_company_ustid'],
 
-		$template['customer_company'] = $objAddress->company;
-		$template['customer_firstname'] = $objAddress->firstname;
-		$template['customer_lastname'] = $objAddress->lastname;
-		$template['customer_street'] = $objAddress->street;
-		$template['customer_postal'] = $objAddress->postal;
-		$template['customer_city'] = $objAddress->city;
-		$template['customer_country'] = $objAddress->country;
+            'customer_company' => $objAddress->company,
+            'customer_firstname' => $objAddress->firstname,
+            'customer_lastname' => $objAddress->lastname,
+            'customer_street' => $objAddress->street,
+            'customer_postal' => $objAddress->postal,
+            'customer_city' => $objAddress->city,
+            'customer_country' => $objAddress->country,
 
-		$template['invoice_date_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['date'];
-		$template['invoice_date'] = date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate);
-		$template['invoice_number_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number'];
-		$template['invoice_number'] = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+            'invoice_date' => date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate),
+            'invoice_number' => $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']),
 
-		$template['invoice_title'] = $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'];
-		$template['invoice_introduction'] = sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname);
+            'title' => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
+            'introduction' => sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
 
-		$template['position_quantity_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity'][0];
-		$template['position_unit_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'][0];
-		$template['position_label_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_label'][0];
-		$template['position_unit_price_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price'][0];
-		$template['position_total_price_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price'];
+            'performance_date_remark' => $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
+            'account_number' => $GLOBALS['TL_CONFIG']['li_crm_account_number'],
+            'bank_code' => $GLOBALS['TL_CONFIG']['li_crm_bank_code'],
+            'iban' => $GLOBALS['TL_CONFIG']['li_crm_iban'],
+            'bic' => $GLOBALS['TL_CONFIG']['li_crm_bic'],
+            'bank' => $GLOBALS['TL_CONFIG']['li_crm_bank'],
 
-		$template['greeting'] = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name']);
-
-		$template['phone_label'] = 'Telefon';
+            'greeting' => sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name'])
+        );
 
 		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
@@ -454,6 +500,8 @@ class Invoice extends BackendModule
 		$fullTaxes = 0;
 		$taxes = array();
 
+        $htmlPositions = "";
+
 		$services = unserialize($objInvoice->servicePositions);
 		foreach ($services as $service)
 		{
@@ -461,10 +509,13 @@ class Invoice extends BackendModule
 			{
 				continue;
 			}
-			$objService = $this->Database->prepare("SELECT s.title, s.price, t.rate AS taxRate
-													FROM tl_li_service AS s
-													INNER JOIN tl_li_tax AS t ON s.toTax = t.id
-													WHERE s.id = ?")->execute($service['item']);
+			$objService = $this->Database->prepare("
+                SELECT s.title, s.price, t.rate AS taxRate
+                FROM tl_li_service AS s
+                INNER JOIN tl_li_tax AS t
+                    ON s.toTax = t.id
+                WHERE s.id = ?
+            ")->execute($service['item']);
 
 			$position_total_price = $service['quantity'] * $objService->price;
 
@@ -499,10 +550,13 @@ class Invoice extends BackendModule
 			{
 				continue;
 			}
-			$objProduct = $this->Database->prepare("SELECT p.title, p.price, t.rate AS taxRate
-													FROM tl_li_product AS p
-													INNER JOIN tl_li_tax AS t ON p.toTax = t.id
-													WHERE p.id = ?")->execute($product['item']);
+			$objProduct = $this->Database->prepare("
+                SELECT p.title, p.price, t.rate AS taxRate
+                FROM tl_li_product AS p
+                INNER JOIN tl_li_tax AS t
+                    ON p.toTax = t.id
+                WHERE p.id = ?
+            ")->execute($product['item']);
 
 			$position_total_price = $product['quantity'] * $objProduct->price;
 
@@ -515,7 +569,7 @@ class Invoice extends BackendModule
 				$taxes[$objProduct->taxRate] += $position_total_price;
 			}
 
-			$fullNetto += $service['quantity'] * $objProduct->price;
+			$fullNetto += $product['quantity'] * $objProduct->price;
 
 			$title = $product['title'] != '' ? $product['title'] : $objProduct->title;
 
@@ -537,11 +591,15 @@ class Invoice extends BackendModule
 			{
 				continue;
 			}
-			$objHour = $this->Database->prepare("SELECT wp.title, hw.wage, t.rate AS taxRate
-												 FROM tl_li_work_package AS wp
-												 INNER JOIN tl_li_hourly_wage AS hw ON wp.toHourlyWage = hw.id
-												 INNER JOIN tl_li_tax AS t ON hw.toTax = t.id
-												 WHERE wp.id = ?")->execute($hour['item']);
+			$objHour = $this->Database->prepare("
+                SELECT wp.title, hw.wage, t.rate AS taxRate
+                FROM tl_li_work_package AS wp
+                INNER JOIN tl_li_hourly_wage AS hw
+                    ON wp.toHourlyWage = hw.id
+                INNER JOIN tl_li_tax AS t
+                    ON hw.toTax = t.id
+                WHERE wp.id = ?
+            ")->execute($hour['item']);
 
 			$position_total_price = $hour['quantity'] * $objHour->wage;
 
@@ -633,34 +691,27 @@ class Invoice extends BackendModule
 			$maturity_remark = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark'], $maturityDays);
 		}
 
-		$template['description_before'] = $descriptionBefore;
-		$template['positions'] = $htmlPositions;
-		$template['description_after'] = $descriptionAfter;
-
-		$template['performance_date_remark'] = $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate));
-		$template['maturity_remark'] = $maturity_remark;
-		$template['account_data_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['account_data'];
-		$template['account_number_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['account_number'];
-		$template['account_number'] = $GLOBALS['TL_CONFIG']['li_crm_account_number'];
-		$template['bank_code_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['bank_code'];
-		$template['bank_code'] = $GLOBALS['TL_CONFIG']['li_crm_bank_code'];
-		$template['bank_label'] = $GLOBALS['TL_LANG']['tl_li_invoice']['bank'];
-		$template['bank'] = $GLOBALS['TL_CONFIG']['li_crm_bank'];
-		$template['greeting'] = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+        $template['description_before'] = $descriptionBefore;
+        $template['positions'] = $htmlPositions;
+        $template['description_after'] = $descriptionAfter;
+        $template['maturity_remark'] = $maturity_remark;
 
 		ob_start();
-		include ($this->getTemplate($templateFile, 'tpl'));
+		include ($this->getTemplate($templateFile, 'html5'));
 		$html = ob_get_contents();
 		ob_end_clean();
 
-		return utf8_decode($html);
+		return array(
+            'html' => utf8_decode($html),
+            'fullNetto' => $fullNetto
+        );
 	}
 
 	private function generateReports()
 	{
 		$graphData = array(
-				'month',
-				'year'
+            'month',
+            'year'
 		);
 
 		// Month
@@ -777,24 +828,28 @@ class Invoice extends BackendModule
 		$yearData = array();
 		$tmpYearData = array();
 
-		$objYearIn = $this->Database->prepare("SELECT YEAR(FROM_UNIXTIME(invoiceDate)) AS year, SUM(price) AS sumPrice
-											   FROM tl_li_invoice
-											   WHERE isOut = ''
-											   	AND YEAR(FROM_UNIXTIME(invoiceDate)) >= ?
-											 	AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ? 
-											   GROUP BY YEAR(FROM_UNIXTIME(invoiceDate))
-											   ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)) ASC")->execute($startYear, $currentYear);
+		$objYearIn = $this->Database->prepare("
+            SELECT YEAR(FROM_UNIXTIME(invoiceDate)) AS year, SUM(price) AS sumPrice
+            FROM tl_li_invoice
+            WHERE isOut = ''
+                AND YEAR(FROM_UNIXTIME(invoiceDate)) >= ?
+                AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ?
+            GROUP BY YEAR(FROM_UNIXTIME(invoiceDate))
+            ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)) ASC
+        ")->execute($startYear, $currentYear);
 		while ($objYearIn->next() != null)
 		{
 			$tmpYearData['in-'.$objYearIn->year] = $objYearIn->sumPrice;
 		}
-		$objYearOut = $this->Database->prepare("SELECT YEAR(FROM_UNIXTIME(invoiceDate)) AS year, SUM(price) AS sumPrice
-											    FROM tl_li_invoice
-											    WHERE isOut = '1'
-											   		AND YEAR(FROM_UNIXTIME(invoiceDate)) >= ?
-											 		AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ? 
-											    GROUP BY YEAR(FROM_UNIXTIME(invoiceDate))
-											    ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)) ASC")->execute($startYear, $currentYear);
+		$objYearOut = $this->Database->prepare("
+            SELECT YEAR(FROM_UNIXTIME(invoiceDate)) AS year, SUM(price) AS sumPrice
+            FROM tl_li_invoice
+            WHERE isOut = '1'
+                AND YEAR(FROM_UNIXTIME(invoiceDate)) >= ?
+                AND YEAR(FROM_UNIXTIME(invoiceDate)) <= ?
+            GROUP BY YEAR(FROM_UNIXTIME(invoiceDate))
+            ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)) ASC
+        ")->execute($startYear, $currentYear);
 		while ($objYearOut->next() != null)
 		{
 			$tmpYearData['out-'.$objYearOut->year] = $objYearOut->sumPrice;
@@ -824,16 +879,20 @@ class Invoice extends BackendModule
 	
 	private function generateHtmlInvoice($id)
 	{
-		echo $this->getInvoiceHtml($id);
+		$data = $this->getInvoiceData($id);
+        echo $data['html'];
 		exit;
 	}
 
 	private function sendInvoice($id)
 	{
-		$objInvoice = $this->Database->prepare("SELECT i.invoiceDate, i.file, a.lastname, a.gender, a.email
-                                                FROM tl_li_invoice AS i
-                                                INNER JOIN tl_address AS a ON a.id = i.toAddress
-                                                WHERE i.id = ?")->limit(1)->execute($id);
+		$objInvoice = $this->Database->prepare("
+            SELECT i.invoiceDate, i.file, a.lastname, a.gender, a.email
+            FROM tl_li_invoice AS i
+            INNER JOIN tl_address AS a
+                ON a.id = i.toAddress
+            WHERE i.id = ?
+        ")->limit(1)->execute($id);
 		try
 		{
 			$objEmail = new Email();
@@ -860,9 +919,11 @@ class Invoice extends BackendModule
 
 	private function returnFile($id)
 	{
-		$objInvoice = $this->Database->prepare("SELECT file AS pdfFile
-                                                FROM tl_li_invoice
-                                                WHERE id = ?")->limit(1)->execute($id);
+		$objInvoice = $this->Database->prepare("
+            SELECT file AS pdfFile
+            FROM tl_li_invoice
+            WHERE id = ?
+        ")->limit(1)->execute($id);
 		$path = '../'.$objInvoice->pdfFile;
 		$filename = basename($path);
 		header('Content-type: application/pdf');
@@ -873,9 +934,11 @@ class Invoice extends BackendModule
 	public function returnFileForFrontend($id)
 	{
 		$this->import('FrontendUser', 'User');
-		$objInvoice = $this->Database->prepare("SELECT toCustomer, file AS pdfFile
-                                                FROM tl_li_invoice
-                                                WHERE id = ?")->limit(1)->execute($id);
+		$objInvoice = $this->Database->prepare("
+            SELECT toCustomer, file AS pdfFile
+            FROM tl_li_invoice
+            WHERE id = ?
+        ")->limit(1)->execute($id);
 		if ($this->User->id != '')
 		{
 			if ($objInvoice->toCustomer == $this->User->id)

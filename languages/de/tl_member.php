@@ -24,5 +24,7 @@ $GLOBALS['TL_LANG']['tl_member']['customerName']['0'] = "Kundenname";
 $GLOBALS['TL_LANG']['tl_member']['customerName']['1'] = "Bitte geben Sie den Kundennamen ein.";
 $GLOBALS['TL_LANG']['tl_member']['customerColor']['0'] = "Einfärbung";
 $GLOBALS['TL_LANG']['tl_member']['customerColor']['1'] = "Diese Farbe wird für die Anzeige der geschriebenen Stunden für diesen Kunden verwendet.";
+
+$GLOBALS['TL_LANG']['tl_member']['phone'] = array("Telefon", "Bitte geben Sie eine Telefonnummer ein.");
  
 ?>

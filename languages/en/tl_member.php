@@ -16,3 +16,4 @@ $GLOBALS['TL_LANG']['tl_member']['customerNumber'] = array('Customer number', 'P
 $GLOBALS['TL_LANG']['tl_member']['customerName'] = array('Customer name', 'Please enter a customer name.');
 $GLOBALS['TL_LANG']['tl_member']['customerColor'] = array('Coloring', 'Please choose a color. This color is used to color the working hours.');
 
+$GLOBALS['TL_LANG']['tl_member']['phone'] = array('Phone', 'Please enter a phone number.');

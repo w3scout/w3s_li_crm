@@ -258,7 +258,6 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'],
 			'inputType'               => 'checkbox',
 			'exclude'   			  => true,
-			'filter'                  => true,
             'eval'                    => array('submitOnChange'=>true)
         ),
         'headline' => array

@@ -24,9 +24,9 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{company_legend},li_crm_company_name,li_crm_company_default_currency,li_crm_company_tax_number;
+		'default'                     => '{company_legend},li_crm_company_name,li_crm_company_default_currency,li_crm_company_tax_number,li_crm_company_ustid;
 		    {address_legend},li_crm_company_street,li_crm_company_postal,li_crm_company_city,li_crm_company_country,li_crm_company_phone,li_crm_company_fax;
-		    {bank_legend}, li_crm_account_number,li_crm_bank_code, li_crm_bank;'
+		    {bank_legend},li_crm_account_number,li_crm_bank_code,li_crm_iban,li_crm_bic,li_crm_bank;'
 	),
 
 	// Fields
@@ -39,13 +39,6 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('tl_class'=>'w50')
 		),
-		'li_crm_company_tax_number' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number'],
-			'inputType'               => 'text',
-			'exclude'   			  => true,
-			'eval'                    => array('tl_class'=>'w50')
-		),
         'li_crm_company_default_currency' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_default_currency'],
@@ -53,6 +46,20 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
             'exclude'   			  => true,
             'options_callback'        => array('CurrencyHelper', 'getCurrencyOptions'),
             'eval'                    => array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+        ),
+        'li_crm_company_tax_number' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number'],
+			'inputType'               => 'text',
+			'exclude'   			  => true,
+			'eval'                    => array('tl_class'=>'w50')
+		),
+        'li_crm_company_ustid' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_ustid'],
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('tl_class'=>'w50')
         ),
 		'li_crm_company_street' => array
 		(
@@ -118,6 +125,20 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 			'inputType'               => 'text',
 			'exclude'   			  => true,
 			'eval'                    => array('maxlength'=>64, 'tl_class'=>'w50'),
-		)
+		),
+        'li_crm_iban' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_iban'],
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('maxlength'=>64, 'tl_class'=>'w50'),
+        ),
+        'li_crm_bic' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bic'],
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('maxlength'=>64, 'tl_class'=>'w50'),
+        )
 	)
 );
