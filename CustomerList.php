@@ -35,13 +35,139 @@ class CustomerList extends BackendModule
         $this->loadLanguageFile('tl_li_product');
         $this->loadLanguageFile('tl_address');
 
+        // Filter elements
+        // Reset if value = 0
+        if($this->Input->post('tl_type') == '0')
+        {
+            $searchType = "";
+            $searchValue = "";
+        }
+        elseif($this->Input->post('tl_type') != '')
+        {
+            $searchType = $this->Input->post('tl_type');
+            $searchValue = $this->Input->post('tl_value');
+        }
+        elseif($_SESSION['li_customers']['tl_type'] != '')
+        {
+            $searchType = $_SESSION['li_customers']['tl_type'];
+            $searchValue = $_SESSION['li_customers']['tl_vlaue'];
+        }
+
+        $this->Template->searchType = $searchType;
+        $this->Template->searchValue = $searchValue;
+
+        $_SESSION['li_customers']['tl_type'] = $searchType;
+        $_SESSION['li_customers']['tl_vlaue'] = $searchValue;
+
+        // Workaround for a Contao Bug with LINK in MySQL
+        $searchValue = strtoupper($searchValue);
+
+        // Limit elements
+        $contaoLimit = $GLOBALS['TL_CONFIG']['resultsPerPage'] != '' ? $GLOBALS['TL_CONFIG']['resultsPerPage'] : 30;
+        $objCount = $this->Database->prepare("
+            SELECT COUNT(id) AS total
+            FROM tl_member
+            WHERE isCustomer = 1
+        ")->execute();
+        $customerTotal = $objCount->total;
+
+        $optionsCount = $customerTotal / $contaoLimit;
+
+        // Reset if value = tl_limit
+        if($this->Input->post('tl_limit') == 'tl_limit')
+        {
+            $currentLimit = '0,'.$contaoLimit;
+        }
+        elseif($this->Input->post('tl_limit') == 'all')
+        {
+            $currentLimit = '0,'.$customerTotal;
+        }
+        elseif($this->Input->post('tl_limit') != '')
+        {
+            $currentLimit = $this->Input->post('tl_limit');
+        }
+        elseif($_SESSION['li_customers']['tl_limit'] != '')
+        {
+            $currentLimit = $_SESSION['li_customers']['tl_limit'];
+        }
+        // No limit available
+        else
+        {
+            $currentLimit = '0,'.$contaoLimit;
+        }
+        // Save current limit
+        $_SESSION['li_customers']['tl_limit'] = $currentLimit;
+
+        $this->Template->currentLimit = $currentLimit;
+
+        $sqlLimit = ' LIMIT '.$currentLimit;
+
+        $limitOptions = array();
+        // Active element in range
+        $rangeActive = false;
+        // Reset option
+        $limitOptions[] = array(
+            'value' => 'tl_limit',
+            'label' => $GLOBALS['TL_LANG']['MSC']['filterRecords'],
+            'active' => false
+        );
+        // Range options
+        for($i = 0; $i < $optionsCount; $i++) {
+            $startValue = $i * $contaoLimit;
+            $endValue = $contaoLimit;
+            $startLabel = $i * $contaoLimit + 1;
+            $endLabel = ($i+1) * $contaoLimit <= $customerTotal ? ($i+1) * $contaoLimit : $i * $contaoLimit + $customerTotal % $contaoLimit;
+            if($startValue.','.$endValue == $currentLimit) {
+                $active = true;
+                $rangeActive = true;
+            } else {
+                $active = false;
+            }
+            $limitOptions[] = array(
+                'value' => $startValue.','.$endValue,
+                'label' => $startLabel.' - '.$endLabel,
+                'active' => $startValue.','.$endValue == $currentLimit
+            );
+        }
+        // All option
+        $limitOptions[] = array(
+            'value' => 'all',
+            'label' => $GLOBALS['TL_LANG']['MSC']['filterAll'],
+            'active' => !$rangeActive
+        );
+        $this->Template->limitOptions = $limitOptions;
+
 		// Get all valid customers
-		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName, disable
-			FROM tl_member
-			WHERE isCustomer = 1
-				AND NOT customerNumber = ''
-				AND NOT customerName = ''
-			ORDER BY customerNumber ASC")->execute();
+        if($searchType == 'customer' && !empty($searchValue)) {
+            $objCustomers = $this->Database->prepare("
+                SELECT id, customerNumber, customerName, disable
+                FROM tl_member
+                WHERE isCustomer = 1
+                    AND NOT customerNumber = ''
+                    AND NOT customerName = ''
+                    AND
+                    (
+                        customerNumber LIKE '%".$searchValue."%'
+                        OR customerName LIKE '%".$searchValue."%'
+                        OR firstname LIKE '%".$searchValue."%'
+                        OR lastname LIKE '%".$searchValue."%'
+                        OR email LIKE '%".$searchValue."%'
+                    )
+                ORDER BY customerNumber ASC
+                ".$sqlLimit
+            )->execute();
+        } else {
+            $objCustomers = $this->Database->prepare("
+                SELECT id, customerNumber, customerName, disable
+                FROM tl_member
+                WHERE isCustomer = 1
+                    AND NOT customerNumber = ''
+                    AND NOT customerName = ''
+                ORDER BY customerNumber ASC
+                ".$sqlLimit
+            )->execute();
+        }
+
 		$arrCustomers = array();
 		while ($objCustomers->next())
 		{

@@ -3,7 +3,15 @@
     vertical-align: -3px;
 }
 
-.tree_view .tl_listing .tl_folder .tl_left, .tree_view .tl_listing .tl_file .tl_left {
+.tree_view.customers .tl_listing .tl_right a,
+.tree_view.customers .tl_listing .tl_right span {
+    display: block;
+    float: left;
+    margin-right: 3px;
+}
+
+.tree_view .tl_listing .tl_folder .tl_left,
+.tree_view .tl_listing .tl_file .tl_left {
     padding-top: 2px;
 }
 
