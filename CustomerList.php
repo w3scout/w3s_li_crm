@@ -156,6 +156,57 @@ class CustomerList extends BackendModule
                 ORDER BY customerNumber ASC
                 ".$sqlLimit
             )->execute();
+        } elseif($searchType == 'project' && !empty($searchValue)) {
+            $objCustomers = $this->Database->prepare("
+                SELECT DISTINCT m.id, m.customerNumber, m.customerName, m.disable
+                FROM tl_member AS m
+                INNER JOIN tl_li_project AS p
+                    ON m.id = p.toCustomer
+                WHERE m.isCustomer = 1
+                    AND NOT m.customerNumber = ''
+                    AND NOT m.customerName = ''
+                    AND
+                    (
+                        p.projectNumber LIKE '%".$searchValue."%'
+                        OR p.title LIKE '%".$searchValue."%'
+                    )
+                ORDER BY m.customerNumber ASC
+                ".$sqlLimit
+            )->execute();
+        } elseif($searchType == 'service' && !empty($searchValue)) {
+            $objCustomers = $this->Database->prepare("
+                SELECT DISTINCT m.id, m.customerNumber, m.customerName, m.disable
+                FROM tl_member AS m
+                INNER JOIN tl_li_service AS s
+                    ON m.id = s.toCustomer
+                WHERE m.isCustomer = 1
+                    AND NOT m.customerNumber = ''
+                    AND NOT m.customerName = ''
+                    AND
+                    (
+                        s.title LIKE '%".$searchValue."%'
+                    )
+                ORDER BY m.customerNumber ASC
+                ".$sqlLimit
+            )->execute();
+        } elseif($searchType == 'product' && !empty($searchValue)) {
+            $objCustomers = $this->Database->prepare("
+                SELECT DISTINCT m.id, m.customerNumber, m.customerName, m.disable
+                FROM tl_member AS m
+                INNER JOIN tl_li_product_to_customer AS pc
+                    ON m.id = pc.toCustomer
+                INNER JOIN tl_li_product AS p
+                    ON pc.toProduct = p.id
+                WHERE m.isCustomer = 1
+                    AND NOT m.customerNumber = ''
+                    AND NOT m.customerName = ''
+                    AND
+                    (
+                        p.title LIKE '%".$searchValue."%'
+                    )
+                ORDER BY m.customerNumber ASC
+                ".$sqlLimit
+            )->execute();
         } else {
             $objCustomers = $this->Database->prepare("
                 SELECT id, customerNumber, customerName, disable
@@ -172,21 +223,42 @@ class CustomerList extends BackendModule
 		while ($objCustomers->next())
 		{
             // Get all services of that customer which aren't connected to a project
-            $objCustomerServices = $this->Database->prepare("SELECT s.id, s.title AS serviceTitle, t.icon
-                FROM tl_li_service AS s
-                    INNER JOIN tl_li_service_type AS t ON s.toServiceType = t.id
-                WHERE s.toProject = 0 AND s.toCustomer = ?
-                ORDER BY t.orderNumber ASC")->execute($objCustomers->id);
+            if($searchType == 'service' && !empty($searchValue)) {
+                $objCustomerServices = $this->Database->prepare("
+                    SELECT s.id, s.title AS serviceTitle, t.icon
+                    FROM tl_li_service AS s
+                    INNER JOIN tl_li_service_type AS t
+                        ON s.toServiceType = t.id
+                    WHERE s.toProject = 0
+                        AND s.toCustomer = ".$objCustomers->id."
+                        AND s.title LIKE '%".$searchValue."%'
+                    ORDER BY t.orderNumber ASC
+                ")->execute();
+            } elseif($searchType == 'product' && !empty($searchValue)) {
+                $objCustomerServices = null;
+            } else {
+                $objCustomerServices = $this->Database->prepare("
+                    SELECT s.id, s.title AS serviceTitle, t.icon
+                    FROM tl_li_service AS s
+                    INNER JOIN tl_li_service_type AS t
+                        ON s.toServiceType = t.id
+                    WHERE s.toProject = 0
+                        AND s.toCustomer = ?
+                    ORDER BY t.orderNumber ASC
+                ")->execute($objCustomers->id);
+            }
             
             $arrCustomerServices = array();
-            while ($objCustomerServices->next())
-            {
-                $id = $objCustomerServices->id;
-                $arrCustomerServices[] = array(
-                    'id' => $id,
-                    'serviceTitle' => $objCustomerServices->serviceTitle,
-                    'icon' => $objCustomerServices->icon != '' ? $objCustomerServices->icon : 'system/modules/li_crm/icons/service_default.png',
-                );
+            if($objCustomerServices != null) {
+                while ($objCustomerServices->next())
+                {
+                    $id = $objCustomerServices->id;
+                    $arrCustomerServices[] = array(
+                        'id' => $id,
+                        'serviceTitle' => $objCustomerServices->serviceTitle,
+                        'icon' => $objCustomerServices->icon != '' ? $objCustomerServices->icon : 'system/modules/li_crm/icons/service_default.png',
+                    );
+                }
             }
 
             // Get all products of this project
