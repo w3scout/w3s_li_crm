@@ -261,78 +261,157 @@ class CustomerList extends BackendModule
                 }
             }
 
-            // Get all products of this project
-            $objCustomerProducts = $this->Database->prepare("SELECT pp.id, p.title as productTitle, pt.icon
-                FROM tl_li_product_to_customer AS pp
-                    INNER JOIN tl_li_product AS p ON pp.toProduct = p.id
-                    INNER JOIN tl_li_product_type AS pt ON p.toProductType = pt.id
-                WHERE pp.toCustomer = ? AND pp.toProject = 0
-                ORDER BY p.title")->execute($objCustomers->id);
+            // Get all products of this project which aren't connected to a project
+            if($searchType == 'product' && !empty($searchValue)) {
+                $objCustomerProducts = $this->Database->prepare("
+                    SELECT pp.id, p.title as productTitle, pt.icon
+                    FROM tl_li_product_to_customer AS pp
+                    INNER JOIN tl_li_product AS p
+                        ON pp.toProduct = p.id
+                    INNER JOIN tl_li_product_type AS pt
+                        ON p.toProductType = pt.id
+                    WHERE pp.toCustomer = ".$objCustomers->id."
+                        AND pp.toProject = 0
+                        AND p.title LIKE '%".$searchValue."%'
+                    ORDER BY p.title
+                ")->execute();
+            } elseif($searchType == 'service' && !empty($searchValue)) {
+                $objCustomerProducts = null;
+            } else {
+                $objCustomerProducts = $this->Database->prepare("
+                    SELECT pp.id, p.title as productTitle, pt.icon
+                    FROM tl_li_product_to_customer AS pp
+                    INNER JOIN tl_li_product AS p
+                        ON pp.toProduct = p.id
+                    INNER JOIN tl_li_product_type AS pt
+                        ON p.toProductType = pt.id
+                    WHERE pp.toCustomer = ?
+                        AND pp.toProject = 0
+                    ORDER BY p.title
+                ")->execute($objCustomers->id);
+            }
             $arrCustomerProducts = array();
-            while ($objCustomerProducts->next())
-            {
-                $id = $objCustomerProducts->id;
-                $arrCustomerProducts[] = array(
-                    'id' => $id,
-                    'productTitle' => $objCustomerProducts->productTitle,
-                    'icon' => $objCustomerProducts->icon != '' ? $objCustomerProducts->icon : 'system/modules/li_crm/icons/products.png',
-                );
+            if($objCustomerProducts != null) {
+                while ($objCustomerProducts->next())
+                {
+                    $id = $objCustomerProducts->id;
+                    $arrCustomerProducts[] = array(
+                        'id' => $id,
+                        'productTitle' => $objCustomerProducts->productTitle,
+                        'icon' => $objCustomerProducts->icon != '' ? $objCustomerProducts->icon : 'system/modules/li_crm/icons/products.png',
+                    );
+                }
             }
 
 			// Get all projects of this customer
-			$objProjects = $this->Database->prepare("SELECT id, projectNumber, title
-				FROM tl_li_project
-				WHERE toCustomer = ?
-				ORDER BY projectNumber ASC")->execute($objCustomers->id);
+            if($searchType == 'project' && !empty($searchValue)) {
+                $objProjects = $this->Database->prepare("
+                    SELECT id, projectNumber, title
+                    FROM tl_li_project
+                    WHERE toCustomer = ".$objCustomers->id."
+                        AND (
+                            projectNumber LIKE '%".$searchValue."%'
+                            OR title LIKE '%".$searchValue."%'
+                        )
+                    ORDER BY projectNumber ASC
+                ")->execute();
+            } else {
+                $objProjects = $this->Database->prepare("
+                    SELECT id, projectNumber, title
+                    FROM tl_li_project
+                    WHERE toCustomer = ?
+                    ORDER BY projectNumber ASC
+                ")->execute($objCustomers->id);
+            }
 			$arrProjects = array();
-			while ($objProjects->next())
-			{
-				// Get all services of that project
-				$objServices = $this->Database->prepare("SELECT p.id, p.title AS serviceTitle, t.icon
-					FROM tl_li_service AS p
-						INNER JOIN tl_li_service_type AS t ON p.toServiceType = t.id
-					WHERE p.toProject = ?
-					ORDER BY t.orderNumber ASC")->execute($objProjects->id);
+            if($objProjects != null) {
+                while ($objProjects->next())
+                {
+                    // Get all services of that project
+                    if($searchType == 'service' && !empty($searchValue)) {
+                        $objServices = $this->Database->prepare("
+                            SELECT s.id, s.title AS serviceTitle, t.icon
+                            FROM tl_li_service AS s
+                            INNER JOIN tl_li_service_type AS t
+                                ON s.toServiceType = t.id
+                            WHERE s.toProject = ".$objProjects->id."
+                                AND s.title LIKE '%".$searchValue."%'
+                            ORDER BY t.orderNumber ASC
+                         ")->execute();
+                    } elseif($searchType == 'product' && !empty($searchValue)) {
+                        $objServices = null;
+                    } else {
+                        $objServices = $this->Database->prepare("
+                            SELECT p.id, p.title AS serviceTitle, t.icon
+                            FROM tl_li_service AS p
+                            INNER JOIN tl_li_service_type AS t
+                                ON p.toServiceType = t.id
+                            WHERE p.toProject = ?
+                            ORDER BY t.orderNumber ASC
+                         ")->execute($objProjects->id);
+                    }
 
-				$arrServices = array();
-				while ($objServices->next())
-				{
-					$id = $objServices->id;
-					$arrServices[] = array(
+                    $arrServices = array();
+                    if($objServices != null) {
+                        while ($objServices->next())
+                        {
+                            $id = $objServices->id;
+                            $arrServices[] = array(
+                                'id' => $id,
+                                'serviceTitle' => $objServices->serviceTitle,
+                                'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
+                            );
+                        }
+                    }
+
+                    // Get all products of this project
+                    if($searchType == 'product' && !empty($searchValue)) {
+                        $objProducts = $this->Database->prepare("
+                            SELECT pp.id, p.title as productTitle, pt.icon
+                            FROM tl_li_product_to_customer AS pp
+                                INNER JOIN tl_li_product AS p ON pp.toProduct = p.id
+                                INNER JOIN tl_li_product_type AS pt ON p.toProductType = pt.id
+                            WHERE pp.toProject = ".$objProjects->id."
+                                AND p.title LIKE '%".$searchValue."%'
+                            ORDER BY p.title
+                        ")->execute();
+                    } elseif($searchType == 'service' && !empty($searchValue)) {
+                        $objProducts = null;
+                    } else {
+                        $objProducts = $this->Database->prepare("
+                            SELECT pp.id, p.title as productTitle, pt.icon
+                            FROM tl_li_product_to_customer AS pp
+                                INNER JOIN tl_li_product AS p ON pp.toProduct = p.id
+                                INNER JOIN tl_li_product_type AS pt ON p.toProductType = pt.id
+                            WHERE pp.toProject = ?
+                            ORDER BY p.title
+                        ")->execute($objProjects->id);
+                    }
+                    $arrProducts = array();
+                    if($objProducts != null) {
+                        while ($objProducts->next())
+                        {
+                            $id = $objProducts->id;
+                            $arrProducts[] = array(
+                                'id' => $id,
+                                'productTitle' => $objProducts->productTitle,
+                                'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
+                            );
+                        }
+                    }
+
+                    $id = $objProjects->id;
+                    $arrProjects[] = array(
                         'id' => $id,
-                        'serviceTitle' => $objServices->serviceTitle,
-                        'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
-					);
-				}
-
-				// Get all products of this project
-				$objProducts = $this->Database->prepare("SELECT pp.id, p.title as productTitle, pt.icon
-					FROM tl_li_product_to_customer AS pp
-						INNER JOIN tl_li_product AS p ON pp.toProduct = p.id
-						INNER JOIN tl_li_product_type AS pt ON p.toProductType = pt.id
-					WHERE pp.toProject = ?
-					ORDER BY p.title")->execute($objProjects->id);
-				$arrProducts = array();
-				while ($objProducts->next())
-				{
-					$id = $objProducts->id;
-					$arrProducts[] = array(
-						'id' => $id,
-						'productTitle' => $objProducts->productTitle,
-						'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
-					);
-				}
-                
-				$id = $objProjects->id;
-				$arrProjects[] = array(
-						'id' => $id,
-						'projectNumber' => $objProjects->projectNumber,
-						'title' => $objProjects->title,
-						'services' => $arrServices,
+                        'projectNumber' => $objProjects->projectNumber,
+                        'title' => $objProjects->title,
+                        'services' => $arrServices,
                         'products' => $arrProducts,
-						'display' => $_SESSION['li_crm']['customerList']['project'][$id]['display']
-				);
-			}
+                        'display' => $_SESSION['li_crm']['customerList']['project'][$id]['display']
+                    );
+                }
+            }
+
 
 			$id = $objCustomers->id;
 			$arrCustomers[] = array(
