@@ -94,5 +94,92 @@ class Customer extends Controller
 		;
 	}
 
+    public function changeMandatoryFields(DataContainer $dc) {
+            if($dc->activeRecord == null) {
+                $objMember = $this->Database->prepare("
+                    SELECT isCustomer
+                    FROM tl_member
+                    WHERE id = ?
+                ")->limit(1)->execute($dc->id);
+                $isCustomer = $objMember->isCustomer;
+            } else {
+                $isCustomer = $dc->activeRecord->isCustomer;
+            }
+
+            if($isCustomer) {
+                $GLOBALS['TL_DCA']['tl_member']['fields']['gender']['eval']['mandatory'] = true;
+                $GLOBALS['TL_DCA']['tl_member']['fields']['street']['eval']['mandatory'] = true;
+                $GLOBALS['TL_DCA']['tl_member']['fields']['postal']['eval']['mandatory'] = true;
+                $GLOBALS['TL_DCA']['tl_member']['fields']['city']['eval']['mandatory'] = true;
+                $GLOBALS['TL_DCA']['tl_member']['fields']['country']['eval']['mandatory'] = true;
+                $GLOBALS['TL_DCA']['tl_member']['fields']['language']['eval']['mandatory'] = true;
+            }
+    }
+
+    public function updateDefaultAddress(DataContainer $dc) {
+        $objAddress = $this->Database->prepare("
+            SELECT id
+            FROM tl_address
+            WHERE pid = ?
+                AND isDefaultAddress = 1
+        ")->limit(1)->execute($dc->id);
+        if($objAddress->numRows == 1) {
+            // Default address available
+            $this->Database->prepare("
+                UPDATE tl_address
+                SET firstname = ?, lastname = ?, gender = ?, language = ?,
+                    company = ?, street = ?, street_2 = ?, street_3 = ?, postal = ?, city = ?, state = ?, country = ?,
+                    email = ?, secondEmail = ?, phone = ?, mobile = ?, fax = ?, website = ?
+            ")->execute(
+                $dc->activeRecord->firstname,
+                $dc->activeRecord->lastname,
+                $dc->activeRecord->gender,
+                $dc->activeRecord->language,
+                $dc->activeRecord->company != null ? $dc->activeRecord->company : '',
+                $dc->activeRecord->street,
+                $dc->activeRecord->street_2 != null ? $dc->activeRecord->street_2 : '',
+                $dc->activeRecord->street_3 != null ? $dc->activeRecord->street_3 : '',
+                $dc->activeRecord->postal,
+                $dc->activeRecord->city,
+                $dc->activeRecord->state != null ? $dc->activeRecord->state : '',
+                $dc->activeRecord->country,
+                $dc->activeRecord->email,
+                $dc->activeRecord->secondEmail != null ? $dc->activeRecord->secondEmail : '',
+                $dc->activeRecord->phone != null ? $dc->activeRecord->phone : '',
+                $dc->activeRecord->mobile != null ? $dc->activeRecord->mobile : '',
+                $dc->activeRecord->fax != null ? $dc->activeRecord->fax : '',
+                $dc->activeRecord->website != null ? $dc->activeRecord->website : ''
+            );
+        } else {
+            // No default address available
+            $this->Database->prepare("
+                INSERT INTO tl_address (pid, firstname, lastname, gender, language,
+                  company, street, street_2, street_3, postal, city, state, country,
+                  email, secondEmail, phone, mobile, fax, website, isDefaultAddress)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+            ")->execute(
+                $dc->activeRecord->id,
+                $dc->activeRecord->firstname,
+                $dc->activeRecord->lastname,
+                $dc->activeRecord->gender,
+                $dc->activeRecord->language,
+                $dc->activeRecord->company != null ? $dc->activeRecord->company : '',
+                $dc->activeRecord->street,
+                $dc->activeRecord->street_2 != null ? $dc->activeRecord->street_2 : '',
+                $dc->activeRecord->street_3 != null ? $dc->activeRecord->street_3 : '',
+                $dc->activeRecord->postal,
+                $dc->activeRecord->city,
+                $dc->activeRecord->state != null ? $dc->activeRecord->state : '',
+                $dc->activeRecord->country,
+                $dc->activeRecord->email,
+                $dc->activeRecord->secondEmail != null ? $dc->activeRecord->secondEmail : '',
+                $dc->activeRecord->phone != null ? $dc->activeRecord->phone : '',
+                $dc->activeRecord->mobile != null ? $dc->activeRecord->mobile : '',
+                $dc->activeRecord->fax != null ? $dc->activeRecord->fax : '',
+                $dc->activeRecord->website != null ? $dc->activeRecord->website : ''
+            );
+        }
+    }
+
 }
 ?>

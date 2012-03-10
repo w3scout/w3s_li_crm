@@ -12,6 +12,8 @@ if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 // Modify member dca to add customer fields
 $GLOBALS['TL_DCA']['tl_member']['config']['ctable'][]           = 'tl_li_contact';
+$GLOBALS['TL_DCA']['tl_member']['config']['onload_callback'][] = array('Customer', 'changeMandatoryFields');
+$GLOBALS['TL_DCA']['tl_member']['config']['onsubmit_callback'][] = array('Customer', 'updateDefaultAddress');
 $GLOBALS['TL_DCA']['tl_member']['palettes']['default']          = "{customer_legend}, isCustomer; ".$GLOBALS['TL_DCA']['tl_member']['palettes']['default'];
 $GLOBALS['TL_DCA']['tl_member']['palettes']['__selector__'][]   = 'isCustomer';
 $GLOBALS['TL_DCA']['tl_member']['subpalettes']                  = array(
