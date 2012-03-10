@@ -116,15 +116,15 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('tl_class' => 'w50','includeBlankOption' => true, 'submitOnChange' => true)
+			'eval'                    => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true)
 		),
         'toProject' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_task']['toProject'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
-			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true),
-			'options_callback'        => array('Project', 'getProjectsOfCustomer')
+			'options_callback'        => array('Project', 'getProjectsOfCustomer'),
+            'eval'                    => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
 		),
         'toStatus' => array
 		(
@@ -133,7 +133,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
             'foreignKey'              => 'tl_li_task_status.title',
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
         'toUser' => array
 		(
@@ -142,7 +142,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
             'foreignKey'              => 'tl_user.username',
-			'eval'                    => array('tl_class'=>'w50')
+			'eval'                    => array('tl_class'=>'w50', 'chosen'=>true)
         ),
         'priority' => array
 		(
@@ -151,7 +151,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Task', 'getPriorityOptions'),
-			'eval'                    => array('tl_class'=>'w50')
+			'eval'                    => array('tl_class'=>'w50', 'chosen'=>true)
         ),
         'title' => array
 		(

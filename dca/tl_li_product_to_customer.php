@@ -34,23 +34,23 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true, 'submitOnChange'=>true)
+			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true, 'submitOnChange'=>true)
 		),
         'toProject' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
-			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true),
-			'options_callback'        => array('Project', 'getProjectsOfCustomer')
+			'options_callback'        => array('Project', 'getProjectsOfCustomer'),
+            'eval'                    => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true)
 		),
 		'toProduct' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct'],
 			'inputType'               => 'select',
 			'exclude'   			  => true,
-			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true),
-			'options_callback'        => array('Product', 'getProductsList')
+			'options_callback'        => array('Product', 'getProductsList'),
+            'eval'                    => array('mandatory' => true, 'chosen'=>true, 'tl_class' => 'w50', 'includeBlankOption' => true)
 		)
 	)
 );

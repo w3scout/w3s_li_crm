@@ -114,5 +114,3 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 		),
 	)
 );
-
-?>

@@ -156,7 +156,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
             'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
         ),
         'toCategory' => array
 		(
@@ -165,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
             'foreignKey'              => 'tl_li_invoice_category.title',
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50')
         ),
         'title' => array
 		(
@@ -216,12 +216,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'exclude'   			  => true,
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
-        'currency' => array(
-            'label' => &$GLOBALS['TL_LANG']['tl_li_invoice']['currency'],
-            'inputType' => 'select',
-            'exclude' => true,
-            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval' => array('mandatory' => true, 'tl_class' => 'w50', 'submitOnChange'=>true),
+        'currency' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['currency'],
+            'inputType'               => 'select',
+            'exclude'                 => true,
+            'options_callback'        => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
         ),
 		'maturity' => array
 		(
@@ -275,7 +276,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'foreignKey'              => 'tl_li_invoice_template.title',
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
         'toAddress' => array
 		(
@@ -283,7 +284,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Invoice', 'getAddressOptions'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
         'descriptionBefore' => array
 		(
@@ -313,7 +314,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'exclude'           => true,
 						'inputType'         => 'select',
 						'options_callback' 	=> array('Invoice', 'getUnitOptions'),
-						'eval' 				=> array('style' => 'width:80px;')
+						'eval' 				=> array('style'=>'width:80px;', 'chosen'=>true)
 					),
 					'item' => array
 					(
@@ -321,7 +322,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'exclude'           => true,
 						'inputType'         => 'select',
 						'options_callback'  => array('Invoice', 'getServiceOptions'),
-						'eval' 				=> array('style'=>'width:160px;', 'includeBlankOption'=>true)
+						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
 					(
@@ -354,7 +355,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'exclude'           => true,
 						'inputType'         => 'select',
 						'options_callback' 	=> array('Invoice', 'getUnitOptions'),
-						'eval' 				=> array('style' => 'width:80px;')
+						'eval' 				=> array('style'=>'width:80px;', 'chosen'=>true)
 					),
 					'item' => array
 					(
@@ -362,7 +363,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'exclude'           => true,
 						'inputType'         => 'select',
 						'options_callback'  => array('Invoice', 'getProductOptions'),
-						'eval' 				=> array('style'=>'width:160px;', 'includeBlankOption'=>true)
+						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
 					(
@@ -395,7 +396,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'exclude'           => true,
 						'inputType'         => 'select',
 						'options_callback'  => array('Invoice', 'getHourOptions'),
-						'eval' 				=> array('style'=>'width:247px;', 'includeBlankOption'=>true)
+						'eval' 				=> array('style'=>'width:247px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
 					(
@@ -423,5 +424,3 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
         )
 	)
 );
-
-?>

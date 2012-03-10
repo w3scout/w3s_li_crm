@@ -29,7 +29,8 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 	),
 	'fields' => array
 	(
-		'user'          => array(
+		'user'          => array
+        (
 			'default' => $this->User->id
 		),
 		'entryDate'     => array
@@ -50,7 +51,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 			'inputType'			=> 'select',
 			'exclude'   		=> true,
 			'options_callback'	=> array('WorkPackage', 'getWorkPackages'),
-			'eval'				=> array('mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50')
+			'eval'				=> array('mandatory' => true, 'chosen'=>true, 'includeBlankOption' => true, 'tl_class' => 'w50')
 		),
         'hours' => array
 		(

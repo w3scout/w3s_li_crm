@@ -12,23 +12,23 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 (
 	'config' => array
 	(
-		'dataContainer'     => 'Table',
-		'enableVersioning'  => true
+		'dataContainer'         => 'Table',
+		'enableVersioning'      => true
 	),
 	'list' => array
 	(
 		'sorting' => array
 		(
-			'mode'      => 1,
-			'fields'    => array('toCustomer'),
-            'flag'      => 11,
-            'panelLayout' => 'filter;search,limit'
+			'mode'              => 1,
+			'fields'            => array('toCustomer'),
+            'flag'              => 11,
+            'panelLayout'       =>'filter;search,limit'
 		),
 		'label' => array
 		(
             'fields'            => array('title'),
-            'group_callback' => array('WorkPackage', 'getGroupLabel'),
-            'label_callback' => array('WorkPackage', 'getLabel')
+            'group_callback'    => array('WorkPackage', 'getGroupLabel'),
+            'label_callback'    => array('WorkPackage', 'getLabel')
 		),
 		'global_operations' => array
 		(
@@ -44,15 +44,15 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 		(
 			'edit' => array
 			(
-				'label' => &$GLOBALS['TL_LANG']['tl_li_work_package']['edit'],
-				'href'  => 'act=edit',
-				'icon'  => 'edit.gif'
+				'label'         => &$GLOBALS['TL_LANG']['tl_li_work_package']['edit'],
+				'href'          => 'act=edit',
+				'icon'          => 'edit.gif'
 			),
 			'copy' => array
 			(
-				'label' => &$GLOBALS['TL_LANG']['tl_li_work_package']['copy'],
-				'href'  => 'act=copy',
-				'icon'  => 'copy.gif'
+				'label'         => &$GLOBALS['TL_LANG']['tl_li_work_package']['copy'],
+				'href'          => 'act=copy',
+				'icon'          => 'copy.gif'
 			),
 			'delete' => array
 			(
@@ -63,37 +63,30 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			),
 			'show' => array
 			(
-				'label' => &$GLOBALS['TL_LANG']['tl_li_work_package']['show'],
-				'href'  => 'act=show',
-				'icon'  => 'show.gif'
+				'label'         => &$GLOBALS['TL_LANG']['tl_li_work_package']['show'],
+				'href'          => 'act=show',
+				'icon'          => 'show.gif'
 			)
 		)
 	),
 	'palettes' => array
 	(
-		'__selector__'  => array('isExternal'),
-		'default'       => '{package_legend},title,hourLimit,toHourlyWage;{settings_legend},isExternal;'
+		'__selector__'          => array('isExternal'),
+		'default'               => '{package_legend},title,toHourlyWage,hourLimit;{settings_legend},isExternal;'
 	),
 	'subpalettes' => array
 	(
-		'isExternal' => 'toCustomer,toProject,printOnInvoice'
+		'isExternal'            => 'toCustomer,toProject,printOnInvoice'
 	),
 	'fields' => array
 	(
 		'title' => array
 		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_li_work_package']['title'],
-			'inputType' => 'text',
-			'exclude'   => true,
-            'search'    => true,
-			'eval'      => array('mandatory' => true, 'maxlength' => 250, 'tl_class' => 'w50')
-		),
-		'hourLimit' => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit'],
-			'inputType' => 'text',
-			'exclude'   => true,
-			'eval'      => array('rgxp' => 'digit', 'maxlength' => 4)
+			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['title'],
+			'inputType'         =>'text',
+			'exclude'           => true,
+            'search'            => true,
+			'eval'              => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
         'toHourlyWage' => array
         (
@@ -102,33 +95,39 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
             'exclude'   		=> true,
             'filter'            => true,
             'foreignKey'        => 'tl_li_hourly_wage.title',
-            'eval'              => array('mandatory' => true, 'includeBlankOption' => true, 'tl_class'=>'clr'),
             'options_callback'  => array('HourlyWage', 'getHourlyWagesList'),
+            'eval'              => array('mandatory'=>true, 'chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50')
+        ),
+        'hourLimit' => array
+        (
+            'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit'],
+            'inputType'         =>'text',
+            'exclude'           => true,
+            'eval'              => array('rgxp'=>'digit', 'maxlength'=>4, 'tl_class'=>'w50')
         ),
 		'isExternal' => array
         (
-        	'label'     => &$GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'],
-        	'inputType' => 'checkbox',
-        	'exclude'   => true,
-            'filter'    => true,
-        	'eval'      => array('submitOnChange' => true, 'tl_class' => 'clr')
+        	'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['isExternal'],
+        	'inputType'         =>'checkbox',
+        	'exclude'           => true,
+            'filter'            => true,
+        	'eval'              => array('submitOnChange'=>true, 'tl_class'=>'clr')
         ),
         'toCustomer' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer'],
-			'inputType'               => 'select',
-			'exclude'   			  => true,
-			'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50','includeBlankOption' => true,
-                'submitOnChange' => true)
+			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer'],
+			'inputType'         => 'select',
+			'exclude'   		=> true,
+			'options_callback'  => array('Customer', 'getCustomerOptions'),
+			'eval'              => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true, 'submitOnChange'=>true)
 		),
         'toProject' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'],
-			'inputType'               => 'select',
-			'exclude'   			  => true,
-			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true),
-			'options_callback'        => array('Project', 'getProjectsOfCustomer')
+			'label'             => &$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'],
+			'inputType'         => 'select',
+			'exclude'   		=> true,
+			'options_callback'  => array('Project', 'getProjectsOfCustomer'),
+            'eval'              => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
 		),
 		'printOnInvoice' => array
 		(

@@ -96,7 +96,7 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('mandatory'=>true)
+			'eval'                    => array('mandatory'=>true, 'chosen'=>true)
 		),
         'projectNumber' => array
 		(

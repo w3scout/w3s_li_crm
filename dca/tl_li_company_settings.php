@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
             'inputType'               => 'select',
             'exclude'   			  => true,
             'options_callback'        => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval'                    => array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
         ),
         'li_crm_company_tax_number' => array
 		(
@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 			'exclude'   			  => true,
 			'options'                 => array_keys($this->getCountries()),
 			'reference'               => $this->getCountries(),
-			'eval'                    => array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
 		),
 		'li_crm_company_phone' => array
 		(

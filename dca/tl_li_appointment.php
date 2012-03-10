@@ -86,7 +86,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('tl_class' => 'w50','includeBlankOption' => true, 'submitOnChange' => true)
+			'eval'                    => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true)
 		),
         'creator' => array
 		(
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'inputType'               => 'select',
 			'foreignKey'			  => 'tl_user.name',
 			'exclude'   			  => true,
-			'eval'                    => array('mandatory' => true, 'tl_class' => 'w50', 'includeBlankOption' => true)
+			'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true)
 		),
         'subject' => array
 		(
@@ -110,7 +110,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'inputType'               => 'select',
 			'options_callback'		  => array('Task', 'getTaskOptions'),
 			'exclude'   			  => true,
-			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true)
+			'eval'                    => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
 		),
 		'participants' => array
 		(
@@ -137,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'flag'      			  => 1,
 			'inputType' 			  => 'text',
 			'exclude'   			  => true,
-			'eval'      			  => array('maxlength' => 6, 'isHexColor' => true, 'tl_class' => 'w50')
+			'eval'      			  => array('maxlength'=>6, 'isHexColor'=>true, 'tl_class'=>'w50')
 		),
 		'note' => array
 		(
@@ -195,7 +195,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'exclude'   			  => true,
 			'options'                 => array('weekly', 'biweekly', 'monthly'),
 			'reference'				  => &$GLOBALS['TL_LANG']['tl_li_appointment']['periods'],
-			'eval'                    => array('includeBlankOption' => true)
+			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true)
 		),
 		'private' => array
 		(

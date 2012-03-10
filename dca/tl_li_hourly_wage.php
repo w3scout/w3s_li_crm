@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'exclude'   => true,
 			'default'	=> '',
             'search'    => true,
-			'eval'		=> array('mandatory' => true, 'maxlength'=>250),
+			'eval'		=> array('mandatory'=>true, 'maxlength'=>250),
 		),
 		'wage' => array
 		(
@@ -93,7 +93,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'default'	=> '',
             'rgxp'      => 'digit',
             'filter'    => true,
-			'eval'		=> array('mandatory' => true, 'tl_class' => 'w50'),
+			'eval'		=> array('mandatory'=>true, 'tl_class'=>'w50'),
 		),
         'toTax' => array
 		(
@@ -101,14 +101,14 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'inputType' 	   => 'select',
 			'exclude'   	   => true,
 			'options_callback' => array('CompanySettings', 'getTaxOptions'),
-			'eval'      	   => array('mandatory'=>true, 'tl_class'=>'w50')
+			'eval'      	   => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
 		),
         'currency' => array(
-            'label' => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency'],
-            'inputType' => 'select',
-            'exclude' => true,
+            'label'            => &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency'],
+            'inputType'        => 'select',
+            'exclude'          => true,
             'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+            'eval'             => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
         )
 	)
 );

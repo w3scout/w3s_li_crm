@@ -87,7 +87,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'inputType'         => 'select',
 			'exclude'   		=> true,
             'options_callback'  => array('InvoiceReminder', 'getCustomerOptions'),
-			'eval'              => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+			'eval'              => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
         ),
         'toInvoice' => array
 		(
@@ -95,45 +95,45 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'inputType'         => 'select',
 			'exclude'   		=> true,
             'options_callback'  => array('InvoiceReminder', 'getInvoiceOptions'),
-			'eval'              => array('tl_class'=>'w50', 'mandatory'=>true, 'submitOnChange'=>true, 'includeBlankOption'=>true)
+			'eval'              => array('tl_class'=>'w50', 'mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'includeBlankOption'=>true)
         ),
         'remindOnce' => array
 		(
-            'label'     => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindOnce'],
-			'inputType' => 'checkbox',
-			'exclude'   => true,
-			'filter'    => true,
-			'eval'      => array('submitOnChange'=>true)
+            'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindOnce'],
+			'inputType'         => 'checkbox',
+			'exclude'           => true,
+			'filter'            => true,
+			'eval'              => array('submitOnChange'=>true)
         ),
         'remindDate' => array
 		(
-			'label'         => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindDate'],
-			'default'       => time(),
-			'filter'        => true,
-			'sorting'       => true,
-			'flag'          => 8,
-			'inputType'     => 'text',
-			'exclude'   	=> true,
-			'load_callback' => array(array('InvoiceReminder', 'getRemindDate')),
-			'eval'          => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindDate'],
+			'default'           => time(),
+			'filter'            => true,
+			'sorting'           => true,
+			'flag'              => 8,
+			'inputType'         => 'text',
+			'exclude'   	    => true,
+			'load_callback'     => array(array('InvoiceReminder', 'getRemindDate')),
+			'eval'              => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
 		),
         'remindRepeatedly' => array
 		(
-            'label'     => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindRepeatedly'],
-			'inputType' => 'checkbox',
-			'exclude'   => true,
-			'filter'    => true,
-			'eval'      => array('submitOnChange'=>true)
+            'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindRepeatedly'],
+			'inputType'         => 'checkbox',
+			'exclude'           => true,
+			'filter'            => true,
+			'eval'              => array('submitOnChange'=>true)
         ),
         'remindInterval' => array
 		(
-            'label'     => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval'],
-			'filter'    => true,
-			'inputType' => 'select',
-			'exclude'   => true,
-            'options'   => array('daily', 'weekly', 'monthly', 'yearly'),
-            'reference' => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval'],
-			'eval'      => array('tl_class'=>'w50')
+            'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval'],
+			'filter'            => true,
+			'inputType'         => 'select',
+			'exclude'           => true,
+            'options'           => array('daily', 'weekly', 'monthly', 'yearly'),
+            'reference'         => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval'],
+			'eval'              => array('tl_class'=>'w50', 'chosen'=>true)
         )
 	)
 );

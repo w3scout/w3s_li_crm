@@ -84,15 +84,15 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	// Fields
 	'fields' => array
 	(
-		'toProductType' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['toProductType'],
-			'inputType'               => 'select',
-			'exclude'   			  => true,
-			'foreignKey'              => 'tl_li_product_type.title',
-			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr', 'submitOnChange'=>true, 'tl_class'=>'w50',)
-		),
-		'number' => array
+        'toProductType' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['toProductType'],
+            'inputType'               => 'select',
+            'exclude'   			  => true,
+            'foreignKey'              => 'tl_li_product_type.title',
+            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true)
+        ),
+        'number' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['number'],
 			'inputType'               => 'text',
@@ -119,16 +119,15 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'inputType'               => 'select',
 			'exclude'   			  => true,
 			'options_callback'		  => array('CompanySettings', 'getTaxOptions'),
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
+			'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit')
 		),
-        'currency' => array(
-            'label' => &$GLOBALS['TL_LANG']['tl_li_product']['currency'],
-            'inputType' => 'select',
-            'exclude' => true,
-            'options_callback' => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval' => array('mandatory' => true, 'tl_class' => 'w50'),
+        'currency' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['currency'],
+            'inputType'               => 'select',
+            'exclude'                 => true,
+            'options_callback'        => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval'                    => array('mandatory' => true, 'chosen'=>true, 'tl_class' => 'w50'),
         )
 	)
 );
-
-?>

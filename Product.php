@@ -57,4 +57,5 @@ class Product extends Controller
         }
         return $productList;
     }
+
 }

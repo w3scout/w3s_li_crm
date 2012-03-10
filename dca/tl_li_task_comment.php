@@ -39,7 +39,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 		),
 		'operations' => array
 		(
-			'edit'=> array
+			'edit' => array
 			(
 				'label'              => &$GLOBALS['TL_LANG']['tl_li_task_comment']['edit'],
 				'href'               => 'act=edit',
@@ -55,66 +55,69 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 	),
 	'subpalettes' => array
 	(
-		'changeCustomerProject'=> 'toCustomer,toProject',
-		'changePriority'       => 'priority',
-		'changeTitle'          => 'title',
-		'changeDeadline'       => 'deadline',
-		'keeptime'             => 'hours,minutes,toWorkPackage'
+		'changeCustomerProject' => 'toCustomer,toProject',
+		'changePriority'        => 'priority',
+		'changeTitle'           => 'title',
+		'changeDeadline'        => 'deadline',
+		'keeptime'              => 'hours,minutes,toWorkPackage'
 	),
-	'fields'      => array
+	'fields' => array
 	(
-		'user'                 => array
+		'user' => array
 		(
 			'default'=> $this->User->id
 		),
-		'changeCustomerProject'=> array
+		'changeCustomerProject' => array
 		(
-			'label'        => &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeCustomerProject'],
-			'inputType'	=> 'checkbox',
-			'eval'         => array('tl_class'          => 'clr',
-			                        'submitOnChange'	=> true)
+			'label'             => &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeCustomerProject'],
+			'inputType'	        => 'checkbox',
+			'eval'              => array('tl_class' => 'clr',
+			                        'submitOnChange' => true)
 		),
-		'toCustomer'           => array
+		'toCustomer' => array
 		(
 			'label'               => &$GLOBALS['TL_LANG']['tl_li_task_comment']['toCustomer'],
 			'inputType'           => 'select',
 			'options_callback'	=> array('Customer', 'getCustomerOptions'),
 			'eval'                => array('tl_class'          => 'w50clr',
 			                               'includeBlankOption'=> true,
-			                               'submitOnChange'    => true),
+			                               'submitOnChange'    => true,
+                                           'chosen'=>true),
 			'passToTask'          => 'changeCustomer'
 		),
-		'toProject'            => array
+		'toProject' => array
 		(
 			'label'               => &$GLOBALS['TL_LANG']['tl_li_task_comment']['toProject'],
 			'inputType'           => 'select',
 			'eval'                => array('tl_class'          => 'w50',
-			                               'includeBlankOption'=> true),
+			                               'includeBlankOption'=> true,
+                                            'chosen'=>true),
 			'options_callback'	=> array('Project', 'getProjectsOfCustomer'),
 			'passToTask'          => 'changeProject'
 		),
-		'changePriority'       => array
+		'changePriority' => array
 		(
 			'label'        => &$GLOBALS['TL_LANG']['tl_li_task_comment']['changePriority'],
 			'inputType'	=> 'checkbox',
 			'eval'         => array('tl_class'          => 'clr',
 			                        'submitOnChange'	=> true)
 		),
-		'priority'             => array
+		'priority' => array
 		(
 			'label'               => &$GLOBALS['TL_LANG']['tl_li_task_comment']['priority'],
 			'inputType'           => 'select',
 			'options_callback'	=> array('Task', 'getPriorityOptions'),
+            'eval'                => array('chosen'=>true),
 			'passToTask'          => 'changePriority'
 		),
-		'changeTitle'          => array
+		'changeTitle' => array
 		(
 			'label'        => &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeTitle'],
 			'inputType'	=> 'checkbox',
 			'eval'         => array('tl_class'          => 'clr',
 			                        'submitOnChange'	=> true)
 		),
-		'title'                => array
+		'title' => array
 		(
 			'label'                  => &$GLOBALS['TL_LANG']['tl_li_task_comment']['title'],
 			'inputType'              => 'text',
@@ -123,14 +126,14 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'eval'                   => array('maxlength'=> 250),
 			'passToTask'             => 'changeTitle'
 		),
-		'changeDeadline'       => array
+		'changeDeadline' => array
 		(
 			'label'        => &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeDeadline'],
 			'inputType'	=> 'checkbox',
 			'eval'         => array('tl_class'          => 'clr',
 			                        'submitOnChange'	=> true)
 		),
-		'deadline'             => array
+		'deadline' => array
 		(
 			'label'                  => &$GLOBALS['TL_LANG']['tl_li_task_comment']['deadline'],
 			'default'                => time(),
@@ -144,7 +147,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			                                  'tl_class'  => 'wizard'),
 			'passToTask'             => 'changeDeadline'
 		),
-		'toStatus'             => array
+		'toStatus' => array
 		(
 			'label'                  => &$GLOBALS['TL_LANG']['tl_li_task_comment']['toStatus'],
 			'filter'                 => true,
@@ -153,38 +156,39 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'foreignKey'             => 'tl_li_task_status.title',
 			'eval'                   => array('includeBlankOption'=> true,
 			                                  'tl_class'          => 'w50',
-			                                  'mandatory'         => true),
+			                                  'mandatory'         => true,
+                                              'chosen'=>true),
 			'passToTask'             => true
 		),
-		'toUser'               => array
+		'toUser' => array
 		(
 			'label'         => &$GLOBALS['TL_LANG']['tl_li_task_comment']['toUser'],
 			'inputType'     => 'select',
 			'foreignKey'	=> 'tl_user.username',
-			'eval'          => array('tl_class'=> 'w50'),
+			'eval'          => array('tl_class'=> 'w50', 'chosen'=>true),
 			'passToTask'	=> true
 		),
-		'comment'              => array
+		'comment' => array
 		(
 			'label'        => &$GLOBALS['TL_LANG']['tl_li_task_comment']['comment'],
 			'inputType'	=> 'textarea',
 			'eval'         => array('tl_class'=> 'clr',
 			                        'rte'     => 'tinyMCE')
 		),
-		'keeptime'             => array
+		'keeptime' => array
 		(
 			'label'        => &$GLOBALS['TL_LANG']['tl_li_task_comment']['keeptime'],
 			'inputType'	=> 'checkbox',
 			'eval'         => array('submitOnChange'=> true)
 		),
-		'hours'                => array
+		'hours' => array
 		(
 			'label'        => &$GLOBALS['TL_LANG']['tl_li_task_comment']['hours'],
 			'inputType'	=> 'text',
 			'eval'         => array('rgxp'    => 'digit',
 			                        'tl_class'=> 'w50')
 		),
-		'minutes'              => array
+		'minutes' => array
 		(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['minutes'],
 			'inputType'	=> 'text',
@@ -192,7 +196,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			                        'maxlength'=> '2',
 			                        'tl_class' => 'w50')
 		),
-		'toWorkPackage'        => array
+		'toWorkPackage' => array
 		(
 			'label'				=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['toWorkPackage'],
 			'inputType'			=> 'select',
@@ -200,9 +204,10 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'options_callback'     => array('WorkPackage', 'getWorkPackages'),
 			'eval'                 => array('mandatory'         => true,
 			                                'includeBlankOption'=> true,
-			                                'tl_class'          => 'w50')
+			                                'tl_class'          => 'w50',
+                                            'chosen'=>true)
 		),
-		'history'              => array
+		'history' => array
 		(
 			'label'                => &$GLOBALS['TL_LANG']['tl_li_task_comment']['history'],
 			'inputType'			=> 'TaskHistory'

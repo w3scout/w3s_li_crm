@@ -22,8 +22,10 @@ $GLOBALS['TL_DCA']['tl_member']['subpalettes']                  = array(
     'isCustomer' => 'customerNumber,customerName,customerColor');
 
 // Insert adresses support
-array_insert($GLOBALS['TL_DCA']['tl_member']['list']['operations'], 5, array(
-    'contacts' => array(
+array_insert($GLOBALS['TL_DCA']['tl_member']['list']['operations'], 5, array
+(
+    'contacts' => array
+    (
         'label' => &$GLOBALS['TL_LANG']['tl_member']['contacts'],
     	'href'  => 'table=tl_li_contact',
     	'icon'  => 'system/modules/li_crm/icons/contacts.png'

@@ -270,10 +270,12 @@ class Invoice extends BackendModule
 		    WHERE id = ?
 		")->limit(1)->execute($mcw->currentRecord);
 		$objProducts = $this->Database->prepare("
-            SELECT id, title
-            FROM tl_li_product
-            WHERE toCustomer = ?
-              AND currency = ?
+            SELECT p.id, p.title
+            FROM tl_li_product AS p
+            INNER JOIN tl_li_product_to_customer AS ptc
+                ON ptc.toProduct = p.id
+            WHERE ptc.toCustomer = ?
+              AND p.currency = ?
         ")->execute($objInvoice->toCustomer, $objInvoice->currency);
 		while ($objProducts->next())
 		{
@@ -1048,4 +1050,3 @@ class Invoice extends BackendModule
 	}
 
 }
-?>

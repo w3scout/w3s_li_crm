@@ -25,8 +25,8 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 		),
 		'label' => array
 		(
-			'fields'            => array('toTask'),
-			'label_callback'    => array('TaskReminder', 'renderLabel'),
+			'fields'                  => array('toTask'),
+			'label_callback'          => array('TaskReminder', 'renderLabel'),
 		),
 		'global_operations' => array
 		(
@@ -86,7 +86,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'exclude'   			  => true,
             'foreignKey'        	  => 'tl_li_task.title',
             'options_callback'        => array('TaskReminder', 'getTaskOptions'),
-			'eval'                    => array('tl_class' => 'w50', 'includeBlankOption' => true)
+			'eval'                    => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true)
         ),
         'remindOnce' => array
 		(
@@ -125,7 +125,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'exclude'   			  => true,
             'options'                 => array('daily', 'weekly', 'monthly', 'yearly'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindInterval'],
-			'eval'                    => array('tl_class' => 'w50')
+			'eval'                    => array('tl_class' => 'w50', 'chosen'=>true)
         )
 	)
 );

@@ -27,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_li_timekeeping_settings'] = array
 			'explanation' => 'li_crm_timekeeping_calendar_week_mode',
 			'options'	  => array('7', '3', '2', '6'),
 			'reference'   => &$GLOBALS['TL_LANG']['tl_li_timekeeping_settings']['calendarWeekModeOptions'],
-			'eval'		  => array( 'helpwizard' => true, 'mandatory' => true, 'tl_class'=>'w50 wizard')
+			'eval'		  => array('helpwizard' => true, 'chosen'=>true, 'mandatory' => true, 'tl_class'=>'w50 wizard')
 		)
 	)
 );
