@@ -279,6 +279,8 @@ CREATE TABLE `tl_li_invoice` (
   `servicePositions` text NOT NULL,
   `productPositions` text NOT NULL,
   `hourPositions` text NOT NULL,
+  `discount` varchar(255) NOT NULL default '',
+  `earlyPaymentDiscount` text NOT NULL,
   `descriptionAfter` text NOT NULL,
   `published` char(1) NOT NULL default '',
   PRIMARY KEY  (`id`),

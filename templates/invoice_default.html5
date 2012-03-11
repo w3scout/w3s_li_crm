@@ -73,6 +73,11 @@
                 <?php echo $template['positions']; ?>
             </tbody>
         </table>
+        <?php if($template['early_payment_discount'] != ''): ?>
+            <p>
+                <?php echo $template['early_payment_discount']; ?>
+            </p>
+        <?php endif; ?>
         <?php echo $template['description_after']; ?>
         <p><?php echo $template['performance_date_remark']; ?></p>
         <p><?php echo $template['maturity_remark']; ?></p>

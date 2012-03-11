@@ -32,10 +32,12 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['headline'] = array('Headline', 'Please ent
 $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array('Invoice template', 'Please choose an invoice template.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array('Invoice address', 'Please choose an invoice address.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'] = array('Description', 'Please enter the description before the positions.');
+
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'] = array('Description', 'Please enter the description after the positions.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['published'] = array('Publish invoice', 'Make the event publicly visible on the frontend.');
 
-$GLOBALS['TL_LANG']['tl_li_invoice']['new'] = array('New invoice', 'Create a new invoice');
+$GLOBALS['TL_LANG']['tl_li_invoice']['new'] = array('New invoice', 'Create a new invoice');$GLOBALS['TL_LANG']['tl_li_invoice']['discount'] = array('Discount', 'Please enter the discount.');
+$GLOBALS['TL_LANG']['tl_li_invoice']['earlyPaymentDiscount'] = array('Early payment discount text', 'Please enter the early payment discount text.');
 $GLOBALS['TL_LANG']['tl_li_invoice']['edit'] = array('Edit invoice', 'Edit the invoice with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_invoice']['copy'] = array('Duplicate invoice', 'Duplicate the invoice with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array('Delete invoice', 'Delete the invoice with the ID %s');
@@ -90,6 +92,9 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'] = 'Unit';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'] = 'Hour';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['month'] = 'Month';
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['year'] = 'Year';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['discountOptions']['percent'] = '%';
+$GLOBALS['TL_LANG']['tl_li_invoice']['discountOptions']['value'] = 'Value';
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['details'] = 'Details';
 $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice'] = 'Download invoice';

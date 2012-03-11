@@ -137,13 +137,17 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('enableGeneration'),
-		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity;{pdf_legend},file;{settings_legend},isOut,isSingular;{generation_legend},enableGeneration;{publish_legend},published;'
+		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity;
+		                                  {pdf_legend},file;
+		                                  {settings_legend},isOut,isSingular;
+		                                  {generation_legend},enableGeneration;
+		                                  {publish_legend},published;'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'enableGeneration'            => 'headline,toTemplate,toAddress,descriptionBefore,servicePositions,productPositions,hourPositions,descriptionAfter'
+		'enableGeneration'            => 'headline,toTemplate,toAddress,descriptionBefore,servicePositions,productPositions,hourPositions,discount,earlyPaymentDiscount,descriptionAfter'
 	),
 
 	// Fields
@@ -408,6 +412,21 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				)
 			)
 		),
+        'discount' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['discount'],
+            'inputType'               => 'inputUnit',
+            'options'                 => array('percent', 'value'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['discountOptions'],
+            'exclude'   			  => true
+        ),
+        'earlyPaymentDiscount' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['earlyPaymentDiscount'],
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('tl_class'=>'long')
+        ),
         'descriptionAfter' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'],

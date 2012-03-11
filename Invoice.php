@@ -405,6 +405,8 @@ class Invoice extends BackendModule
                 i.toAddress,
                 i.maturity,
                 i.descriptionBefore,
+                i.discount,
+                i.earlyPaymentDiscount,
                 i.descriptionAfter,
                 i.isOut,
                 i.headline,
@@ -468,6 +470,8 @@ class Invoice extends BackendModule
 
             'title' => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
             'introduction' => sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
+
+            'early_payment_discount' => $objInvoice->earlyPaymentDiscount,
 
             'performance_date_remark' => $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
             'account_number' => $GLOBALS['TL_CONFIG']['li_crm_account_number'],
@@ -613,6 +617,46 @@ class Invoice extends BackendModule
 
 			$rowCounter++;
 		}
+
+        $discount = unserialize($objInvoice->discount);
+        if(!empty($discount['value']))
+        {
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+            $htmlPositions .= '<td class="spacer" colspan="5"> </td>';
+            $htmlPositions .= '</tr>';
+            $rowCounter++;
+
+            if($discount['unit'] == 'percent')
+            {
+                $discountValue = $fullNetto * $discount['value'] / 100;
+
+                $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+                $htmlPositions .= '<td class="quantity"> </td>';
+                $htmlPositions .= '<td class="unit"> </td>';
+                $htmlPositions .= '<td class="label">'.$discount['value'].'% '.$GLOBALS['TL_LANG']['tl_li_invoice']['discount'][0].'</td>';
+                $htmlPositions .= '<td class="unit_price price"> </td>';
+                $htmlPositions .= '<td class="total_price price">- '.$this->getFormattedNumber($discountValue).' '.$symbol.'</td>';
+                $htmlPositions .= '</tr>';
+
+                $rowCounter++;
+
+                $fullNetto -= $discountValue;
+            }
+            else
+            {
+                $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+                $htmlPositions .= '<td class="quantity"> </td>';
+                $htmlPositions .= '<td class="unit"> </td>';
+                $htmlPositions .= '<td class="label">'.$GLOBALS['TL_LANG']['tl_li_invoice']['discount'][0].'</td>';
+                $htmlPositions .= '<td class="unit_price price"> </td>';
+                $htmlPositions .= '<td class="total_price price">- '.$this->getFormattedNumber($discount['value']).' '.$symbol.'</td>';
+                $htmlPositions .= '</tr>';
+
+                $rowCounter++;
+
+                $fullNetto -= $discount['value'];
+            }
+        }
 
 		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
 		$htmlPositions .= '<td class="spacer" colspan="5"> </td>';
