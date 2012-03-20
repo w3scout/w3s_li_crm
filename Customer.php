@@ -155,8 +155,8 @@ class Customer extends Controller
             $this->Database->prepare("
                 INSERT INTO tl_address (pid, firstname, lastname, gender, language,
                   company, street, street_2, street_3, postal, city, state, country,
-                  email, secondEmail, phone, mobile, fax, website, isDefaultAddress)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+                  email, secondEmail, phone, mobile, fax, website, isDefaultAddress, isBillingAddress)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)
             ")->execute(
                 $dc->activeRecord->id,
                 $dc->activeRecord->firstname,
