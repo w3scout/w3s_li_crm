@@ -51,6 +51,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'class'               => 'header_invoice_reminder',
 				'attributes'          => 'onclick="Backend.getScrollOffset();"'
 			),
+            'generation' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['generation'],
+                'href'                => 'table=tl_li_invoice_generation',
+                'class'               => 'header_invoice_generation',
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
+            ),
             'all' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
@@ -124,6 +131,11 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'icon'                => 'system/modules/li_crm/icons/invoice_send_disabled.png',
 				'button_callback'     => array('Invoice', 'dispatchIcon')
 			),
+            'generation' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['generation'],
+                'icon'                => 'system/modules/li_crm/icons/generation_new.png'
+            ),
 			'new_reminder' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['new'],

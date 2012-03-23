@@ -231,6 +231,7 @@ class Invoice extends BackendModule
 
 	public function getUnitOptions(MultiColumnWizard $mcw)
 	{
+        $this->loadLanguageFile('tl_li_invoice');
 		$unit_options = array(
 				'unit' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'],
 				'hour' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'],

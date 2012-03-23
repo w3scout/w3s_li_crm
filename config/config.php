@@ -52,7 +52,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         ),
         'li_invoices' => array
         (
-            'tables'     => array('tl_li_invoice', 'tl_li_invoice_reminder'),
+            'tables'     => array('tl_li_invoice', 'tl_li_invoice_reminder', 'tl_li_invoice_generation'),
             'callback'   => 'Invoice',
             'icon'       => 'system/modules/li_crm/icons/invoices.png',
             'stylesheet' => 'system/modules/li_crm/css/crm.css'

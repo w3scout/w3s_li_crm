@@ -287,6 +287,37 @@ CREATE TABLE `tl_li_invoice` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
+-- Table `tl_li_invoice_generation`
+--
+
+CREATE TABLE `tl_li_invoice_generation` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `tstamp` int(10) unsigned NOT NULL default '0',
+  `toCustomer` int(10) unsigned NOT NULL default '0',
+  `toCategory` int(10) unsigned NOT NULL default '0',
+  `title` varchar(255) NOT NULL default '',
+  `alias` varchar(64) NOT NULL default '',
+  `invoiceNumber` varchar(64) NOT NULL default '',
+  `invoiceDate` varchar(10) NOT NULL default '',
+  `performanceDate` varchar(10) NOT NULL default '',
+  `currency` varchar(3) NOT NULL default '',
+  `maturity` int(10) unsigned NOT NULL default '0',
+  `headline` varchar(255) NOT NULL default '',
+  `toTemplate` int(10) unsigned NOT NULL default '0',
+  `toAddress` int(10) unsigned NOT NULL default '0',
+  `descriptionBefore` text NOT NULL,
+  `servicePositions` text NOT NULL,
+  `productPositions` text NOT NULL,
+  `hourPositions` text NOT NULL,
+  `discount` varchar(255) NOT NULL default '',
+  `earlyPaymentDiscount` text NOT NULL,
+  `descriptionAfter` text NOT NULL,
+  `publishImmediately` char(1) NOT NULL default '',
+  `sendImmediately` char(1) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
 -- Table `tl_li_invoice_category`
 --
 

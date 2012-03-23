@@ -47,6 +47,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['generate'] = array('Generate invoice', 'Ge
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array('Dispatch invoice', 'Dispatch the invoice with the ID %s to the customer');
 $GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array('Reports', 'Show the reports for the invoices');
 $GLOBALS['TL_LANG']['tl_li_invoice']['reminder'] = array('Reminders', 'Manage invoice reminders');
+$GLOBALS['TL_LANG']['tl_li_invoice']['generation'] = array('Generations', 'Manage invoice generations');
 $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'] = array('Show invoice file', 'Show the invoice file with the ID %s');
 $GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'] = array('Download invoice', 'Download the invoice with the ID %s');
 

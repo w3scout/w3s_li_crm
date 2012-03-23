@@ -76,7 +76,10 @@
     background: url("../icons/invoice_reminder.png") no-repeat left center;
     padding: 2px 0 3px 21px;
 }
-
+.header_invoice_generation {
+    background: url("../icons/generation.png") no-repeat left center;
+    padding: 2px 0 3px 21px;
+}
 .header_task_reminder {
     background: url("../icons/task_reminder.png") no-repeat left center;
     padding: 2px 0 3px 21px;
