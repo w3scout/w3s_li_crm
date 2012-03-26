@@ -96,6 +96,31 @@ class Invoice extends BackendModule
 		return $varValue;
 	}
 
+    public function generateAliasWithoutDC($title, $id)
+    {
+        // Generate alias
+        $alias = standardize($title);
+
+        $objAlias = $this->Database->prepare("
+            SELECT id
+            FROM tl_li_invoice
+            WHERE alias = ?
+        ")->execute($alias);
+
+        // Check whether the news alias exists
+        if ($objAlias->numRows > 1)
+        {
+            throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $alias));
+        }
+
+        // Add ID to alias
+        if ($objAlias->numRows)
+        {
+            $alias .= '-'.$id;
+        }
+        return $alias;
+    }
+
 	public function renderLabel($row, $label)
 	{
 		if ($row['isOut'] == '1')
@@ -310,7 +335,7 @@ class Invoice extends BackendModule
 			$hours = $objHours->sumHours;
 			$minutes = $objHours->sumMinutes;
 
-			$hours = $this->getTotalHours($objHours->sumHours, $objHours->sumMinutes);
+			$hours = Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
 
 			$options[$objHours->id] = $objHours->title.' ('.$hours.')';
 		}
@@ -328,7 +353,7 @@ class Invoice extends BackendModule
         $fullNetto = $data['fullNetto'];
 		
 		$objInvoice = $this->Database->prepare("
-            SELECT i.alias, t.basePath, t.periodFolder
+            SELECT i.alias, i.invoiceDate, t.basePath, t.periodFolder
             FROM tl_li_invoice AS i
             INNER JOIN tl_li_invoice_template AS t
                 ON i.toTemplate = t.id
@@ -345,34 +370,37 @@ class Invoice extends BackendModule
 		$dompdf->render();
 
 		// Generate export path
-		$exportPath = $objInvoice->basePath == '' ? '../'.TL_ROOT.'/' : '../'.$objInvoice->basePath.'/';
+        $root = TL_ROOT."/";
+        $basePath = $objInvoice->basePath."/";
+        $periodFolder = "";
 
 		if ($objInvoice->periodFolder != '')
 		{
 			if ($objInvoice->periodFolder == 'daily')
 			{
-				$exportPath .= date('Y-z', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y-z', $objInvoice->invoiceDate).'/';
 			}
 			elseif ($objInvoice->periodFolder == 'weekly')
 			{
-				$exportPath .= date('Y-W', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y-W', $objInvoice->invoiceDate).'/';
 			}
 			elseif ($objInvoice->periodFolder == 'monthly')
 			{
-				$exportPath .= date('Y-m', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y-m', $objInvoice->invoiceDate).'/';
 			}
 			elseif ($objInvoice->periodFolder == 'yearly')
 			{
-				$exportPath .= date('Y', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y', $objInvoice->invoiceDate).'/';
 			}
 		}
 
-		if (!file_exists($exportPath))
+		if (!file_exists($root.$basePath.$periodFolder))
 		{
-			mkdir($exportPath, 0777, true);
+			mkdir($root.$basePath.$periodFolder, 0777, true);
 		}
 
-		$exportFile = $exportPath.$objInvoice->alias.'.pdf';
+        $file = $objInvoice->alias.'.pdf';
+		$exportFile = $root.$basePath.$periodFolder.$file;
 
 		// Export pdf
 		$pdfInvoice = fopen($exportFile, 'w');
@@ -380,7 +408,7 @@ class Invoice extends BackendModule
 		fclose($pdfInvoice);
 
 		$templateLink = substr($exportFile, 2);
-		$filePath = substr($exportFile, 3);
+		$filePath = $basePath.$periodFolder.$file;
 
 		$this->Database->prepare("
             UPDATE tl_li_invoice
@@ -997,7 +1025,7 @@ class Invoice extends BackendModule
 		}
 	}
 
-	private function getTotalHours($hours, $minutes)
+	public static function getTotalHours($hours, $minutes)
 	{
 		$minutes = Abs($minutes);
 		$iHours = Floor($minutes / 60);

@@ -114,3 +114,5 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'] = 'Dear Mrs. %s,<br
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_dispatch'] = 'Invoice dispatch';
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_successful'] = 'The invoice was delivered successful.';
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_failed'] = 'The invoice could not be delivered successful. For more information view the system log.';
+
+$GLOBALS['TL_LANG']['tl_li_invoice']['generatedInvoiceName'] = "Invoice ";

@@ -114,7 +114,8 @@ if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 }
 
 // Reminder cronjob
-$GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');  
+$GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');
+$GLOBALS['TL_CRON']['custom'][]  = array('InvoiceGeneration', 'generateInvoices');
 
 // Hooks
 // Replace insert tags

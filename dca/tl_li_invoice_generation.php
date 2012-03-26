@@ -76,15 +76,16 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array(''),
+		'__selector__'                => array('fixedPositions'),
 		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,currency,maturity;
-		                                  {generation_legend},headline,toTemplate,toAddress,descriptionBefore,servicePositions,productPositions,hourPositions,discount,earlyPaymentDiscount,descriptionAfter;
+		                                  {generation_legend},headline,toTemplate,toAddress,startDate,generationInverval,descriptionBefore,fixedPositions,discount,earlyPaymentDiscount,descriptionAfter;
 		                                  {settings_legend},publishImmediately,sendImmediately;'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
+        'fixedPositions' => 'servicePositions,productPositions,hourPositions'
 	),
 
 	// Fields
@@ -126,7 +127,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'eval'                    => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'save_callback' => array
 			(
-				array('Invoice', 'generateAlias')
+				array('InvoiceGeneration', 'generateAlias')
 			)
 		),
         'currency' => array
@@ -169,6 +170,24 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'options_callback'        => array('Invoice', 'getAddressOptions'),
 			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
+        'startDate' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['startDate'],
+            'default'                 => time(),
+            'flag'                    => 8,
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+        ),
+        'generationInverval' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['generationInverval'],
+            'inputType'               => 'select',
+            'exclude'   			  => true,
+            'options'                 => array('weekly', 'biweekly', 'monthly', 'bimonthly', 'quarterly', 'half-yearly', 'yearly'),
+            'reference'				  => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['generationInvervals'],
+            'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+        ),
         'descriptionBefore' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['descriptionBefore'],
@@ -176,6 +195,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'exclude'   			  => true,
 			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
 		),
+        'fixedPositions' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['fixedPositions'],
+            'inputType'               => 'checkbox',
+            'exclude'   			  => true,
+            'eval'                    => array('submitOnChange'=>true)
+        ),
         'servicePositions' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['servicePositions'],
@@ -204,7 +230,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('Invoice', 'getServiceOptions'),
+						'options_callback'  => array('InvoiceGeneration', 'getServiceOptions'),
 						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
@@ -245,7 +271,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('Invoice', 'getProductOptions'),
+						'options_callback'  => array('InvoiceGeneration', 'getProductOptions'),
 						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
@@ -278,7 +304,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('Invoice', 'getHourOptions'),
+						'options_callback'  => array('InvoiceGeneration', 'getHourOptions'),
 						'eval' 				=> array('style'=>'width:247px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
