@@ -42,6 +42,7 @@ class CustomerRegistration extends Frontend
                 $intId
             );
 
+            // Create customer number and name
             $customerNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);
             $customerName = $arrData['company'] != '' ? $arrData['company'] : $arrData['firstname']." ".$arrData['lastname'];
 
