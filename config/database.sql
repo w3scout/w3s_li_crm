@@ -15,7 +15,22 @@ CREATE TABLE `tl_member` (
   `customerNumber` varchar(255) NOT NULL default '',
   `customerName` varchar(255) NOT NULL default '',
   `isCustomer` char(1) NOT NULL default '',
-  `customerColor` varchar(6) NULL default ''
+  `customerColor` varchar(6) NULL default '',
+  `accountNumber` varchar(64) NULL default '',
+  `bankCode` varchar(64) NULL default '',
+  `bank` varchar(100) NULL default '',
+  `iban` varchar(64) NULL default '',
+  `bic` varchar(64) NULL default '',
+  `bic` varchar(64) NULL default '',
+  `registerProducts` blob NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table `tl_module`
+--
+
+CREATE TABLE `tl_module` (
+  `isCustomer` char(1) NOT NULL default ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --

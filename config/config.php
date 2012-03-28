@@ -115,13 +115,16 @@ if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 
 // Reminder cronjob
 $GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');
-$GLOBALS['TL_CRON']['custom'][]  = array('InvoiceGeneration', 'generateInvoices');
+$GLOBALS['TL_CRON']['daily'][]  = array('InvoiceGeneration', 'generateInvoices');
 
 // Hooks
 // Replace insert tags
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Customer', 'getCustomerCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Project', 'getProjectCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Invoice', 'getInvoiceCount');
+
+// Registration
+$GLOBALS['TL_HOOKS']['createNewUser'][] = array('CustomerRegistration', 'createNewUser');
 
 // Rre actions
 $GLOBALS['TL_HOOKS']['executePreActions'][] = array('TaskComment', 'hookExecutePreActions');

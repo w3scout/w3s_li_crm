@@ -15,5 +15,3 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['tasklist']      = '{title_legend},n
 $GLOBALS['TL_DCA']['tl_module']['palettes']['taskreader']    = '{title_legend},name,headline,type;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['invoicelist']   = '{title_legend},name,headline,type;{redirect_legend},jumpTo;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['invoicereader'] = '{title_legend},name,headline,type;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-
-?>

@@ -16,6 +16,8 @@
  */
  
 $GLOBALS['TL_LANG']['tl_member']['customer_legend'] = "Kunde";
+$GLOBALS['TL_LANG']['tl_member']['bank_legend'] = "Bank";
+
 $GLOBALS['TL_LANG']['tl_member']['isCustomer']['0'] = "Kunde";
 $GLOBALS['TL_LANG']['tl_member']['isCustomer']['1'] = "Ist das Mitglied ein Kunde?";
 $GLOBALS['TL_LANG']['tl_member']['customerNumber']['0'] = "Kundennummer";
@@ -25,8 +27,20 @@ $GLOBALS['TL_LANG']['tl_member']['customerName']['1'] = "Bitte geben Sie den Kun
 $GLOBALS['TL_LANG']['tl_member']['customerColor']['0'] = "Einfärbung";
 $GLOBALS['TL_LANG']['tl_member']['customerColor']['1'] = "Diese Farbe wird für die Anzeige der geschriebenen Stunden für diesen Kunden verwendet.";
 
+$GLOBALS['TL_LANG']['tl_member']['accountNumber']['0'] = "Kontonummer";
+$GLOBALS['TL_LANG']['tl_member']['accountNumber']['1'] = "Bitte geben Sie die Kontonummer des Kontos ein.";
+$GLOBALS['TL_LANG']['tl_member']['bankCode']['0'] = "BLZ";
+$GLOBALS['TL_LANG']['tl_member']['bankCode']['1'] = "Bitte geben Sie die BLZ der Bank ein.";
+$GLOBALS['TL_LANG']['tl_member']['bank']['0'] = "Bank";
+$GLOBALS['TL_LANG']['tl_member']['bank']['1'] = "Bitte geben Sie den Namen der Bank ein.";
+$GLOBALS['TL_LANG']['tl_member']['iban']['0'] = "IBAN";
+$GLOBALS['TL_LANG']['tl_member']['iban']['1'] = "Bitte geben Sie die IBAN ein.";
+$GLOBALS['TL_LANG']['tl_member']['bic']['0'] = "BIC";
+$GLOBALS['TL_LANG']['tl_member']['bic']['1'] = "Bitte geben Sie die BIC ein.";
+
+$GLOBALS['TL_LANG']['tl_member']['registerProducts']['0'] = "Produkte";
+$GLOBALS['TL_LANG']['tl_member']['registerProducts']['1'] = "Bitte wählen Sie die Produkte aus.";
+
 $GLOBALS['TL_LANG']['tl_member']['contacts'] = array('Kontakte', 'Die Kontakte des Mitglieds mit der ID %s verwalten');
 
 $GLOBALS['TL_LANG']['tl_member']['phone'] = array("Telefon", "Bitte geben Sie eine Telefonnummer ein.");
- 
-?>

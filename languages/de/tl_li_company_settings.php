@@ -38,4 +38,4 @@ $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank']['1'] = "Bitte geben
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_iban']['0'] = "IBAN";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_iban']['1'] = "Bitte geben Sie Ihre IBAN ein.";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bic']['0'] = "BIC";
-$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bic']['1'] = "Bitte geben Sie Ihr BIC ein.";
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bic']['1'] = "Bitte geben Sie Ihre BIC ein.";
