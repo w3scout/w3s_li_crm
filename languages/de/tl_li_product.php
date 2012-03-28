@@ -19,6 +19,8 @@ $GLOBALS['TL_LANG']['tl_li_product']['product_legend'] = "Produkt";
 $GLOBALS['TL_LANG']['tl_li_product']['price_legend'] = "Preis";
 $GLOBALS['TL_LANG']['tl_li_product']['toProductType']['0'] = "Produkttyp";
 $GLOBALS['TL_LANG']['tl_li_product']['toProductType']['1'] = "Bitte wählen Sie den Produkttyp aus.";
+$GLOBALS['TL_LANG']['tl_li_product']['unit']['0'] = "Einheit";
+$GLOBALS['TL_LANG']['tl_li_product']['unit']['1'] = "Bitte wählen Sie die Einheit aus.";
 $GLOBALS['TL_LANG']['tl_li_product']['number']['0'] = "Nummer";
 $GLOBALS['TL_LANG']['tl_li_product']['number']['1'] = "Bitte geben Sie die Nummer ein.";
 $GLOBALS['TL_LANG']['tl_li_product']['title']['0'] = "Titel";
@@ -29,6 +31,12 @@ $GLOBALS['TL_LANG']['tl_li_product']['currency']['0'] = "Währung";
 $GLOBALS['TL_LANG']['tl_li_product']['currency']['1'] = "Bitte geben Sie die Währung des Preises an.";
 $GLOBALS['TL_LANG']['tl_li_product']['toTax']['0'] = "Steuersatz";
 $GLOBALS['TL_LANG']['tl_li_product']['toTax']['1'] = "Bitte wählen Sie den Steuersatz aus.";
+
+$GLOBALS['TL_LANG']['tl_li_product']['units']['unit'] = "Stück";
+$GLOBALS['TL_LANG']['tl_li_product']['units']['hour'] = "Stunde";
+$GLOBALS['TL_LANG']['tl_li_product']['units']['month'] = "Monat";
+$GLOBALS['TL_LANG']['tl_li_product']['units']['year'] = "Jahr";
+
 $GLOBALS['TL_LANG']['tl_li_product']['new']['0'] = "Neues Produkt";
 $GLOBALS['TL_LANG']['tl_li_product']['new']['1'] = "Ein neue Produkt anlegen";
 $GLOBALS['TL_LANG']['tl_li_product']['edit']['0'] = "Produkt bearbeiten";

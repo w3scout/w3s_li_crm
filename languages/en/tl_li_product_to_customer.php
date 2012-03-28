@@ -12,5 +12,7 @@ $GLOBALS['TL_LANG']['tl_li_product_to_customer']['product_legend'] = "Products";
 
 $GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer'] = array("Customer", "Please choose a customer.");
 $GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject'] = array("Project", "Please choose a project.");
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['number'] = array("Number", "Please enter the number of products sold.");
 $GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct'] = array("Product", "Please choose a product.");
 $GLOBALS['TL_LANG']['tl_li_product_to_customer']['saleDate'] = array("Sale date", "Please enter the sale date.");
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['note'] = array("Note", "Please enter the note.");

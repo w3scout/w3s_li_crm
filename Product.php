@@ -58,4 +58,13 @@ class Product extends Controller
         return $productList;
     }
 
+    public function getUnitOptions() {
+        return array(
+            'unit' => $GLOBALS['TL_LANG']['tl_li_product']['units']['unit'],
+            'hour' => $GLOBALS['TL_LANG']['tl_li_product']['units']['hour'],
+            'month' => $GLOBALS['TL_LANG']['tl_li_product']['units']['month'],
+            'year' => $GLOBALS['TL_LANG']['tl_li_product']['units']['year']
+        );
+    }
+
 }

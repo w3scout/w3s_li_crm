@@ -92,20 +92,20 @@ class InvoiceGeneration extends Controller
         while($objInvoiceGenerations->next() != null)
         {
             $generatedLast = $objInvoiceGenerations->generatedLast;
+            $interval = $objInvoiceGenerations->generationInverval;
+            switch($interval)
+            {
+                case 'weekly': $unit = 'week'; $value = 1; break;
+                case 'biweekly': $unit = 'week'; $value = 2; break;
+                case 'monthly': $unit = 'month'; $value = 1; break;
+                case 'bimonthly': $unit = 'month'; $value = 2; break;
+                case 'quarterly': $unit = 'month'; $value = 3; break;
+                case 'half-yearly': $unit = 'month'; $value = 6; break;
+                case 'yearly': $unit = 'year'; $value = 1; break;
+            }
             // Skip generation if it's not time for it yet
             if($generatedLast != '')
             {
-                $interval = $objInvoiceGenerations->generationInverval;
-                switch($interval)
-                {
-                    case 'weekly': $unit = 'week'; $value = 1; break;
-                    case 'biweekly': $unit = 'week'; $value = 2; break;
-                    case 'monthly': $unit = 'month'; $value = 1; break;
-                    case 'bimonthly': $unit = 'month'; $value = 2; break;
-                    case 'quarterly': $unit = 'month'; $value = 3; break;
-                    case 'half-yearly': $unit = 'month'; $value = 6; break;
-                    case 'yearly': $unit = 'year'; $value = 1; break;
-                }
                 $runAgain = strtotime(date('Y-m-d', $generatedLast)." +".$value." ".$unit);
                 if($runAgain > time()) {
                     continue;
@@ -115,14 +115,53 @@ class InvoiceGeneration extends Controller
             $invoiceDate = time();
             $performanceDate = time();
 
-            $servicePositions = '';
-            $productPositions = '';
-            $hourPositions = '';
             if($objInvoiceGenerations->fixedPositions)
             {
                 $servicePositions = $objInvoiceGenerations->servicePositions;
                 $productPositions = $objInvoiceGenerations->productPositions;
                 $hourPositions = $objInvoiceGenerations->hourPositions;
+            }
+            else
+            {
+                if($generatedLast == '') {
+                    $generatedLast = strtotime(date('Y-m-d', time())." -".$value." ".$unit);
+                }
+                // Services
+                $services = array();
+                $servicePositions = serialize($services);
+
+                // Products
+                $objProducts = $this->Database->prepare("
+                    SELECT p.id, SUM(pc.number) AS countNumber, p.unit
+                    FROM tl_li_product AS p
+                    INNER JOIN tl_li_product_to_customer AS pc
+                        ON p.id = pc.toProduct
+                    WHERE pc.toCustomer = ?
+                        AND pc.saleDate <= ?
+                        AND pc.saleDate > ?
+                    GROUP BY p.id
+                ")->execute(
+                    $objInvoiceGenerations->toCustomer,
+                    time(),
+                    $generatedLast
+                );
+                if($objProducts->numRows == 0) {
+                    continue;
+                }
+                $products = array();
+                while($objProducts->next() != null) {
+                    $products[] = array(
+                        'quantity' => $objProducts->countNumber,
+                        'unit' => $objProducts->unit,
+                        'item' => $objProducts->id,
+                        'title' => ''
+                    );
+                }
+                $productPositions = serialize($products);
+
+                // Hours
+                $hours = array();
+                $hourPositions = serialize($hours);
             }
 
             $invoiceId = $this->Database->prepare("
@@ -178,14 +217,14 @@ class InvoiceGeneration extends Controller
 				$invoice->sendInvoice($invoiceId);
 			}
 
-            /*$this->Database->prepare("
+            $this->Database->prepare("
                 UPDATE tl_li_invoice_generation
                 SET generatedLast = ?
                 WHERE id = ?
             ")->execute(
                 time(),
                 $objInvoiceGenerations->id
-            );*/
+            );
 
         }
     }

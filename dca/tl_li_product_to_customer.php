@@ -18,7 +18,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend},toCustomer,toProject,toProduct,saleDate;'
+		'default'                     => '{product_legend},toCustomer,toProject,number,toProduct,saleDate,note;'
 	),
 
 	'fields' => array
@@ -39,6 +39,13 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'options_callback'        => array('Project', 'getProjectsOfCustomer'),
             'eval'                    => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true)
 		),
+        'number' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['number'],
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
+        ),
 		'toProduct' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct'],
@@ -57,6 +64,13 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
             'inputType'               => 'text',
             'exclude'   			  => true,
             'eval'                    => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
-        )
+        ),
+        'note' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['note'],
+            'inputType'               => 'textarea',
+            'exclude'   			  => true,
+            'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+        ),
 	)
 );

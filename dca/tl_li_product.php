@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend},toProductType,number,title;{price_legend},price,toTax,currency;'
+		'default'                     => '{product_legend},toProductType,unit,number,title;{price_legend},price,toTax,currency;'
 	),
 
 	// Fields
@@ -90,7 +90,15 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
             'inputType'               => 'select',
             'exclude'   			  => true,
             'foreignKey'              => 'tl_li_product_type.title',
-            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true)
+            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
+        ),
+        'unit' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_product']['unit'],
+            'inputType'               => 'select',
+            'exclude'   			  => true,
+            'options_callback'        => array('Product', 'getUnitOptions'),
+            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
         ),
         'number' => array
 		(

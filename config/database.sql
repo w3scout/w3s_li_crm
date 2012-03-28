@@ -110,8 +110,9 @@ CREATE TABLE `tl_li_service_type` (
 CREATE TABLE `tl_li_product` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
-  `number` varchar(255) NOT NULL default '',
   `toProductType` int(10) unsigned NOT NULL default '0',
+  `unit` varchar(20) NOT NULL default 'unit',
+  `number` varchar(255) NOT NULL default '',
   `title` varchar(255) NOT NULL default '',
   `price` double NOT NULL default '0',
   `toTax` int(10) unsigned NOT NULL default '0',
@@ -127,9 +128,11 @@ CREATE TABLE `tl_li_product_to_customer` (
    `id` int(10) unsigned NOT NULL auto_increment,
    `tstamp` int(10) unsigned NOT NULL default '0',
    `toCustomer` int(10) unsigned NULL default '0',
-   `toProduct` int(10) unsigned NOT NULL default '0',
    `toProject` int(10) unsigned NOT NULL default '0',
+   `number` int(10) unsigned NOT NULL default '1',
+   `toProduct` int(10) unsigned NOT NULL default '0',
    `saleDate` varchar(10) NOT NULL default '',
+   `note` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
