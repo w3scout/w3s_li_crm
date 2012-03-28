@@ -134,6 +134,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'generation' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice']['generation'],
+                'href'                => 'key=generation',
                 'icon'                => 'system/modules/li_crm/icons/generation_new.png'
             ),
 			'new_reminder' => array

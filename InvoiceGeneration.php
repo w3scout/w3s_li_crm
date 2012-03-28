@@ -51,6 +51,31 @@ class InvoiceGeneration extends Controller
 		}
 		return $varValue;
 	}
+	
+	public function generateAliasWithoutDC($title, $id)
+    {
+        // Generate alias
+        $alias = standardize($title);
+
+        $objAlias = $this->Database->prepare("
+            SELECT id
+            FROM tl_li_invoice_generation
+            WHERE alias = ?
+        ")->execute($alias);
+
+        // Check whether the news alias exists
+        if ($objAlias->numRows > 1)
+        {
+            throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $alias));
+        }
+
+        // Add ID to alias
+        if ($objAlias->numRows)
+        {
+            $alias .= '-'.$id;
+        }
+        return $alias;
+    }
 
     public function generateInvoices()
     {
@@ -59,7 +84,7 @@ class InvoiceGeneration extends Controller
         $objInvoiceGenerations = $this->Database->prepare("
             SELECT id, toCustomer, toCategory, currency, maturity, generationInverval, generatedLast,
                 headline, toTemplate, toAddress, descriptionBefore, fixedPositions, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter,
-                publishImmediately
+                publishImmediately, sendImmediately
             FROM tl_li_invoice_generation
             WHERE DATE(FROM_UNIXTIME(startDate)) <= CURRENT_DATE
             ORDER BY id ASC
@@ -148,6 +173,10 @@ class InvoiceGeneration extends Controller
             );
 
             $invoice->printInvoice($invoiceId);
+			
+			if($objInvoiceGenerations->sendImmediately) {
+				$invoice->sendInvoice($invoiceId);
+			}
 
             /*$this->Database->prepare("
                 UPDATE tl_li_invoice_generation

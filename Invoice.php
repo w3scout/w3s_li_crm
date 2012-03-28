@@ -46,6 +46,11 @@ class Invoice extends BackendModule
 		{
 			$this->Template->dispatchSuccessful = $this->sendInvoice($id);
 		}
+		elseif($key == 'generation')
+		{
+			$generationId = $this->buildGeneration($id);
+			$this->redirect('contao/main.php?do=li_invoices&table=tl_li_invoice_generation&act=edit&id='.$generationId);
+		}
 		elseif ($key == 'pdf')
 		{
 			// Return the file and do not render the template
@@ -945,7 +950,7 @@ class Invoice extends BackendModule
 		exit;
 	}
 
-	private function sendInvoice($id)
+	public function sendInvoice($id)
 	{
 		$objInvoice = $this->Database->prepare("
             SELECT i.invoiceDate, i.file, a.lastname, a.gender, a.email
@@ -963,7 +968,7 @@ class Invoice extends BackendModule
 			$objEmail->text = sprintf($objInvoice->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 			$objEmail->html = sprintf($objInvoice->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 
-			$objEmail->attachFile('../'.$objInvoice->file);
+			$objEmail->attachFile(TL_ROOT."/".$objInvoice->file);
 			$worked = $objEmail->sendTo($objInvoice->email);
 		}
 		catch( Exception $e )
@@ -1075,6 +1080,54 @@ class Invoice extends BackendModule
 		// Update the database
 		$this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
 		$this->createNewVersion('tl_li_invoice', $intId);
+	}
+	
+	private function buildGeneration($invoiceId) {
+		$objInvoice = $this->Database->prepare("
+			SELECT toCustomer, toCategory, title, currency, maturity,
+				headline, toTemplate, toAddress, descriptionBefore, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter
+			FROM tl_li_invoice
+			WHERE id = ?
+		")->limit(1)->execute($invoiceId);
+		
+		$generationId = $this->Database->prepare("
+			INSERT INTO tl_li_invoice_generation(tstamp, toCustomer, toCategory, title, currency, maturity,
+				headline, toTemplate, toAddress, startDate, generationInverval, descriptionBefore, fixedPositions, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		")->execute(
+			time(),
+			$objInvoice->toCustomer,
+			$objInvoice->toCategory,
+			$objInvoice->title,
+			$objInvoice->currency,
+			$objInvoice->maturity,
+			$objInvoice->headline,
+			$objInvoice->toTemplate,
+			$objInvoice->toAddress,
+			strtotime('today'),
+			'yearly',
+			$objInvoice->descriptionBefore,
+			1,
+			$objInvoice->servicePositions,
+			$objInvoice->productPositions,
+			$objInvoice->hourPositions,
+			$objInvoice->discount,
+			$objInvoice->earlyPaymentDiscount,
+			$objInvoice->descriptionAfter
+		)->insertId;
+		
+		$invoiceGeneration = new InvoiceGeneration();
+		$alias = $invoiceGeneration->generateAliasWithoutDC($objInvoice->title, $generationId);
+		$this->Database->prepare("
+			UPDATE tl_li_invoice_generation
+			SET alias = ?
+			WHERE id = ?
+		")->execute(
+			$alias,
+			$generationId
+		);
+		
+		return $generationId;
 	}
 
 	private function sendTo403()
