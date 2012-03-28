@@ -122,12 +122,14 @@ CREATE TABLE `tl_li_product` (
 --
 -- Table `tl_li_product_to_customer`
 --
+
 CREATE TABLE `tl_li_product_to_customer` (
    `id` int(10) unsigned NOT NULL auto_increment,
    `tstamp` int(10) unsigned NOT NULL default '0',
    `toCustomer` int(10) unsigned NULL default '0',
    `toProduct` int(10) unsigned NOT NULL default '0',
    `toProject` int(10) unsigned NOT NULL default '0',
+   `saleDate` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -213,6 +215,7 @@ CREATE TABLE `tl_li_task_status` (
 --
 -- Table `tl_li_task_reminder`
 --
+
 CREATE TABLE `tl_li_task_reminder` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
@@ -264,6 +267,33 @@ CREATE TABLE `tl_li_work_package` (
   `toProject` int(10) unsigned NOT NULL default '0',
   `printOnInvoice` char(1) NOT NULL default '',
   PRIMARY KEY  (`id`),
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table `tl_li_working_hour`
+--
+CREATE TABLE `tl_li_working_hour` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `tstamp` int(10) unsigned NULL default '0',
+  `user` int(10) unsigned NULL default '0',
+  `entryDate` int(10) unsigned NULL default '0',
+  `hours` int(10) unsigned NULL default '0',
+  `minutes` int(10) unsigned NULL default '0',
+  `toWorkPackage` int(10) unsigned NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table `tl_li_hourly_wage`
+--
+CREATE TABLE `tl_li_hourly_wage` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `tstamp` int(10) unsigned NULL default '0',
+  `title` varchar(250) NOT NULL default '',
+  `wage` double unsigned NOT NULL default '0',
+  `toTax` int(10) unsigned NOT NULL default '0',
+  `currency` varchar(3) NOT NULL default '',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -370,6 +400,7 @@ CREATE TABLE `tl_li_invoice_template` (
 --
 -- Table `tl_li_invoice_reminder`
 --
+
 CREATE TABLE `tl_li_invoice_reminder` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `tstamp` int(10) unsigned NOT NULL default '0',
@@ -383,31 +414,8 @@ CREATE TABLE `tl_li_invoice_reminder` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Table `tl_li_working_hour`
+-- Table `tl_li_tax`
 --
-CREATE TABLE `tl_li_working_hour` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `tstamp` int(10) unsigned NULL default '0',
-  `user` int(10) unsigned NULL default '0',
-  `entryDate` int(10) unsigned NULL default '0',
-  `hours` int(10) unsigned NULL default '0',
-  `minutes` int(10) unsigned NULL default '0',
-  `toWorkPackage` int(10) unsigned NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Table `tl_li_hourly_wage`
---
-CREATE TABLE `tl_li_hourly_wage` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `tstamp` int(10) unsigned NULL default '0',
-  `title` varchar(250) NOT NULL default '',
-  `wage` double unsigned NOT NULL default '0',
-  `toTax` int(10) unsigned NOT NULL default '0',
-  `currency` varchar(3) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tl_li_tax`  (
   `id` int(10) unsigned NOT NULL auto_increment,

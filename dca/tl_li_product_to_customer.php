@@ -18,12 +18,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{product_legend}, toCustomer, toProject, toProduct;'
-	),
-
-	'subpalettes' => array
-	(
-		''                            => ''
+		'default'                     => '{product_legend},toCustomer,toProject,toProduct,saleDate;'
 	),
 
 	'fields' => array
@@ -51,6 +46,17 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'exclude'   			  => true,
 			'options_callback'        => array('Product', 'getProductsList'),
             'eval'                    => array('mandatory' => true, 'chosen'=>true, 'tl_class' => 'w50', 'includeBlankOption' => true)
-		)
+		),
+        'saleDate' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['saleDate'],
+            'default'                 => time(),
+            'filter'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 8,
+            'inputType'               => 'text',
+            'exclude'   			  => true,
+            'eval'                    => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+        )
 	)
 );
