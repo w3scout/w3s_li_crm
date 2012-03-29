@@ -34,7 +34,7 @@ $GLOBALS['TL_LANG']['li_settings']['taskReminderSettingsDesc'] = "Über die Erin
 
 $GLOBALS['TL_LANG']['li_settings']['timekeeping'] = "Zeiterfassung";
 $GLOBALS['TL_LANG']['li_settings']['workingHours'] = "Stunden erfassen";
-$GLOBALS['TL_LANG']['li_settings']['workingHoursDesc'] = "Über die Einstellungen zum Stunden erfassen können sie die Verwaltung der erfassten Stunden anpassen, wie z.[nbsp]B. den Beginn von Kalenderwochen.";
+$GLOBALS['TL_LANG']['li_settings']['workingHoursDesc'] = "Über die Einstellungen zum Stunden erfassen können sie die Verwaltung der erfassten Stunden anpassen, wie z.B. den Beginn von Kalenderwochen.";
 
 $GLOBALS['TL_LANG']['li_settings']['hourlyWage'] = "Stundensätze";
 $GLOBALS['TL_LANG']['li_settings']['hourlyWageDesc'] = "Über die Einstellungen für Stundensätze können sie festlegen, wie die über die Zeiterfassung eingetragenen Stunden in einer Ausgangsrechnung verrechnet werden sollen.";

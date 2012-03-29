@@ -396,3 +396,6 @@ label.print {
 	padding: 3px 4px 0;
 	border-top: 1px solid #ccc;
 }
+#tl_soverview.settings p {
+    padding: 5px 5px 0 20px;
+}

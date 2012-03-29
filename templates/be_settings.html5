@@ -1,5 +1,5 @@
 <h1 id="tl_welcome"><?php echo $GLOBALS['TL_LANG']['li_settings']['settings']; ?></h1>
-<div id="tl_soverview">
+<div id="tl_soverview" class="settings">
     <div id="tl_moverview">
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['customers']; ?></h2>
         <div class="tl_module_desc">
@@ -8,7 +8,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['customerSettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['customerSettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['customerSettingsDesc']; ?></p>
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['projects']; ?></h2>
@@ -18,7 +18,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['projectSettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['projectSettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['projectSettingsDesc']; ?></p>
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['services']; ?></h2>
@@ -28,7 +28,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['serviceTypes']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['serviceTypesDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['serviceTypesDesc']; ?></p>
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['products']; ?></h2>
@@ -38,7 +38,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['productTypes']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['productTypesDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['productTypesDesc']; ?></p>
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['tasks']; ?></h2>
@@ -48,7 +48,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['taskStatus']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['taskStatusDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['taskStatusDesc']; ?></p>
         </div>
         <div class="tl_module_desc">
             <h3>
@@ -56,7 +56,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['taskReminderSettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['taskReminderSettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['taskReminderSettingsDesc']; ?></p>
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['timekeeping']; ?></h2>
@@ -66,7 +66,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['workingHours']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['workingHoursDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['workingHoursDesc']; ?></p>
         </div>
         <div class="tl_module_desc">
             <h3>
@@ -75,7 +75,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['hourlyWage']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['hourlyWageDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['hourlyWageDesc']; ?></p>
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['invoices']; ?></h2>
@@ -85,7 +85,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceSettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceSettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceSettingsDesc']; ?></p>
         </div>
         <div class="tl_module_desc">
             <h3>
@@ -93,7 +93,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceCategories']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceCategoriesDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceCategoriesDesc']; ?></p>
         </div>
         <div class="tl_module_desc">
             <h3>
@@ -101,7 +101,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceTemplates']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceTemplatesDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceTemplatesDesc']; ?></p>
         </div>
         <div class="tl_module_desc">
             <h3>
@@ -109,7 +109,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceDispatchSettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceDispatchSettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceDispatchSettingsDesc']; ?></p>
         </div>
         <div class="tl_module_desc">
             <h3>
@@ -117,7 +117,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['invoiceReminderSettingsDesc']; ?></p>
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['company']; ?></h2>
@@ -127,7 +127,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['companySettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['companySettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['companySettingsDesc']; ?></p>
         </div>
         <div class="tl_module_desc">
             <h3>
@@ -135,7 +135,7 @@
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['taxSettings']; ?>
                 </a>
             </h3>
-            <?php echo $GLOBALS['TL_LANG']['li_settings']['taxSettingsDesc']; ?>
+            <p><?php echo $GLOBALS['TL_LANG']['li_settings']['taxSettingsDesc']; ?></p>
         </div>
     </div>
 </div>
