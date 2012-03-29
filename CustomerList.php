@@ -18,6 +18,50 @@ class CustomerList extends BackendModule
 	{
 		parent::generate();
 
+        // Redirect to another page when element is created
+        $key = $this->Input->get('key');
+        $id = $this->Input->get('id');
+        $projectId = $this->Input->get('projectId') != '' ? $this->Input->get('projectId') : 0;
+
+        if($key == 'project')
+        {
+            $projectId = $this->Database->prepare("
+                INSERT INTO tl_li_project(tstamp, toCustomer)
+                VALUES(?, ?)
+            ")->execute(
+                time(),
+                $id
+            )->insertId;
+
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_project&act=edit&id='.$projectId);
+        }
+        elseif($key == 'service')
+        {
+            $serviceId = $this->Database->prepare("
+                INSERT INTO tl_li_service(tstamp, toCustomer, toProject)
+                VALUES(?, ?, ?)
+            ")->execute(
+                time(),
+                $id,
+                $projectId
+            )->insertId;
+
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_service&act=edit&id='.$serviceId);
+        }
+        elseif($key == 'product')
+        {
+            $productToCustomerId = $this->Database->prepare("
+                INSERT INTO tl_li_product_to_customer(tstamp, toCustomer, toProject)
+                VALUES(?, ?, ?)
+            ")->execute(
+                time(),
+                $id,
+                $projectId
+            )->insertId;
+
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_product_to_customer&act=edit&id='.$productToCustomerId);
+        }
+
 		// If a toggle is requested, modify the array accordingly before displaying the tree
 		if (!empty($_REQUEST['toggle']) && !empty($_REQUEST['id']))
 		{

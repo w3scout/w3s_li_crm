@@ -3,6 +3,10 @@
     vertical-align: -3px;
 }
 
+.tree_view .tl_listing img, ul.tree_view img {
+    vertical-align: -6px;
+}
+
 .tree_view.customers .tl_listing .tl_right a,
 .tree_view.customers .tl_listing .tl_right span {
     display: block;
