@@ -21,7 +21,7 @@ $GLOBALS['TL_LANG']['tl_member']['bank'] = array("Bank", "Bitte geben Sie den Na
 $GLOBALS['TL_LANG']['tl_member']['iban'] = array("IBAN", "Bitte geben Sie die IBAN ein.");
 $GLOBALS['TL_LANG']['tl_member']['bic'] = array("BIC", "Bitte geben Sie die BIC ein.");
 
-$GLOBALS['TL_LANG']['tl_member']['registerProducts'] = array("Produkte", "Bitte wählen Sie die Produkte aus.";
+$GLOBALS['TL_LANG']['tl_member']['registerProducts'] = array("Produkte", "Bitte wählen Sie die Produkte aus.");
 
 $GLOBALS['TL_LANG']['tl_member']['contacts'] = array('Kontakte', 'Die Kontakte des Mitglieds mit der ID %s verwalten');
 
