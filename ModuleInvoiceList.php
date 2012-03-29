@@ -1,6 +1,4 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -51,27 +49,38 @@ class ModuleInvoiceList extends Module
 		$this->import('FrontendUser', 'User');
 		
 		if($this->User->id != 0) {
-			$objInvoices = $this->Database->prepare('SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
-												  	 FROM tl_li_invoice AS i
-												  	 LEFT JOIN tl_li_invoice_category AS c ON c.id = i.toCategory
-												  	 WHERE i.toCustomer = ? AND i.published = 1
-												  	 ORDER BY invoiceDate DESC')->execute($this->User->id);
+			$objInvoices = $this->Database->prepare("
+				SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
+			  	FROM tl_li_invoice AS i
+			  	LEFT JOIN tl_li_invoice_category AS c
+			  		ON c.id = i.toCategory
+			  	WHERE i.toCustomer = ?
+			  		AND i.published = 1
+			  	ORDER BY invoiceDate DESC
+			")->execute($this->User->id);
 		} else {
-			$objInvoices = $this->Database->execute('SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
-												  	 FROM tl_li_invoice AS i
-												  	 LEFT JOIN tl_li_invoice_category AS c ON c.id = i.toCategory
-												  	 WHERE i.published = 1
-												  	 ORDER BY invoiceDate DESC');
+			$objInvoices = $this->Database->execute("
+				SELECT i.id, i.title, i.invoiceDate, i.alias, i.price, i.currency, i.file, c.cssClass
+			  	FROM tl_li_invoice AS i
+			  	LEFT JOIN tl_li_invoice_category AS c
+			  		ON c.id = i.toCategory
+			  	WHERE i.published = 1
+			  	ORDER BY invoiceDate DESC
+			");
 		}
 		
-		$objPage = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
-								  ->limit(1)
-								  ->execute($this->jumpTo);
+		$objPage = $this->Database->prepare("
+			SELECT id, alias
+			FROM tl_page
+			WHERE id=?
+		")->limit(1)->execute($this->jumpTo);
 		
 		$arrInvoices = array();
 		$currencyHelper = new CurrencyHelper();
-		while($objInvoices->next() != null) {
-			$newArray = array(
+		while($objInvoices->next() != null)
+		{
+			$newArray = array
+			(
 				'id' => $objInvoices->id,
 				'title' => $objInvoices->title,
 				'date' => $objInvoices->invoiceDate,
@@ -89,5 +98,3 @@ class ModuleInvoiceList extends Module
 		$this->Template->invoices = $arrInvoices;
 	}
 }
-
-?>

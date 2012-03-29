@@ -1,13 +1,13 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @author     ApoY2k
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @license     MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Class Appointment
  */
 class Appointment extends BackendModule
 {
@@ -37,7 +37,8 @@ class Appointment extends BackendModule
 		return $this->Template->parse();
 	}
 	
-	private function showAppointmentsOfThisMonth() {
+	private function showAppointmentsOfThisMonth()
+	{
 		// Get the desired week range or set default values
 		if (!empty($_REQUEST['appointments_year']))
 		{
@@ -71,7 +72,8 @@ class Appointment extends BackendModule
 		
 		$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 		$days = array();
-		for($i = 1; $i <= $daysInMonth; $i++) {
+		for($i = 1; $i <= $daysInMonth; $i++)
+		{
 			$day = array();
 			$currentDate = strtotime($year.'-'.$month.'-'.$i);
 			$day['date'] = date($GLOBALS['TL_CONFIG']['dateFormat'], $currentDate);
@@ -131,33 +133,40 @@ class Appointment extends BackendModule
 					)
 				)")->execute($year, $month, $i, $dayOfWeek, $week, $year, $year, $dayOfWeek, $evenWeek, $week, $year, $year, $i, $month, $year, $year);
 			$appointments = array();
-			while($objAppointments->next()) {
+			while($objAppointments->next())
+			{
 				// User has to be creator, a participant or an admin
 				// Skip check if user is admin
-				if(!$this->User->isAdmin) {
+				if(!$this->User->isAdmin)
+				{
 					$userId = $this->User->id;
 					// Skip appointment if appointment is private and user is not creator
-					if($userId != $objAppointments->creator && $objAppointments->private) {
+					if($userId != $objAppointments->creator && $objAppointments->private)
+					{
 						continue;
 					}
 					$found = $userId == $objAppointments->creator;
 					$participants = unserialize($objAppointments->participants);
-					if(!$found && $participants) {
-						foreach($participants as $participant) {
-							if($participant == $userId) {
+					if(!$found && $participants)
+					{
+						foreach($participants as $participant)
+						{
+							if($participant == $userId) 
+							{
 								$found = true;
 								break;
 							}
 						}
 					}
-					if(!$found) {
+					if(!$found)
+					{
 						continue;
 					}
 				}
-				
 			
 				$color = $objAppointments->color != '' ? $objAppointments->color : 'ddd';
-				$appointments[] = array(
+				$appointments[] = array
+				(
 					'id' => $objAppointments->id,
 					'subject' => $objAppointments->subject,
 					'color' => $color
@@ -178,7 +187,8 @@ class Appointment extends BackendModule
 		$this->Template->nextMonth = $month < 12 ? $month + 1 : 1;
 	}
 
-	private function showAppointmentsOfThisWeek() {
+	private function showAppointmentsOfThisWeek()
+	{
 		// Get the desired week range or set default values
 		if (!empty($_REQUEST['appointments_year']))
 		{
@@ -216,7 +226,8 @@ class Appointment extends BackendModule
     	$currentDate = $mon_ts;
 		
 		$days = array();
-		for($i = 1; $i <= 7; $i++) {
+		for($i = 1; $i <= 7; $i++)
+		{
 			$day = array();
 			$currentDate = strtotime(date('Y-m-d', $currentDate).' +1 days');
 			$day['date'] = date('d.m.Y', $currentDate);
@@ -278,26 +289,33 @@ class Appointment extends BackendModule
 				)
 				ORDER BY startDate, startTime ASC")->execute($year, $month, $currentDay, $dayOfWeek, $week, $year, $year, $dayOfWeek, $evenWeek, $week, $year, $year, $currentDay, $month, $year, $year);
 			$appointments = array();
-			while($objAppointments->next()) {
+			while($objAppointments->next())
+			{
 				// User has to be creator, a participant or an admin
 				// Skip check if user is admin
-				if(!$this->User->isAdmin) {
+				if(!$this->User->isAdmin) 
+				{
 					$userId = $this->User->id;
 					// Skip appointment if appointment is private and user is not creator
-					if($userId != $objAppointments->creator && $objAppointments->private) {
+					if($userId != $objAppointments->creator && $objAppointments->private)
+					{
 						continue;
 					}
 					$found = $userId == $objAppointments->creator;
 					$participants = unserialize($objAppointments->participants);
-					if(!$found && $participants) {
-						foreach($participants as $participant) {
-							if($participant == $userId) {
+					if(!$found && $participants)
+					{
+						foreach($participants as $participant)
+						{
+							if($participant == $userId)
+							{
 								$found = true;
 								break;
 							}
 						}
 					}
-					if(!$found) {
+					if(!$found)
+					{
 						continue;
 					}
 				}
@@ -306,16 +324,22 @@ class Appointment extends BackendModule
 				$color = $objAppointments->color != '' ? $objAppointments->color : 'ddd';
 				$start = date('G', $objAppointments->startTime) + (date('i', $objAppointments->startTime) >= 30 ? 0.5 : 0);
 				$end = date('G', $objAppointments->endTime) + (date('i', $objAppointments->endTime) >= 30 ? 0.5 : 0);
-				if($end > $start) {
+				if($end > $start)
+				{
 					$length = $end - $start;
-				} elseif($objAppointments->endDate > $objAppointments->startDate) {
+				}
+				elseif($objAppointments->endDate > $objAppointments->startDate)
+				{
 					$length = 24 - $start;
-				} else {
+				}
+				else 
+				{
 					$length = 2;
 				}
 				
 				$hour = date('G', $objAppointments->startTime);
-				$appointments[$hour*2][] = array(
+				$appointments[$hour*2][] = array
+				(
 					'id' => $objAppointments->id,
 					'subject' => $objAppointments->subject,
 					'color' => $color,
@@ -325,8 +349,10 @@ class Appointment extends BackendModule
 			}
 			
 			$leftCounter = 0;
-			foreach($appointments as $hourKey => $appointmentHour) {
-				foreach($appointmentHour as $key => $appointment) {
+			foreach($appointments as $hourKey => $appointmentHour)
+			{
+				foreach($appointmentHour as $key => $appointment)
+				{
 					$appointments[$hourKey][$key]['left'] = $leftCounter++ * 10;
 				}
 			}
@@ -426,32 +452,40 @@ class Appointment extends BackendModule
 					)
 				)")->execute($year, $month, $day, $dayOfWeek, $week, $year, $year, $dayOfWeek, $evenWeek, $week, $year, $year, $day, $month, $year, $year);
 			$appointments = array();
-			while($objAppointments->next()) {
+			while($objAppointments->next())
+			{
 				// User has to be creator, a participant or an admin
 				// Skip check if user is admin
-				if(!$this->User->isAdmin) {
+				if(!$this->User->isAdmin)
+				{
 					$userId = $this->User->id;
 					// Skip appointment if appointment is private and user is not creator
-					if($userId != $objAppointments->creator && $objAppointments->private) {
+					if($userId != $objAppointments->creator && $objAppointments->private)
+					{
 						continue;
 					}
 					$found = $userId == $objAppointments->creator;
 					$participants = unserialize($objAppointments->participants);
-					if(!$found && $participants) {
-						foreach($participants as $participant) {
-							if($participant == $userId) {
+					if(!$found && $participants)
+					{
+						foreach($participants as $participant)
+						{
+							if($participant == $userId)
+							{
 								$found = true;
 								break;
 							}
 						}
 					}
-					if(!$found) {
+					if(!$found)
+					{
 						continue;
 					}
 				}
 				
 				$color = $objAppointments->color != '' ? $objAppointments->color : 'f6f6f6';
-				$appointments[] = array(
+				$appointments[] = array
+				(
 					'id' => $objAppointments->id,
 					'subject' => $objAppointments->subject,
 					'startTime' => date('H:i', $objAppointments->startTime),

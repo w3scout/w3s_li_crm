@@ -1,6 +1,4 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -50,25 +48,38 @@ class ModuleTaskList extends Module
 		$this->loadLanguageFile('tl_li_task');
 		$this->import('FrontendUser', 'User');
 		if($this->User->id != 0) {
-			$objTasks = $this->Database->prepare('SELECT t.id, t.title, t.alias, t.priority, t.deadline, s.title AS status, s.icon, s.cssClass
-												  FROM tl_li_task AS t
-												  INNER JOIN tl_li_task_status AS s ON s.id = t.toStatus
-												  WHERE t.toCustomer = ? AND t.published = 1
-												  ORDER BY t.priority ASC')->execute($this->User->id);
-		} else {
-			$objTasks = $this->Database->execute('SELECT t.id, t.title, t.alias, t.priority, t.deadline, s.title AS status, s.icon, s.cssClass
-												  FROM tl_li_task AS t
-												  INNER JOIN tl_li_task_status AS s ON s.id = t.toStatus
-												  WHERE t.published = 1
-												  ORDER BY t.priority ASC');
+			$objTasks = $this->Database->prepare("
+				SELECT t.id, t.title, t.alias, t.priority, t.deadline, s.title AS status, s.icon, s.cssClass
+				FROM tl_li_task AS t
+				INNER JOIN tl_li_task_status AS s
+					ON s.id = t.toStatus
+				WHERE t.toCustomer = ?
+					AND t.published = 1
+				ORDER BY t.priority ASC
+			")->execute($this->User->id);
+		}
+		else
+		{
+			$objTasks = $this->Database->execute("
+				SELECT t.id, t.title, t.alias, t.priority, t.deadline, s.title AS status, s.icon, s.cssClass
+			  	FROM tl_li_task AS t
+			  	INNER JOIN tl_li_task_status AS s
+			  		ON s.id = t.toStatus
+			  	WHERE t.published = 1
+			  	ORDER BY t.priority ASC");
 		}
 		
-		$objPage = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
-								  ->limit(1)
-								  ->execute($this->jumpTo);
+		$objPage = $this->Database->prepare("
+			SELECT id, alias
+			FROM tl_page
+			WHERE id=?
+		")->limit(1)->execute($this->jumpTo);
+		
 		$arrTasks = array();
-		while($objTasks->next() != null) {
-			$newArray = array(
+		while($objTasks->next() != null)
+		{
+			$newArray = array
+			(
 				'id' => $objTasks->id,
 				'title' => $objTasks->title,
 				'priority' => $objTasks->priority,
@@ -85,5 +96,3 @@ class ModuleTaskList extends Module
 		$this->Template->tasks = $arrTasks;
 	}
 }
-
-?>

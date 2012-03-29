@@ -113,26 +113,28 @@ if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 	unset($GLOBALS['BE_MOD']['li_crm']['li_settings']['callback']);
 }
 
-// Reminder cronjob
+// Cronjobs
+
+// - Reminder
 $GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');
+
+// - Invoice generation
 $GLOBALS['TL_CRON']['daily'][]  = array('InvoiceGeneration', 'generateInvoices');
 
 // Hooks
-// Replace insert tags
+// - Replace insert tags
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Customer', 'getCustomerCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Project', 'getProjectCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Invoice', 'getInvoiceCount');
 
-// Registration
+// - Registration
 $GLOBALS['TL_HOOKS']['createNewUser'][] = array('CustomerRegistration', 'createNewUser');
 
-// Rre actions
+// - Rre actions
 $GLOBALS['TL_HOOKS']['executePreActions'][] = array('TaskComment', 'hookExecutePreActions');
 
-// Post actions
+// - Post actions
 $GLOBALS['TL_HOOKS']['executePostActions'][] = array('Invoice', 'generateInvoice');
 
-/**
- * Form fields
- */
+// Form fields
 $GLOBALS['BE_FFL']['TaskHistory'] = 'TaskHistory';

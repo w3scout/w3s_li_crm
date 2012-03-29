@@ -1,5 +1,4 @@
-<?php
-if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -8,7 +7,7 @@ if (!defined('TL_ROOT')) die('You cannot access this file directly!');
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
-$GLOBALS['TL_LANG']['tl_li_product_to_customer']['product_legend'] = 'Produktzuordnung';
+$GLOBALS['TL_LANG']['tl_li_product_to_customer']['product_legend'] = "Produktzuordnung";
 
 $GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer'] = array("Kunde", "Bitte wählen Sie den Kunden aus.");
 $GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject'] = array("Projekt", "Bitte wählen Sie das Projekt aus.");

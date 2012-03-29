@@ -1,12 +1,14 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author     Christian Kolb <info@liplex.de>
  * @author     ApoY2k <apoy2k@gmail.com>
  * @license    MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Table tl_member
  */
 
 // Modify member dca to add customer fields
@@ -118,9 +120,9 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['bic'] = array
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['registerProducts'] = array
 (
-	'label'         => &$GLOBALS['TL_LANG']['tl_member']['registerProducts'],
-	'exclude'       => true,
-	'inputType'     => 'checkbox',
-	'foreignKey'    => 'tl_li_product.title',
-	'eval'          => array('multiple'=>true, 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+	'label'         		=> &$GLOBALS['TL_LANG']['tl_member']['registerProducts'],
+	'exclude'       		=> true,
+	'inputType'     		=> 'checkbox',
+	'foreignKey'    		=> 'tl_li_product.title',
+	'eval'          		=> array('multiple'=>true, 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
 );

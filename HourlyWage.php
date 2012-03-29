@@ -1,11 +1,14 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Class HourlyWage
  */
 class HourlyWage extends Controller
 {
@@ -15,16 +18,13 @@ class HourlyWage extends Controller
         $this->import('Database');
     }
     
-    /**
-     * Gets all hourly wages as an array that can be used to generate a select list
-     * 
-     * @return array The list of hourly wages
-     */
     public function getHourlyWagesList()
     {
-        $getHourlyWages = $this->Database->prepare("SELECT id, title, wage, currency
+        $getHourlyWages = $this->Database->prepare("
+        	SELECT id, title, wage, currency
             FROM tl_li_hourly_wage
-            ORDER BY title")->execute();
+            ORDER BY title
+        ")->execute();
         
         $hourlyWages = array();
         while($getHourlyWages->next())

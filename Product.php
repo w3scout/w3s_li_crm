@@ -1,11 +1,14 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     apoy2k
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      ApoY2k <apoy2k@gmail.com>
+ * @license     MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Class Product
  */
 class Product extends Controller
 {
@@ -15,22 +18,21 @@ class Product extends Controller
 		$this->import('Database');
 	}
     
-    /**
-     * Gets all products and their product type
-     * 
-     * @return array All products as an indexed array
-     */
     public function getProducts()
     {
         $products = array();
         
-        $getProducts = $this->Database->prepare("SELECT p.id, p.title, price, t.title AS type
+        $getProducts = $this->Database->prepare("
+        	SELECT p.id, p.title, price, t.title AS type
             FROM tl_li_product AS p
-                INNER JOIN tl_li_product_type AS t ON p.toProductType = t.id
-            ORDER BY p.title")->execute();
+            INNER JOIN tl_li_product_type AS t
+            	ON p.toProductType = t.id
+            ORDER BY p.title
+        ")->execute();
         while ($getProducts->next())
         {
-            $products[] = array(
+            $products[] = array
+            (
                 'id'    => $getProducts->id,
                 'title' => $getProducts->title,
                 'price' => $getProducts->price,
@@ -41,12 +43,6 @@ class Product extends Controller
         return $products;
     }
     
-    /**
-     * Gets all products and groups them by their types. The productId is used as the index so the
-     * array can be used as base for a select-list
-     * 
-     * @return array The products grouped by their type
-     */
     public function getProductsList()
     {
         $products = $this->getProducts();
@@ -59,12 +55,12 @@ class Product extends Controller
     }
 
     public function getUnitOptions() {
-        return array(
+        return array
+        (
             'unit' => $GLOBALS['TL_LANG']['tl_li_product']['units']['unit'],
             'hour' => $GLOBALS['TL_LANG']['tl_li_product']['units']['hour'],
             'month' => $GLOBALS['TL_LANG']['tl_li_product']['units']['month'],
             'year' => $GLOBALS['TL_LANG']['tl_li_product']['units']['year']
         );
     }
-
 }
