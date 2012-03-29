@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -6,6 +6,9 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
+/**
+ * Class CustomerRegistration
+ */
 class CustomerRegistration extends Frontend
 {
 	public function createNewUser($intId, $arrData)
@@ -57,10 +60,12 @@ class CustomerRegistration extends Frontend
                 $intId
             );
 
-            if($arrData['registerProducts'] != null) {
+            if($arrData['registerProducts'] != null)
+            {
                 //$products = unserialize($arrData['registerProducts']);
                 $products = $arrData['registerProducts'];
-                foreach($products as $product) {
+                foreach($products as $product)
+                {
                     $this->Database->prepare("
                         INSERT INTO tl_li_product_to_customer(tstamp, toCustomer, toProject, toProduct)
                         VALUES(?, ?, ?, ?)
@@ -75,5 +80,3 @@ class CustomerRegistration extends Frontend
         }
 	}
 }
-
-?>

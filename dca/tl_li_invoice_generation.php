@@ -1,7 +1,6 @@
 <?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * PHP version 5
  * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author     Christian Kolb <info@liplex.de>
  * @license    MIT (see /LICENSE.txt for further information)
@@ -15,8 +14,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 	// Config
 	'config' => array
 	(
-		'dataContainer'               => 'Table',
-		'enableVersioning'            => true
+		'dataContainer'             => 'Table',
+		'enableVersioning'          => true
 	),
 
 	// List
@@ -24,51 +23,51 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 	(
 		'sorting' => array
 		(
-			'mode'                    => 1,
-			'fields'                  => array('toCustomer'),
-			'panelLayout'             => 'filter;sort,search,limit'
+			'mode'                  => 1,
+			'fields'                => array('toCustomer'),
+			'panelLayout'           => 'filter;sort,search,limit'
 		),
 		'label' => array
 		(
-			'fields'                  => array('title'),
-            'format'                  => '%s'
+			'fields'                => array('title'),
+            'format'                => '%s'
 		),
 		'global_operations' => array
 		(
             'all' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
-				'href'                => 'act=select',
-				'class'               => 'header_edit_all',
-				'attributes'          => 'onclick="Backend.getScrollOffset();"'
+				'label'             => &$GLOBALS['TL_LANG']['MSC']['all'],
+				'href'              => 'act=select',
+				'class'             => 'header_edit_all',
+				'attributes'        => 'onclick="Backend.getScrollOffset();"'
 			)
 		),
 		'operations' => array
 		(
 			'edit' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['edit'],
-				'href'                => 'act=edit',
-				'icon'                => 'edit.gif'
+				'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['edit'],
+				'href'              => 'act=edit',
+				'icon'              => 'edit.gif'
 			),
 			'copy' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['copy'],
-				'href'                => 'act=copy',
-				'icon'                => 'copy.gif'
+				'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['copy'],
+				'href'              => 'act=copy',
+				'icon'              => 'copy.gif'
 			),
 			'delete' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['delete'],
-				'href'                => 'act=delete',
-				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+				'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['delete'],
+				'href'              => 'act=delete',
+				'icon'              => 'delete.gif',
+				'attributes'        => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
 			),
 			'show' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['show'],
-				'href'                => 'act=show',
-				'icon'                => 'show.gif'
+				'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['show'],
+				'href'              => 'act=show',
+				'icon'              => 'show.gif'
 			)
 		)
 	),
@@ -76,16 +75,16 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('fixedPositions'),
-		'default'                     => '{invoice_legend},toCustomer,toCategory,title,alias,currency,maturity;
-		                                  {generation_legend},headline,toTemplate,toAddress,startDate,generationInverval,descriptionBefore,fixedPositions,discount,earlyPaymentDiscount,descriptionAfter;
-		                                  {settings_legend},publishImmediately,sendImmediately;'
+		'__selector__'              => array('fixedPositions'),
+		'default'                   => '{invoice_legend},toCustomer,toCategory,title,alias,currency,maturity;
+		                                {generation_legend},headline,toTemplate,toAddress,startDate,generationInverval,descriptionBefore,fixedPositions,discount,earlyPaymentDiscount,descriptionAfter;
+		                                {settings_legend},publishImmediately,sendImmediately;'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
-        'fixedPositions' => 'servicePositions,productPositions,hourPositions'
+        'fixedPositions' 			=> 'servicePositions,productPositions,hourPositions'
 	),
 
 	// Fields
@@ -93,121 +92,121 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 	(
         'toCustomer' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toCustomer'],
-			'filter'                  => true,
-			'inputType'               => 'select',
-			'exclude'   			  => true,
-            'options_callback'        => array('Customer', 'getCustomerOptions'),
-			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toCustomer'],
+			'filter'                => true,
+			'inputType'             => 'select',
+			'exclude'   			=> true,
+            'options_callback'      => array('Customer', 'getCustomerOptions'),
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
         ),
         'toCategory' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toCategory'],
-			'filter'                  => true,
-			'inputType'               => 'select',
-			'exclude'   			  => true,
-            'foreignKey'              => 'tl_li_invoice_category.title',
-			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50')
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toCategory'],
+			'filter'                => true,
+			'inputType'             => 'select',
+			'exclude'   			=> true,
+            'foreignKey'            => 'tl_li_invoice_category.title',
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50')
         ),
         'title' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['title'],
-			'inputType'               => 'text',
-			'exclude'   			  => true,
-			'search'                  => true,
-			'flag'                    => 1,
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['title'],
+			'inputType'             => 'text',
+			'exclude'   			=> true,
+			'search'                => true,
+			'flag'                  => 1,
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
 		'alias' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['alias'],
-			'search'                  => true,
-			'inputType'               => 'text',
-			'exclude'   			  => true,
-			'eval'                    => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
-			'save_callback' => array
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['alias'],
+			'search'                => true,
+			'inputType'             => 'text',
+			'exclude'   			=> true,
+			'eval'                  => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
+			'save_callback' 		=> array
 			(
 				array('InvoiceGeneration', 'generateAlias')
 			)
 		),
         'currency' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['currency'],
-            'inputType'               => 'select',
-            'exclude'                 => true,
-            'options_callback'        => array('CurrencyHelper', 'getCurrencyOptions'),
-            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['currency'],
+            'inputType'             => 'select',
+            'exclude'               => true,
+            'options_callback'      => array('CurrencyHelper', 'getCurrencyOptions'),
+            'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
         ),
 		'maturity' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['maturity'],
-			'inputType'               => 'text',
-			'exclude'   			  => true,
-			'eval'                    => array('tl_class'=>'w50')
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['maturity'],
+			'inputType'             => 'text',
+			'exclude'   			=> true,
+			'eval'                  => array('tl_class'=>'w50')
 		),
         'headline' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['headline'],
-			'inputType'               => 'text',
-			'exclude'   			  => true,
-			'search'                  => true,
-			'flag'                    => 1,
-			'eval'                    => array('maxlength'=>250, 'tl_class'=>'clr')
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['headline'],
+			'inputType'             => 'text',
+			'exclude'   			=> true,
+			'search'                => true,
+			'flag'                  => 1,
+			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr')
 		),
         'toTemplate' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toTemplate'],
-			'inputType'               => 'select',
-			'exclude'   			  => true,
-			'foreignKey'              => 'tl_li_invoice_template.title',
-			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toTemplate'],
+			'inputType'             => 'select',
+			'exclude'   			=> true,
+			'foreignKey'            => 'tl_li_invoice_template.title',
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
         'toAddress' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toAddress'],
-			'inputType'               => 'select',
-			'exclude'   			  => true,
-			'options_callback'        => array('Invoice', 'getAddressOptions'),
-			'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toAddress'],
+			'inputType'             => 'select',
+			'exclude'   			=> true,
+			'options_callback'      => array('Invoice', 'getAddressOptions'),
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
         'startDate' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['startDate'],
-            'default'                 => time(),
-            'flag'                    => 8,
-            'inputType'               => 'text',
-            'exclude'   			  => true,
-            'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['startDate'],
+            'default'               => time(),
+            'flag'                  => 8,
+            'inputType'             => 'text',
+            'exclude'   			=> true,
+            'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
         ),
         'generationInverval' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['generationInverval'],
-            'inputType'               => 'select',
-            'exclude'   			  => true,
-            'options'                 => array('weekly', 'biweekly', 'monthly', 'bimonthly', 'quarterly', 'half-yearly', 'yearly'),
-            'reference'				  => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['generationInvervals'],
-            'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['generationInverval'],
+            'inputType'             => 'select',
+            'exclude'   			=> true,
+            'options'               => array('weekly', 'biweekly', 'monthly', 'bimonthly', 'quarterly', 'half-yearly', 'yearly'),
+            'reference'				=> &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['generationInvervals'],
+            'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
         'descriptionBefore' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['descriptionBefore'],
-            'inputType'               => 'textarea',
-            'exclude'   			  => true,
-			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['descriptionBefore'],
+            'inputType'             => 'textarea',
+            'exclude'   			=> true,
+			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
 		),
         'fixedPositions' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['fixedPositions'],
-            'inputType'               => 'checkbox',
-            'exclude'   			  => true,
-            'eval'                    => array('submitOnChange'=>true)
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['fixedPositions'],
+            'inputType'             => 'checkbox',
+            'exclude'   			=> true,
+            'eval'                  => array('submitOnChange'=>true)
         ),
         'servicePositions' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['servicePositions'],
-			'inputType'               => 'multiColumnWizard',
-			'exclude'   			  => true,
-			'eval'                    => array(
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['servicePositions'],
+			'inputType'             => 'multiColumnWizard',
+			'exclude'   			=> true,
+			'eval'                  => array(
 				'columnFields' => array
 				(
 					'quantity' => array
@@ -245,10 +244,10 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 		),
 		'productPositions' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['productPositions'],
-			'inputType'               => 'multiColumnWizard',
-			'exclude'   			  => true,
-			'eval'                    => array(
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['productPositions'],
+			'inputType'             => 'multiColumnWizard',
+			'exclude'   			=> true,
+			'eval'                  => array(
 				'columnFields' => array
 				(
 					'quantity' => array
@@ -286,10 +285,10 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 		),
 		'hourPositions' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['hourPositions'],
-			'inputType'               => 'multiColumnWizard',
-			'exclude'   			  => true,
-			'eval'                    => array(
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['hourPositions'],
+			'inputType'             => 'multiColumnWizard',
+			'exclude'   			=> true,
+			'eval'                  => array(
 				'columnFields' => array
 				(
 					'quantity' => array
@@ -319,41 +318,41 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 		),
         'discount' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['discount'],
-            'inputType'               => 'inputUnit',
-            'options'                 => array('percent', 'value'),
-            'reference'               => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['discountOptions'],
-            'exclude'   			  => true
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['discount'],
+            'inputType'             => 'inputUnit',
+            'options'               => array('percent', 'value'),
+            'reference'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['discountOptions'],
+            'exclude'   			=> true
         ),
         'earlyPaymentDiscount' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['earlyPaymentDiscount'],
-            'inputType'               => 'text',
-            'exclude'   			  => true,
-            'eval'                    => array('tl_class'=>'long')
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['earlyPaymentDiscount'],
+            'inputType'             => 'text',
+            'exclude'   			=> true,
+            'eval'                  => array('tl_class'=>'long')
         ),
         'descriptionAfter' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['descriptionAfter'],
-            'inputType'               => 'textarea',
-            'exclude'   			  => true,
-			'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['descriptionAfter'],
+            'inputType'             => 'textarea',
+            'exclude'   			=> true,
+			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
 		),
 		'publishImmediately' => array
 		(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['publishImmediately'],
-			'inputType'               => 'checkbox',
-			'exclude'   			  => true,
-			'filter'                  => true,
-            'eval'                    => array('tl_class'=>'w50')
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['publishImmediately'],
+			'inputType'             => 'checkbox',
+			'exclude'   			=> true,
+			'filter'                => true,
+            'eval'                  => array('tl_class'=>'w50')
         ),
         'sendImmediately' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['sendImmediately'],
-            'inputType'               => 'checkbox',
-            'exclude'   			  => true,
-            'filter'                  => true,
-            'eval'                    => array('tl_class'=>'w50')
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['sendImmediately'],
+            'inputType'             => 'checkbox',
+            'exclude'   			=> true,
+            'filter'                => true,
+            'eval'                  => array('tl_class'=>'w50')
         )
 	)
 );
