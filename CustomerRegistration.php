@@ -59,7 +59,36 @@ class CustomerRegistration extends Frontend
                 $customerName,
                 $intId
             );
-
+            
+            // Add address to user
+            $this->Database->prepare("
+                INSERT INTO tl_address (pid, firstname, lastname, gender, language,
+                  company, street, street_2, street_3, postal, city, state, country,
+                  email, secondEmail, phone, mobile, fax, website, isDefaultAddress, isBillingAddress)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)
+            ")->execute(
+                $intId,
+                $arrData['firstname'] != null ? $arrData['firstname'] : '',
+                $arrData['lastname'] != null ? $arrData['lastname'] : '',
+                $arrData['gender'] != null ? $arrData['gender'] : '',
+                $arrData['language'] != null ? $arrData['language'] : '',
+                $arrData['company'] != null ? $arrData['company'] : '',
+                $arrData['street'] != null ? $arrData['street'] : '',
+                $arrData['street_2'] != null ? $arrData['street_2'] : '',
+                $arrData['street_3'] != null ? $arrData['street_3'] : '',
+                $arrData['postal'] != null ? $arrData['postal'] : '',
+                $arrData['city'] != null ? $arrData['city'] : '',
+                $arrData['state'] != null ? $arrData['state'] : '',
+                $arrData['country'] != null ? $arrData['country'] : '',
+                $arrData['email'] != null ? $arrData['email'] : '',
+                $arrData['secondEmail'] != null ? $arrData['secondEmail'] : '',
+                $arrData['phone'] != null ? $arrData['phone'] : '',
+                $arrData['mobile'] != null ? $arrData['mobile'] : '',
+                $arrData['fax'] != null ? $arrData['fax'] : '',
+                $arrData['website'] != null ? $arrData['website'] : ''
+            );
+            
+            // Add products to user
             if($arrData['registerProducts'] != null)
             {
                 //$products = unserialize($arrData['registerProducts']);
