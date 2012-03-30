@@ -129,7 +129,7 @@ class InvoiceGeneration extends Controller
 
                 // Products
                 $objProducts = $this->Database->prepare("
-                    SELECT p.id, SUM(pc.number) AS countNumber, p.unit
+                    SELECT p.id, SUM(pc.number) AS quantity, p.unit
                     FROM tl_li_product AS p
                     INNER JOIN tl_li_product_to_customer AS pc
                         ON p.id = pc.toProduct
@@ -142,13 +142,11 @@ class InvoiceGeneration extends Controller
                     time(),
                     $generatedLast
                 );
-                if($objProducts->numRows == 0) {
-                    continue;
-                }
+                
                 $products = array();
                 while($objProducts->next() != null) {
                     $products[] = array(
-                        'quantity' => $objProducts->countNumber,
+                        'quantity' => $objProducts->quantity,
                         'unit' => $objProducts->unit,
                         'item' => $objProducts->id,
                         'title' => ''
@@ -159,6 +157,36 @@ class InvoiceGeneration extends Controller
                 // Hours
                 $hours = array();
                 $hourPositions = serialize($hours);
+                $objHours = $this->Database->prepare("
+                	SELECT wp.id, (SUM(h.hours) + SUM(h.minutes) / 60) AS quantity
+					FROM tl_li_work_package AS wp
+					INNER JOIN tl_li_working_hour AS wh
+						ON wp.id = wh.toWorkPackage
+					WHERE wp.toCustomer = ?
+                        AND wh.entryDate <= ?
+                        AND wh.entryDate > ?
+                    GROUP BY wp.id
+                ")->execute(
+					$objInvoiceGenerations->toCustomer,
+                    time(),
+                    $generatedLast
+				);
+				
+				$hours = array();
+                while($objHours->next() != null) {
+                    $hours[] = array(
+                        'quantity' => $objHours->quantity,
+                        'unit' => 'hour',
+                        'item' => $objHours->id,
+                        'title' => ''
+                    );
+                }
+                $hourPositions = serialize($hours);
+				
+				// Skip generation when no positions are available
+				if($objServices->numRows == 0 && $objProducts->numRows == 0 && $objHours->numRows == 0) {
+                    continue;
+                }
             }
 
             $invoiceId = $this->Database->prepare("
