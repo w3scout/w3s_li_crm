@@ -1,10 +1,9 @@
-<?php
+<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
@@ -41,26 +40,32 @@ class DetailsBox extends Backend
 
 		$this->Template = new BackendTemplate('be_appointment_details');
 
-		$objAppointment = $this->Database->prepare("SELECT m.customerNumber,
-														   m.customerName,
-														   u.name AS creator,
-														   a.subject,
-														   t.title AS task,
-														   a.participants,
-														   a.place,
-														   a.note,
-														   a.startDate,
-														   a.endDate,
-														   a.startTime,
-														   a.endTime,
-														   a.repetition,
-														   a.period
-													FROM tl_li_appointment AS a
-													LEFT JOIN tl_member AS m ON m.id = a.toCustomer
-													INNER JOIN tl_user AS u ON u.id = a.creator
-													LEFT JOIN tl_li_task AS t ON t.id = a.toTask
-													WHERE a.id = ?")->limit(1)->execute($id);
-		if($objAppointment->numRows == 1) {
+		$objAppointment = $this->Database->prepare("
+			SELECT m.customerNumber,
+				   m.customerName,
+				   u.name AS creator,
+				   a.subject,
+				   t.title AS task,
+				   a.participants,
+				   a.place,
+				   a.note,
+				   a.startDate,
+				   a.endDate,
+				   a.startTime,
+				   a.endTime,
+				   a.repetition,
+				   a.period
+			FROM tl_li_appointment AS a
+			LEFT JOIN tl_member AS m
+				ON m.id = a.toCustomer
+			INNER JOIN tl_user AS u
+				ON u.id = a.creator
+			LEFT JOIN tl_li_task AS t
+				ON t.id = a.toTask
+			WHERE a.id = ?
+		")->limit(1)->execute($id);
+		if($objAppointment->numRows == 1)
+		{
 			$appointment = array();
 			$appointment['customer'] = $objAppointment->customerNumber != '' ? $objAppointment->customerNumber." ".$objAppointment->customerName : '';
 			$appointment['creator'] = $objAppointment->creator;
@@ -76,12 +81,16 @@ class DetailsBox extends Backend
 			$appointment['repetition'] = $objAppointment->repetition == 1 ? $GLOBALS['TL_LANG']['tl_li_appointment']['periods'][$objAppointment->period] : '';
 			
 			$participants = unserialize($appointment['participants']);
-			if($participants) {
+			if($participants)
+			{
 				$participantsAsText = "";
-				foreach($participants as $participant) {
-					$objParticipant = $this->Database->prepare("SELECT name FROM tl_user WHERE id = ?")
-												 	->limit(1)
-												 	->execute($participant);
+				foreach($participants as $participant)
+				{
+					$objParticipant = $this->Database->prepare("
+						SELECT name
+						FROM tl_user
+						WHERE id = ?
+					")->limit(1)->execute($participant);
 					$participantsAsText .= $objParticipant->name."<br />";
 				}
 				$appointment['participants'] = $participantsAsText;
@@ -92,7 +101,6 @@ class DetailsBox extends Backend
 
 		$this->output();
 	}
-
 
 	/**
 	 * Output the template file
@@ -109,11 +117,8 @@ class DetailsBox extends Backend
 	}
 }
 
-
 /**
  * Instantiate controller
  */
 $objDetailsBox = new DetailsBox();
 $objDetailsBox->run();
-
-?>

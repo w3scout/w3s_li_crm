@@ -1,12 +1,9 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
@@ -46,6 +43,11 @@ class Invoice extends BackendModule
 		{
 			$this->Template->dispatchSuccessful = $this->sendInvoice($id);
 		}
+		elseif($key == 'generation')
+		{
+			$generationId = $this->buildGeneration($id);
+			$this->redirect('contao/main.php?do=li_invoices&table=tl_li_invoice_generation&act=edit&id='.$generationId);
+		}
 		elseif ($key == 'pdf')
 		{
 			// Return the file and do not render the template
@@ -61,9 +63,7 @@ class Invoice extends BackendModule
 	/**
 	 * Generate module
 	 */
-	protected function compile()
-	{
-	}
+	protected function compile(){}
 
 	public function generateAlias($varValue, DataContainer $dc)
 	{
@@ -95,6 +95,31 @@ class Invoice extends BackendModule
 		}
 		return $varValue;
 	}
+
+    public function generateAliasWithoutDC($title, $id)
+    {
+        // Generate alias
+        $alias = standardize($title);
+
+        $objAlias = $this->Database->prepare("
+            SELECT id
+            FROM tl_li_invoice
+            WHERE alias = ?
+        ")->execute($alias);
+
+        // Check whether the news alias exists
+        if ($objAlias->numRows > 1)
+        {
+            throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $alias));
+        }
+
+        // Add ID to alias
+        if ($objAlias->numRows)
+        {
+            $alias .= '-'.$id;
+        }
+        return $alias;
+    }
 
 	public function renderLabel($row, $label)
 	{
@@ -231,6 +256,7 @@ class Invoice extends BackendModule
 
 	public function getUnitOptions(MultiColumnWizard $mcw)
 	{
+        $this->loadLanguageFile('tl_li_invoice');
 		$unit_options = array(
 				'unit' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'],
 				'hour' => $GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'],
@@ -309,7 +335,7 @@ class Invoice extends BackendModule
 			$hours = $objHours->sumHours;
 			$minutes = $objHours->sumMinutes;
 
-			$hours = $this->getTotalHours($objHours->sumHours, $objHours->sumMinutes);
+			$hours = Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
 
 			$options[$objHours->id] = $objHours->title.' ('.$hours.')';
 		}
@@ -327,7 +353,7 @@ class Invoice extends BackendModule
         $fullNetto = $data['fullNetto'];
 		
 		$objInvoice = $this->Database->prepare("
-            SELECT i.alias, t.basePath, t.periodFolder
+            SELECT i.alias, i.invoiceDate, t.basePath, t.periodFolder
             FROM tl_li_invoice AS i
             INNER JOIN tl_li_invoice_template AS t
                 ON i.toTemplate = t.id
@@ -344,34 +370,37 @@ class Invoice extends BackendModule
 		$dompdf->render();
 
 		// Generate export path
-		$exportPath = $objInvoice->basePath == '' ? '../'.TL_ROOT.'/' : '../'.$objInvoice->basePath.'/';
+        $root = TL_ROOT."/";
+        $basePath = $objInvoice->basePath."/";
+        $periodFolder = "";
 
 		if ($objInvoice->periodFolder != '')
 		{
 			if ($objInvoice->periodFolder == 'daily')
 			{
-				$exportPath .= date('Y-z', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y-z', $objInvoice->invoiceDate).'/';
 			}
 			elseif ($objInvoice->periodFolder == 'weekly')
 			{
-				$exportPath .= date('Y-W', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y-W', $objInvoice->invoiceDate).'/';
 			}
 			elseif ($objInvoice->periodFolder == 'monthly')
 			{
-				$exportPath .= date('Y-m', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y-m', $objInvoice->invoiceDate).'/';
 			}
 			elseif ($objInvoice->periodFolder == 'yearly')
 			{
-				$exportPath .= date('Y', $objInvoice->invoiceDate).'/';
+                $periodFolder = date('Y', $objInvoice->invoiceDate).'/';
 			}
 		}
 
-		if (!file_exists($exportPath))
+		if (!file_exists($root.$basePath.$periodFolder))
 		{
-			mkdir($exportPath, 0777, true);
+			mkdir($root.$basePath.$periodFolder, 0777, true);
 		}
 
-		$exportFile = $exportPath.$objInvoice->alias.'.pdf';
+        $file = $objInvoice->alias.'.pdf';
+		$exportFile = $root.$basePath.$periodFolder.$file;
 
 		// Export pdf
 		$pdfInvoice = fopen($exportFile, 'w');
@@ -379,7 +408,7 @@ class Invoice extends BackendModule
 		fclose($pdfInvoice);
 
 		$templateLink = substr($exportFile, 2);
-		$filePath = substr($exportFile, 3);
+		$filePath = $basePath.$periodFolder.$file;
 
 		$this->Database->prepare("
             UPDATE tl_li_invoice
@@ -469,7 +498,7 @@ class Invoice extends BackendModule
             'invoice_number' => $invoiceNumber,
 
             'title' => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
-            'introduction' => sprintf($objAddress->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
+            'introduction' => sprintf($objAddress->gender == 'male' || $objAddress->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
 
             'early_payment_discount' => $objInvoice->earlyPaymentDiscount,
 
@@ -916,7 +945,7 @@ class Invoice extends BackendModule
 		exit;
 	}
 
-	private function sendInvoice($id)
+	public function sendInvoice($id)
 	{
 		$objInvoice = $this->Database->prepare("
             SELECT i.invoiceDate, i.file, a.lastname, a.gender, a.email
@@ -931,10 +960,10 @@ class Invoice extends BackendModule
 			$objEmail->from = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_from'];
 			$objEmail->fromName = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_fromName'];
 			$objEmail->subject = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'];
-			$objEmail->text = sprintf($objInvoice->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
-			$objEmail->html = sprintf($objInvoice->gender == 'male' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+			$objEmail->text = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+			$objEmail->html = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 
-			$objEmail->attachFile('../'.$objInvoice->file);
+			$objEmail->attachFile(TL_ROOT."/".$objInvoice->file);
 			$worked = $objEmail->sendTo($objInvoice->email);
 		}
 		catch( Exception $e )
@@ -996,7 +1025,7 @@ class Invoice extends BackendModule
 		}
 	}
 
-	private function getTotalHours($hours, $minutes)
+	public static function getTotalHours($hours, $minutes)
 	{
 		$minutes = Abs($minutes);
 		$iHours = Floor($minutes / 60);
@@ -1047,6 +1076,54 @@ class Invoice extends BackendModule
 		$this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
 		$this->createNewVersion('tl_li_invoice', $intId);
 	}
+	
+	private function buildGeneration($invoiceId) {
+		$objInvoice = $this->Database->prepare("
+			SELECT toCustomer, toCategory, title, currency, maturity,
+				headline, toTemplate, toAddress, descriptionBefore, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter
+			FROM tl_li_invoice
+			WHERE id = ?
+		")->limit(1)->execute($invoiceId);
+		
+		$generationId = $this->Database->prepare("
+			INSERT INTO tl_li_invoice_generation(tstamp, toCustomer, toCategory, title, currency, maturity,
+				headline, toTemplate, toAddress, startDate, generationInverval, descriptionBefore, fixedPositions, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		")->execute(
+			time(),
+			$objInvoice->toCustomer,
+			$objInvoice->toCategory,
+			$objInvoice->title,
+			$objInvoice->currency,
+			$objInvoice->maturity,
+			$objInvoice->headline,
+			$objInvoice->toTemplate,
+			$objInvoice->toAddress,
+			strtotime('today'),
+			'yearly',
+			$objInvoice->descriptionBefore,
+			1,
+			$objInvoice->servicePositions,
+			$objInvoice->productPositions,
+			$objInvoice->hourPositions,
+			$objInvoice->discount,
+			$objInvoice->earlyPaymentDiscount,
+			$objInvoice->descriptionAfter
+		)->insertId;
+		
+		$invoiceGeneration = new InvoiceGeneration();
+		$alias = $invoiceGeneration->generateAliasWithoutDC($objInvoice->title, $generationId);
+		$this->Database->prepare("
+			UPDATE tl_li_invoice_generation
+			SET alias = ?
+			WHERE id = ?
+		")->execute(
+			$alias,
+			$generationId
+		);
+		
+		return $generationId;
+	}
 
 	private function sendTo403()
 	{
@@ -1092,5 +1169,4 @@ class Invoice extends BackendModule
 			exit ;
 		}
 	}
-
 }

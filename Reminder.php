@@ -1,12 +1,9 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
@@ -25,7 +22,11 @@ class Reminder extends Controller
 	public function checkForReminder()
 	{
 		// Invoice reminder
-		$objReminder = $this->Database->prepare("SELECT * FROM tl_li_invoice_reminder")->execute();
+		$objReminder = $this->Database->prepare("
+			SELECT *
+			FROM tl_li_invoice_reminder
+		")->execute();
+		
 		while ($objReminder->next())
 		{
 			if ($objReminder->remindOnce)
@@ -205,6 +206,4 @@ class Reminder extends Controller
 			$this->log('Reminder error: '.$e->getMessage(), __METHOD__, TL_ERROR);
 		}
 	}
-
 }
-?>

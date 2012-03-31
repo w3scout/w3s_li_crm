@@ -1,6 +1,4 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -49,13 +47,19 @@ class ModuleTaskReader extends Module
 		$this->loadLanguageFile('tl_li_task');
 		$alias = $this->Input->get('items');
 
-		$objTask = $this->Database->prepare('SELECT t.id, t.title, t.priority, t.deadline, t.description, s.title AS status, s.icon, s.cssClass
-											 FROM tl_li_task AS t
-											 INNER JOIN tl_li_task_status AS s ON s.id = t.toStatus
-											 WHERE t.alias = ? AND t.published = 1')->limit(1)->execute($alias);
+		$objTask = $this->Database->prepare("
+			SELECT t.id, t.title, t.priority, t.deadline, t.description, s.title AS status, s.icon, s.cssClass
+			FROM tl_li_task AS t
+			INNER JOIN tl_li_task_status AS s
+				ON s.id = t.toStatus
+			WHERE t.alias = ?
+				AND t.published = 1
+		")->limit(1)->execute($alias);
+		
 		if ($objTask->numRows == 1)
 		{
-			$arrTask = array(
+			$arrTask = array
+			(
 					'id' => $objTask->id,
 					'title' => $objTask->title,
 					'priority' => $objTask->priority,
@@ -71,6 +75,4 @@ class ModuleTaskReader extends Module
 		}
 		
 	}
-
 }
-?>

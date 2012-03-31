@@ -1,14 +1,14 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 
+/**
+ * Class Customer
+ */
 class Customer extends Controller
 {
 	public function __construct()
@@ -25,9 +25,11 @@ class Customer extends Controller
 		{
 			if (isset($arrSplit[1]) && is_numeric($arrSplit[1]))
 			{
-				$objCustomer = $this->Database->prepare("SELECT COUNT(id) AS count
+				$objCustomer = $this->Database->prepare("
+					SELECT COUNT(id) AS count
 				    FROM tl_member
-				    WHERE isCustomer = '1'")->limit(1)->execute();
+				    WHERE isCustomer = '1'
+				")->limit(1)->execute();
 				$count = $objCustomer->count;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation_start']))
 				{
@@ -42,10 +44,12 @@ class Customer extends Controller
 
 	public function getCustomerOptions(DataContainer $dc)
 	{
-		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName
-											      FROM tl_member
-											      WHERE disable = ''
-											      	AND isCustomer = '1'")->execute();
+		$objCustomers = $this->Database->prepare("
+			SELECT id, customerNumber, customerName
+			FROM tl_member
+			WHERE disable = ''
+				AND isCustomer = '1'
+		")->execute();
 
 		$customers = array();
 		while ($objCustomers->next())
@@ -57,16 +61,18 @@ class Customer extends Controller
 
 	public function getCustomerWithProjectsOptions(DataContainer $dc)
 	{
-		$customers = array();
-
-		$objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName
+		$objCustomers = $this->Database->prepare("
+			SELECT id, customerNumber, customerName
 		    FROM tl_member AS m
 		    WHERE disable = ''
-		        AND (SELECT COUNT(p.id)
-		            FROM tl_li_project AS p
-		            WHERE p.toCustomer = m.id
-		        ) > 0")->execute();
+		        AND (
+		        		SELECT COUNT(p.id)
+		            	FROM tl_li_project AS p
+		            	WHERE p.toCustomer = m.id
+		        	) > 0
+		")->execute();
 
+		$customers = array();
 		while ($objCustomers->next())
 		{
 			$customers[$objCustomers->id] = $objCustomers->customerNumber." ".$objCustomers->customerName;
@@ -91,39 +97,46 @@ class Customer extends Controller
 
 		// Generate new customer number
 		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);
-		;
 	}
 
-    public function changeMandatoryFields(DataContainer $dc) {
-            if($dc->activeRecord == null) {
-                $objMember = $this->Database->prepare("
-                    SELECT isCustomer
-                    FROM tl_member
-                    WHERE id = ?
-                ")->limit(1)->execute($dc->id);
-                $isCustomer = $objMember->isCustomer;
-            } else {
-                $isCustomer = $dc->activeRecord->isCustomer;
-            }
+    public function changeMandatoryFields(DataContainer $dc)
+    {
+        if($dc->activeRecord == null)
+        {
+            $objMember = $this->Database->prepare("
+                SELECT isCustomer
+                FROM tl_member
+                WHERE id = ?
+            ")->limit(1)->execute($dc->id);
+            $isCustomer = $objMember->isCustomer;
+        }
+        else
+        {
+            $isCustomer = $dc->activeRecord->isCustomer;
+        }
 
-            if($isCustomer) {
-                $GLOBALS['TL_DCA']['tl_member']['fields']['gender']['eval']['mandatory'] = true;
-                $GLOBALS['TL_DCA']['tl_member']['fields']['street']['eval']['mandatory'] = true;
-                $GLOBALS['TL_DCA']['tl_member']['fields']['postal']['eval']['mandatory'] = true;
-                $GLOBALS['TL_DCA']['tl_member']['fields']['city']['eval']['mandatory'] = true;
-                $GLOBALS['TL_DCA']['tl_member']['fields']['country']['eval']['mandatory'] = true;
-                $GLOBALS['TL_DCA']['tl_member']['fields']['language']['eval']['mandatory'] = true;
-            }
+        if($isCustomer)
+        {
+            $GLOBALS['TL_DCA']['tl_member']['fields']['gender']['eval']['mandatory'] = true;
+            $GLOBALS['TL_DCA']['tl_member']['fields']['street']['eval']['mandatory'] = true;
+            $GLOBALS['TL_DCA']['tl_member']['fields']['postal']['eval']['mandatory'] = true;
+            $GLOBALS['TL_DCA']['tl_member']['fields']['city']['eval']['mandatory'] = true;
+            $GLOBALS['TL_DCA']['tl_member']['fields']['country']['eval']['mandatory'] = true;
+            $GLOBALS['TL_DCA']['tl_member']['fields']['language']['eval']['mandatory'] = true;
+        }
     }
 
-    public function updateDefaultAddress(DataContainer $dc) {
+    public function updateDefaultAddress(DataContainer $dc)
+    {
         $objAddress = $this->Database->prepare("
             SELECT id
             FROM tl_address
             WHERE pid = ?
                 AND isDefaultAddress = 1
         ")->limit(1)->execute($dc->id);
-        if($objAddress->numRows == 1) {
+		
+        if($objAddress->numRows == 1)
+        {
             // Default address available
             $this->Database->prepare("
                 UPDATE tl_address
@@ -150,7 +163,9 @@ class Customer extends Controller
                 $dc->activeRecord->fax != null ? $dc->activeRecord->fax : '',
                 $dc->activeRecord->website != null ? $dc->activeRecord->website : ''
             );
-        } else {
+        }
+        else
+        {
             // No default address available
             $this->Database->prepare("
                 INSERT INTO tl_address (pid, firstname, lastname, gender, language,
@@ -180,6 +195,4 @@ class Customer extends Controller
             );
         }
     }
-
 }
-?>

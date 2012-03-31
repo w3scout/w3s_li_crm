@@ -3,6 +3,10 @@
     vertical-align: -3px;
 }
 
+.tree_view .tl_listing img, ul.tree_view img {
+    vertical-align: -6px;
+}
+
 .tree_view.customers .tl_listing .tl_right a,
 .tree_view.customers .tl_listing .tl_right span {
     display: block;
@@ -76,7 +80,10 @@
     background: url("../icons/invoice_reminder.png") no-repeat left center;
     padding: 2px 0 3px 21px;
 }
-
+.header_invoice_generation {
+    background: url("../icons/generation.png") no-repeat left center;
+    padding: 2px 0 3px 21px;
+}
 .header_task_reminder {
     background: url("../icons/task_reminder.png") no-repeat left center;
     padding: 2px 0 3px 21px;
@@ -392,4 +399,7 @@ label.print {
 	margin-top: 4px;
 	padding: 3px 4px 0;
 	border-top: 1px solid #ccc;
+}
+#tl_soverview.settings p {
+    padding: 5px 5px 0 20px;
 }

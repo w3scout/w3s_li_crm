@@ -1,12 +1,14 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author      Christian Kolb <info@liplex.de>
  * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Class CustomerList
  */
 class CustomerList extends BackendModule
 {
@@ -15,6 +17,50 @@ class CustomerList extends BackendModule
 	public function generate()
 	{
 		parent::generate();
+
+        // Redirect to another page when element is created
+        $key = $this->Input->get('key');
+        $id = $this->Input->get('id');
+        $projectId = $this->Input->get('projectId') != '' ? $this->Input->get('projectId') : 0;
+
+        if($key == 'project')
+        {
+            $projectId = $this->Database->prepare("
+                INSERT INTO tl_li_project(tstamp, toCustomer)
+                VALUES(?, ?)
+            ")->execute(
+                time(),
+                $id
+            )->insertId;
+
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_project&act=edit&id='.$projectId);
+        }
+        elseif($key == 'service')
+        {
+            $serviceId = $this->Database->prepare("
+                INSERT INTO tl_li_service(tstamp, toCustomer, toProject)
+                VALUES(?, ?, ?)
+            ")->execute(
+                time(),
+                $id,
+                $projectId
+            )->insertId;
+
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_service&act=edit&id='.$serviceId);
+        }
+        elseif($key == 'product')
+        {
+            $productToCustomerId = $this->Database->prepare("
+                INSERT INTO tl_li_product_to_customer(tstamp, toCustomer, toProject)
+                VALUES(?, ?, ?)
+            ")->execute(
+                time(),
+                $id,
+                $projectId
+            )->insertId;
+
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_product_to_customer&act=edit&id='.$productToCustomerId);
+        }
 
 		// If a toggle is requested, modify the array accordingly before displaying the tree
 		if (!empty($_REQUEST['toggle']) && !empty($_REQUEST['id']))
@@ -106,31 +152,38 @@ class CustomerList extends BackendModule
         // Active element in range
         $rangeActive = false;
         // Reset option
-        $limitOptions[] = array(
+        $limitOptions[] = array
+        (
             'value' => 'tl_limit',
             'label' => $GLOBALS['TL_LANG']['MSC']['filterRecords'],
             'active' => false
         );
         // Range options
-        for($i = 0; $i < $optionsCount; $i++) {
+        for($i = 0; $i < $optionsCount; $i++)
+        {
             $startValue = $i * $contaoLimit;
             $endValue = $contaoLimit;
             $startLabel = $i * $contaoLimit + 1;
             $endLabel = ($i+1) * $contaoLimit <= $customerTotal ? ($i+1) * $contaoLimit : $i * $contaoLimit + $customerTotal % $contaoLimit;
-            if($startValue.','.$endValue == $currentLimit) {
+            if($startValue.','.$endValue == $currentLimit)
+            {
                 $active = true;
                 $rangeActive = true;
-            } else {
+            }
+            else
+            {
                 $active = false;
             }
-            $limitOptions[] = array(
+            $limitOptions[] = array
+            (
                 'value' => $startValue.','.$endValue,
                 'label' => $startLabel.' - '.$endLabel,
                 'active' => $startValue.','.$endValue == $currentLimit
             );
         }
         // All option
-        $limitOptions[] = array(
+        $limitOptions[] = array
+        (
             'value' => 'all',
             'label' => $GLOBALS['TL_LANG']['MSC']['filterAll'],
             'active' => !$rangeActive
@@ -138,7 +191,8 @@ class CustomerList extends BackendModule
         $this->Template->limitOptions = $limitOptions;
 
 		// Get all valid customers
-        if($searchType == 'customer' && !empty($searchValue)) {
+        if($searchType == 'customer' && !empty($searchValue))
+        {
             $objCustomers = $this->Database->prepare("
                 SELECT id, customerNumber, customerName, disable
                 FROM tl_member
@@ -156,7 +210,9 @@ class CustomerList extends BackendModule
                 ORDER BY customerNumber ASC
                 ".$sqlLimit
             )->execute();
-        } elseif($searchType == 'project' && !empty($searchValue)) {
+        }
+        elseif($searchType == 'project' && !empty($searchValue))
+        {
             $objCustomers = $this->Database->prepare("
                 SELECT DISTINCT m.id, m.customerNumber, m.customerName, m.disable
                 FROM tl_member AS m
@@ -173,7 +229,9 @@ class CustomerList extends BackendModule
                 ORDER BY m.customerNumber ASC
                 ".$sqlLimit
             )->execute();
-        } elseif($searchType == 'service' && !empty($searchValue)) {
+        }
+        elseif($searchType == 'service' && !empty($searchValue))
+        {
             $objCustomers = $this->Database->prepare("
                 SELECT DISTINCT m.id, m.customerNumber, m.customerName, m.disable
                 FROM tl_member AS m
@@ -189,7 +247,9 @@ class CustomerList extends BackendModule
                 ORDER BY m.customerNumber ASC
                 ".$sqlLimit
             )->execute();
-        } elseif($searchType == 'product' && !empty($searchValue)) {
+        }
+        elseif($searchType == 'product' && !empty($searchValue))
+        {
             $objCustomers = $this->Database->prepare("
                 SELECT DISTINCT m.id, m.customerNumber, m.customerName, m.disable
                 FROM tl_member AS m
@@ -207,7 +267,9 @@ class CustomerList extends BackendModule
                 ORDER BY m.customerNumber ASC
                 ".$sqlLimit
             )->execute();
-        } else {
+        }
+        else
+        {
             $objCustomers = $this->Database->prepare("
                 SELECT id, customerNumber, customerName, disable
                 FROM tl_member
@@ -223,7 +285,8 @@ class CustomerList extends BackendModule
 		while ($objCustomers->next())
 		{
             // Get all services of that customer which aren't connected to a project
-            if($searchType == 'service' && !empty($searchValue)) {
+            if($searchType == 'service' && !empty($searchValue))
+            {
                 $objCustomerServices = $this->Database->prepare("
                     SELECT s.id, s.title AS serviceTitle, t.icon
                     FROM tl_li_service AS s
@@ -234,9 +297,13 @@ class CustomerList extends BackendModule
                         AND s.title LIKE '%".$searchValue."%'
                     ORDER BY t.orderNumber ASC
                 ")->execute();
-            } elseif($searchType == 'product' && !empty($searchValue)) {
+            }
+            elseif($searchType == 'product' && !empty($searchValue))
+            {
                 $objCustomerServices = null;
-            } else {
+            }
+            else
+            {
                 $objCustomerServices = $this->Database->prepare("
                     SELECT s.id, s.title AS serviceTitle, t.icon
                     FROM tl_li_service AS s
@@ -249,11 +316,13 @@ class CustomerList extends BackendModule
             }
             
             $arrCustomerServices = array();
-            if($objCustomerServices != null) {
+            if($objCustomerServices != null)
+            {
                 while ($objCustomerServices->next())
                 {
                     $id = $objCustomerServices->id;
-                    $arrCustomerServices[] = array(
+                    $arrCustomerServices[] = array
+                    (
                         'id' => $id,
                         'serviceTitle' => $objCustomerServices->serviceTitle,
                         'icon' => $objCustomerServices->icon != '' ? $objCustomerServices->icon : 'system/modules/li_crm/icons/service_default.png',
@@ -262,7 +331,8 @@ class CustomerList extends BackendModule
             }
 
             // Get all products of this project which aren't connected to a project
-            if($searchType == 'product' && !empty($searchValue)) {
+            if($searchType == 'product' && !empty($searchValue))
+            {
                 $objCustomerProducts = $this->Database->prepare("
                     SELECT pp.id, p.title as productTitle, pt.icon
                     FROM tl_li_product_to_customer AS pp
@@ -275,9 +345,13 @@ class CustomerList extends BackendModule
                         AND p.title LIKE '%".$searchValue."%'
                     ORDER BY p.title
                 ")->execute();
-            } elseif($searchType == 'service' && !empty($searchValue)) {
+            }
+            elseif($searchType == 'service' && !empty($searchValue))
+            {
                 $objCustomerProducts = null;
-            } else {
+            }
+            else
+            {
                 $objCustomerProducts = $this->Database->prepare("
                     SELECT pp.id, p.title as productTitle, pt.icon
                     FROM tl_li_product_to_customer AS pp
@@ -291,11 +365,13 @@ class CustomerList extends BackendModule
                 ")->execute($objCustomers->id);
             }
             $arrCustomerProducts = array();
-            if($objCustomerProducts != null) {
+            if($objCustomerProducts != null)
+            {
                 while ($objCustomerProducts->next())
                 {
                     $id = $objCustomerProducts->id;
-                    $arrCustomerProducts[] = array(
+                    $arrCustomerProducts[] = array
+                    (
                         'id' => $id,
                         'productTitle' => $objCustomerProducts->productTitle,
                         'icon' => $objCustomerProducts->icon != '' ? $objCustomerProducts->icon : 'system/modules/li_crm/icons/products.png',
@@ -304,7 +380,8 @@ class CustomerList extends BackendModule
             }
 
 			// Get all projects of this customer
-            if($searchType == 'project' && !empty($searchValue)) {
+            if($searchType == 'project' && !empty($searchValue))
+            {
                 $objProjects = $this->Database->prepare("
                     SELECT id, projectNumber, title
                     FROM tl_li_project
@@ -315,7 +392,9 @@ class CustomerList extends BackendModule
                         )
                     ORDER BY projectNumber ASC
                 ")->execute();
-            } else {
+            }
+            else
+            {
                 $objProjects = $this->Database->prepare("
                     SELECT id, projectNumber, title
                     FROM tl_li_project
@@ -324,11 +403,13 @@ class CustomerList extends BackendModule
                 ")->execute($objCustomers->id);
             }
 			$arrProjects = array();
-            if($objProjects != null) {
+            if($objProjects != null)
+            {
                 while ($objProjects->next())
                 {
                     // Get all services of that project
-                    if($searchType == 'service' && !empty($searchValue)) {
+                    if($searchType == 'service' && !empty($searchValue))
+                    {
                         $objServices = $this->Database->prepare("
                             SELECT s.id, s.title AS serviceTitle, t.icon
                             FROM tl_li_service AS s
@@ -338,9 +419,13 @@ class CustomerList extends BackendModule
                                 AND s.title LIKE '%".$searchValue."%'
                             ORDER BY t.orderNumber ASC
                          ")->execute();
-                    } elseif($searchType == 'product' && !empty($searchValue)) {
+                    }
+                    elseif($searchType == 'product' && !empty($searchValue))
+                    {
                         $objServices = null;
-                    } else {
+                    }
+                    else
+                    {
                         $objServices = $this->Database->prepare("
                             SELECT p.id, p.title AS serviceTitle, t.icon
                             FROM tl_li_service AS p
@@ -352,11 +437,13 @@ class CustomerList extends BackendModule
                     }
 
                     $arrServices = array();
-                    if($objServices != null) {
+                    if($objServices != null)
+                    {
                         while ($objServices->next())
                         {
                             $id = $objServices->id;
-                            $arrServices[] = array(
+                            $arrServices[] = array
+                            (
                                 'id' => $id,
                                 'serviceTitle' => $objServices->serviceTitle,
                                 'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
@@ -365,7 +452,8 @@ class CustomerList extends BackendModule
                     }
 
                     // Get all products of this project
-                    if($searchType == 'product' && !empty($searchValue)) {
+                    if($searchType == 'product' && !empty($searchValue))
+                    {
                         $objProducts = $this->Database->prepare("
                             SELECT pp.id, p.title as productTitle, pt.icon
                             FROM tl_li_product_to_customer AS pp
@@ -375,9 +463,13 @@ class CustomerList extends BackendModule
                                 AND p.title LIKE '%".$searchValue."%'
                             ORDER BY p.title
                         ")->execute();
-                    } elseif($searchType == 'service' && !empty($searchValue)) {
+                    }
+                    elseif($searchType == 'service' && !empty($searchValue))
+                    {
                         $objProducts = null;
-                    } else {
+                    }
+                    else
+                    {
                         $objProducts = $this->Database->prepare("
                             SELECT pp.id, p.title as productTitle, pt.icon
                             FROM tl_li_product_to_customer AS pp
@@ -388,11 +480,13 @@ class CustomerList extends BackendModule
                         ")->execute($objProjects->id);
                     }
                     $arrProducts = array();
-                    if($objProducts != null) {
+                    if($objProducts != null)
+                    {
                         while ($objProducts->next())
                         {
                             $id = $objProducts->id;
-                            $arrProducts[] = array(
+                            $arrProducts[] = array
+                            (
                                 'id' => $id,
                                 'productTitle' => $objProducts->productTitle,
                                 'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
@@ -401,7 +495,8 @@ class CustomerList extends BackendModule
                     }
 
                     $id = $objProjects->id;
-                    $arrProjects[] = array(
+                    $arrProjects[] = array
+                    (
                         'id' => $id,
                         'projectNumber' => $objProjects->projectNumber,
                         'title' => $objProjects->title,
@@ -414,7 +509,8 @@ class CustomerList extends BackendModule
 
 
 			$id = $objCustomers->id;
-			$arrCustomers[] = array(
+			$arrCustomers[] = array
+			(
 				'id' => $id,
 				'customerNumber' => $objCustomers->customerNumber,
 				'customerName' => $objCustomers->customerName,
@@ -433,4 +529,3 @@ class CustomerList extends BackendModule
 	
 	protected function compile() {}
 }
-?>

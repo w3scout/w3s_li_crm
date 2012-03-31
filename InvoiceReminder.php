@@ -1,12 +1,9 @@
-<?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * PHP version 5
- * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author     Christian Kolb <info@liplex.de>
- * @license    MIT (see /LICENSE.txt for further information)
+ * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
+ * @author      Christian Kolb <info@liplex.de>
+ * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
@@ -23,7 +20,16 @@ class InvoiceReminder extends Controller
     public function getCustomerOptions($dc)
     {
         $customers = array();
-        $objCustomers = $this->Database->prepare("SELECT id, customerNumber, customerName FROM tl_member AS m WHERE disable = '' AND (SELECT COUNT(b.id) FROM tl_li_invoice AS b WHERE b.toCustomer = m.id ) > 0")->execute();
+        $objCustomers = $this->Database->prepare("
+        	SELECT id, customerNumber, customerName
+        	FROM tl_member AS m
+        	WHERE disable = ''
+        		AND (
+        				SELECT COUNT(b.id)
+        				FROM tl_li_invoice AS b
+        				WHERE b.toCustomer = m.id
+        			) > 0
+        ")->execute();
         while ($objCustomers->next())
         {
             $customers[$objCustomers->id] = $objCustomers->customerNumber . " " . $objCustomers->customerName;
@@ -69,7 +75,4 @@ class InvoiceReminder extends Controller
             return $objCustomer->customerNumber . " " . $objCustomer->customerName . " - " . $objInvoice->title;
         }
     }
-
 }
-
-?>

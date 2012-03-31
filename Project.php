@@ -1,12 +1,14 @@
-<?php
-if (!defined('TL_ROOT'))
-	die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author      Christian Kolb <info@liplex.de>
- * @author      apoy2k
+ * @author      ApoY2k <apoy2k@gmail.com>
  * @license     MIT (see /LICENSE.txt for further information)
+ */
+
+/**
+ * Class Project
  */
 class Project extends Controller
 {
@@ -16,16 +18,12 @@ class Project extends Controller
 		$this->import('Database');
 	}
 
-    /**
-     * Returns an array that can be used to create a select-list with all projects, grouped by the customers
-     *
-     * @return array All projects grouped by customers
-     */
     public function getProjectsOfCustomer($dc)
     {
         $projectsList = array();
 
-        $getProjects = $this->Database->prepare("SELECT id, projectNumber, title
+        $getProjects = $this->Database->prepare("
+        	SELECT id, projectNumber, title
             FROM tl_li_project
             WHERE toCustomer = ?
             	AND NOT title = ''
@@ -38,20 +36,18 @@ class Project extends Controller
         return $projectsList;
     }
 
-    /**
-     * Returns an array that can be used to create a select-list with all projects, grouped by the customers
-     * 
-     * @return array All projects grouped by customers
-     */
     public function getProjectsByCustomerList()
     {
         $projectsList = array();
         
-        $getProjects = $this->Database->prepare("SELECT p.id, p.projectNumber, p.title, c.customerName, c.customerNumber
+        $getProjects = $this->Database->prepare("
+        	SELECT p.id, p.projectNumber, p.title, c.customerName, c.customerNumber
             FROM tl_li_project AS p
-                INNER JOIN tl_member AS c ON p.toCustomer = c.id
+            INNER JOIN tl_member AS c
+            	ON p.toCustomer = c.id
             WHERE NOT p.title = ''
             ORDER BY customerNumber ASC, projectNumber ASC")->execute();
+		
         while($getProjects->next())
         {
             $projectsList[$getProjects->customerNumber.' '.$getProjects->customerName][$getProjects->id] =
@@ -61,12 +57,6 @@ class Project extends Controller
         return $projectsList;
     }
     
-    /**
-     * Returns the amount of projects padded with the amount of zeroes defined in the insert tag
-     * 
-     * @param string $insertConfig The insert tag string
-     * @return string The amount of projects
-     */
 	public function getProjectCount($insertConfig)
 	{
 		$arrSplit = explode('::', $insertConfig);
@@ -75,8 +65,10 @@ class Project extends Controller
 		{
 			if (isset($arrSplit[1]))
 			{
-				$objProject = $this->Database->prepare("SELECT COUNT(id) AS count
-                    FROM tl_li_project")->limit(1)->execute();
+				$objProject = $this->Database->prepare("
+					SELECT COUNT(id) AS count
+                    FROM tl_li_project
+                ")->limit(1)->execute();
                 
 				$count = $objProject->count;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_project_number_generation_start']))
@@ -90,12 +82,6 @@ class Project extends Controller
 		return false;
 	}
     
-    /**
-     * Gets all projects of a customer provided by a data container form
-     * 
-     * @param DataContainer $dc The data container provided by the form
-     * @return array The projects of the customer
-     */
 	public function getProjectsFromCustomerOptions($dc)
 	{
 		$projects = array();
@@ -106,11 +92,13 @@ class Project extends Controller
 			return $projects;
 		}
 
-		$objProjects = $this->Database->prepare("SELECT id, projectNumber, title
-           FROM tl_li_project
-           WHERE toCustomer = ?
-           	AND NOT title = ''
-           ORDER BY projectNumber ASC")->execute($cid);
+		$objProjects = $this->Database->prepare("
+			SELECT id, projectNumber, title
+           	FROM tl_li_project
+           	WHERE toCustomer = ?
+           		AND NOT title = ''
+           	ORDER BY projectNumber ASC
+        ")->execute($cid);
 
 		while ($objProjects->next())
 		{
@@ -119,13 +107,6 @@ class Project extends Controller
 		return $projects;
 	}
     
-    /**
-     * Generates a new project number
-     * 
-     * @param string $value
-     * @param DataContainer $dc
-     * @return string The new project number
-     */
 	public function createNewProjectNumber($value, $dc)
 	{
 		// Do not create a number if a number is allready set
@@ -145,6 +126,4 @@ class Project extends Controller
         
 		return $value;
 	}
-
 }
-?>

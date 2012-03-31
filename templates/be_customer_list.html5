@@ -43,7 +43,7 @@
 	</div>
 </form>
 <div id="tl_buttons">
-    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_member']['new'][1]; ?>" class="header_new customer" href="contao/main.php?do=member&act=create"><?php echo $GLOBALS['TL_LANG']['tl_member']['new'][0]; ?></a> :: <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_project']['new'][1]; ?>" class="header_new project" href="contao/main.php?do=li_customers&table=tl_li_project&act=create"><?php echo $GLOBALS['TL_LANG']['tl_li_project']['new'][0]; ?></a> :: <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_service']['new'][1]; ?>" class="header_new service" href="contao/main.php?do=li_customers&table=tl_li_service&act=create"><?php echo $GLOBALS['TL_LANG']['tl_li_service']['new'][0]; ?></a> :: <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_product']['new'][1]; ?>" class="header_new product" href="contao/main.php?do=li_customers&table=tl_li_product_to_customer&act=create"><?php echo $GLOBALS['TL_LANG']['tl_li_product']['new'][0]; ?></a>
+    <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_member']['new'][1]; ?>" class="header_new customer" href="contao/main.php?do=member&act=create"><?php echo $GLOBALS['TL_LANG']['tl_member']['new'][0]; ?></a>
 </div>
 <?php if(count($this->customers)) : ?>
     <div id="tl_listing" class="tl_listing_container tree_view customers">
@@ -88,8 +88,18 @@
                             <span><img src="system/themes/default/images/copy_.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_member']['show'][0]; ?>" width="14" height="16" /></span><span><img src="system/themes/default/images/delete_.gif"	alt="<?php echo $GLOBALS['TL_LANG']['tl_member']['delete'][0]; ?>" width="14" height="16" /></span>
                         <?php endif; ?>
                         <a href="contao/main.php?do=member&act=show&id=<?php echo $customer['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_member']['show'][1], $customer['id']); ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_member']['show'][0]; ?>" width="14" height="16" /></a>
+
                         <a href="contao/main.php?do=member&table=tl_li_contact&id=<?php echo $customer['id'] ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_member']['contacts'][1], $customer['id']); ?>"><img height="16" width="16" alt="<?php echo $GLOBALS['TL_LANG']['tl_member']['contacts'][0]; ?>" src="system/modules/li_crm/icons/contacts.png" /></a>
                         <a href="contao/main.php?do=member&table=tl_address&id=<?php echo $customer['id'] ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_member']['addresses'][1], $customer['id']); ?>"><img height="16" width="16" alt="<?php echo $GLOBALS['TL_LANG']['tl_member']['addresses'][0]; ?>" src="system/modules/addresses/icons/addressbook.png" /></a>
+                        <?php if(!$customer['isDisabled']) : ?>
+                            <a href="contao/main.php?do=li_customers&key=project&id=<?php echo $customer['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_project']['new'][1], $customer['id']); ?>"><img src="system/modules/li_crm/icons/project_new.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_project']['new'][0]; ?>" width="16" height="16" /></a>
+                            <a href="contao/main.php?do=li_customers&key=service&id=<?php echo $customer['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_service']['new'][1], $customer['id']); ?>"><img src="system/modules/li_crm/icons/service_new.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_service']['new'][0]; ?>" width="16" height="16" /></a>
+                            <a href="contao/main.php?do=li_customers&key=product&id=<?php echo $customer['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_service']['new'][1], $customer['id']); ?>"><img src="system/modules/li_crm/icons/product_new.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_product']['new'][0]; ?>" width="16" height="16" /></a>
+                        <?php else : ?>
+                            <span><img src="system/modules/li_crm/icons/project_new_disabled.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_project']['new'][0]; ?>" width="16" height="16" /></span>
+                            <span><img src="system/modules/li_crm/icons/service_new_disabled.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_service']['new'][0]; ?>" width="16" height="16" /></span>
+                            <span><img src="system/modules/li_crm/icons/product_new_disabled.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_product']['new'][0]; ?>" width="16" height="16" /></span>
+                        <?php endif; ?>
                     </div>
                     <div style="clear:both;"></div>
                 </li>
@@ -167,6 +177,13 @@
 									<span><img src="system/themes/default/images/delete_.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_project']['delete'][0]; ?>" width="14" height="16" /></span>
 								<?php endif; ?>
 								<a href="contao/main.php?do=li_customers&table=tl_li_project&act=show&id=<?php echo $project['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_project']['show'][1], $project['id']); ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_project']['show'][0]; ?>" width="14" height="16" /></a>
+                                <?php if(!$customer['isDisabled']): ?>
+                                    <a href="contao/main.php?do=li_customers&key=service&id=<?php echo $customer['id']; ?>&projectId=<?php echo $project['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_service']['new'][1], $customer['id']); ?>"><img src="system/modules/li_crm/icons/service_new.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_service']['new'][0]; ?>" width="16" height="16" /></a>
+                                    <a href="contao/main.php?do=li_customers&key=product&id=<?php echo $customer['id']; ?>&projectId=<?php echo $project['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_service']['new'][1], $customer['id']); ?>"><img src="system/modules/li_crm/icons/product_new.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_product']['new'][0]; ?>" width="16" height="16" /></a>
+                                <?php else : ?>
+                                    <span><img src="system/modules/li_crm/icons/service_new_disabled.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_service']['new'][0]; ?>" width="16" height="16" /></span>
+                                    <span><img src="system/modules/li_crm/icons/product_new_disabled.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_product']['new'][0]; ?>" width="16" height="16" /></span>
+                                <?php endif; ?>
 							</div>
 							<div style="clear:both;"></div>
 						</li>
