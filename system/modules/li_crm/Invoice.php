@@ -434,6 +434,7 @@ class Invoice extends BackendModule
                 i.invoiceDate,
                 i.performanceDate,
                 i.toCustomer,
+                m.customerNumber,
                 i.currency,
                 i.toAddress,
                 i.maturity,
@@ -457,6 +458,8 @@ class Invoice extends BackendModule
             FROM tl_li_invoice AS i
             INNER JOIN tl_li_invoice_template AS t
                 ON i.toTemplate = t.id
+            LEFT JOIN tl_member AS m
+                ON i.toCustomer = m.id
             WHERE i.id = ?
         ")->limit(1)->execute($id);
 		$objAddress = $this->Database->prepare("
@@ -490,6 +493,7 @@ class Invoice extends BackendModule
             'company_tax_number' => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
             'company_ustid' => $GLOBALS['TL_CONFIG']['li_crm_company_ustid'],
 
+            'customer_number' => $objInvoice->customerNumber,
             'customer_company' => $objAddress->company,
             'customer_firstname' => $objAddress->firstname,
             'customer_lastname' => $objAddress->lastname,
