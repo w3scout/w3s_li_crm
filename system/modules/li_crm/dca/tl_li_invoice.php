@@ -98,6 +98,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'href'              => 'act=show',
 				'icon'              => 'show.gif'
 			),
+            'togglePaid' => array
+            (
+                'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'],
+                'icon'              => 'system/modules/li_crm/icons/invoice_unpaid.png',
+                'attributes'        => 'onclick="Backend.getScrollOffset();"',
+                'button_callback'   => array('Invoice', 'togglePaidIcon')
+            ),
 			'showFile' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['showFile'],
@@ -148,7 +155,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'palettes' => array
 	(
 		'__selector__'              => array('enableGeneration'),
-		'default'                   => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity;
+		'default'                   => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity,paid;
 										{pdf_legend},file;
 		                                {settings_legend},isOut,isSingular;
 		                                {generation_legend},enableGeneration;
@@ -246,6 +253,14 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'exclude'   			=> true,
 			'eval'                  => array('tl_class'=>'w50')
 		),
+        'paid' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['paid'],
+            'inputType'             => 'checkbox',
+            'exclude'   			=> true,
+            'filter'                => true,
+            'eval'                  => array('tl_class'=>'w50')
+        ),
 		'file' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['file'],

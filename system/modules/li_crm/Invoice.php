@@ -27,7 +27,11 @@ class Invoice extends BackendModule
 		$key = $this->Input->get('key');
 		$id = $this->Input->get('id');
 
-		if ($key == 'print')
+        if($key == 'paid')
+        {
+            $this->Template->success = $this->invoicePaid($id);
+        }
+		elseif($key == 'print')
 		{
 			$this->Template->filePath = $this->printInvoice($id);
 		}
@@ -1076,6 +1080,45 @@ class Invoice extends BackendModule
 		$this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
 		$this->createNewVersion('tl_li_invoice', $intId);
 	}
+
+    public function togglePaidIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'][0];
+
+        $objInvoice = $this->Database->prepare("
+            SELECT paid
+            FROM tl_li_invoice
+            WHERE id = ?
+        ")->limit(1)->execute($row['id']);
+        $href = '&amp;do=li_invoices&amp;key=paid&amp;id='.$row['id'];
+        $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'][1], $row['id']);
+        if ($objInvoice->paid)
+        {
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_paid.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_unpaid.png" alt="'.$alt.'" /></a> ';
+        }
+    }
+
+    public function invoicePaid($id)
+    {
+        $objInvoice = $this->Database->prepare("
+            SELECT paid
+            FROM tl_li_invoice
+            WHERE id = ?
+        ")->limit(1)->execute($id);
+        $this->Database->prepare("
+            UPDATE tl_li_invoice
+            SET paid = ?
+            WHERE id = ?
+        ")->execute(
+            $objInvoice->paid == 1 ? 0 : 1,
+            $id
+        );
+        return true;
+    }
 	
 	private function buildGeneration($invoiceId) {
 		$objInvoice = $this->Database->prepare("

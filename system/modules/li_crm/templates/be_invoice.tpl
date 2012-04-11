@@ -1,6 +1,12 @@
 <div id="tl_soverview" class="invoice">
     <div id="tl_moverview">
-        <?php if($this->key == 'print'): ?>
+        <?php if($this->key == 'paid'): ?>
+            <h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['paid']['0']; ?></h2>
+            <div class="tl_module_desc">
+                <p><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['paid_status_changed']; ?></p>
+                <a class="back_link" href="contao/main.php?do=li_invoices"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']; ?></a>
+            </div>
+        <?php elseif($this->key == 'print'): ?>
         <h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation']; ?></h2>
         <div class="tl_module_desc">
             <p><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success']; ?></p>

@@ -54,3 +54,6 @@ system/scripts/*
 system/themes/*
 system/tmp/*
 system/utf8_lookup.php
+
+system/runonce.php
+system/modules/li_crm/config/runonce.php

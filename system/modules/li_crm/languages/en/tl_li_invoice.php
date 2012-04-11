@@ -22,6 +22,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['performanceDate'] = array("Performance dat
 $GLOBALS['TL_LANG']['tl_li_invoice']['price'] = array("Price", "Please enter the price.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['currency'] = array("Currency", "Please choose the currency.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['maturity'] = array("Maturity", "Enter the amount of days the customer has left to pay the invoice, if it differs from the standard and template settings.");
+$GLOBALS['TL_LANG']['tl_li_invoice']['paid'] = array("Paid", "Is this invoice paid?");
 $GLOBALS['TL_LANG']['tl_li_invoice']['file'] = array("Invoice", "Please choose an invoice.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['isOut'] = array("Outgoing", "Is the invoice outgoing?");
 $GLOBALS['TL_LANG']['tl_li_invoice']['isSingular'] = array("Singular", "Is the invoice singular?");
@@ -41,6 +42,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['copy'] = array("Duplicate invoice", "Dupli
 $GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array("Delete invoice", "Delete the invoice with the ID %s");
 $GLOBALS['TL_LANG']['tl_li_invoice']['show'] = array("Show invoice", "Show the invoice with the ID %s");
 $GLOBALS['TL_LANG']['tl_li_invoice']['toggle'] = array("Publish/unpublish invoice", "Publish/unpublish the invoice with the ID %s");
+$GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'] = array("Paid/unpaid invoice", "Mark the invoice with the ID %s as paid/unpaid");
 $GLOBALS['TL_LANG']['tl_li_invoice']['generate'] = array("Generate invoice", "Generate the invoice with the ID %s");
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array("Dispatch invoice", "Dispatch the invoice with the ID %s to the customer");
 $GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array("Reports", "Show the reports for the invoices");
@@ -101,6 +103,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['noInvoicesAvailable'] = "No invoices avail
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound'] = "Invoice not found.";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = "Invoice creation";
+$GLOBALS['TL_LANG']['tl_li_invoice']['paid_status_changed'] = "The paid status of the invoice was successfully changed.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = "The invoice was successfully created.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview'] = "Back to the overview";
 

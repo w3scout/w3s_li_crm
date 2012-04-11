@@ -22,6 +22,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['performanceDate'] = array("Leistungsdatum"
 $GLOBALS['TL_LANG']['tl_li_invoice']['price'] = array("Preis", "Bitte geben Sie den Preis ein.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['currency'] = array("Währung", "Bitte geben Sie die Währung des Preises an.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['maturity'] = array("Laufzeit", "Geben Sie die Anzahl der Tage ein, die der Kunde zur Bezahlung der Rechnung Zeit hat, falls diese von der Standard- und Templateeinstellungen abweicht.");
+$GLOBALS['TL_LANG']['tl_li_invoice']['paid'] = array("Bezahlt", "Ist diese Rechnung bezahlt?");
 $GLOBALS['TL_LANG']['tl_li_invoice']['file'] = array("Rechnung", "Bitte wählen Sie die Rechnung aus.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['isOut'] = array("Ausgangsrechnung?", "Ist die Rechnung eine Ausgangsrechnung?");
 $GLOBALS['TL_LANG']['tl_li_invoice']['isSingular'] = array("Einmalige Rechnung?", "Ist die Rechnung eine einmalige Rechnung?");
@@ -41,6 +42,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['copy'] = array("Rechnung kopieren", "Die R
 $GLOBALS['TL_LANG']['tl_li_invoice']['delete'] = array("Rechnung löschen", "Die Rechnung mit der ID %s löschen");
 $GLOBALS['TL_LANG']['tl_li_invoice']['show'] = array("Rechnung anzeigen", "Die Rechnung mit der ID %s anzeigen");
 $GLOBALS['TL_LANG']['tl_li_invoice']['toggle'] = array("Rechnung veröffentlichen/unveröffentlichen", "Die Rechnung mit der ID %s veröffentlichen/unveröffentlichen");
+$GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'] = array("Bezahlte/Nicht bezahlte Rechnung", "Die Rechnung mit der ID %s als bezahlt/nicht bezahlt markieren");
 $GLOBALS['TL_LANG']['tl_li_invoice']['generate'] = array("Rechnung generieren", "Die Rechnung mit der ID %s generieren");
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'] = array("Rechnung verschicken", "Die Rechnung mit der ID %s an den Kunden schicken");
 $GLOBALS['TL_LANG']['tl_li_invoice']['reports'] = array("Berichte", "Den Verlauf der Rechnungen anzeigen");
@@ -101,6 +103,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['noInvoicesAvailable'] = "Keine Rechnungen 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound'] = "Rechnung nicht gefunden.";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = "Rechnungsgenerierung";
+$GLOBALS['TL_LANG']['tl_li_invoice']['paid_status_changed'] = "Der Bezahlstatus wurde erfolgreich geändert.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = "Die Rechnung wurde erfolgreich generiert.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview'] = "Zurück zur Übersicht";
 

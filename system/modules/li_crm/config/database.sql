@@ -316,6 +316,7 @@ CREATE TABLE `tl_li_invoice` (
   `price` double unsigned NOT NULL default '0',
   `currency` varchar(3) NOT NULL default '',
   `maturity` int(10) unsigned NOT NULL default '0',
+  `paid` char(1) NOT NULL default '',
   `file` varchar(255) NOT NULL default '',
   `isSingular` char(1) NOT NULL default '',
   `isOut` char(1) NOT NULL default '',
