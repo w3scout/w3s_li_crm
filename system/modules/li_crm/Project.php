@@ -68,7 +68,7 @@ class Project extends Controller
 				$objProject = $this->Database->prepare("
 					SELECT COUNT(id) AS count
                     FROM tl_li_project
-                ")->limit(1)->execute();
+                ")->limit(1)->executeUncached();
                 
 				$count = $objProject->count;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_project_number_generation_start']))

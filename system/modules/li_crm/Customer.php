@@ -29,7 +29,7 @@ class Customer extends Controller
 					SELECT COUNT(id) AS count
 				    FROM tl_member
 				    WHERE isCustomer = '1'
-				")->limit(1)->execute();
+				")->limit(1)->executeUncached();
 				$count = $objCustomer->count;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation_start']))
 				{

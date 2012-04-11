@@ -109,7 +109,7 @@ class Invoice extends BackendModule
             SELECT id
             FROM tl_li_invoice
             WHERE alias = ?
-        ")->execute($alias);
+        ")->executeUncached($alias);
 
         // Check whether the news alias exists
         if ($objAlias->numRows > 1)
@@ -229,7 +229,7 @@ class Invoice extends BackendModule
 				    SELECT COUNT(id) AS countInvoices
 				    FROM tl_li_invoice
 				    WHERE isOut = '1'
-				")->limit(1)->execute();
+				")->limit(1)->executeUncached();
 				$count = $objInvoice->countInvoices;
 				if (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start']))
 				{

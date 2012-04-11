@@ -58,7 +58,7 @@ class InvoiceGeneration extends Controller
             SELECT id
             FROM tl_li_invoice_generation
             WHERE alias = ?
-        ")->execute($alias);
+        ")->executeUncached($alias);
 
         // Check whether the news alias exists
         if ($objAlias->numRows > 1)
@@ -127,6 +127,8 @@ class InvoiceGeneration extends Controller
                 $services = array();
                 $servicePositions = serialize($services);
 
+                $objServices = null;
+
                 // Products
                 $objProducts = $this->Database->prepare("
                     SELECT p.id, SUM(pc.number) AS quantity, p.unit
@@ -158,7 +160,7 @@ class InvoiceGeneration extends Controller
                 $hours = array();
                 $hourPositions = serialize($hours);
                 $objHours = $this->Database->prepare("
-                	SELECT wp.id, (SUM(h.hours) + SUM(h.minutes) / 60) AS quantity
+                	SELECT wp.id, (SUM(wh.hours) + SUM(wh.minutes) / 60) AS quantity
 					FROM tl_li_work_package AS wp
 					INNER JOIN tl_li_working_hour AS wh
 						ON wp.id = wh.toWorkPackage
@@ -193,7 +195,7 @@ class InvoiceGeneration extends Controller
                 INSERT INTO tl_li_invoice(tstamp, toCustomer, toCategory, invoiceDate, performanceDate, currency, maturity, isSingular, isOut,
                     enableGeneration, headline, toTemplate, toAddress, descriptionBefore, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter,
                     published)
-                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ")->execute(
                 time(),
                 $objInvoiceGenerations->toCustomer,
@@ -218,7 +220,20 @@ class InvoiceGeneration extends Controller
                 $objInvoiceGenerations->publishImmediately
             )->insertId;
 
-            $invoiceNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+            //$invoiceNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+
+            $objInvoice = $this->Database->prepare("
+                SELECT COUNT(id) AS countInvoices
+                FROM tl_li_invoice
+                WHERE isOut = '1'
+            ")->limit(1)->executeUncached();
+            $count = $objInvoice->countInvoices;
+            if (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start']))
+            {
+                $count += $GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start'];
+            }
+            $invoiceNumber = str_pad($count, 4, '0', STR_PAD_LEFT);
+
             $invoiceTitle = $GLOBALS['TL_LANG']['tl_li_invoice']['generatedInvoiceName'].$invoiceNumber;
             $invoice = new Invoice();
             $invoiceAlias = $invoice->generateAliasWithoutDC($invoiceTitle, $invoiceId);
@@ -242,14 +257,15 @@ class InvoiceGeneration extends Controller
 				$invoice->sendInvoice($invoiceId);
 			}
 
-            $this->Database->prepare("
+            // Update generated last date
+            /*$this->Database->prepare("
                 UPDATE tl_li_invoice_generation
                 SET generatedLast = ?
                 WHERE id = ?
             ")->execute(
                 time(),
                 $objInvoiceGenerations->id
-            );
+            );*/
 
         }
     }
