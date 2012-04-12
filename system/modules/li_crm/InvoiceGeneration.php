@@ -123,11 +123,48 @@ class InvoiceGeneration extends Controller
                 if($generatedLast == '') {
                     $generatedLast = strtotime(date('Y-m-d', time())." -".$value." ".$unit);
                 }
-                // Services
-                $services = array();
-                $servicePositions = serialize($services);
 
-                $objServices = null;
+                // Services
+                $objServices = $this->Database->prepare("
+                    SELECT s.id, s.unit, s.period, s.lastGeneratedOnInvoice
+                    FROM tl_li_service AS s
+                    WHERE s.toCustomer = ?
+                        AND s.startDate <= ?
+                        AND s.endDate >= ?
+                        AND s.repetition = 1
+                ")->execute(
+                    $objInvoiceGenerations->toCustomer,
+                    time(),
+                    time()
+                );
+
+                $services = array();
+                while($objServices->next() != null) {
+                    // Skip if it is not yet time to generate on an invoice
+                    if($objServices->lastGeneratedOnInvoice != '') {
+                        if(strtotime(date('Y-m-d', $objServices->lastGeneratedOnInvoice)." +".$objServices->period." month") > time()) {
+                            continue;
+                        }
+                    }
+
+                    $services[] = array(
+                        'quantity' => 1,
+                        'unit' => $objServices->unit,
+                        'item' => $objServices->id,
+                        'title' => ''
+                    );
+
+                    // Update lastGeneratedOnInvoice flag
+                    $this->Database->prepare("
+                        UPDATE tl_li_service
+                        SET lastGeneratedOnInvoice = ?
+                        WHERE id = ?
+                    ")->execute(
+                        time(),
+                        $objServices->id
+                    );
+                }
+                $servicePositions = serialize($services);
 
                 // Products
                 $objProducts = $this->Database->prepare("
@@ -220,20 +257,7 @@ class InvoiceGeneration extends Controller
                 $objInvoiceGenerations->publishImmediately
             )->insertId;
 
-            //$invoiceNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
-
-            $objInvoice = $this->Database->prepare("
-                SELECT COUNT(id) AS countInvoices
-                FROM tl_li_invoice
-                WHERE isOut = '1'
-            ")->limit(1)->executeUncached();
-            $count = $objInvoice->countInvoices;
-            if (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start']))
-            {
-                $count += $GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start'];
-            }
-            $invoiceNumber = str_pad($count, 4, '0', STR_PAD_LEFT);
-
+            $invoiceNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
             $invoiceTitle = $GLOBALS['TL_LANG']['tl_li_invoice']['generatedInvoiceName'].$invoiceNumber;
             $invoice = new Invoice();
             $invoiceAlias = $invoice->generateAliasWithoutDC($invoiceTitle, $invoiceId);

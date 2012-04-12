@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'palettes' => array
 	(
 		'__selector__'              => array('repetition'),
-		'default'                   => '{service_legend},toCustomer,toProject,title,toServiceType;{price_legend},price,toTax,currency;{date_legend},startDate,endDate,repetition;'
+		'default'                   => '{service_legend},toCustomer,toProject,title,unit,toServiceType;{price_legend},price,toTax,currency;{date_legend},startDate,endDate,repetition;'
 	),
 	
 	// Subpalettes
@@ -104,14 +104,6 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'options_callback'      => array('Project', 'getProjectsOfCustomer'),
             'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
 		),
-		'toServiceType' => array
-		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['toServiceType'],
-			'inputType'             => 'select',
-			'exclude'   			=> true,
-			'foreignKey'            => 'tl_li_service_type.title',
-			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
-		),
         'title' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['title'],
@@ -120,6 +112,22 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'default'               => '-',
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
 		),
+        'unit' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['unit'],
+            'inputType'             => 'select',
+            'exclude'   			=> true,
+            'options_callback'      => array('Service', 'getUnitOptions'),
+            'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
+        ),
+        'toServiceType' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['toServiceType'],
+            'inputType'             => 'select',
+            'exclude'   			=> true,
+            'foreignKey'            => 'tl_li_service_type.title',
+            'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+        ),
 		'price' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['price'],

@@ -80,6 +80,7 @@ CREATE TABLE `tl_li_service` (
   `toProject` int(10) unsigned NULL default '0',
   `toServiceType` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
+  `unit` varchar(20) NOT NULL default 'unit',
   `price` double NOT NULL default '0',
   `toTax` int(10) unsigned NOT NULL default '0',
   `currency` varchar(3) NOT NULL default '',
@@ -87,6 +88,7 @@ CREATE TABLE `tl_li_service` (
   `endDate` varchar(10) NOT NULL default '',
   `repetition` char(1) NOT NULL default '',
   `period` varchar(3) NOT NULL default '',
+  `lastGeneratedOnInvoice` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
