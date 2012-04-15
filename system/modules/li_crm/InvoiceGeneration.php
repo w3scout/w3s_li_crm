@@ -282,14 +282,14 @@ class InvoiceGeneration extends Controller
 			}
 
             // Update generated last date
-            /*$this->Database->prepare("
+            $this->Database->prepare("
                 UPDATE tl_li_invoice_generation
                 SET generatedLast = ?
                 WHERE id = ?
             ")->execute(
                 time(),
                 $objInvoiceGenerations->id
-            );*/
+            );
 
         }
     }
