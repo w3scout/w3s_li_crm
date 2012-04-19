@@ -38,6 +38,7 @@ $GLOBALS['TL_LANG']['tl_li_task']['more_comments'] = 'weitere Kommentare anzeige
 $GLOBALS['TL_LANG']['tl_li_task']['comment_count'] = 'insgesamt %d Kommentare';
 
 $GLOBALS['TL_LANG']['tl_li_task']['new'] = array("Neue Aufgabe", "Eine neue Aufgabe erstellen");
+$GLOBALS['TL_LANG']['tl_li_task']['comment'] = array("Aufgabe kommentieren", "Die Aufgabe mit der ID %s kommentieren");
 $GLOBALS['TL_LANG']['tl_li_task']['edit'] = array("Aufgabe editieren", "Die Aufgabe mit der ID %s editieren");
 $GLOBALS['TL_LANG']['tl_li_task']['copy'] = array("Aufgabe kopieren", "Die Aufgabe mit der ID %s kopieren");
 $GLOBALS['TL_LANG']['tl_li_task']['delete'] = array("Aufgabe löschen", "Die Aufgabe mit der ID %s löschen");
