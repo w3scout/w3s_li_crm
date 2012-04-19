@@ -490,6 +490,7 @@ class Invoice extends BackendModule
             'company_postal' => $GLOBALS['TL_CONFIG']['li_crm_company_postal'],
             'company_city' => $GLOBALS['TL_CONFIG']['li_crm_company_city'],
             'company_phone' => $GLOBALS['TL_CONFIG']['li_crm_company_phone'],
+            'company_fax' => $GLOBALS['TL_CONFIG']['li_crm_company_fax'],
             'company_tax_number' => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
             'company_ustid' => $GLOBALS['TL_CONFIG']['li_crm_company_ustid'],
 
