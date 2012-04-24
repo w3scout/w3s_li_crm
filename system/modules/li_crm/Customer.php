@@ -143,6 +143,7 @@ class Customer extends Controller
                 SET firstname = ?, lastname = ?, gender = ?, language = ?,
                     company = ?, street = ?, street_2 = ?, street_3 = ?, postal = ?, city = ?, state = ?, country = ?,
                     email = ?, secondEmail = ?, phone = ?, mobile = ?, fax = ?, website = ?
+                WHERE id = ?
             ")->execute(
                 $dc->activeRecord->firstname,
                 $dc->activeRecord->lastname,
@@ -161,7 +162,8 @@ class Customer extends Controller
                 $dc->activeRecord->phone != null ? $dc->activeRecord->phone : '',
                 $dc->activeRecord->mobile != null ? $dc->activeRecord->mobile : '',
                 $dc->activeRecord->fax != null ? $dc->activeRecord->fax : '',
-                $dc->activeRecord->website != null ? $dc->activeRecord->website : ''
+                $dc->activeRecord->website != null ? $dc->activeRecord->website : '',
+                $dc->id
             );
         }
         else
