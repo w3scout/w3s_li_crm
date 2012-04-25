@@ -126,3 +126,12 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['registerProducts'] = array
 	'foreignKey'    		=> 'tl_li_product.title',
 	'eval'          		=> array('multiple'=>true, 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
 );
+
+$GLOBALS['TL_DCA']['tl_member']['fields']['registerProduct'] = array
+(
+	'label'         		=> &$GLOBALS['TL_LANG']['tl_member']['registerProduct'],
+	'exclude'       		=> true,
+	'inputType'     		=> 'select',
+	'foreignKey'    		=> 'tl_li_product.title',
+	'eval'          		=> array('feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+);

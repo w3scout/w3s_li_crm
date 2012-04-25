@@ -87,7 +87,7 @@ class CustomerRegistration extends Frontend
                 $arrData['fax'] != null ? $arrData['fax'] : '',
                 $arrData['website'] != null ? $arrData['website'] : ''
             );
-            
+
             // Add products to user
             if($arrData['registerProducts'] != null)
             {
@@ -96,15 +96,29 @@ class CustomerRegistration extends Frontend
                 foreach($products as $product)
                 {
                     $this->Database->prepare("
-                        INSERT INTO tl_li_product_to_customer(tstamp, toCustomer, toProject, toProduct)
-                        VALUES(?, ?, ?, ?)
+                        INSERT INTO tl_li_product_to_customer(tstamp, toCustomer, toProduct)
+                        VALUES(?, ?, ?)
                     ")->execute(
                         time(),
                         $intId,
-                        0,
                         $product
                     );
                 }
+            }
+
+            // Add product to user
+            if($arrData['registerProduct'] != null)
+            {
+                //$products = unserialize($arrData['registerProducts']);
+                $product = $arrData['registerProduct'];
+                $this->Database->prepare("
+                    INSERT INTO tl_li_product_to_customer(tstamp, toCustomer, toProduct)
+                    VALUES(?, ?, ?)
+                ")->execute(
+                    time(),
+                    $intId,
+                    $product
+                );
             }
         }
 	}

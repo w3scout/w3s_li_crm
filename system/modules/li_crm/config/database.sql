@@ -22,7 +22,8 @@ CREATE TABLE `tl_member` (
   `iban` varchar(64) NULL default '',
   `bic` varchar(64) NULL default '',
   `bic` varchar(64) NULL default '',
-  `registerProducts` blob NULL
+  `registerProducts` blob NULL,
+  `registerProduct` int(10) unsigned NOT NULL default '0',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
