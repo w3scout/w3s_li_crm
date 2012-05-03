@@ -259,7 +259,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
             'filter'                => true,
-            'eval'                  => array('tl_class'=>'w50')
+            'eval'                  => array('tl_class'=>'w50 m12')
         ),
 		'file' => array
 		(
