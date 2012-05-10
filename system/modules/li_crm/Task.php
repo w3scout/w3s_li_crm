@@ -261,6 +261,10 @@ class Task extends BackendModule
 		return $tasks;
 	}
 
+	public function commentTask($row, $href, $label, $title, $icon, $attributes)
+	{
+		return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id'] . '&amp;pid=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>' . $this->generateImage($icon, $label) . '</a> ';
+	}
 
 	/**
 	 * DataContainer submit callback
@@ -276,7 +280,7 @@ class Task extends BackendModule
 
 		$arrSet = array(
 			'pid' => $objTask->id,
-			'tstamp' => $objTask->tstamp,
+			'tstamp' => time(),
 			'user' => $this->User->id,
 			'changeCustomerProject' => $objTask->toCustomer > 0 ? 1 : '',
 			'toCustomer' => $objTask->toCustomer,

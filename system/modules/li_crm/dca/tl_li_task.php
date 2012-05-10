@@ -65,7 +65,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 				'label'             => &$GLOBALS['TL_LANG']['tl_li_task']['comment'],
 				'href'              => 'table=tl_li_task_comment&amp;act=create&amp;mode=2',
 				'icon'              => 'system/modules/li_crm/icons/comment.png',
-				'button_callback'   => array('tl_li_task', 'commentTask')
+				'button_callback'   => array('Task', 'commentTask')
 			),
 			'copy' => array
 			(
@@ -121,6 +121,10 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 	// Fields
 	'fields' => array
 	(
+		'tstamp' => array
+		(
+			'default' => time()
+		),
         'toCustomer' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task']['toCustomer'],
@@ -211,11 +215,3 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
         )
 	)
 );
-
-class tl_li_task extends Backend
-{
-	public function commentTask($row, $href, $label, $title, $icon, $attributes)
-	{
-		return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id'] . '&amp;pid=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>' . $this->generateImage($icon, $label) . '</a> ';
-	}
-}

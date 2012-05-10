@@ -79,7 +79,11 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 	(
 		'user' => array
 		(
-			'default'=> $this->User->id
+			'default' => $this->User->id
+		),
+		'tstamp' => array
+		(
+			'default' => time()
 		),
 		'changeCustomerProject' => array
 		(

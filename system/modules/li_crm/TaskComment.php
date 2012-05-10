@@ -134,7 +134,7 @@ class TaskComment extends Backend
 
 		$arrClear  = array();
 		$arrUpdate = array();
-		foreach ($GLOBALS['TL_DCA']['tl_li_task_comment']['fields'] as $name=> $field)
+		foreach ($GLOBALS['TL_DCA']['tl_li_task_comment']['fields'] as $name => $field)
 		{
 			if ($field['passToTask']) {
 				$key = $field['passToTask'];
