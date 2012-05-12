@@ -10,20 +10,21 @@
 
 			<div class="tl_limit tl_subpanel">
 				<strong><?php echo $GLOBALS['TL_LANG']['MSC']['showOnly']; ?>: </strong>
-				<div id="null_styled" class="styled_select" style="width: 80px; ">
+				<div class="styled_select" style="width: 80px; ">
 					<span>1 - 1</span>
 				</div>
 				<select name="tl_limit" class="tl_select" onchange="this.form.submit()" style="opacity: 0; margin-bottom: 4px; ">
+                    <?php if($this->limitOptions != null): ?>
 					<?php foreach($this->limitOptions as $option): ?>
 						<option value="<?php echo $option['value']; ?>"<?php echo $option['active'] ? ' selected' : ''; ?>><?php echo $option['label']; ?></option>
 					<?php endforeach; ?>
-
+                    <?php endif; ?>
 				</select>
 			</div>
 
 			<div class="tl_search tl_subpanel">
 				<strong><?php echo $GLOBALS['TL_LANG']['MSC']['search']; ?>: </strong>
-				<div id="null_styled" class="styled_select" style="width: 106px; ">
+				<div class="styled_select" style="width: 106px; ">
 					<span><?php echo $GLOBALS['TL_LANG']['tl_member']['customer_legend']; ?></span>
 				</div>
 				<select name="tl_type" class="tl_select" style="opacity: 0; margin-bottom: 4px; ">
