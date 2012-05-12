@@ -1,0 +1,23 @@
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+    <?php if ($this->headline): ?>
+	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+	<?php endif; ?>
+    <?php if($this->addressFound): ?>
+        <?php $address = $this->address; ?>
+        <table>
+            <?php if($address != null): ?>
+            <?php foreach($address['fields'] as $field => $value): ?>
+            <tr>
+                <th><?php echo $GLOBALS['TL_LANG']['tl_member'][$field][0]; ?></th>
+                <td><?php echo $value; ?></td>
+            </tr>
+            <?php endforeach; ?>
+            <?php endif; ?>
+        </table>
+    <?php else: ?>
+    <p class="error"><?php echo $GLOBALS['TL_LANG']['tl_address']['addressNotFound']; ?></p>
+    <?php endif; ?>
+    <a href="javascript:history.go(-1)" title="<?php echo $GLOBALS['TL_LANG']['MSC']['goBack']; ?>"><?php echo $GLOBALS['TL_LANG']['MSC']['goBack']; ?></a>
+</div>
+<!-- indexer::continue -->
