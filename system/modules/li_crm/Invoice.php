@@ -709,7 +709,20 @@ class Invoice extends BackendModule
 		ksort($taxes);
 		foreach ($taxes as $tax => $price)
 		{
-			$taxPrice = $price * $tax / 100;
+            // Without discount
+            if(empty($discount['value'])) {
+                $taxPrice = $price * $tax / 100;
+            // With discount
+            } else {
+                // Percentage discount
+                if($discount['unit'] == 'percent') {
+                    $taxPrice = ($price - $price * $discount['value'] / 100) * $tax / 100;
+                // Absolute discount
+                } else {
+                    $taxPrice = ($price - $discount['value'] / count($taxes)) * $tax / 100;
+                }
+            }
+
 			$fullTaxes += $taxPrice;
 			$htmlPositions .= '<tr class="total '.$this->getOddEven($rowCounter).'">';
 			$htmlPositions .= '<td class="amount tax" colspan="4">'.$tax.'% '.$GLOBALS['TL_LANG']['tl_li_invoice']['tax'].'</td><td class="price">'.$this->getFormattedNumber($taxPrice).' '.$symbol.'</td>';
