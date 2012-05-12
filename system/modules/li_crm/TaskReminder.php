@@ -21,20 +21,20 @@ class TaskReminder extends Controller
 	{
         // Get all tasks whose deadline hasn't passed yet
 		$objTasks = $this->Database->prepare("
-			SELECT t.id, t.title, p.title AS project, c.customerName
+			SELECT t.id, t.title, p.title AS project, c.customerNumber, c.customerName
 		    FROM tl_li_task as t
             LEFT JOIN tl_li_project AS p
             	ON t.toProject = p.id
             LEFT JOIN tl_member AS c
-            	ON p.toCustomer = c.id
+            	ON t.toCustomer = c.id
 		    WHERE deadline >= ?
-		    ORDER BY c.customerName, p.title, t.title
+		    ORDER BY c.customerNumber, p.title, t.title
 		")->execute(strtotime(date('d.m.Y')));
 
 		$tasks = array();
 		while ($objTasks->next())
 		{
-            $customer = $objTasks->customerName != '' ? $objTasks->customerName : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noCustomer'];
+            $customer = $objTasks->customerNumber != '' ? $objTasks->customerNumber." ".$objTasks->customerName : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noCustomer'];
             $project = $objTasks->project != '' ? $objTasks->project : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noProject'];
 
 			$tasks[$customer.' - '.$project][$objTasks->id] = $objTasks->title;
