@@ -10,13 +10,13 @@
         <h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation']; ?></h2>
         <div class="tl_module_desc">
             <p><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success']; ?></p>
-            <object class="pdf" data="/contao/main.php?do=li_invoices&key=pdf&id=<?php echo $this->id; ?>" type="application/pdf" width="680" height="900"> </object>
+            <object class="pdf" data="contao/main.php?do=li_invoices&key=pdf&id=<?php echo $this->id; ?>" type="application/pdf" width="680" height="900"> </object>
             <a class="back_link" href="contao/main.php?do=li_invoices"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']; ?></a>
         </div>
         <?php elseif($this->key == 'show'): ?>
     	<h2><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend']; ?></h2>
     	<div class="tl_module_desc">
-        	<object class="pdf" data="/contao/main.php?do=li_invoices&key=pdf&id=<?php echo $this->id; ?>" type="application/pdf" width="680" height="900"> </object>
+        	<object class="pdf" data="contao/main.php?do=li_invoices&key=pdf&id=<?php echo $this->id; ?>" type="application/pdf" width="680" height="900"> </object>
         	<a class="back_link" href="contao/main.php?do=li_invoices"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']; ?></a>
         </div>
         <?php elseif($this->key == 'reports'): ?>
