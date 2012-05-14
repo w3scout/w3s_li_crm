@@ -15,25 +15,25 @@
 <div id="tl_buttons">
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['new'][1]; ?>"
 		class="add_date" href="contao/main.php?do=li_appointments&table=tl_li_appointment&act=create"
-		style="background-image: url('../../system/themes/default/images/new.gif');">
+		style="background-image: url('system/themes/default/images/new.gif');">
 		<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['new'][0]; ?>
     </a>
      &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['monthView'][1]; ?>"
 		class="manage_work_packages" href="contao/main.php?do=li_appointments"
-		style="background-image: url(system/modules/li_crm/icons/appointments_month.png);">
+		style="background-image: url('system/modules/li_crm/icons/appointments_month.png');">
         <?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['monthView'][0]; ?>
     </a>
     &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['weekView'][1]; ?>"
 		class="manage_work_packages" href="contao/main.php?do=li_appointments&view=week"
-		style="background-image: url(system/modules/li_crm/icons/appointments_week.png);">
+		style="background-image: url('system/modules/li_crm/icons/appointments_week.png');">
         <?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['weekView'][0]; ?>
     </a>
     &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['dayView'][1]; ?>"
 		class="manage_work_packages" href="contao/main.php?do=li_appointments&view=day"
-		style="background-image: url(system/modules/li_crm/icons/appointments_day.png);">
+		style="background-image: url('system/modules/li_crm/icons/appointments_day.png');">
         <?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['dayView'][0]; ?>
     </a>
 </div>
