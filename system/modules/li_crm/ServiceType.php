@@ -20,7 +20,7 @@ class ServiceType extends Controller
     
 	public function renderLabel($row)
 	{
-        $image = file_exists($row['icon']) ? $row['icon'] : 'system/modules/li_crm/icons/service_default.png';
+        $image = $row['icon'] != "" && file_exists(TL_ROOT."/".$row['icon']) ? $row['icon'] : 'system/modules/li_crm/icons/service_default.png';
         
         return '<img src="'.$image.'" alt="'.$row['title'].'" /> '.$row['title'];
 	}

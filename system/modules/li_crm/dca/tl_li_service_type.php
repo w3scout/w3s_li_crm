@@ -29,8 +29,7 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 		),
 		'label' => array
 		(
-			'fields'                => array('icon', 'title', 'title'),
-			'format'                => '<img src=\'%s\' alt=\'%s\' /> %s',
+			'fields'                => array('icon', 'title'),
 			'label_callback'        => array('ServiceType', 'renderLabel')
 		),
 		'global_operations' => array
