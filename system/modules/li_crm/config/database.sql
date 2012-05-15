@@ -27,6 +27,15 @@ CREATE TABLE `tl_member` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
+-- Table `tl_member_group`
+--
+
+CREATE TABLE `tl_member_group` (
+  `alexf` blob NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
 -- Table `tl_module`
 --
 

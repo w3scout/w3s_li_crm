@@ -27,3 +27,5 @@ $GLOBALS['TL_LANG']['tl_member']['registerProduct'] = array("Produkt", "Bitte w√
 $GLOBALS['TL_LANG']['tl_member']['contacts'] = array('Kontakte', 'Die Kontakte des Mitglieds mit der ID %s verwalten');
 
 $GLOBALS['TL_LANG']['tl_member']['phone'] = array("Telefon", "Bitte geben Sie eine Telefonnummer ein.");
+
+$GLOBALS['TL_LANG']['tl_member']['noCustomersAvailable'] = 'Keine Kunden verf√ºgbar';

@@ -76,10 +76,12 @@ array_insert($GLOBALS['FE_MOD'], 2, array
 (
 	'li_crm' => array
 	(
-		'tasklist'      => 'ModuleTaskList',
-		'taskreader'    => 'ModuleTaskReader',
-		'invoicelist'   => 'ModuleInvoiceList',
-		'invoicereader' => 'ModuleInvoiceReader'
+		'tasklist'              => 'ModuleTaskList',
+		'taskreader'            => 'ModuleTaskReader',
+		'invoicelist'           => 'ModuleInvoiceList',
+		'invoicereader'         => 'ModuleInvoiceReader',
+        'mobilecustomerlist'    => 'ModuleMobileCustomerList',
+        'mobileaddressreader'   => 'ModuleMobileAddressReader'
 	)
 ));
 
