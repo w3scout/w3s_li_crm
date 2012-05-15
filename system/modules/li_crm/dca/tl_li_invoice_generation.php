@@ -25,6 +25,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 		(
 			'mode'                  => 1,
 			'fields'                => array('toCustomer'),
+            'flag'                  => 11,
 			'panelLayout'           => 'filter;sort,search,limit'
 		),
 		'label' => array
