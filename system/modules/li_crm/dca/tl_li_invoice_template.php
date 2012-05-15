@@ -104,7 +104,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'],
 			'inputType'             => 'fileTree',
 			'exclude'   			=> true,
-			'eval'                  => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
+			'eval'                  => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
 		),
 		'maturity' => array
 		(

@@ -18,8 +18,10 @@
                         <br />
                         <?php echo $template['company_street']; ?><br />
                         <?php echo $template['company_postal']." ".$template['company_city']; ?><br />
+                        <?php if($template['company_phone'] != ''): ?>
                         <br />
                         <?php echo $GLOBALS['TL_LANG']['tl_member']['phone'][0].": ".$template['company_phone']; ?>
+                        <?php endif; ?>
                         <?php if($template['company_tax_number'] != ''): ?>
                             <br />
                             <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number']['0'].": ".$template['company_tax_number']; ?>
