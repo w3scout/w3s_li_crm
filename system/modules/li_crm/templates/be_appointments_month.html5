@@ -64,7 +64,7 @@
 				<?php foreach($appointments as $appointment): ?>
 				<div class="appointment<?php echo $counter == 1 ? ' first' : ''; ?><?php echo $counter == $countAppointments ? ' last' : ''; ?>" style="background-color:#<?php echo $appointment['color']; ?>">
 					<span class="subject">
-						<a href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>" rel="lightbox[610 80%]">
+						<a href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>" data-lightbox="610 80%" rel="lightbox[610 80%]">
 							<?php echo $appointment['subject']; ?>
 						</a>
 					</span>

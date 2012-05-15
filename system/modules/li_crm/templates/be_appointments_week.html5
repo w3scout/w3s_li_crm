@@ -76,7 +76,7 @@
 				<?php if($appointments[$i] != null): ?>
 				<?php foreach($appointments[$i] as $appointment): ?>
 				<div class="appointment" style="background-color:#<?php echo $appointment['color']; ?>;top:<?php echo $appointment['top'].'px'; ?>;left:<?php echo ($appointment['left'] - 1).'px'; ?>;height:<?php echo $appointment['height'].'px'; ?>;width:<?php echo (85 - $appointment['left']).'px'; ?>">
-					<a class="details subject" href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>" rel="lightbox[610 80%]" style="width:<?php echo (67 - $appointment['left']).'px'; ?>">
+					<a class="details subject" href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>" data-lightbox="610 80%" rel="lightbox[610 80%]" style="width:<?php echo (67 - $appointment['left']).'px'; ?>">
 						<?php echo $appointment['subject']; ?>
 					</a>
 					<div class="options">
