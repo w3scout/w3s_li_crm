@@ -98,6 +98,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['creator'],
 			'inputType'             => 'select',
 			'foreignKey'			=> 'tl_user.name',
+            'default'               => $this->User->id,
 			'exclude'   			=> true,
 			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true)
 		),
@@ -105,6 +106,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['subject'],
 			'inputType'             => 'text',
+            'default'               => '-',
 			'exclude'   			=> true,
 			'search'                => true,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
@@ -181,6 +183,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 		'endTime' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['endTime'],
+            'default'               => time(),
 			'exclude'               => true,
 			'inputType'             => 'text',
 			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50')
