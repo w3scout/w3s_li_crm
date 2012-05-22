@@ -76,7 +76,9 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'palettes' => array
 	(
 		'__selector__'              => array('repetition'),
-		'default'                   => '{service_legend},toCustomer,toProject,title,unit,toServiceType;{price_legend},price,toTax,currency;{date_legend},startDate,endDate,repetition;'
+		'default'                   => '{service_legend},toCustomer,toProject,title,unit,toServiceType;
+										{price_legend},price,toTax,currency;
+										{date_legend},startDate,endDate,repetition;'
 	),
 	
 	// Subpalettes
@@ -126,7 +128,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
             'inputType'             => 'select',
             'exclude'   			=> true,
             'foreignKey'            => 'tl_li_service_type.title',
-            'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+            'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
         ),
 		'price' => array
 		(

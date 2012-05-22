@@ -290,7 +290,7 @@ class CustomerList extends BackendModule
                 $objCustomerServices = $this->Database->prepare("
                     SELECT s.id, s.title AS serviceTitle, t.icon
                     FROM tl_li_service AS s
-                    INNER JOIN tl_li_service_type AS t
+                    LEFT JOIN tl_li_service_type AS t
                         ON s.toServiceType = t.id
                     WHERE s.toProject = 0
                         AND s.toCustomer = ".$objCustomers->id."
@@ -307,7 +307,7 @@ class CustomerList extends BackendModule
                 $objCustomerServices = $this->Database->prepare("
                     SELECT s.id, s.title AS serviceTitle, t.icon
                     FROM tl_li_service AS s
-                    INNER JOIN tl_li_service_type AS t
+                    LEFT JOIN tl_li_service_type AS t
                         ON s.toServiceType = t.id
                     WHERE s.toProject = 0
                         AND s.toCustomer = ?
@@ -413,7 +413,7 @@ class CustomerList extends BackendModule
                         $objServices = $this->Database->prepare("
                             SELECT s.id, s.title AS serviceTitle, t.icon
                             FROM tl_li_service AS s
-                            INNER JOIN tl_li_service_type AS t
+                            LEFT JOIN tl_li_service_type AS t
                                 ON s.toServiceType = t.id
                             WHERE s.toProject = ".$objProjects->id."
                                 AND s.title LIKE '%".$searchValue."%'
@@ -429,7 +429,7 @@ class CustomerList extends BackendModule
                         $objServices = $this->Database->prepare("
                             SELECT p.id, p.title AS serviceTitle, t.icon
                             FROM tl_li_service AS p
-                            INNER JOIN tl_li_service_type AS t
+                            LEFT JOIN tl_li_service_type AS t
                                 ON p.toServiceType = t.id
                             WHERE p.toProject = ?
                             ORDER BY t.orderNumber ASC
