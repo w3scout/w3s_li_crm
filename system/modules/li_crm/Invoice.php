@@ -521,6 +521,16 @@ class Invoice extends BackendModule
             'greeting' => sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name'])
         );
 
+        if($GLOBALS['TL_CONFIG']['websitePath'] == '') {
+            $template['base'] = "/";
+        } else {
+            if(substr($GLOBALS['TL_CONFIG']['websitePath'], -1) == "/") {
+                $template['base'] = $GLOBALS['TL_CONFIG']['websitePath'];
+            } else {
+                $template['base'] = $GLOBALS['TL_CONFIG']['websitePath']."/";
+            }
+        }
+
 		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
 
