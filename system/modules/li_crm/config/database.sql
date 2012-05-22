@@ -21,7 +21,6 @@ CREATE TABLE `tl_member` (
   `bank` varchar(100) NULL default '',
   `iban` varchar(64) NULL default '',
   `bic` varchar(64) NULL default '',
-  `bic` varchar(64) NULL default '',
   `registerProducts` blob NULL,
   `registerProduct` int(10) unsigned NOT NULL default '0',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -404,6 +403,7 @@ CREATE TABLE `tl_li_invoice_template` (
   `tstamp` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `invoice_template` varchar(64) NOT NULL default '',
+  `isDefaultTemplate` char(1) NOT NULL default '',
   `logo` varchar(255) NOT NULL default '',
   `maturity` int(10) unsigned NOT NULL default '0',
   `descriptionBefore` text NOT NULL,

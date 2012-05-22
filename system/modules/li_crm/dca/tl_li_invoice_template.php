@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 	'palettes' => array
 	(
 		'__selector__'              => array(''),
-		'default'                   => '{template_legend},title,html,invoice_template,logo;
+		'default'                   => '{template_legend},title,invoice_template,isDefaultTemplate,logo;
 										{invoice_data_legend},maturity,descriptionBefore,descriptionAfter;
 										{generation_path_legend},basePath,periodFolder;'
 	),
@@ -97,8 +97,15 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('InvoiceTemplate', 'getInvoiceTemplates'),
-            'eval'                  => array('chosen'=>true)
+            'eval'                  => array('chosen'=>true, 'tl_class'=>'w50')
 		),
+		'isDefaultTemplate' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['isDefaultTemplate'],
+            'inputType'             => 'checkbox',
+            'exclude'   			=> true,
+            'eval'                  => array('tl_class'=>'w50 m12')
+        ),
 		'logo' => array
         (
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'],

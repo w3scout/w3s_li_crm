@@ -13,6 +13,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice_template']['generation_path_legend'] = "Creat
 
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['title'] = array("Title", "Please enter a title.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'] = array("Invoice template", "Please choose an invoice template.");
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['isDefaultTemplate'] = array("Default template", "Make this template the default invoice template.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'] = array("Logo", "Please choose a logo.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity'] = array("Maturity", "Enter the amount of days the customer has left to pay the invoice, if it differs from the standard settings.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'] = array("Description before the positions", "Please enter the description before the positions.");

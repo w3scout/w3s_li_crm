@@ -37,4 +37,31 @@ class InvoiceTemplate extends Controller
 
 		return $path;
 	}
+	
+	public function updateDefaultTemplate($dc)
+	{
+		if ($this->Input->post('isDefaultTemplate'))
+		{
+			// Reset default template in all templates
+			$this->Database->prepare("
+				UPDATE tl_li_invoice_template
+				SET isDefaultTemplate = 0
+				WHERE NOT id = ?
+			")->execute($dc->id);
+		}
+	}
+	
+	public function getDefaultTemplate() {
+		$objTemplate = $this->Database->prepare("
+			SELECT id
+			FROM tl_li_invoice_template
+			WHERE isDefaultTemplate = 1
+		")->limit(1)->execute();
+		
+		if($objTemplate->id != '') {
+			return $objTemplate->id;
+		} else {
+			return 0;
+		}
+	}
 }

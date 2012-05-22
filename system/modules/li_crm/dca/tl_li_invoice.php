@@ -6,10 +6,12 @@
  * @license    MIT (see /LICENSE.txt for further information)
  */
 
+$this->loadLanguageFile('tl_li_invoice_reminder');
+$invoiceTemplate = new InvoiceTemplate();
+
 /**
  * Table tl_li_invoice
  */
-$this->loadLanguageFile('tl_li_invoice_reminder');
 $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 (
 	// Config
@@ -258,7 +260,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
             'filter'                => true,
-            'eval'                  => array('tl_class'=>'w50 m12')
+            'eval'                  => array('tl_class'=>'w50')
         ),
 		'file' => array
 		(
@@ -304,7 +306,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'foreignKey'            => 'tl_li_invoice_template.title',
+			'default'				=> $invoiceTemplate->getDefaultTemplate(),
+			'foreignKey'      		=> 'tl_li_invoice_template.title',
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
         ),
         'toAddress' => array

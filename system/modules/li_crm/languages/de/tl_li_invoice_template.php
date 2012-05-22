@@ -13,6 +13,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice_template']['generation_path_legend'] = "Gener
 
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['title'] = array("Titel", "Bitte geben Sie den Titel ein.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'] = array("Rechnungs-Template", "Bitte wählen Sie das Rechnungs-Template aus.");
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['isDefaultTemplate'] = array("Standardtemplate", "Das Template als Standardtemplate verwenden.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'] = array("Logo", "Bitte wählen Sie das Logo aus.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity'] = array("Laufzeit", "Geben Sie die Anzahl der Tage ein, die der Kunde zur Bezahlung der Rechnung Zeit hat, falls diese von der Standardeinstellungen abweicht.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'] = array("Beschreibung vor den Positionen", "Bitte geben Sie die Beschreibung vor den Positionen ein.");
