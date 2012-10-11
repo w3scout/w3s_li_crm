@@ -440,6 +440,7 @@ class Invoice extends BackendModule
                 i.maturity,
                 i.descriptionBefore,
                 i.discount,
+                i.withoutTaxes,
                 i.earlyPaymentDiscount,
                 i.descriptionAfter,
                 i.isOut,
@@ -711,38 +712,47 @@ class Invoice extends BackendModule
 		$htmlPositions .= '</tr>';
 		$rowCounter++;
 
-		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
-		$htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
-		$htmlPositions .= '</tr>';
-		$rowCounter++;
+        if(!$objInvoice->withoutTaxes) {
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
+            $htmlPositions .= '</tr>';
+            $rowCounter++;
+        } else {
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<td class="amount" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
+            $htmlPositions .= '</tr>';
+            $rowCounter++;
+        }
 
-		ksort($taxes);
-		foreach ($taxes as $tax => $price)
-		{
-            // Without discount
-            if(empty($discount['value'])) {
-                $taxPrice = $price * $tax / 100;
-            // With discount
-            } else {
-                // Percentage discount
-                if($discount['unit'] == 'percent') {
-                    $taxPrice = ($price - $price * $discount['value'] / 100) * $tax / 100;
-                // Absolute discount
+        if(!$objInvoice->withoutTaxes) {
+            ksort($taxes);
+            foreach ($taxes as $tax => $price)
+            {
+                // Without discount
+                if(empty($discount['value'])) {
+                    $taxPrice = $price * $tax / 100;
+                // With discount
                 } else {
-                    $taxPrice = ($price - $discount['value'] / count($taxes)) * $tax / 100;
+                    // Percentage discount
+                    if($discount['unit'] == 'percent') {
+                        $taxPrice = ($price - $price * $discount['value'] / 100) * $tax / 100;
+                    // Absolute discount
+                    } else {
+                        $taxPrice = ($price - $discount['value'] / count($taxes)) * $tax / 100;
+                    }
                 }
+
+                $fullTaxes += $taxPrice;
+                $htmlPositions .= '<tr class="total '.$this->getOddEven($rowCounter).'">';
+                $htmlPositions .= '<td class="amount tax" colspan="4">'.$tax.'% '.$GLOBALS['TL_LANG']['tl_li_invoice']['tax'].'</td><td class="price">'.$this->getFormattedNumber($taxPrice).' '.$symbol.'</td>';
+                $htmlPositions .= '</tr>';
+                $rowCounter++;
             }
 
-			$fullTaxes += $taxPrice;
-			$htmlPositions .= '<tr class="total '.$this->getOddEven($rowCounter).'">';
-			$htmlPositions .= '<td class="amount tax" colspan="4">'.$tax.'% '.$GLOBALS['TL_LANG']['tl_li_invoice']['tax'].'</td><td class="price">'.$this->getFormattedNumber($taxPrice).' '.$symbol.'</td>';
-			$htmlPositions .= '</tr>';
-			$rowCounter++;
-		}
-
-		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
-		$htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' '.$symbol.'</td>';
-		$htmlPositions .= '</tr>';
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' '.$symbol.'</td>';
+            $htmlPositions .= '</tr>';
+        }
 
 		$descriptionBefore = '';
 		$descriptionAfter = '';

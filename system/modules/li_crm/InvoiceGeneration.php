@@ -350,12 +350,12 @@ class InvoiceGeneration extends Controller
             SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
             FROM tl_li_work_package AS wp
             INNER JOIN tl_li_working_hour AS wh
-              ON wh.toWorkPackage = wp.id
+                ON wh.toWorkPackage = wp.id
             INNER JOIN tl_li_hourly_wage AS hw
-              ON hw.id = wp.toHourlyWage
+                ON hw.id = wp.toHourlyWage
             WHERE wp.toCustomer = ?
-              AND hw.currency = ?
-              AND wp.printOnInvoice = 1
+                AND hw.currency = ?
+                AND wp.printOnInvoice = 1
             GROUP BY wp.id
         ")->execute($objInvoice->toCustomer, $objInvoice->currency);
         while ($objHours->next())

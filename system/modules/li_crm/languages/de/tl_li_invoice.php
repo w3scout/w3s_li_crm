@@ -32,6 +32,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array("Rechnungstemplate", 
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array("Rechnungsadresse", "Bitte wählen Sie die Rechnungsadresse aus.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'] = array("Beschreibung", "Bitte geben Sie die Beschreibung vor den Positionen ein.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['discount'] = array("Rabatt", "Bitte geben Sie den Rabatt ein.");
+$GLOBALS['TL_LANG']['tl_li_invoice']['withoutTaxes'] = array("Ohne Mehrwertsteuer", "Soll die Rechnung ohne Mehrwertsteuer generiert werden?");
 $GLOBALS['TL_LANG']['tl_li_invoice']['earlyPaymentDiscount'] = array("Skontotext", "Bitte geben Sie den Skontotext ein.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'] = array("Beschreibung", "Bitte geben Sie die Beschreibung nach den Positionen ein.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['published'] = array("Rechnung veröffentlichen", "Die Rechnung auf der Website anzeigen.");
@@ -87,6 +88,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['hours'] = "Stunden";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'] = "Rechnungsbetrag (netto)";
 $GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'] = "Rechnungsbetrag (brutto)";
+$GLOBALS['TL_LANG']['tl_li_invoice']['total'] = "Rechnungsbetrag";
 $GLOBALS['TL_LANG']['tl_li_invoice']['tax'] = "Umsatzsteuer";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'] = "Stück";

@@ -166,7 +166,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'enableGeneration'          => 'headline,toTemplate,toAddress,descriptionBefore,servicePositions,productPositions,hourPositions,discount,earlyPaymentDiscount,descriptionAfter'
+		'enableGeneration'          => 'headline,toTemplate,toAddress,descriptionBefore,servicePositions,productPositions,hourPositions,discount,withoutTaxes,earlyPaymentDiscount,descriptionAfter'
 	),
 
 	// Fields
@@ -260,7 +260,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
             'filter'                => true,
-            'eval'                  => array('tl_class'=>'w50')
+            'eval'                  => array('tl_class'=>'w50 m12')
         ),
 		'file' => array
 		(
@@ -361,7 +361,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
 						'exclude'           => true,
 						'inputType'         => 'text',
-						'eval' 				=> array('style'=>'width:300px;')
+						'eval' 				=> array('style'=>'width:290px;')
 					)
 				)
 			)
@@ -402,7 +402,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
 						'exclude'           => true,
 						'inputType'         => 'text',
-						'eval' 				=> array('style'=>'width:300px;')
+						'eval' 				=> array('style'=>'width:290px;')
 					)
 				)
 			)
@@ -435,7 +435,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_label'],
 						'exclude'           => true,
 						'inputType'         => 'text',
-						'eval' 				=> array('style'=>'width:300px;')
+						'eval' 				=> array('style'=>'width:290px;')
 					)
 				)
 			)
@@ -446,14 +446,22 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'             => 'inputUnit',
             'options'               => array('percent', 'value'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['discountOptions'],
-            'exclude'   			=> true
+            'exclude'   			=> true,
+            'eval'                  => array('tl_class'=>'w50')
+        ),
+        'withoutTaxes' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['withoutTaxes'],
+            'inputType'             => 'checkbox',
+            'exclude'   			=> true,
+            'eval'                  => array('tl_class'=>'w50 m12')
         ),
         'earlyPaymentDiscount' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['earlyPaymentDiscount'],
             'inputType'             => 'text',
             'exclude'   			=> true,
-            'eval'                  => array('tl_class'=>'long')
+            'eval'                  => array('tl_class'=>'long clr')
         ),
         'descriptionAfter' => array
 		(

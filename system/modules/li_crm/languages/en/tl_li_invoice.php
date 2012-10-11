@@ -32,6 +32,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'] = array("Invoice template", "
 $GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'] = array("Invoice address", "Please choose an invoice address.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'] = array("Description", "Please enter the description before the positions.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['discount'] = array("Discount", "Please enter the discount.");
+$GLOBALS['TL_LANG']['tl_li_invoice']['withoutTaxes'] = array("Without taxes", "Should the invoice be generated without taxes?");
 $GLOBALS['TL_LANG']['tl_li_invoice']['earlyPaymentDiscount'] = array("Early payment discount text", "Please enter the early payment discount text.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'] = array("Description", "Please enter the description after the positions.");
 $GLOBALS['TL_LANG']['tl_li_invoice']['published'] = array("Publish invoice", "Make the event publicly visible on the frontend.");
@@ -87,6 +88,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['hours'] = "Hours";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'] = "Total cost (net)";
 $GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'] = "Total cost (gross)";
+$GLOBALS['TL_LANG']['tl_li_invoice']['total'] = "Total cost";
 $GLOBALS['TL_LANG']['tl_li_invoice']['tax'] = "Tax";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['units']['unit'] = "Unit";
