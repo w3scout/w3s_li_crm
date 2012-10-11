@@ -25,6 +25,7 @@ class CurrencyHelper extends Controller
             'USD' => '$',
             'GBP' => '&#0163;',
             'CHF' => 'CHF',
+            'BRL' => 'R$'
         );
         if($GLOBALS['TL_CONFIG']['li_crm_company_default_currency'] != '')
         {
