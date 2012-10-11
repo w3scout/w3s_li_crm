@@ -16,6 +16,7 @@ contao/*
 templates/*
 tl_files/*
 typolight/*
+system/runonce.php
 system/config/*
 system/constants.php
 system/contao.css
