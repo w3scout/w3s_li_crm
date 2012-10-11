@@ -7,6 +7,7 @@ GPL.txt
 INSTALL.txt
 LGPL.txt
 cron.php
+ctoCommunication.php
 index.php
 robots.txt
 share.php
@@ -27,17 +28,20 @@ system/interface.php
 system/libraries/*
 system/logs/*
 system/mbstring.php
+system/modules/3cframework
 system/modules/addresses
 system/modules/backend/*
 system/modules/calendar/*
 system/modules/comments/*
 system/modules/compression/*
+system/modules/ctoCommunication
 system/modules/DomainLink/*
 system/modules/dompdf/*
 system/modules/easy_themes/*
 system/modules/faq/*
 system/modules/folderurl/*
 system/modules/frontend/*
+system/modules/httprequestextended
 system/modules/listing/*
 system/modules/multicolumnwizard/*
 system/modules/MultiTextWizard/*
@@ -47,6 +51,8 @@ system/modules/registration/*
 system/modules/rep_base/*
 system/modules/rep_client/*
 system/modules/rss_reader/*
+system/modules/syncCto
+system/modules/syncCtoUpdater
 system/modules/tasks/*
 system/modules/theme_plus/*
 system/modules/tpl_editor/*
