@@ -23,7 +23,7 @@ $GLOBALS['TL_LANG']['tl_li_product']['units']['hour'] = "Stunde";
 $GLOBALS['TL_LANG']['tl_li_product']['units']['month'] = "Monat";
 $GLOBALS['TL_LANG']['tl_li_product']['units']['year'] = "Jahr";
 
-$GLOBALS['TL_LANG']['tl_li_product']['new'] = array("Neues Produkt", "Ein neue Produkt anlegen");
+$GLOBALS['TL_LANG']['tl_li_product']['new'] = array("Neues Produkt", "Ein neues Produkt anlegen");
 $GLOBALS['TL_LANG']['tl_li_product']['edit'] = array("Produkt bearbeiten", "Das Produkt mit der ID %s bearbeiten");
 $GLOBALS['TL_LANG']['tl_li_product']['copy'] = array("Produkt duplizieren", "Das Produkt mit der ID %s duplizieren");
 $GLOBALS['TL_LANG']['tl_li_product']['delete'] = array("Produkt löschen", "Das Produkt mit der ID %s löschen");
