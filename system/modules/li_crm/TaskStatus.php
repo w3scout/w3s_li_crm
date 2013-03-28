@@ -31,6 +31,6 @@ class TaskStatus extends Controller
 
 	public function renderGroup($row)
 	{
-		return $GLOBALS['TL_LANG']['tl_li_task_status']['orderNumber'][0]." ".$row['orderNumber'];
+        return $GLOBALS['TL_LANG']['tl_li_task_status']['orderNumber'][0]." ".$row;
 	}
 }
