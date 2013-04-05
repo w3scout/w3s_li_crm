@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 	(
 		'__selector__'              => array(''),
 		'default'                   => '{status_legend}, title, orderNumber, icon;
-										{settings_legend}, isTaskDisabled, isTaskDone, cssClass;'
+										{settings_legend}, isTaskDisabled, isTaskDone, showOnStartpage, cssClass;'
 	),
 	
 	// Fields
@@ -120,12 +120,19 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 			'exclude'   			=> true,
 			'eval'                  => array('tl_class'=>'w50')
 		),
+        'showOnStartpage' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['showOnStartpage'],
+            'inputType'             => 'checkbox',
+            'exclude'   			=> true,
+            'eval'                  => array('tl_class'=>'w50')
+        ),
 		'cssClass' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['cssClass'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr w50')
 		)
 	)
 );

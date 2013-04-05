@@ -15,6 +15,7 @@ $GLOBALS['TL_LANG']['tl_li_task_status']['orderNumber'] = array("Sortiernummer",
 $GLOBALS['TL_LANG']['tl_li_task_status']['icon'] = array("Icon", "Bitte wählen Sie das Icon aus. Es sollte die Maße von 16x16 haben.");
 $GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDisabled'] = array("Aufgabe deaktiviert", "Soll die Aufgabe mit diesem Status deaktiviert dargestellt werden?");
 $GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDone'] = array("Aufgabe erledigt", "Soll die Aufgabe mit diesem Status erledigt dargestellt werden?");
+$GLOBALS['TL_LANG']['tl_li_task_status']['showOnStartpage'] = array("In den Systemnachrichten anzeigen", "Soll die Aufgabe mit diesem Status auf der Startseite des Backends in den Systemnachrichten angezeigt werden?");
 $GLOBALS['TL_LANG']['tl_li_task_status']['cssClass'] = array("CSS Klasse", "Bitte geben Sie die CSS Klasse ein.");
 
 $GLOBALS['TL_LANG']['tl_li_task_status']['defaultIcon'] = "Standard";

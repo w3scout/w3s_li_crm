@@ -164,6 +164,12 @@ class CRMRunonce extends Controller
 			$this->Database->query("ALTER TABLE `tl_li_product_to_customer` ADD `saleDate` varchar(10) NOT NULL default ''");
 			$this->Database->query("UDATE tl_li_product_to_customer SET saleDate = tstamp");
 		}
+
+        // Update for version 0.5.2
+        if(!$this->Database->fieldExists('showOnStartpage', 'tl_li_task_status'))
+        {
+            $this->Database->query("ALTER TABLE `tl_li_task_status` ADD `showOnStartpage` char(1) NOT NULL default '0'");
+        }
 	}
 
 }

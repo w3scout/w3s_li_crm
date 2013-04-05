@@ -138,5 +138,8 @@ $GLOBALS['TL_HOOKS']['executePreActions'][] = array('TaskComment', 'hookExecuteP
 // - Post actions
 $GLOBALS['TL_HOOKS']['executePostActions'][] = array('Invoice', 'generateInvoice');
 
+// - System messsages
+$GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('TaskStatusMessages', 'listTasks');
+
 // Form fields
 $GLOBALS['BE_FFL']['TaskHistory'] = 'TaskHistory';

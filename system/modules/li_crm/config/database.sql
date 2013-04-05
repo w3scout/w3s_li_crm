@@ -222,6 +222,7 @@ CREATE TABLE `tl_li_task_status` (
   `icon` varchar(255) NOT NULL default '',
   `isTaskDisabled` char(1) NOT NULL default '0',
   `isTaskDone` char(1) NOT NULL default '0',
+  `showOnStartpage` char(1) NOT NULL default '0',
   `cssClass` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
