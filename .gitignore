@@ -1,7 +1,6 @@
 .idea
 .DS_Store
 .htaccess
-CHANGELOG.md
 CHANGELOG.txt
 GPL.txt
 INSTALL.txt
