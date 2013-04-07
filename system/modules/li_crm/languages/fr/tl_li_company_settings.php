@@ -28,7 +28,7 @@ $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number']['1'] 
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_ustid']['0'] = "Numéro de T.V.A";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_ustid']['1'] = "SVP entrer le numéro de TVA de la compagnie";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal']['0'] = "Code postal";
-$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal']['1'] = "SVP entrez le code postal(sans les zero initaux)";
+$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal']['1'] = "SVP entrez le code postal";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number']['0'] = "Numéro de compte bancaire";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number']['1'] = "SVP entrez le numéro de compte bancaire de votre société";
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank_code']['0'] = "Code d'identification de votre banque";
