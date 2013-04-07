@@ -1,0 +1,405 @@
+.tree_view .tl_listing .tl_folder_top img {
+    padding-right: 2px;
+    vertical-align: -3px;
+}
+
+.tree_view .tl_listing img, ul.tree_view img {
+    vertical-align: -6px;
+}
+
+.tree_view.customers .tl_listing .tl_right a,
+.tree_view.customers .tl_listing .tl_right span {
+    display: block;
+    float: left;
+    margin-right: 3px;
+}
+
+.tree_view .tl_listing .tl_folder .tl_left,
+.tree_view .tl_listing .tl_file .tl_left {
+    padding-top: 2px;
+}
+
+.tree_view .tl_listing .icon {
+    vertical-align: -4px;
+    padding-right: 3px;
+}
+
+.tree_view .tl_listing .simpleService .tl_left {
+    padding-left: 49px;
+}
+
+.tree_view .tl_listing .simpleProduct .tl_left {
+    padding-left: 49px;
+}
+
+.tree_view .tl_listing .project .tl_left {
+    padding-left: 28px;
+}
+
+.tree_view .tl_listing .service .tl_left, .tree_view .tl_listing .product .tl_left {
+    padding-left: 70px;
+}
+
+.tree_view .tl_listing .tl_folder.disabled strong {
+    color: #999c99;
+}
+
+.tree_view .tl_listing li {
+    display: block;
+}
+
+#tl_buttons a {
+    padding: 2px 0 2px 20px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin: 0 5px;
+}
+
+.header_new.customer {
+    background-image: url("customer_new.png");
+    padding-left: 23px;
+}
+
+.header_new.project {
+    background-image: url("project_new.png");
+}
+
+.header_new.service {
+    background-image: url("service_new.png");
+}
+
+.header_new.product {
+    background-image: url("product_new.png");
+}
+
+.header_invoice_reports {
+    background: url("invoice_reports.png") no-repeat left center;
+    padding: 2px 0 3px 21px;
+}
+.header_invoice_reminder {
+    background: url("invoice_reminder.png") no-repeat left center;
+    padding: 2px 0 3px 21px;
+}
+.header_invoice_generation {
+    background: url("generation.png") no-repeat left center;
+    padding: 2px 0 3px 21px;
+}
+.header_task_reminder {
+    background: url("task_reminder.png") no-repeat left center;
+    padding: 2px 0 3px 21px;
+}
+
+.list_view .disabled {
+    color: #999;
+}
+
+.tl_text.quantity {
+    display: block;
+    float: left;
+    clear: left;
+    width: 30px;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.tl_select.unit {
+    display: block;
+    float: left;
+    width: 70px;
+    margin-right: 5px;
+}
+
+.tl_text.label {
+    display: block;
+    float: left;
+    width: 410px;
+    margin-right: 5px;
+}
+
+.tl_text.tax {
+    display: block;
+    float: left;
+    width: 30px;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.tl_text.price {
+    display: block;
+    float: left;
+    width: 50px;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.checkbox.print {
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+label.print {
+    display: block;
+    float: left;
+}
+
+.positions .tl_help {
+    clear: left;
+}
+
+#tl_buttons .add_hours {
+    padding-left:21px;
+}
+
+.path {
+    margin-top: 10px;
+}
+
+.back_link {
+    display: block;
+    margin-top: 20px;
+}
+
+#day_buttons, #week_buttons, #month_buttons {
+    padding: 10px 16px 0;
+}
+
+#workin_hours_calendar_wrapper {
+    margin: 0 15px 15px;
+}
+
+#working_hours_calendar {
+    width: 100%;
+    background: #fdfdfd;
+    border-collapse: collapse;
+}
+
+#working_hours_calendar thead td {
+    font-weight: bold;
+    background: #F3F3F3;
+    width: 95px;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+#working_hours_calendar, #working_hours_calendar td {
+    border: 1px solid #bbb;
+}
+
+#working_hours_calendar td {
+    padding: 5px;
+    padding-bottom: 0;
+}
+
+#working_hours_calendar tbody td {
+    vertical-align: top;
+}
+
+#working_hours_calendar td .working_hour_entry {
+    border: 1px solid #bbb;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+#working_hours_calendar td .working_hour_entry .entry_buttons {
+    text-align: right;
+    margin-top: 15px;
+}
+
+#working_hours_calendar td .working_hour_entry .entry_buttons a {
+    margin-left: 5px;
+}
+
+.li_positions .header {
+    height: 17px;
+}
+.li_positions .header span {
+    display: block;
+    float: left;
+    overflow: hidden;
+}
+.li_positions .header .quantity {
+    width: 42px;
+}
+.li_positions .header .unit {
+    width: 74px;
+}
+.li_positions .header .label {
+    width: 422px;
+}
+.li_positions .header .tax {
+    width: 41px;
+}
+.li_positions .header .unit_price {
+    width: 63px;
+}
+.li_positions .header .print {
+    width: 63px;
+}
+.li_positions .tl_tip {
+    clear: left;
+}
+
+.invoice object.pdf {
+	display: block;
+	margin-top: 10px;
+}
+/* Appointments month */
+#appointments_wrapper {
+    margin: 0 15px 15px;
+}
+
+#appointments {
+    width: 100%;
+    background: #fdfdfd;
+    border-collapse: collapse;
+}
+
+#appointments th {
+    font-weight: bold;
+    background: #F3F3F3;
+    width: 95px;
+}
+
+#appointments, #appointments td, #appointments th {
+    border: 1px solid #bbb;
+    padding: 5px;
+}
+#appointments td {
+    padding: 5px;
+}
+#appointments td.appointments {
+	padding: 0;
+}
+#appointments td .appointment {
+	padding: 5px;
+	border-bottom: 1px solid #bbb;
+}
+#appointments td .appointment.last {
+	border-bottom: none;
+}
+#appointments td .appointment .options {
+	float: right;
+}
+#appointments td .appointment .options img {
+	position: relative;
+	top: -1px;
+	padding-right: 2px;
+}
+/* Appointments week */
+#appointments_week {
+	border: 1px solid #bbb;
+}
+#appointments_week .ruler, #appointments_week .day {
+	width: 89px;
+	float: left;
+	border-right: 1px solid #bbb;
+	position: relative;
+}
+#appointments_week .ruler {
+	width: 64px;
+}
+#appointments_week .ruler .hour {
+	font-weight: bold;
+	line-height: 20px;
+	background: #F3F3F3;
+	text-align: center;
+}
+#appointments_week .day.last {
+	border-right: none;
+}
+#appointments_week .ruler .headline, #appointments_week .day .headline {
+	height: 22px;
+	font-weight: bold;
+	line-height: 22px;
+	background: #F3F3F3;
+	text-align: center;
+	border-bottom: 1px solid #bbb;
+}
+#appointments_week .ruler .hour, #appointments_week .day .hour {
+	height: 20px;
+	border-bottom: 1px solid #bbb;
+}
+#appointments_week .ruler .hour.last, #appointments_week .day .hour.last {
+	border-bottom: none;
+}
+#appointments_week .day .appointment {
+	padding: 2px;
+	overflow: hidden;
+	position: absolute;
+	border: solid #bbb;
+	border-width: 1px;
+}
+#appointments_week .day .appointment:hover {
+	left: -1px !important;
+	width: 85px !important;
+	z-index: 5000;
+}
+#appointments_week .day .appointment a.details {
+	font-size: 10px;
+	width: 100%;
+	height: 100%;
+	display: block;
+	float: left;
+}
+#appointments_week .day .appointment:hover a.details,
+#appointments_week .day .appointment a.details:hover {
+	width: 67px !important;
+}
+#appointments_week .day .appointment .options {
+	position: absolute;
+	right: 0;
+	width: 16px;
+	padding-right: 2px;
+}
+#appointments_week .day .appointment .options .delete {
+	margin: 1px 0;
+}
+/* Appointments day */
+#tl_listing.tl_li_appointments {
+	margin: 0 18px 24px;
+}
+#tl_listing.tl_li_appointments .tl_li_appointment span {
+	padding: 3px 0;
+}
+#tl_listing.tl_li_appointments .tl_folder_top label {
+	display: block;
+	font-weight: bold;
+	padding: 2px 0;
+}
+/**
+ * Task comments
+ */
+.tl_right_nowrap {
+	vertical-align: top;
+	padding-top: 4px;
+}
+.task_comments .be_task_comment {
+}
+.task_comments .be_task_comment .rownum {
+	color: #666;
+}
+.task_comments .be_task_comment .datetime {
+	color: #A30000;
+}
+.task_comments .be_task_comment .user {
+	color: #0000A3;
+}
+.task_comments .be_task_comment .rownum,
+.task_comments .be_task_comment .datetime,
+.task_comments .be_task_comment .user {
+	float: left;
+}
+.task_comments .be_task_comment {
+	margin-top: 4px;
+	padding: 3px 4px 0;
+	border-top: 1px solid #ccc;
+}
+.task_comments div.count {
+	margin-top: 4px;
+	padding: 3px 4px 0;
+	border-top: 1px solid #ccc;
+}
+#tl_soverview.settings p {
+    padding: 5px 5px 0 20px;
+}
