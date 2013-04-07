@@ -24,7 +24,14 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 		'ondelete_callback'         => array
 		(
 			array('WorkingHourCalendar', 'onDelete')
-		)
+		),
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// Palettes
@@ -37,9 +44,17 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 	// Fields
 	'fields' => array
 	(
-		'user' => array
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
         (
-			'default' 				=> $this->User->id
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'user' => array
+        (
+			'default' 				=> $this->User->id,
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'entryDate' => array
 		(
@@ -50,7 +65,8 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 			'flag'					=> 8,
 			'inputType'				=> 'text',
 			'exclude'   			=> true,
-			'eval'					=> array('rgxp'=>'date', 'mandatory'=>true,	'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'					=> array('rgxp'=>'date', 'mandatory'=>true,	'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'toWorkPackage' => array
 		(
@@ -58,21 +74,24 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 			'inputType'				=> 'select',
 			'exclude'   			=> true,
 			'options_callback'		=> array('WorkPackage', 'getWorkPackages'),
-			'eval'					=> array('mandatory' => true, 'chosen'=>true, 'includeBlankOption' => true, 'tl_class' => 'w50')
+			'eval'					=> array('mandatory' => true, 'chosen'=>true, 'includeBlankOption' => true, 'tl_class' => 'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'hours' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['hours'],
 			'inputType'				=> 'text',
 			'exclude'   			=> true,
-			'eval'					=> array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50')
+			'eval'					=> array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'minutes' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['minutes'],
 			'inputType' 			=> 'text',
 			'exclude'   			=> true,
-			'eval'					=> array('rgxp'=>'digit', 'maxlength'=>'2', 'tl_class'=>'w50')
+			'eval'					=> array('rgxp'=>'digit', 'maxlength'=>'2', 'tl_class'=>'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		)
 	)
 );

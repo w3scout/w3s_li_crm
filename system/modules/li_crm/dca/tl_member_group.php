@@ -19,5 +19,6 @@ $GLOBALS['TL_DCA']['tl_member_group']['fields']['alexf'] = array
     'exclude'               => true,
     'inputType'             => 'checkbox',
     'options_callback'      => array('MemberGroup', 'getExcludedFields'),
-    'eval'                  => array('multiple'=>true, 'size'=>36)
+    'eval'                  => array('multiple'=>true, 'size'=>36),
+    'sql'                     => "blob NULL"
 );

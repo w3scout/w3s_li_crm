@@ -23,7 +23,14 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 		'onsubmit_callback'			=> array
 		(
 			array('Task', 'onSubmit')
-		)
+		),
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// List
@@ -121,9 +128,13 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 	// Fields
 	'fields' => array
 	(
-		'tstamp' => array
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
 		(
-			'default' => time()
+			'default' => time(),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'toCustomer' => array
 		(
@@ -131,7 +142,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Customer', 'getCustomerOptions'),
-			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true)
+			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'toProject' => array
 		(
@@ -139,7 +151,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Project', 'getProjectsOfCustomer'),
-            'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
+            'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'toStatus' => array
 		(
@@ -148,7 +161,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
             'foreignKey'            => 'tl_li_task_status.title',
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'toUser' => array
 		(
@@ -157,7 +171,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
             'foreignKey'            => 'tl_user.username',
-			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true)
+			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'priority' => array
 		(
@@ -166,7 +181,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Task', 'getPriorityOptions'),
-			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true)
+			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true),
+            'sql'                     => "int(3) unsigned NOT NULL default '0'"
         ),
         'title' => array
 		(
@@ -174,7 +190,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'search'                => true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'alias' => array
 		(
@@ -185,7 +202,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'save_callback' 		=> array
 			(
 				array('Task', 'generateAlias')
-			)
+			),
+            'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'deadline' => array
 		(
@@ -196,7 +214,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'description' => array
 		(
@@ -204,14 +223,16 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'search'                => true,
 			'inputType'             => 'textarea',
 			'exclude'   			=> true,
-			'eval'                  => array('tl_class'=>'clr', 'rte'=>'tinyMCE')
+			'eval'                  => array('tl_class'=>'clr', 'rte'=>'tinyMCE'),
+            'sql'                     => "text NULL"
         ),
 		'published' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_task']['published'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-			'filter'                => true
+			'filter'                => true,
+            'sql'                     => "char(1) NOT NULL default ''"
         )
 	)
 );

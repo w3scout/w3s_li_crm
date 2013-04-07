@@ -16,6 +16,13 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 	(
 	    'dataContainer'             => 'Table',
 		'enableVersioning'          => true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// List
@@ -91,6 +98,14 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'default' => time(),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'toTask' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['toTask'],
@@ -98,7 +113,8 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'exclude'   			=> true,
             'foreignKey'        	=> 'tl_li_task.title',
             'options_callback'      => array('TaskReminder', 'getTaskOptions'),
-			'eval'                  => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true)
+			'eval'                  => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'remindOnce' => array
 		(
@@ -106,7 +122,8 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'filter'                => true,
-			'eval'                  => array('submitOnChange' => true)
+			'eval'                  => array('submitOnChange' => true),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'remindDate' => array
 		(
@@ -118,7 +135,8 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'load_callback'         => array(array('TaskReminder', 'getRemindDate')),
-			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
         'remindRepeatedly' => array
 		(
@@ -126,7 +144,8 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'filter'                => true,
-			'eval'                  => array('submitOnChange' => true)
+			'eval'                  => array('submitOnChange' => true),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'remindInterval' => array
 		(
@@ -136,7 +155,8 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'exclude'   			=> true,
             'options'               => array('daily', 'weekly', 'monthly', 'yearly'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindInterval'],
-			'eval'                  => array('tl_class' => 'w50', 'chosen'=>true)
+			'eval'                  => array('tl_class' => 'w50', 'chosen'=>true),
+            'sql'                     => "varchar(20) NOT NULL default ''"
         )
 	)
 );

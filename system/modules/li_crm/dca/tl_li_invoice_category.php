@@ -15,7 +15,14 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 	'config' => array
 	(
 		'dataContainer'             => 'Table',
-		'enableVersioning'          => true
+		'enableVersioning'          => true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// List
@@ -83,26 +90,36 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'title' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_category']['title'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'orderNumber' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_category']['orderNumber'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'cssClass' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_category']['cssClass'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => " varchar(255) NOT NULL default ''"
 		)
 	)
 );

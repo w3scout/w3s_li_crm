@@ -7,7 +7,9 @@
  */
 
 $this->loadLanguageFile('tl_li_invoice_reminder');
-$invoiceTemplate = new InvoiceTemplate();
+$this->import('InvoiceTemplate');
+
+#$invoiceTemplate = new InvoiceTemplate();
 
 /**
  * Table tl_li_invoice
@@ -18,7 +20,14 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'config' => array
 	(
 		'dataContainer'             => 'Table',
-		'enableVersioning'          => true
+		'enableVersioning'          => true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// List
@@ -172,6 +181,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'toCustomer' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer'],
@@ -179,7 +195,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
             'options_callback'      => array('Customer', 'getCustomerOptions'),
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'toCategory' => array
 		(
@@ -188,7 +205,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
             'foreignKey'            => 'tl_li_invoice_category.title',
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50')
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'title' => array
 		(
@@ -197,7 +215,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'exclude'   			=> true,
 			'search'                => true,
 			'flag'                  => 1,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'alias' => array
 		(
@@ -209,7 +228,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'save_callback' 		=> array
 			(
 				array('Invoice', 'generateAlias')
-			)
+			),
+            'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'invoiceDate' => array
 		(
@@ -218,7 +238,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'performanceDate' => array
 		(
@@ -229,7 +250,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'price' => array
 		(
@@ -237,7 +259,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'search'                => true,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>20, 'tl_class'=>'w50', 'rgxp'=>'digit'),
+            'sql'                     => "double unsigned NOT NULL default '0'"
 		),
         'currency' => array
         (
@@ -246,13 +269,15 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'exclude'               => true,
             'options_callback'      => array('CurrencyHelper', 'getCurrencyOptions'),
             'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
+            'sql'                     => "varchar(3) NOT NULL default ''"
         ),
 		'maturity' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['maturity'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('tl_class'=>'w50')
+			'eval'                  => array('tl_class'=>'w50'),
+            'sql'                     => "varchar(3) NOT NULL default ''"
 		),
         'paid' => array
         (
@@ -260,14 +285,16 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
             'filter'                => true,
-            'eval'                  => array('tl_class'=>'w50 m12')
+            'eval'                  => array('tl_class'=>'w50 m12'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
 		'file' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['file'],
 			'inputType'             => 'fileTree',
 			'exclude'   			=> true,
-			'eval'                  => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr', 'extensions'=>'pdf','path'=>'tl_files')
+			'eval'                  => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr', 'extensions'=>'pdf','path'=>'tl_files'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'isOut' => array
 		(
@@ -275,7 +302,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'filter'                => true,
-			'eval'                  => array('tl_class'=>'w50')
+			'eval'                  => array('tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'isSingular' => array
 		(
@@ -283,14 +311,16 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'filter'                => true,
-			'eval'                  => array('tl_class'=>'w50')
+			'eval'                  => array('tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
 		'enableGeneration' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['enableGeneration'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-            'eval'                  => array('submitOnChange'=>true)
+            'eval'                  => array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'headline' => array
 		(
@@ -299,16 +329,18 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'exclude'   			=> true,
 			'search'                => true,
 			'flag'                  => 1,
-			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr')
+			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
         'toTemplate' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'default'				=> $invoiceTemplate->getDefaultTemplate(),
+			'default'				=> $this->InvoiceTemplate->getDefaultTemplate(),
 			'foreignKey'      		=> 'tl_li_invoice_template.title',
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'toAddress' => array
 		(
@@ -316,14 +348,16 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Invoice', 'getAddressOptions'),
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true)
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'descriptionBefore' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionBefore'],
             'inputType'             => 'textarea',
             'exclude'   			=> true,
-			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+            'sql'                     => "text NOT NULL"
 		),
         'servicePositions' => array
 		(
@@ -364,7 +398,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'eval' 				=> array('style'=>'width:290px;')
 					)
 				)
-			)
+			),
+            'sql'                     => "text NOT NULL"
 		),
 		'productPositions' => array
 		(
@@ -405,7 +440,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'eval' 				=> array('style'=>'width:290px;')
 					)
 				)
-			)
+			),
+            'sql'                     => "text NOT NULL"
 		),
 		'hourPositions' => array
 		(
@@ -438,7 +474,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'eval' 				=> array('style'=>'width:290px;')
 					)
 				)
-			)
+			),
+            'sql'                     => "text NOT NULL"
 		),
         'discount' => array
         (
@@ -447,35 +484,51 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'options'               => array('percent', 'value'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['discountOptions'],
             'exclude'   			=> true,
-            'eval'                  => array('tl_class'=>'w50')
+            'eval'                  => array('tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'withoutTaxes' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['withoutTaxes'],
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
-            'eval'                  => array('tl_class'=>'w50 m12')
+            'eval'                  => array('tl_class'=>'w50 m12'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'earlyPaymentDiscount' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['earlyPaymentDiscount'],
             'inputType'             => 'text',
             'exclude'   			=> true,
-            'eval'                  => array('tl_class'=>'long clr')
+            'eval'                  => array('tl_class'=>'long clr'),
+            'sql'                     => "text NOT NULL"
         ),
         'descriptionAfter' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['descriptionAfter'],
             'inputType'             => 'textarea',
             'exclude'   			=> true,
-			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+            'sql'                     => "text NOT NULL"
 		),
 		'published' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['published'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-			'filter'                => true
+			'filter'                => true,
+            'sql'                     => "char(1) NOT NULL default ''"
         )
 	)
 );
+
+class tl_li_invoice extends Backend {
+
+    public function getInvoiceTemplates(DataContainer $dc)
+    {
+        return $this->getTemplateGroup('invoice_');
+    }
+
+}
+
+

@@ -41,7 +41,9 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['isCustomer'] = array
 	'label'                 => &$GLOBALS['TL_LANG']['tl_member']['isCustomer'],
 	'inputType'             => 'checkbox',
 	'exclude'               => true,
-	'eval'                  => array('submitOnChange'=>true)
+	'eval'                  => array('submitOnChange'=>true),
+    'sql'                     => "char(1) NOT NULL default ''"
+
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['customerNumber'] = array
@@ -53,7 +55,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerNumber'] = array
 	'inputType'             => 'text',
 	'exclude'   	        => true,
 	'load_callback'         => array(array('Customer', 'createNewCustomerNumber')),
-	'eval'                  => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50', 'alwaysSave'=>true)
+	'eval'                  => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50', 'alwaysSave'=>true),
+    'sql'                     => "varchar(255) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['customerName'] = array
@@ -64,7 +67,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerName'] = array
 	'flag'                  => 1,
 	'inputType'             => 'text',
 	'exclude'               => true,
-	'eval'                  => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+	'eval'                  => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+    'sql'                     => "varchar(255) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['customerColor'] = array
@@ -75,7 +79,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerColor'] = array
 	'flag'                  => 1,
 	'inputType'             => 'text',
 	'exclude'               => true,
-	'eval'                  => array('maxlength'=>6, 'isHexColor'=>true, 'tl_class'=>'w50')
+	'eval'                  => array('maxlength'=>6, 'isHexColor'=>true, 'tl_class'=>'w50'),
+    'sql'                     => "varchar(6) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['accountNumber'] = array
@@ -83,7 +88,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['accountNumber'] = array
     'label'                 => &$GLOBALS['TL_LANG']['tl_member']['accountNumber'],
     'inputType'             => 'text',
     'exclude'   			=> true,
-    'eval'                  => array('maxlength'=>64, 'rgxp'=>'digit', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+    'eval'                  => array('maxlength'=>64, 'rgxp'=>'digit', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank'),
+    'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['bankCode'] = array
@@ -91,7 +97,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['bankCode'] = array
     'label'                 => &$GLOBALS['TL_LANG']['tl_member']['bankCode'],
     'inputType'             => 'text',
     'exclude'   			=> true,
-    'eval'                  => array('maxlength'=>64, 'rgxp'=>'digit', 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+    'eval'                  => array('maxlength'=>64, 'rgxp'=>'digit', 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank'),
+    'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['bank'] = array
@@ -99,7 +106,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['bank'] = array
     'label'                 => &$GLOBALS['TL_LANG']['tl_member']['bank'],
     'inputType'             => 'text',
     'exclude'   			=> true,
-    'eval'                  => array('maxlength'=>100, 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+    'eval'                  => array('maxlength'=>100, 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank'),
+    'sql'                     => "varchar(100) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['iban'] = array
@@ -107,7 +115,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['iban'] = array
     'label'                 => &$GLOBALS['TL_LANG']['tl_member']['iban'],
     'inputType'             => 'text',
     'exclude'   			=> true,
-    'eval'                  => array('maxlength'=>64, 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+    'eval'                  => array('maxlength'=>64, 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank'),
+    'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['bic'] = array
@@ -115,7 +124,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['bic'] = array
     'label'                 => &$GLOBALS['TL_LANG']['tl_member']['bic'],
     'inputType'             => 'text',
     'exclude'   			=> true,
-    'eval'                  => array('maxlength'=>64, 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+    'eval'                  => array('maxlength'=>64, 'tl_class'=>'w50', 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank'),
+    'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['registerProducts'] = array
@@ -124,7 +134,8 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['registerProducts'] = array
 	'exclude'       		=> true,
 	'inputType'     		=> 'checkbox',
 	'foreignKey'    		=> 'tl_li_product.title',
-	'eval'          		=> array('multiple'=>true, 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+	'eval'          		=> array('multiple'=>true, 'feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank'),
+    'sql'                     => "blob NULL"
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['registerProduct'] = array
@@ -133,5 +144,6 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['registerProduct'] = array
 	'exclude'       		=> true,
 	'inputType'     		=> 'select',
 	'foreignKey'    		=> 'tl_li_product.title',
-	'eval'          		=> array('feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank')
+	'eval'          		=> array('feEditable'=>true, 'feViewable'=>true, 'feGroup'=>'bank'),
+    'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );

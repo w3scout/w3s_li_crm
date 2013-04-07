@@ -14,7 +14,14 @@ $GLOBALS['TL_DCA']['tl_li_tax'] = array
 	// Config
 	'config' => array
 	(
-	    'dataContainer'             => 'Table'
+	    'dataContainer'             => 'Table',
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// List
@@ -81,19 +88,29 @@ $GLOBALS['TL_DCA']['tl_li_tax'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'default' => time(),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'title' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_tax']['title'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>50, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>50, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'rate' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_tax']['rate'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>64, 'tl_class'=>'w50', 'rgxp'=>'digit')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>64, 'tl_class'=>'w50', 'rgxp'=>'digit'),
+            'sql'                     => "double unsigned NOT NULL default '0'"
 		)
 	)
 );

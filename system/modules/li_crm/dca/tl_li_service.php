@@ -15,7 +15,14 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	'config' => array
 	(
 	    'dataContainer'             => 'Table',
-		'enableVersioning'          => true
+		'enableVersioning'          => true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// List
@@ -90,13 +97,21 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 	// Fields
 	'fields' => array
 	(
-		'toCustomer' => array
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'toCustomer' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Customer', 'getCustomerOptions'),
-			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50','includeBlankOption'=>true, 'submitOnChange'=>true)
+			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50','includeBlankOption'=>true, 'submitOnChange'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'toProject' => array
 		(
@@ -104,7 +119,8 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Project', 'getProjectsOfCustomer'),
-            'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
+            'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'title' => array
 		(
@@ -112,7 +128,8 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'default'               => '-',
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
         'unit' => array
         (
@@ -120,7 +137,8 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
             'inputType'             => 'select',
             'exclude'   			=> true,
             'options_callback'      => array('Service', 'getUnitOptions'),
-            'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
+            'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(20) NOT NULL default 'unit'"
         ),
         'toServiceType' => array
         (
@@ -128,14 +146,16 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
             'inputType'             => 'select',
             'exclude'   			=> true,
             'foreignKey'            => 'tl_li_service_type.title',
-            'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+            'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
 		'price' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['price'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit', 'alwaysSave'=>true)
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit', 'alwaysSave'=>true),
+            'sql'                     => "double NOT NULL default '0'"
 		),
         'toTax' => array
 		(
@@ -143,7 +163,8 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'		=> array('CompanySettings', 'getTaxOptions'),
-			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'currency' => array
         (
@@ -152,6 +173,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
             'exclude' 				=> true,
             'options_callback' 		=> array('CurrencyHelper', 'getCurrencyOptions'),
             'eval' 					=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(3) NOT NULL default ''"
         ),
         'startDate' => array
 		(
@@ -162,7 +184,8 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'endDate' => array
 		(
@@ -173,7 +196,8 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'repetition' => array
 		(
@@ -181,7 +205,8 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'filter'                => true,
-			'eval'					=> array('tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'					=> array('tl_class'=>'clr', 'submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
 		'period' => array
 		(
@@ -190,7 +215,12 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'exclude'   			=> true,
 			'options'               => array(1,3,6,12),
 			'reference'				=> &$GLOBALS['TL_LANG']['tl_li_service']['periods'],
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true)
-		)
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true),
+            'sql'                     => "varchar(3) NOT NULL default ''"
+		),
+        'period' => array
+        (
+            'sql'                     => "varchar(10) NOT NULL default ''"
+        )
 	)
 );

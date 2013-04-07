@@ -16,7 +16,14 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 	'config' => array
 	(
 		'dataContainer'             => 'Table',
-		'enableVersioning'			=> true
+		'enableVersioning'			=> true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// List
@@ -85,13 +92,21 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 	// Fields
 	'fields' => array
 	(
-		'title' => array
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'title' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['title'],
 			'inputType'				=> 'text',
 			'exclude'   			=> true,
             'search'    			=> true,
 			'eval'					=> array('mandatory'=>true, 'maxlength'=>250),
+            'sql'                       => "varchar(255) NOT NULL default ''"
 		),
 		'wage' => array
 		(
@@ -102,6 +117,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
             'rgxp'      			=> 'digit',
             'filter'    			=> true,
 			'eval'					=> array('mandatory'=>true, 'tl_class'=>'w50'),
+            'sql'                       => "double unsigned NOT NULL default '0'"
 		),
         'toTax' => array
 		(
@@ -109,7 +125,8 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'inputType' 	   		=> 'select',
 			'exclude'   	   		=> true,
 			'options_callback' 		=> array('CompanySettings', 'getTaxOptions'),
-			'eval'      	   		=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
+			'eval'      	   		=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+            'sql'                       => "int(10) unsigned NOT NULL default '0'"
 		),
         'currency' => array(
             'label'            		=> &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency'],
@@ -117,6 +134,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
             'exclude'          		=> true,
             'options_callback' 		=> array('CurrencyHelper', 'getCurrencyOptions'),
             'eval'             		=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+            'sql'                       => "varchar(3) NOT NULL default ''"
         )
 	)
 );

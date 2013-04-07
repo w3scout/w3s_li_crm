@@ -15,7 +15,14 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 	'config' => array
 	(
 	    'dataContainer'             => 'Table',
-		'enableVersioning'          => true
+		'enableVersioning'          => true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// List
@@ -85,54 +92,69 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'default' => time(),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'title' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['title'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'orderNumber' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['orderNumber'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'icon' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['icon'],
 			'inputType'             => 'fileTree',
 			'exclude'   			=> true,
-			'eval'                  => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true)
+			'eval'                  => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'isTaskDisabled' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDisabled'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-			'eval'                  => array('tl_class'=>'w50')
+			'eval'                  => array('tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'isTaskDone' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['isTaskDone'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-			'eval'                  => array('tl_class'=>'w50')
+			'eval'                  => array('tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
         'showOnStartpage' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['showOnStartpage'],
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
-            'eval'                  => array('tl_class'=>'w50')
+            'eval'                  => array('tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
 		'cssClass' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_status']['cssClass'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr w50')
+			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		)
 	)
 );

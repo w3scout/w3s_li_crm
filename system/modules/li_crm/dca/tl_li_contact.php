@@ -16,7 +16,14 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 	(
         'ptable'					=> 'tl_member',
         'dataContainer'             => 'Table',
-		'enableVersioning'			=> true
+		'enableVersioning'			=> true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// List
@@ -93,22 +100,35 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'pid' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'title' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['title'],
-			'inputType'             => 'text',
-			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_contact']['title'],
+			'inputType'                 => 'text',
+			'exclude'   			    => true,
+			'eval'                      => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                       => "varchar(255) NOT NULL default ''"
 		),
 		'category' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['category'],
-			'inputType'             => 'select',
-			'exclude'   			=> true,
-			'filter'                => true,
-			'options'               => array('phone', 'email', 'mail', 'fax', 'direct'),
-			'reference'             => &$GLOBALS['TL_LANG']['tl_li_contact']['categories'],
-			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_contact']['category'],
+			'inputType'                 => 'select',
+			'exclude'   			    => true,
+			'filter'                    => true,
+			'options'                   => array('phone', 'email', 'mail', 'fax', 'direct'),
+			'reference'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['categories'],
+			'eval'                      => array('mandatory'=>true, 'chosen'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                       => "varchar(20) NOT NULL default ''"
 		),
 		'result' => array
 		(
@@ -119,7 +139,8 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'exclude'   			=> true,
             'options'               => array('reached', 'not_reached'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_contact']['results'],
-			'eval'                  => array('mandatory'=>true, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'tl_class'=>'w50'),
+            'sql'                       => "varchar(32) NOT NULL default ''"
 		),
 		'direction' => array
 		(
@@ -129,7 +150,8 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'exclude'   			=> true,
 			'options'               => array('incoming', 'outgoing'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_contact']['directions'],
-			'eval'                  => array('mandatory'=>true, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'tl_class'=>'w50'),
+            'sql'                       => "varchar(32) NOT NULL default ''"
 		),
 		'startDate' => array
 		(
@@ -137,7 +159,8 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'default'               => time(),
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
         'startTime' => array
 		(
@@ -148,28 +171,32 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50')
+			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
 		'addEnd' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['addEnd'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-			'eval'                  => array('submitOnChange'=>true, 'tl_class'=>'clr')
+			'eval'                  => array('submitOnChange'=>true, 'tl_class'=>'clr'),
+            'sql'                   => "char(1) NOT NULL default ''"
 		),
 		'endDate' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['endDate'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
         'endTime' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['endTime'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'time', 'tl_class'=>'w50')
+			'eval'                  => array('rgxp'=>'time', 'tl_class'=>'w50'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
         'note' => array
 		(
@@ -177,21 +204,24 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'search'                => true,
             'inputType'             => 'textarea',
             'exclude'   			=> true,
-			'eval'                  => array('rte'=>'tinyMCE')
+			'eval'                  => array('rte'=>'tinyMCE'),
+            'sql'                   => "text NOT NULL"
 		),
         'addAttachment' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['addAttachment'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-			'eval'                  => array('submitOnChange'=>true)
+			'eval'                  => array('submitOnChange'=>true),
+            'sql'                   => "char(1) NOT NULL default ''"
 		),
 		'attachment' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_contact']['attachment'],
 			'inputType'             => 'fileTree',
 			'exclude'   			=> true,
-			'eval'                  => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'mandatory'=>true)
+			'eval'                  => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'mandatory'=>true),
+            'sql'                   => "blob NULL"
 		)
 	)
 );

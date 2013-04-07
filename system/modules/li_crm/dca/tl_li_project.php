@@ -15,7 +15,14 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
 	'config' => array
 	(
 	    'dataContainer'             => 'Table',
-		'enableVersioning'          => true
+		'enableVersioning'          => true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// List
@@ -81,13 +88,21 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
 	// Fields
 	'fields' => array
 	(
-		'toCustomer' => array
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'toCustomer' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_project']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Customer', 'getCustomerOptions'),
-			'eval'                  => array('mandatory'=>true, 'chosen'=>true)
+			'eval'                  => array('mandatory'=>true, 'chosen'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'projectNumber' => array
 		(
@@ -101,14 +116,16 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
             (
                 array('Project', 'createNewProjectNumber')
             ),
-        	'eval'                  => array('maxlength'=>255, 'alwaysSave'=>true, 'tl_class'=>'w50')
+        	'eval'                  => array('maxlength'=>255, 'alwaysSave'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'title' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_project']['title'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		)
 	)
 );

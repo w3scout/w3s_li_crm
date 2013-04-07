@@ -27,7 +27,14 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 		(
 			array('TaskComment', 'onSubmit')
 		),
-		'doNotCopyRecords'     		=> true
+		'doNotCopyRecords'     		=> true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// List
@@ -77,19 +84,28 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 	// Fields
 	'fields' => array
 	(
-		'user' => array
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'pid' => array(
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'user' => array
 		(
-			'default' => $this->User->id
+			'default' => $this->User->id,
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'tstamp' => array
 		(
-			'default' => time()
+			'default' => time(),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'changeCustomerProject' => array
 		(
 			'label'             	=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeCustomerProject'],
 			'inputType'	        	=> 'checkbox',
-			'eval'              	=> array('tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'              	=> array('tl_class'=>'clr', 'submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'toCustomer' => array
 		(
@@ -97,7 +113,8 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'inputType'           	=> 'select',
 			'options_callback'		=> array('Customer', 'getCustomerOptions'),
 			'passToTask'          	=> 'changeCustomer',
-			'eval'                	=> array('tl_class'=>'w50clr', 'includeBlankOption'=>true, 'submitOnChange'=>true, 'chosen'=>true)
+			'eval'                	=> array('tl_class'=>'w50clr', 'includeBlankOption'=>true, 'submitOnChange'=>true, 'chosen'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'toProject' => array
 		(
@@ -105,13 +122,15 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'inputType'           	=> 'select',
 			'options_callback'		=> array('Project', 'getProjectsOfCustomer'),
 			'passToTask'          	=> 'changeProject',
-			'eval'                	=> array('tl_class'=>'w50', 'includeBlankOption'=>true, 'chosen'=>true)
+			'eval'                	=> array('tl_class'=>'w50', 'includeBlankOption'=>true, 'chosen'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'changePriority' => array
 		(
 			'label'        			=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['changePriority'],
 			'inputType'				=> 'checkbox',
-			'eval'         			=> array('tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'         			=> array('tl_class'=>'clr', 'submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'priority' => array
 		(
@@ -119,13 +138,15 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'inputType'           	=> 'select',
 			'options_callback'		=> array('Task', 'getPriorityOptions'),
 			'passToTask'          	=> 'changePriority',
-			'eval'                	=> array('chosen'=>true)
+			'eval'                	=> array('chosen'=>true),
+            'sql'                     => "int(3) unsigned NOT NULL default '0'"
 		),
 		'changeTitle' => array
 		(
 			'label'        			=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeTitle'],
 			'inputType'				=> 'checkbox',
-			'eval'         			=> array('tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'         			=> array('tl_class'=>'clr', 'submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'title' => array
 		(
@@ -134,13 +155,15 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'exclude'				=> true,
 			'search'                => true,
 			'passToTask'            => 'changeTitle',
-			'eval'                  => array('maxlength'=> 250)
+			'eval'                  => array('maxlength'=> 250),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'changeDeadline' => array
 		(
 			'label'        			=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeDeadline'],
 			'inputType'				=> 'checkbox',
-			'eval'         			=> array('tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'         			=> array('tl_class'=>'clr', 'submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'deadline' => array
 		(
@@ -152,7 +175,8 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'inputType'             => 'text',
 			'exclude'				=> true,
 			'passToTask'            => 'changeDeadline',
-			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'wizard')
+			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'toStatus' => array
 		(
@@ -162,7 +186,8 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'exclude'				=> true,
 			'foreignKey'            => 'tl_li_task_status.title',
 			'passToTask'            => true,
-			'eval'                  => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true, 'chosen'=>true)
+			'eval'                  => array('includeBlankOption'=>true, 'tl_class'=>'w50', 'mandatory'=>true, 'chosen'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'toUser' => array
 		(
@@ -170,31 +195,36 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'inputType'     		=> 'select',
 			'foreignKey'			=> 'tl_user.username',
 			'passToTask'			=> true,
-			'eval'          		=> array('tl_class'=>'w50', 'chosen'=>true)
+			'eval'          		=> array('tl_class'=>'w50', 'chosen'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'comment' => array
 		(
 			'label'        			=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['comment'],
 			'inputType'				=> 'textarea',
-			'eval'         			=> array('tl_class'=>'clr', 'rte'=>'tinyMCE')
+			'eval'         			=> array('tl_class'=>'clr', 'rte'=>'tinyMCE'),
+            'sql'                     => "text NULL"
 		),
 		'keeptime' => array
 		(
 			'label'        			=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['keeptime'],
 			'inputType'				=> 'checkbox',
-			'eval'         			=> array('submitOnChange'=> true)
+			'eval'         			=> array('submitOnChange'=> true),
+            'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'hours' => array
 		(
 			'label'        			=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['hours'],
 			'inputType'				=> 'text',
-			'eval'         			=> array('rgxp'=>'digit', 'tl_class'=>'w50')
+			'eval'         			=> array('rgxp'=>'digit', 'tl_class'=>'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'minutes' => array
 		(
 			'label'					=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['minutes'],
 			'inputType'				=> 'text',
-			'eval'         			=> array('rgxp'=>'digit', 'maxlength'=>'2', 'tl_class'=>'w50')
+			'eval'         			=> array('rgxp'=>'digit', 'maxlength'=>'2', 'tl_class'=>'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'toWorkPackage' => array
 		(
@@ -202,12 +232,17 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'inputType'				=> 'select',
 			'exclude'              	=> true,
 			'options_callback'     	=> array('WorkPackage', 'getWorkPackages'),
-			'eval'                 	=> array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50', 'chosen'=>true)
+			'eval'                 	=> array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50', 'chosen'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'history' => array
 		(
 			'label'                	=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['history'],
 			'inputType'				=> 'TaskHistory'
-		)
+		),
+        'working_hour_dataset' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        )
 	)
 );

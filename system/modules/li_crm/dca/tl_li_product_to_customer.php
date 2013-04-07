@@ -15,7 +15,14 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 	'config' => array
 	(
 	    'dataContainer'             => 'Table',
-		'enableVersioning'          => false
+		'enableVersioning'          => false,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 
 	// Palettes
@@ -28,13 +35,21 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'toCustomer' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Customer', 'getCustomerOptions'),
-			'eval'                  => array('mandatory' => true, 'tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true, 'submitOnChange'=>true)
+			'eval'                  => array('mandatory' => true, 'tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true, 'submitOnChange'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'toProject' => array
 		(
@@ -42,14 +57,16 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Project', 'getProjectsOfCustomer'),
-            'eval'                  => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true)
+            'eval'                  => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'number' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['number'],
             'inputType'             => 'text',
             'exclude'   			=> true,
-            'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit')
+            'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit'),
+            'sql'                     => "int(10) unsigned NOT NULL default '1'"
         ),
 		'toProduct' => array
 		(
@@ -57,7 +74,8 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Product', 'getProductsList'),
-            'eval'                  => array('mandatory' => true, 'chosen'=>true, 'tl_class' => 'w50', 'includeBlankOption' => true)
+            'eval'                  => array('mandatory' => true, 'chosen'=>true, 'tl_class' => 'w50', 'includeBlankOption' => true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'saleDate' => array
         (
@@ -68,14 +86,16 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
             'flag'                  => 8,
             'inputType'             => 'text',
             'exclude'   			=> true,
-            'eval'                  => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+            'eval'                  => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
         ),
         'note' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['note'],
             'inputType'             => 'textarea',
             'exclude'   			=> true,
-            'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr')
+            'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+            'sql'                     => "text NOT NULL"
         )
 	)
 );

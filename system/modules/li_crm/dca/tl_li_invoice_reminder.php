@@ -17,6 +17,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 	(
 		'dataContainer'             => 'Table',
 		'enableVersioning'  		=> true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// List
@@ -94,6 +101,13 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'toCustomer' => array
 		(
             'label'             	=> &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['toCustomer'],
@@ -101,7 +115,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
             'options_callback'  	=> array('InvoiceReminder', 'getCustomerOptions'),
-			'eval'              	=> array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true)
+			'eval'              	=> array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'toInvoice' => array
 		(
@@ -109,7 +124,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
             'options_callback'  	=> array('InvoiceReminder', 'getInvoiceOptions'),
-			'eval'              	=> array('tl_class'=>'w50', 'mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'includeBlankOption'=>true)
+			'eval'              	=> array('tl_class'=>'w50', 'mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'includeBlankOption'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'remindOnce' => array
 		(
@@ -117,7 +133,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'inputType'         	=> 'checkbox',
 			'exclude'           	=> true,
 			'filter'            	=> true,
-			'eval'              	=> array('submitOnChange'=>true)
+			'eval'              	=> array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'remindDate' => array
 		(
@@ -129,7 +146,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'inputType'         	=> 'text',
 			'exclude'   	    	=> true,
 			'load_callback'     	=> array(array('InvoiceReminder', 'getRemindDate')),
-			'eval'              	=> array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'              	=> array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''"
 		),
         'remindRepeatedly' => array
 		(
@@ -137,7 +155,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'inputType'         	=> 'checkbox',
 			'exclude'           	=> true,
 			'filter'            	=> true,
-			'eval'              	=> array('submitOnChange'=>true)
+			'eval'              	=> array('submitOnChange'=>true),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'remindInterval' => array
 		(
@@ -147,7 +166,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'exclude'           	=> true,
             'options'           	=> array('daily', 'weekly', 'monthly', 'yearly'),
             'reference'         	=> &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['remindInterval'],
-			'eval'              	=> array('tl_class'=>'w50', 'chosen'=>true)
+			'eval'              	=> array('tl_class'=>'w50', 'chosen'=>true),
+            'sql'                     => "varchar(20) NOT NULL default ''"
         )
 	)
 );

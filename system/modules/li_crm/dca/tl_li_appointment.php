@@ -16,7 +16,14 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 	'config' => array
 	(
 		'dataContainer'             => 'Table',
-		'enableVersioning'			=> true
+		'enableVersioning'			=> true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// List
@@ -85,13 +92,21 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 	// Fields
 	'fields' => array
 	(
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
         'toCustomer' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
 			'options_callback'      => array('Customer', 'getCustomerOptions'),
-			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true)
+			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true),
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
 		),
         'creator' => array
 		(
@@ -100,7 +115,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'foreignKey'			=> 'tl_user.name',
             'default'               => $this->User->id,
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true)
+			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true),
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
 		),
         'subject' => array
 		(
@@ -109,7 +125,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
             'default'               => '-',
 			'exclude'   			=> true,
 			'search'                => true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                   => "varchar(255) NOT NULL default ''"
 		),
 		'toTask' => array
 		(
@@ -117,7 +134,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'inputType'             => 'select',
 			'options_callback'		=> array('Task', 'getTaskOptions'),
 			'exclude'   			=> true,
-			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
+			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
 		),
 		'participants' => array
 		(
@@ -126,7 +144,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'filter'                => true,
 			'inputType'             => 'checkboxWizard',
 			'foreignKey'            => 'tl_user.name',
-			'eval'                  => array('tl_class'=>'clr', 'multiple'=>true)
+			'eval'                  => array('tl_class'=>'clr', 'multiple'=>true),
+            'sql'                   => "blob NULL"
 		),
 		'place' => array
 		(
@@ -134,7 +153,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'search'                => true,
-			'eval'                  => array('maxlength'=>250, 'tl_class'=>'w50')
+			'eval'                  => array('maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                   => "varchar(255) NOT NULL default ''"
 		),
 		'color' => array
 		(
@@ -144,7 +164,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'flag'      			=> 1,
 			'inputType' 			=> 'text',
 			'exclude'   			=> true,
-			'eval'      			=> array('maxlength'=>6, 'isHexColor'=>true, 'tl_class'=>'w50')
+			'eval'      			=> array('maxlength'=>6, 'isHexColor'=>true, 'tl_class'=>'w50'),
+            'sql'                   => "varchar(6) NOT NULL default ''"
 		),
 		'note' => array
 		(
@@ -152,7 +173,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'search'                => true,
 			'inputType'             => 'textarea',
 			'exclude'   			=> true,
-			'eval'                  => array('tl_class'=>'clr', 'rte'=>'tinyMCE')
+			'eval'                  => array('tl_class'=>'clr', 'rte'=>'tinyMCE'),
+            'sql'                   => "text NOT NULL"
         ),
         'startDate' => array
 		(
@@ -160,14 +182,16 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'default'               => time(),
 			'exclude'               => true,
 			'inputType'             => 'text',
-			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
 		'endDate' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['endDate'],
 			'exclude'               => true,
 			'inputType'             => 'text',
-			'eval'                  => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+			'eval'                  => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
         'startTime' => array
 		(
@@ -178,7 +202,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'sorting'               => true,
 			'flag'                  => 8,
 			'inputType'             => 'text',
-			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50')
+			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
 		'endTime' => array
 		(
@@ -186,7 +211,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
             'default'               => time(),
 			'exclude'               => true,
 			'inputType'             => 'text',
-			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50')
+			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50'),
+            'sql'                   => "int(10) unsigned NULL default NULL"
 		),
         'repetition' => array
 		(
@@ -194,7 +220,8 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'filter'                => true,
-			'eval'					=> array('tl_class'=>'clr', 'submitOnChange'=>true)
+			'eval'					=> array('tl_class'=>'clr', 'submitOnChange'=>true),
+            'sql'                   => "char(1) NOT NULL default ''"
         ),
         'period' => array
 		(
@@ -203,14 +230,16 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'exclude'   			=> true,
 			'options'               => array('weekly', 'biweekly', 'monthly'),
 			'reference'				=> &$GLOBALS['TL_LANG']['tl_li_appointment']['periods'],
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true)
+			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true),
+            'sql'                   => "varchar(20) NOT NULL default ''"
 		),
 		'private' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['private'],
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
-			'filter'                => true
+			'filter'                => true,
+            'sql'                   => "char(1) NOT NULL default ''"
         )
 	)
 );

@@ -16,7 +16,14 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 	'config' => array
 	(
 		'dataContainer'             => 'Table',
-		'enableVersioning'      	=> true
+		'enableVersioning'      	=> true,
+        'sql' => array
+        (
+            'keys' => array
+            (
+                'id' => 'primary'
+            )
+        )
 	),
 	
 	// List
@@ -92,13 +99,21 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 	// Fields
 	'fields' => array
 	(
-		'title' => array
+        'id' => array(
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+        ),
+        'tstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'title' => array
 		(
 			'label'             	=> &$GLOBALS['TL_LANG']['tl_li_work_package']['title'],
 			'inputType'         	=>'text',
 			'exclude'           	=> true,
             'search'            	=> true,
-			'eval'              	=> array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50')
+			'eval'              	=> array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
         'toHourlyWage' => array
         (
@@ -108,14 +123,16 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
             'filter'            	=> true,
             'foreignKey'        	=> 'tl_li_hourly_wage.title',
             'options_callback'  	=> array('HourlyWage', 'getHourlyWagesList'),
-            'eval'              	=> array('mandatory'=>true, 'chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50')
+            'eval'              	=> array('mandatory'=>true, 'chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'hourLimit' => array
         (
             'label'             	=> &$GLOBALS['TL_LANG']['tl_li_work_package']['hourLimit'],
             'inputType'         	=>'text',
             'exclude'           	=> true,
-            'eval'              	=> array('rgxp'=>'digit', 'maxlength'=>4, 'tl_class'=>'w50')
+            'eval'              	=> array('rgxp'=>'digit', 'maxlength'=>4, 'tl_class'=>'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
 		'isExternal' => array
         (
@@ -123,7 +140,8 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
         	'inputType'         	=>'checkbox',
         	'exclude'           	=> true,
             'filter'            	=> true,
-        	'eval'              	=> array('submitOnChange'=>true, 'tl_class'=>'clr')
+        	'eval'              	=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'toCustomer' => array
 		(
@@ -131,7 +149,8 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
 			'options_callback'  	=> array('Customer', 'getCustomerOptions'),
-			'eval'              	=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true, 'submitOnChange'=>true)
+			'eval'              	=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true, 'submitOnChange'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
         'toProject' => array
 		(
@@ -139,7 +158,8 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
 			'options_callback'  	=> array('Project', 'getProjectsOfCustomer'),
-            'eval'              	=> array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true)
+            'eval'              	=> array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'printOnInvoice' => array
 		(
@@ -148,6 +168,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			'exclude'   			=> true,
             'filter'            	=> true,
 			'eval'              	=> array('tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
 		)
 	)
 );
