@@ -423,9 +423,12 @@ class Invoice extends BackendModule
 		// Return link to template
 		return $templateLink;
 	}
-	
+
+
 	private function getInvoiceData($id)
 	{
+        $this->import('Encryption');
+
 		// Get data
 		$objInvoice = $this->Database->prepare("
             SELECT i.title,
@@ -484,14 +487,14 @@ class Invoice extends BackendModule
 
         $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
 
-		$template = array(
+        $template = array(
             'logo' => $objInvoice->logo,
             'company_name' => $GLOBALS['TL_CONFIG']['li_crm_company_name'],
             'company_street' => $GLOBALS['TL_CONFIG']['li_crm_company_street'],
-            'company_postal' => $GLOBALS['TL_CONFIG']['li_crm_company_postal'],
+            'company_postal' => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_postal']),
             'company_city' => $GLOBALS['TL_CONFIG']['li_crm_company_city'],
-            'company_phone' => $GLOBALS['TL_CONFIG']['li_crm_company_phone'],
-            'company_fax' => $GLOBALS['TL_CONFIG']['li_crm_company_fax'],
+            'company_phone' => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_phone']),
+            'company_fax' => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_fax']),
             'company_tax_number' => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
             'company_ustid' => $GLOBALS['TL_CONFIG']['li_crm_company_ustid'],
 

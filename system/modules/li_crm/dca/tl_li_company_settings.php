@@ -72,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_postal'],
             'inputType'             => 'text',
             'exclude'   			=> true,
-            'eval'                  => array('mandatory'=>true, 'maxlength'=>32, 'tl_class'=>'w50'),
+            'eval'                  => array('encrypt'=>true, 'mandatory'=>true, 'rgxp'=>'extnd', 'maxlength'=>32, 'tl_class'=>'w50'),
         ),
 		'li_crm_company_city' => array
 		(
@@ -95,14 +95,14 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_member']['phone'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>64, 'rgxp'=>'phone','tl_class'=>'w50'),
+			'eval'                  => array('encrypt'=>true, 'maxlength'=>64, 'rgxp'=>'phone','tl_class'=>'w50'),
 		),
 		'li_crm_company_fax' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_member']['fax'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>64, 'rgxp'=>'phone', 'tl_class'=>'w50'),
+			'eval'                  => array('encrypt'=>true, 'maxlength'=>64, 'rgxp'=>'phone', 'tl_class'=>'w50'),
 		),
 		'li_crm_account_number' => array
 		(
