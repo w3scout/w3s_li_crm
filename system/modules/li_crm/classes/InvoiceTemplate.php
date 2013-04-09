@@ -1,15 +1,20 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class InvoiceTemplate
  */
-class InvoiceTemplate extends Controller
+class InvoiceTemplate extends \Controller
 {
 	public function __construct()
 	{
@@ -17,12 +22,12 @@ class InvoiceTemplate extends Controller
 		$this->import('Database');
 	}
 
-	public function getInvoiceTemplates(DataContainer $dc)
+	public function getInvoiceTemplates(\DataContainer $dc)
 	{
 		return $this->getTemplateGroup('invoice_');
 	}
 	
-	public function moveHtaccessFile($path, DataContainer $dc) {
+	public function moveHtaccessFile($path, \DataContainer $dc) {
 		$exportPath = '../'.$path.'/';
 		$htaccess = '.htaccess';
 		

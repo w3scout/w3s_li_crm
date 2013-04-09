@@ -1,15 +1,20 @@
-<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class Appointment
  */
-class Appointment extends BackendModule
+class Appointment extends \BackendModule
 {
 	public function generate()
 	{
@@ -20,17 +25,17 @@ class Appointment extends BackendModule
 
 		if($view == '' or ($view != 'week' && $view != 'day'))
 		{
-			$this->Template = new BackendTemplate('be_appointments_month');
+			$this->Template = new \BackendTemplate('be_appointments_month');
 			$this->showAppointmentsOfThisMonth();
 		}
 		elseif($view == 'week')
 		{
-			$this->Template = new BackendTemplate('be_appointments_week');
+			$this->Template = new \BackendTemplate('be_appointments_week');
 			$this->showAppointmentsOfThisWeek();
 		}
 		elseif($view == 'day')
 		{
-			$this->Template = new BackendTemplate('be_appointments_day');
+			$this->Template = new \BackendTemplate('be_appointments_day');
 			$this->showAppointmentsOfThisDay();
 		}
 		

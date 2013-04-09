@@ -1,15 +1,20 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class InvoiceGeneration
  */
-class InvoiceGeneration extends Controller
+class InvoiceGeneration extends \Controller
 {
 
     public function __construct()
@@ -18,7 +23,7 @@ class InvoiceGeneration extends Controller
         $this->import('Database');
     }
 
-	public function generateAlias($varValue, DataContainer $dc)
+	public function generateAlias($varValue, \DataContainer $dc)
 	{
 		$autoAlias = false;
 
@@ -38,7 +43,7 @@ class InvoiceGeneration extends Controller
 		// Check whether the news alias exists
 		if ($objAlias->numRows > 1 && !$autoAlias)
 		{
-			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
+			throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
 		}
 
 		// Add ID to alias
@@ -63,7 +68,7 @@ class InvoiceGeneration extends Controller
         // Check whether the news alias exists
         if ($objAlias->numRows > 1)
         {
-            throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $alias));
+            throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $alias));
         }
 
         // Add ID to alias
@@ -259,7 +264,7 @@ class InvoiceGeneration extends Controller
 
             $invoiceNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
             $invoiceTitle = $GLOBALS['TL_LANG']['tl_li_invoice']['generatedInvoiceName'].$invoiceNumber;
-            $invoice = new Invoice();
+            $invoice = new LiCRM\Invoice();
             $invoiceAlias = $invoice->generateAliasWithoutDC($invoiceTitle, $invoiceId);
 
             $this->Database->prepare("

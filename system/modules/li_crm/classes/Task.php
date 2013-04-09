@@ -1,15 +1,20 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class Task
  */
-class Task extends BackendModule
+class Task extends \BackendModule
 {
 	/**
 	 * @var TaskComment
@@ -56,7 +61,7 @@ class Task extends BackendModule
 	{
 	}
 
-	public function generateAlias($varValue, DataContainer $dc)
+	public function generateAlias($varValue, \DataContainer $dc)
 	{
 		$autoAlias = false;
 
@@ -72,7 +77,7 @@ class Task extends BackendModule
 		// Check whether the news alias exists
 		if ($objAlias->numRows > 1 && !$autoAlias)
 		{
-			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
+			throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
 		}
 
 		// Add ID to alias
@@ -250,7 +255,7 @@ class Task extends BackendModule
 		$this->createNewVersion('tl_li_task', $intId);
 	}
 	
-	public function getTaskOptions(DataContainer $dc)
+	public function getTaskOptions(\DataContainer $dc)
 	{
 		$tasks = array();
 		$objTasks = $this->Database->prepare("SELECT id, title FROM tl_li_task ORDER BY id ASC")->execute();
@@ -271,9 +276,9 @@ class Task extends BackendModule
 	 *
 	 * @param DataContainer $dc
 	 */
-	public function onSubmit(DataContainer $dc)
+	public function onSubmit(\DataContainer $dc)
 	{
-		$this->import('BackendUser', 'User');
+		$this->import('\BackendUser', 'User');
 		$this->User->authenticate();
 
 		$objTask = $dc->activeRecord;

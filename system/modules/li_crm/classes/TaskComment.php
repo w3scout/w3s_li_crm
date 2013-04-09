@@ -1,16 +1,20 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
- * @author      Tristan Lins <tristan.lins@infinitysoft.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class TaskComment
  */
-class TaskComment extends Backend
+class TaskComment extends \Backend
 {
 	/**
 	 * @var Database
@@ -57,11 +61,11 @@ class TaskComment extends Backend
 	 *
 	 * @param DataContainer $dc
 	 */
-	public function onLoad(DataContainer $dc)
+	public function onLoad(\DataContainer $dc)
 	{
 		switch ($this->Input->get('act')) {
 			case 'edit':
-				$this->import('BackendUser', 'User');
+				$this->import('\BackendUser', 'User');
 				$this->User->authenticate();
 
 				$objComment = $this->Database
@@ -102,7 +106,7 @@ class TaskComment extends Backend
 	 *
 	 * @param DataContainer $dc
 	 */
-	public function onSubmit(DataContainer $dc)
+	public function onSubmit(\DataContainer $dc)
 	{
 		$objComment = $dc->activeRecord;
 
@@ -170,7 +174,7 @@ class TaskComment extends Backend
 					->execute(0, $objComment->id);
 			}
 			else {
-				$objDateTime = new DateTime();
+				$objDateTime = new \DateTime();
 				if ($objComment->tstamp > 0) {
 					$objDateTime->setTimestamp($objComment->tstamp);
 				}
@@ -233,7 +237,7 @@ class TaskComment extends Backend
 			$this->loadLanguageFile('tl_li_task_comment');
 		}
 
-		$objTemplate = new BackendTemplate('be_task_comment');
+		$objTemplate = new \BackendTemplate('be_task_comment');
 		$objTemplate->setData($row);
 
 		$objTemplate->datetime = $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $row['tstamp']);

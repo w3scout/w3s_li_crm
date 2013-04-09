@@ -1,16 +1,20 @@
-<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
- * @author      ApoY2k <apoy2k@gmail.com>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class CustomerList
  */
-class CustomerList extends BackendModule
+class CustomerList extends \BackendModule
 {
 	protected $strTemplate = 'be_customer_list';
 	
@@ -33,7 +37,7 @@ class CustomerList extends BackendModule
                 $id
             )->insertId;
 
-            $this->redirect('contao/main.php?do=li_customers&table=tl_li_project&act=edit&id='.$projectId);
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_project&act=edit&id='.$projectId.'&rt='.REQUEST_TOKEN);
         }
         elseif($key == 'service')
         {
@@ -46,7 +50,7 @@ class CustomerList extends BackendModule
                 $projectId
             )->insertId;
 
-            $this->redirect('contao/main.php?do=li_customers&table=tl_li_service&act=edit&id='.$serviceId);
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_service&act=edit&id='.$serviceId.'&rt='.REQUEST_TOKEN);
         }
         elseif($key == 'product')
         {
@@ -59,7 +63,7 @@ class CustomerList extends BackendModule
                 $projectId
             )->insertId;
 
-            $this->redirect('contao/main.php?do=li_customers&table=tl_li_product_to_customer&act=edit&id='.$productToCustomerId);
+            $this->redirect('contao/main.php?do=li_customers&table=tl_li_product_to_customer&act=edit&id='.$productToCustomerId.'&rt='.REQUEST_TOKEN);
         }
 
 		// If a toggle is requested, modify the array accordingly before displaying the tree
@@ -325,7 +329,7 @@ class CustomerList extends BackendModule
                     (
                         'id' => $id,
                         'serviceTitle' => $objCustomerServices->serviceTitle,
-                        'icon' => $objCustomerServices->icon != '' ? $objCustomerServices->icon : 'system/modules/li_crm/icons/service_default.png',
+                        'icon' => $objCustomerServices->icon != '' ? $objCustomerServices->icon : 'system/modules/li_crm/assets/service_default.png',
                     );
                 }
             }
@@ -374,7 +378,7 @@ class CustomerList extends BackendModule
                     (
                         'id' => $id,
                         'productTitle' => $objCustomerProducts->productTitle,
-                        'icon' => $objCustomerProducts->icon != '' ? $objCustomerProducts->icon : 'system/modules/li_crm/icons/products.png',
+                        'icon' => $objCustomerProducts->icon != '' ? $objCustomerProducts->icon : 'system/modules/li_crm/assets/products.png',
                     );
                 }
             }
@@ -446,7 +450,7 @@ class CustomerList extends BackendModule
                             (
                                 'id' => $id,
                                 'serviceTitle' => $objServices->serviceTitle,
-                                'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/icons/service_default.png',
+                                'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/assets/service_default.png',
                             );
                         }
                     }
@@ -489,7 +493,7 @@ class CustomerList extends BackendModule
                             (
                                 'id' => $id,
                                 'productTitle' => $objProducts->productTitle,
-                                'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/icons/products.png',
+                                'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/assets/products.png',
                             );
                         }
                     }

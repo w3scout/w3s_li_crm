@@ -2,9 +2,14 @@
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
+
+/**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
 
 /**
  * Initialize the system
@@ -15,7 +20,7 @@ require_once('../../initialize.php');
 /**
  * Class DetailsBox
  */
-class DetailsBox extends Backend
+class DetailsBox extends \Backend
 {
 	public function __construct()
 	{
@@ -38,7 +43,7 @@ class DetailsBox extends Backend
 		
 		$id = $this->Input->get('id');
 
-		$this->Template = new BackendTemplate('be_appointment_details');
+		$this->Template = new \BackendTemplate('be_appointment_details');
 
 		$objAppointment = $this->Database->prepare("
 			SELECT m.customerNumber,
@@ -120,5 +125,5 @@ class DetailsBox extends Backend
 /**
  * Instantiate controller
  */
-$objDetailsBox = new DetailsBox();
+$objDetailsBox = new LiCRM\DetailsBox();
 $objDetailsBox->run();

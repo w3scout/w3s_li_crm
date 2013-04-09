@@ -1,15 +1,20 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class Invoice
  */
-class Invoice extends BackendModule
+class Invoice extends \BackendModule
 {
 	/**
 	 * Template
@@ -69,7 +74,7 @@ class Invoice extends BackendModule
 	 */
 	protected function compile(){}
 
-	public function generateAlias($varValue, DataContainer $dc)
+	public function generateAlias($varValue, \DataContainer $dc)
 	{
 		$autoAlias = false;
 
@@ -89,7 +94,7 @@ class Invoice extends BackendModule
 		// Check whether the news alias exists
 		if ($objAlias->numRows > 1 && !$autoAlias)
 		{
-			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
+			throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
 		}
 
 		// Add ID to alias
@@ -114,7 +119,7 @@ class Invoice extends BackendModule
         // Check whether the news alias exists
         if ($objAlias->numRows > 1)
         {
-            throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $alias));
+            throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $alias));
         }
 
         // Add ID to alias
@@ -135,7 +140,7 @@ class Invoice extends BackendModule
 		{
 			$icon = "<img src=\"system/modules/li_crm/icons/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ";
 		}
-		$currencyHelper = new CurrencyHelper();
+		$currencyHelper = new LiCRM\CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($row['currency']);
 		return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
 	}
@@ -242,7 +247,7 @@ class Invoice extends BackendModule
 		return false;
 	}
 
-	public function getAddressOptions(DataContainer $dc)
+	public function getAddressOptions(\DataContainer $dc)
 	{
 		$addresses = array();
 		$objAddresses = $this->Database->prepare("
@@ -367,7 +372,7 @@ class Invoice extends BackendModule
 		require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
 
 		// Generate DOMPDF object
-		$dompdf = new DOMPDF();
+		$dompdf = new \DOMPDF();
 		$dompdf->set_paper('a4');
 		$dompdf->set_base_path(TL_ROOT);
 		$dompdf->load_html($html);
@@ -535,7 +540,7 @@ class Invoice extends BackendModule
             }
         }
 
-		$currencyHelper = new CurrencyHelper();
+		$currencyHelper = new LiCRM\CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
 
 		$rowCounter = 1;
@@ -1001,7 +1006,7 @@ class Invoice extends BackendModule
         ")->limit(1)->execute($id);
 		try
 		{
-			$objEmail = new Email();
+			$objEmail = new \Email();
 			$objEmail->from = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_from'];
 			$objEmail->fromName = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_fromName'];
 			$objEmail->subject = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'];
@@ -1195,7 +1200,7 @@ class Invoice extends BackendModule
 			$objInvoice->descriptionAfter
 		)->insertId;
 		
-		$invoiceGeneration = new InvoiceGeneration();
+		$invoiceGeneration = new LiCRM\InvoiceGeneration();
 		$alias = $invoiceGeneration->generateAliasWithoutDC($objInvoice->title, $generationId);
 		$this->Database->prepare("
 			UPDATE tl_li_invoice_generation

@@ -1,15 +1,20 @@
-<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>
+ * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace W3S\LiCRM;
+
+/**
  * Class Customer
  */
-class Customer extends Controller
+class Customer extends \Controller
 {
 	public function __construct()
 	{
@@ -42,7 +47,7 @@ class Customer extends Controller
 		return false;
 	}
 
-	public function getCustomerOptions(DataContainer $dc)
+	public function getCustomerOptions(\DataContainer $dc)
 	{
 		$objCustomers = $this->Database->prepare("
 			SELECT id, customerNumber, customerName
@@ -59,7 +64,7 @@ class Customer extends Controller
 		return $customers;
 	}
 
-	public function getCustomerWithProjectsOptions(DataContainer $dc)
+	public function getCustomerWithProjectsOptions(\DataContainer $dc)
 	{
 		$objCustomers = $this->Database->prepare("
 			SELECT id, customerNumber, customerName
@@ -81,7 +86,7 @@ class Customer extends Controller
 		return $customers;
 	}
 
-	public function createNewCustomerNumber($value, $dc)
+	public function createNewCustomerNumber($value, \DataContainer $dc)
 	{
 		// Do not create a number if a number is allready set
 		if ($value != '')
@@ -99,7 +104,7 @@ class Customer extends Controller
 		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);
 	}
 
-    public function changeMandatoryFields(DataContainer $dc)
+    public function changeMandatoryFields(\DataContainer $dc)
     {
         if($dc->activeRecord == null)
         {
@@ -126,7 +131,7 @@ class Customer extends Controller
         }
     }
 
-    public function updateDefaultAddress(DataContainer $dc)
+    public function updateDefaultAddress(\DataContainer $dc)
     {
         $objAddress = $this->Database->prepare("
             SELECT id
