@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 		'label' => array
 		(
 			'fields'                => array('toTask'),
-			'label_callback'        => array('TaskReminder', 'renderLabel'),
+			'label_callback'        => array('LiCRM\TaskReminder', 'renderLabel'),
 		),
 		'global_operations' => array
 		(
@@ -112,7 +112,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'inputType'             => 'select',
 			'exclude'   			=> true,
             'foreignKey'        	=> 'tl_li_task.title',
-            'options_callback'      => array('TaskReminder', 'getTaskOptions'),
+            'options_callback'      => array('LiCRM\TaskReminder', 'getTaskOptions'),
 			'eval'                  => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -134,7 +134,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'load_callback'         => array(array('TaskReminder', 'getRemindDate')),
+			'load_callback'         => array(array('LiCRM\TaskReminder', 'getRemindDate')),
 			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
             'sql'                     => "varchar(10) NOT NULL default ''"
 		),

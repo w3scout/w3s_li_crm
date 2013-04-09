@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_li_product_type'] = array
 		'label' => array
 		(
 			'fields'                => array('icon', 'title'),
-			'label_callback'        => array('ProductType', 'getLabel')
+			'label_callback'        => array('LiCRM\ProductType', 'getLabel')
 		),
 		'global_operations' => array
 		(

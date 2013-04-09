@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 		(
 			'fields'                => array('title'),
 			'format'                => '%s',
-			'group_callback'        => array('InvoiceCategory', 'renderGroup')
+			'group_callback'        => array('LiCRM\InvoiceCategory', 'renderGroup')
 		),
 		'global_operations' => array
 		(
@@ -119,7 +119,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_category'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => " varchar(255) NOT NULL default ''"
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		)
 	)
 );

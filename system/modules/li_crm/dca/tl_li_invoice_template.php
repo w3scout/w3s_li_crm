@@ -112,7 +112,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('InvoiceTemplate', 'getInvoiceTemplates'),
+			'options_callback'      => array('LiCRM\InvoiceTemplate', 'getInvoiceTemplates'),
             'eval'                  => array('chosen'=>true, 'tl_class'=>'w50'),
             'sql'                       => "varchar(64) NOT NULL default ''"
 		),
@@ -163,7 +163,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 			'exclude'   			=> true,
 			'save_callback'         => array
             (
-				array('InvoiceTemplate', 'moveHtaccessFile')
+				array('LiCRM\InvoiceTemplate', 'moveHtaccessFile')
 			),
 			'eval'                  => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false, 'mandatory'=>true),
             'sql'                       => "varchar(255) NOT NULL default ''"

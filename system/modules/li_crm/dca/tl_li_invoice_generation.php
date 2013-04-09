@@ -111,7 +111,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'filter'                => true,
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-            'options_callback'      => array('Customer', 'getCustomerOptions'),
+            'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -153,7 +153,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['currency'],
             'inputType'             => 'select',
             'exclude'               => true,
-            'options_callback'      => array('CurrencyHelper', 'getCurrencyOptions'),
+            'options_callback'      => array('LiCRM\CurrencyHelper', 'getCurrencyOptions'),
             'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
             'sql'                     => "varchar(3) NOT NULL default ''"
         ),
@@ -189,7 +189,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['toAddress'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Invoice', 'getAddressOptions'),
+			'options_callback'      => array('LiCRM\Invoice', 'getAddressOptions'),
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -249,7 +249,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_unit'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback' 	=> array('Invoice', 'getUnitOptions'),
+						'options_callback' 	=> array('LiCRM\Invoice', 'getUnitOptions'),
 						'eval' 				=> array('style'=>'width:80px;', 'chosen'=>true)
 					),
 					'item' => array
@@ -257,7 +257,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('InvoiceGeneration', 'getServiceOptions'),
+						'options_callback'  => array('LiCRM\InvoiceGeneration', 'getServiceOptions'),
 						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
@@ -291,7 +291,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_unit'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback' 	=> array('Invoice', 'getUnitOptions'),
+						'options_callback' 	=> array('LiCRM\Invoice', 'getUnitOptions'),
 						'eval' 				=> array('style'=>'width:80px;', 'chosen'=>true)
 					),
 					'item' => array
@@ -299,7 +299,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('InvoiceGeneration', 'getProductOptions'),
+						'options_callback'  => array('LiCRM\InvoiceGeneration', 'getProductOptions'),
 						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
@@ -333,7 +333,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('InvoiceGeneration', 'getHourOptions'),
+						'options_callback'  => array('LiCRM\InvoiceGeneration', 'getHourOptions'),
 						'eval' 				=> array('style'=>'width:247px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array

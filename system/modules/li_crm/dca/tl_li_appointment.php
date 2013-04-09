@@ -104,7 +104,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Customer', 'getCustomerOptions'),
+			'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true),
             'sql'                   => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -132,7 +132,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['task'],
 			'inputType'             => 'select',
-			'options_callback'		=> array('Task', 'getTaskOptions'),
+			'options_callback'		=> array('LiCRM\Task', 'getTaskOptions'),
 			'exclude'   			=> true,
 			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
             'sql'                   => "int(10) unsigned NOT NULL default '0'"
@@ -183,7 +183,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'exclude'               => true,
 			'inputType'             => 'text',
 			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
 		'endDate' => array
 		(
@@ -191,7 +191,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'exclude'               => true,
 			'inputType'             => 'text',
 			'eval'                  => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
         'startTime' => array
 		(
@@ -203,7 +203,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'flag'                  => 8,
 			'inputType'             => 'text',
 			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
 		'endTime' => array
 		(
@@ -212,7 +212,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'exclude'               => true,
 			'inputType'             => 'text',
 			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
         'repetition' => array
 		(

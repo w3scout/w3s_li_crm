@@ -8,7 +8,7 @@
             <?php else: ?>
             <p><?php echo $GLOBALS['TL_LANG']['tl_li_task']['done_fail']; ?></p>
             <?php endif; ?>
-            <a class="back_link" href="contao/main.php?do=li_tasks"><?php echo $GLOBALS['TL_LANG']['tl_li_task']['back_overview']; ?></a>
+            <a class="back_link" href="contao/main.php?do=li_tasks&amp;rt=<?php echo REQUEST_TOKEN;?>"><?php echo $GLOBALS['TL_LANG']['tl_li_task']['back_overview']; ?></a>
         </div>
         <?php endif; ?>
     </div>

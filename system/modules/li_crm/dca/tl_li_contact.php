@@ -160,7 +160,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
         'startTime' => array
 		(
@@ -172,7 +172,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('rgxp'=>'time', 'mandatory'=>true, 'tl_class'=>'w50'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
 		'addEnd' => array
 		(
@@ -188,7 +188,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
         'endTime' => array
 		(
@@ -196,7 +196,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('rgxp'=>'time', 'tl_class'=>'w50'),
-            'sql'                   => "int(10) unsigned NULL default NULL"
+            'sql'                   => "int(10) unsigned NULL"
 		),
         'note' => array
 		(

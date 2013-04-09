@@ -18,7 +18,7 @@ $GLOBALS['TL_DCA']['tl_member_group']['fields']['alexf'] = array
     'label'                 => &$GLOBALS['TL_LANG']['tl_member_group']['alexf'],
     'exclude'               => true,
     'inputType'             => 'checkbox',
-    'options_callback'      => array('MemberGroup', 'getExcludedFields'),
+    'options_callback'      => array('LiCRM\MemberGroup', 'getExcludedFields'),
     'eval'                  => array('multiple'=>true, 'size'=>36),
     'sql'                     => "blob NULL"
 );

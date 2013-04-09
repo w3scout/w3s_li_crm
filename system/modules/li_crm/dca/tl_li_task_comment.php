@@ -21,11 +21,11 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 		'ptable'               		=> 'tl_li_task',
 		'onload_callback'      		=> array
 		(
-			array('TaskComment', 'onLoad')
+			array('LiCRM\TaskComment', 'onLoad')
 		),
 		'onsubmit_callback'			=> array
 		(
-			array('TaskComment', 'onSubmit')
+			array('LiCRM\TaskComment', 'onSubmit')
 		),
 		'doNotCopyRecords'     		=> true,
         'sql' => array
@@ -47,7 +47,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'fields'                => array('tstamp'),
 			'flag'                  => 6,
 			'panelLayout'           => 'limit',
-			'child_record_callback' => array('TaskComment', 'renderComment')
+			'child_record_callback' => array('LiCRM\TaskComment', 'renderComment')
 		),
 		'operations' => array
 		(
@@ -56,7 +56,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 				'label'   			=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['edit'],
 				'href'              => 'act=edit',
 				'icon'              => 'edit.gif',
-				'button_callback'	=> array('TaskComment', 'editButton')
+				'button_callback'	=> array('LiCRM\TaskComment', 'editButton')
 			)
 		)
 	),
@@ -92,7 +92,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
         ),
         'user' => array
 		(
-			'default' => $this->User->id,
+			'default'                 => $this->User->id,
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'tstamp' => array
@@ -105,13 +105,13 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'label'             	=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['changeCustomerProject'],
 			'inputType'	        	=> 'checkbox',
 			'eval'              	=> array('tl_class'=>'clr', 'submitOnChange'=>true),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                   => "char(1) NOT NULL default ''"
 		),
 		'toCustomer' => array
 		(
 			'label'               	=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['toCustomer'],
 			'inputType'           	=> 'select',
-			'options_callback'		=> array('Customer', 'getCustomerOptions'),
+			'options_callback'		=> array('LiCRM\Customer', 'getCustomerOptions'),
 			'passToTask'          	=> 'changeCustomer',
 			'eval'                	=> array('tl_class'=>'w50clr', 'includeBlankOption'=>true, 'submitOnChange'=>true, 'chosen'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
@@ -120,7 +120,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 		(
 			'label'               	=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['toProject'],
 			'inputType'           	=> 'select',
-			'options_callback'		=> array('Project', 'getProjectsOfCustomer'),
+			'options_callback'		=> array('LiCRM\Project', 'getProjectsOfCustomer'),
 			'passToTask'          	=> 'changeProject',
 			'eval'                	=> array('tl_class'=>'w50', 'includeBlankOption'=>true, 'chosen'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
@@ -136,7 +136,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 		(
 			'label'               	=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['priority'],
 			'inputType'           	=> 'select',
-			'options_callback'		=> array('Task', 'getPriorityOptions'),
+			'options_callback'		=> array('LiCRM\Task', 'getPriorityOptions'),
 			'passToTask'          	=> 'changePriority',
 			'eval'                	=> array('chosen'=>true),
             'sql'                     => "int(3) unsigned NOT NULL default '0'"
@@ -231,7 +231,7 @@ $GLOBALS['TL_DCA']['tl_li_task_comment'] = array
 			'label'					=> &$GLOBALS['TL_LANG']['tl_li_task_comment']['toWorkPackage'],
 			'inputType'				=> 'select',
 			'exclude'              	=> true,
-			'options_callback'     	=> array('WorkPackage', 'getWorkPackages'),
+			'options_callback'     	=> array('LiCRM\WorkPackage', 'getWorkPackages'),
 			'eval'                 	=> array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50', 'chosen'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),

@@ -18,37 +18,37 @@
 </form>
 <div id="tl_buttons">
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['new'][1]; ?>"
-		class="add_date" href="contao/main.php?do=li_appointments&table=tl_li_appointment&act=create"
+		class="add_date" href="contao/main.php?do=li_appointments&table=tl_li_appointment&act=create&amp;rt=<?php echo REQUEST_TOKEN;?>"
 		style="background-image: url('system/themes/default/images/new.gif');">
 		<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['new'][0]; ?>
     </a>
      &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['monthView'][1]; ?>"
-		class="manage_work_packages" href="contao/main.php?do=li_appointments"
-		style="background-image: url('system/modules/li_crm/icons/appointments_month.png');">
+		class="manage_work_packages" href="contao/main.php?do=li_appointments&amp;rt=<?php echo REQUEST_TOKEN;?>"
+		style="background-image: url('system/modules/li_crm/assets/appointments_month.png');">
         <?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['monthView'][0]; ?>
     </a>
     &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['weekView'][1]; ?>"
-		class="manage_work_packages" href="contao/main.php?do=li_appointments&view=week"
-		style="background-image: url('system/modules/li_crm/icons/appointments_week.png');">
+		class="manage_work_packages" href="contao/main.php?do=li_appointments&view=week&amp;rt=<?php echo REQUEST_TOKEN;?>"
+		style="background-image: url('system/modules/li_crm/assets/appointments_week.png');">
         <?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['weekView'][0]; ?>
     </a>
     &nbsp; :: &nbsp;
     <a onclick="Backend.getScrollOffset();" accesskey="n" title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['dayView'][1]; ?>"
-		class="manage_work_packages" href="contao/main.php?do=li_appointments&view=day"
-		style="background-image: url('system/modules/li_crm/icons/appointments_day.png');">
+		class="manage_work_packages" href="contao/main.php?do=li_appointments&view=day&amp;rt=<?php echo REQUEST_TOKEN;?>"
+		style="background-image: url('system/modules/li_crm/assets/appointments_day.png');">
         <?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['dayView'][0]; ?>
     </a>
 </div>
 <div id="month_buttons">
-	<a href="contao/main.php?do=li_appointments&appointments_year=<?php echo $this->prevYear; ?>&appointments_month=<?php echo $this->prevMonth; ?>"
+	<a href="contao/main.php?do=li_appointments&appointments_year=<?php echo $this->prevYear; ?>&appointments_month=<?php echo $this->prevMonth; ?>&amp;rt=<?php echo REQUEST_TOKEN;?>"
 	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth']; ?>">
-		<img src="system/modules/li_crm/icons/arrow_left.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth']; ?>"/>
+		<img src="system/modules/li_crm/assets/arrow_left.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['prevMonth']; ?>"/>
 	</a>
-	<a style="float:right;" href="contao/main.php?do=li_appointments&appointments_year=<?php echo $this->nextYear; ?>&appointments_month=<?php echo $this->nextMonth; ?>"
+	<a style="float:right;" href="contao/main.php?do=li_appointments&appointments_year=<?php echo $this->nextYear; ?>&appointments_month=<?php echo $this->nextMonth; ?>&amp;rt=<?php echo REQUEST_TOKEN;?>"
 	   title="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth']; ?>">
-		<img src="system/modules/li_crm/icons/arrow_right.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth']; ?>"/>
+		<img src="system/modules/li_crm/assets/arrow_right.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['nextMonth']; ?>"/>
 	</a>
 </div>
 <div id="appointments_wrapper">
@@ -64,16 +64,16 @@
 				<?php foreach($appointments as $appointment): ?>
 				<div class="appointment<?php echo $counter == 1 ? ' first' : ''; ?><?php echo $counter == $countAppointments ? ' last' : ''; ?>" style="background-color:#<?php echo $appointment['color']; ?>">
 					<span class="subject">
-						<a href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>" data-lightbox="610 80%" rel="lightbox[610 80%]">
+						<a href="system/modules/li_crm/DetailsBox.php?table=tl_li_appointment&id=<?php echo $appointment['id']; ?>&amp;rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>" data-lightbox="610 80%" rel="lightbox[610 80%]">
 							<?php echo $appointment['subject']; ?>
 						</a>
 					</span>
 					<div class="options">
-						<a href="contao/main.php?do=li_appointments&table=tl_li_appointment&act=edit&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>">
-							<img src="system/modules/li_crm/icons/edit.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['edit'][0]; ?>" width="16" height="16">
+						<a href="contao/main.php?do=li_appointments&table=tl_li_appointment&act=edit&id=<?php echo $appointment['id']; ?>&amp;rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['edit'][1], $appointment['id']); ?>">
+							<img src="system/modules/li_crm/assets/edit.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['edit'][0]; ?>" width="16" height="16">
 						</a>
-						<a href="contao/main.php?do=li_appointments&table=tl_li_appointment&act=delete&id=<?php echo $appointment['id']; ?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['delete'][1], $appointment['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['MSC']['deleteConfirm'], $appointment['id']); ?>')) return false; Backend.getScrollOffset();" "="">
-							<img src="system/modules/li_crm/icons/delete.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['delete'][0]; ?>" width="16" height="16">
+						<a href="contao/main.php?do=li_appointments&table=tl_li_appointment&act=delete&id=<?php echo $appointment['id']; ?>&amp;rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_appointment']['delete'][1], $appointment['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['MSC']['deleteConfirm'], $appointment['id']); ?>')) return false; Backend.getScrollOffset();" "="">
+							<img src="system/modules/li_crm/assets/delete.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['delete'][0]; ?>" width="16" height="16">
 						</a>
 					</div>
 				</div>

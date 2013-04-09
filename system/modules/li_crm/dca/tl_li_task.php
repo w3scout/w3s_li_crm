@@ -22,7 +22,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 		'enableVersioning'          => true,
 		'onsubmit_callback'			=> array
 		(
-			array('Task', 'onSubmit')
+			array('LiCRM\Task', 'onSubmit')
 		),
         'sql' => array
         (
@@ -46,7 +46,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 		'label' => array
 		(
 			'fields'                => array('title'),
-			'label_callback'        => array('Task', 'renderLabel')
+			'label_callback'        => array('LiCRM\Task', 'renderLabel')
 		),
 		'global_operations' => array
 		(
@@ -141,7 +141,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Customer', 'getCustomerOptions'),
+			'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true, 'submitOnChange'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -150,7 +150,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_task']['toProject'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Project', 'getProjectsOfCustomer'),
+			'options_callback'      => array('LiCRM\Project', 'getProjectsOfCustomer'),
             'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -180,7 +180,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'filter'                => true,
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Task', 'getPriorityOptions'),
+			'options_callback'      => array('LiCRM\Task', 'getPriorityOptions'),
 			'eval'                  => array('tl_class'=>'w50', 'chosen'=>true),
             'sql'                     => "int(3) unsigned NOT NULL default '0'"
         ),
@@ -201,7 +201,7 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 			'eval'                  => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'save_callback' 		=> array
 			(
-				array('Task', 'generateAlias')
+				array('LiCRM\Task', 'generateAlias')
 			),
             'sql'                     => "varchar(64) NOT NULL default ''"
 		),

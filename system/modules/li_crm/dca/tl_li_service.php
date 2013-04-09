@@ -109,7 +109,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Customer', 'getCustomerOptions'),
+			'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50','includeBlankOption'=>true, 'submitOnChange'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -118,7 +118,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['toProject'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Project', 'getProjectsOfCustomer'),
+			'options_callback'      => array('LiCRM\Project', 'getProjectsOfCustomer'),
             'eval'                  => array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -136,7 +136,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['unit'],
             'inputType'             => 'select',
             'exclude'   			=> true,
-            'options_callback'      => array('Service', 'getUnitOptions'),
+            'options_callback'      => array('LiCRM\Service', 'getUnitOptions'),
             'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
             'sql'                     => "varchar(20) NOT NULL default 'unit'"
         ),
@@ -162,7 +162,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['toTax'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'		=> array('CompanySettings', 'getTaxOptions'),
+			'options_callback'		=> array('LiCRM\CompanySettings', 'getTaxOptions'),
 			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -171,7 +171,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
             'label' 				=> &$GLOBALS['TL_LANG']['tl_li_service']['currency'],
             'inputType' 			=> 'select',
             'exclude' 				=> true,
-            'options_callback' 		=> array('CurrencyHelper', 'getCurrencyOptions'),
+            'options_callback' 		=> array('LiCRM\CurrencyHelper', 'getCurrencyOptions'),
             'eval' 					=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
             'sql'                     => "varchar(3) NOT NULL default ''"
         ),
@@ -216,11 +216,7 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
 			'options'               => array(1,3,6,12),
 			'reference'				=> &$GLOBALS['TL_LANG']['tl_li_service']['periods'],
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true),
-            'sql'                     => "varchar(3) NOT NULL default ''"
-		),
-        'period' => array
-        (
-            'sql'                     => "varchar(10) NOT NULL default ''"
-        )
+            'sql'                   => "varchar(3) NOT NULL default ''"
+		)
 	)
 );

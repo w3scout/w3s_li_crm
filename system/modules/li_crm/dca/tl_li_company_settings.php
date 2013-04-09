@@ -43,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_default_currency'],
             'inputType'             => 'select',
             'exclude'   			=> true,
-            'options_callback'      => array('CurrencyHelper', 'getCurrencyOptions'),
+            'options_callback'      => array('LiCRM\CurrencyHelper', 'getCurrencyOptions'),
             'eval'					=> array('mandatory'=>true, 'chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
         ),
         'li_crm_company_tax_number' => array

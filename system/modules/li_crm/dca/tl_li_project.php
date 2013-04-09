@@ -100,7 +100,7 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_project']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Customer', 'getCustomerOptions'),
+			'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('mandatory'=>true, 'chosen'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -114,7 +114,7 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
         	'exclude'   			=> true,
         	'load_callback'         => array
             (
-                array('Project', 'createNewProjectNumber')
+                array('LiCRM\Project', 'createNewProjectNumber')
             ),
         	'eval'                  => array('maxlength'=>255, 'alwaysSave'=>true, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"

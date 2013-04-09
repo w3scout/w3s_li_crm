@@ -18,44 +18,44 @@ array_insert($GLOBALS['BE_MOD'], 0, array
         'li_customers' => array
         (
             'tables'     => array('tl_member', 'tl_li_project', 'tl_li_service', 'tl_li_product_to_customer'),
-            'callback'   => 'CustomerList',
-            'icon'       => 'system/modules/li_crm/icons/customers.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'callback'   => 'LiCRM\CustomerList',
+            'icon'       => 'system/modules/li_crm/assets/customers.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
         'li_products' => array
         (
             'tables'     => array('tl_li_product', 'tl_li_product_type'),
-            'icon'       => 'system/modules/li_crm/icons/products.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'icon'       => 'system/modules/li_crm/assets/products.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
         'li_tasks' => array
         (
             'tables'     => array('tl_li_task', 'tl_li_task_comment', 'tl_li_task_reminder'),
-            'callback'   => 'Task',
-            'icon'       => 'system/modules/li_crm/icons/tasks.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css',
+            'callback'   => 'LiCRM\Task',
+            'icon'       => 'system/modules/li_crm/assets/tasks.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css',
 	        'javascript' => 'system/modules/li_crm/js/Task.js'
         ),
         'li_appointments' => array
         (
             'tables'     => array('tl_li_appointment'),
-            'callback'   => 'Appointment',
-            'icon'       => 'system/modules/li_crm/icons/appointments.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'callback'   => 'LiCRM\Appointment',
+            'icon'       => 'system/modules/li_crm/assets/appointments.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
         'li_timekeeping' => array
         (
             'tables'     => array('tl_li_work_package', 'tl_li_working_hour'),
-            'callback'   => 'WorkingHourCalendar',
-            'icon'       => 'system/modules/li_crm/icons/timekeeping.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'callback'   => 'LiCRM\WorkingHourCalendar',
+            'icon'       => 'system/modules/li_crm/assets/timekeeping.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
         'li_invoices' => array
         (
             'tables'     => array('tl_li_invoice', 'tl_li_invoice_reminder', 'tl_li_invoice_generation'),
-            'callback'   => 'Invoice',
-            'icon'       => 'system/modules/li_crm/icons/invoices.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'callback'   => 'LiCRM\Invoice',
+            'icon'       => 'system/modules/li_crm/assets/invoices.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
         'li_settings' => array
         (
@@ -64,9 +64,9 @@ array_insert($GLOBALS['BE_MOD'], 0, array
 				'tl_li_invoice_reminder_settings', 'tl_li_invoice_dispatch_settings', 'tl_li_invoice_template',
                 'tl_li_task_reminder_settings', 'tl_li_company_settings', 'tl_li_timekeeping_settings', 'tl_li_hourly_wage',
                 'tl_li_tax'),
-            'callback'	 => 'Settings',
-            'icon'       => 'system/modules/li_crm/icons/settings.png',
-            'stylesheet' => 'system/modules/li_crm/css/crm.css'
+            'callback'	 => 'LiCRM\Settings',
+            'icon'       => 'system/modules/li_crm/assets/settings.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         )
     )
 ));
@@ -118,28 +118,28 @@ if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 // Cronjobs
 
 // - Reminder
-$GLOBALS['TL_CRON']['daily'][]  = array('Reminder', 'checkForReminder');
+$GLOBALS['TL_CRON']['daily'][]  = array('LiCRM\Reminder', 'checkForReminder');
 
 // - Invoice generation
-$GLOBALS['TL_CRON']['daily'][]  = array('InvoiceGeneration', 'generateInvoices');
+$GLOBALS['TL_CRON']['daily'][]  = array('LiCRM\InvoiceGeneration', 'generateInvoices');
 
 // Hooks
 // - Replace insert tags
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Customer', 'getCustomerCount');
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Project', 'getProjectCount');
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Invoice', 'getInvoiceCount');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('LiCRM\Customer', 'getCustomerCount');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('LiCRM\Project', 'getProjectCount');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('LiCRM\Invoice', 'getInvoiceCount');
 
 // - Registration
-$GLOBALS['TL_HOOKS']['createNewUser'][] = array('CustomerRegistration', 'createNewUser');
+$GLOBALS['TL_HOOKS']['createNewUser'][] = array('LiCRM\CustomerRegistration', 'createNewUser');
 
 // - Rre actions
-$GLOBALS['TL_HOOKS']['executePreActions'][] = array('TaskComment', 'hookExecutePreActions');
+$GLOBALS['TL_HOOKS']['executePreActions'][] = array('LiCRM\TaskComment', 'hookExecutePreActions');
 
 // - Post actions
-$GLOBALS['TL_HOOKS']['executePostActions'][] = array('Invoice', 'generateInvoice');
+$GLOBALS['TL_HOOKS']['executePostActions'][] = array('LiCRM\Invoice', 'generateInvoice');
 
 // - System messsages
-$GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('TaskStatusMessages', 'listTasks');
+$GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('LiCRM\TaskStatusMessages', 'listTasks');
 
 // Form fields
-$GLOBALS['BE_FFL']['TaskHistory'] = 'TaskHistory';
+$GLOBALS['BE_FFL']['TaskHistory'] = 'LiCRM\TaskHistory';

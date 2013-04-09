@@ -38,8 +38,8 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 		(
 			'fields'                => array('icon', 'title', 'title'),
 			'format'                => '<img src=\'%s\' alt=\'%s\' /> %s',
-			'label_callback'        => array('TaskStatus', 'renderLabel'),
-			'group_callback'        => array('TaskStatus', 'renderGroup'),
+			'label_callback'        => array('LiCRM\TaskStatus', 'renderLabel'),
+			'group_callback'        => array('LiCRM\TaskStatus', 'renderGroup'),
 		),
 		'global_operations' => array
 		(

@@ -37,7 +37,7 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 		'label' => array
 		(
 			'fields'                => array('icon', 'title'),
-			'label_callback'        => array('ServiceType', 'renderLabel')
+			'label_callback'        => array('LiCRM\ServiceType', 'renderLabel')
 		),
 		'global_operations' => array
 		(

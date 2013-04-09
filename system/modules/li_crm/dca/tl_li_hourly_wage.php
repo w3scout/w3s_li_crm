@@ -39,7 +39,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 		'label' => array
 		(
 			'fields'                => array('wage', 'title'),
-			'label_callback'        => array('HourlyWage', 'renderLabel')
+			'label_callback'        => array('LiCRM\HourlyWage', 'renderLabel')
 		),
 		'global_operations' => array
 		(
@@ -124,7 +124,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
 			'label'     	   		=> &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['toTax'],
 			'inputType' 	   		=> 'select',
 			'exclude'   	   		=> true,
-			'options_callback' 		=> array('CompanySettings', 'getTaxOptions'),
+			'options_callback' 		=> array('LiCRM\CompanySettings', 'getTaxOptions'),
 			'eval'      	   		=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
             'sql'                       => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -132,7 +132,7 @@ $GLOBALS['TL_DCA']['tl_li_hourly_wage'] = array
             'label'            		=> &$GLOBALS['TL_LANG']['tl_li_hourly_wage']['currency'],
             'inputType'       		=> 'select',
             'exclude'          		=> true,
-            'options_callback' 		=> array('CurrencyHelper', 'getCurrencyOptions'),
+            'options_callback' 		=> array('LiCRM\CurrencyHelper', 'getCurrencyOptions'),
             'eval'             		=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
             'sql'                       => "varchar(3) NOT NULL default ''"
         )

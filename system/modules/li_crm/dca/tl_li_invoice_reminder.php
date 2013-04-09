@@ -114,7 +114,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'filter'            	=> true,
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
-            'options_callback'  	=> array('InvoiceReminder', 'getCustomerOptions'),
+            'options_callback'  	=> array('LiCRM\InvoiceReminder', 'getCustomerOptions'),
 			'eval'              	=> array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
             'label'             	=> &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['toInvoice'],
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
-            'options_callback'  	=> array('InvoiceReminder', 'getInvoiceOptions'),
+            'options_callback'  	=> array('LiCRM\InvoiceReminder', 'getInvoiceOptions'),
 			'eval'              	=> array('tl_class'=>'w50', 'mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'includeBlankOption'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -145,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 			'flag'              	=> 8,
 			'inputType'         	=> 'text',
 			'exclude'   	    	=> true,
-			'load_callback'     	=> array(array('InvoiceReminder', 'getRemindDate')),
+			'load_callback'     	=> array(array('LiCRM\InvoiceReminder', 'getRemindDate')),
 			'eval'              	=> array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
             'sql'                     => "varchar(10) NOT NULL default ''"
 		),

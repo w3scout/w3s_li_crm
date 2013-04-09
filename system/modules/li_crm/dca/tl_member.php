@@ -14,7 +14,7 @@
 // Modify member dca to add customer fields
 $GLOBALS['TL_DCA']['tl_member']['config']['ctable'][]            = 'tl_li_contact';
 //$GLOBALS['TL_DCA']['tl_member']['config']['onload_callback'][]   = array('Customer', 'changeMandatoryFields');
-$GLOBALS['TL_DCA']['tl_member']['config']['onsubmit_callback'][] = array('Customer', 'updateDefaultAddress');
+$GLOBALS['TL_DCA']['tl_member']['config']['onsubmit_callback'][] = array('LiCRM\Customer', 'updateDefaultAddress');
 $GLOBALS['TL_DCA']['tl_member']['palettes']['default']           = "{customer_legend}, isCustomer;"
                                                                    .$GLOBALS['TL_DCA']['tl_member']['palettes']['default']."
                                                                    ;{bank_legend},accountNumber,bankCode,bank,iban,bic";
@@ -54,7 +54,7 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerNumber'] = array
 	'flag'                  => 1,
 	'inputType'             => 'text',
 	'exclude'   	        => true,
-	'load_callback'         => array(array('Customer', 'createNewCustomerNumber')),
+	'load_callback'         => array(array('LiCRM\Customer', 'createNewCustomerNumber')),
 	'eval'                  => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50', 'alwaysSave'=>true),
     'sql'                     => "varchar(255) NOT NULL default ''"
 );

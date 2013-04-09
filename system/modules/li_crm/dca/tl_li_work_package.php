@@ -39,8 +39,8 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 		'label' => array
 		(
             'fields'            	=> array('title'),
-            'group_callback'    	=> array('WorkPackage', 'getGroupLabel'),
-            'label_callback'    	=> array('WorkPackage', 'getLabel')
+            'group_callback'    	=> array('LiCRM\WorkPackage', 'getGroupLabel'),
+            'label_callback'    	=> array('LiCRM\WorkPackage', 'getLabel')
 		),
 		'global_operations' => array
 		(
@@ -122,7 +122,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
             'exclude'   			=> true,
             'filter'            	=> true,
             'foreignKey'        	=> 'tl_li_hourly_wage.title',
-            'options_callback'  	=> array('HourlyWage', 'getHourlyWagesList'),
+            'options_callback'  	=> array('LiCRM\HourlyWage', 'getHourlyWagesList'),
             'eval'              	=> array('mandatory'=>true, 'chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -148,7 +148,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			'label'             	=> &$GLOBALS['TL_LANG']['tl_li_work_package']['toCustomer'],
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
-			'options_callback'  	=> array('Customer', 'getCustomerOptions'),
+			'options_callback'  	=> array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'              	=> array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true, 'submitOnChange'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -157,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_li_work_package'] = array
 			'label'             	=> &$GLOBALS['TL_LANG']['tl_li_work_package']['toProject'],
 			'inputType'         	=> 'select',
 			'exclude'   			=> true,
-			'options_callback'  	=> array('Project', 'getProjectsOfCustomer'),
+			'options_callback'  	=> array('LiCRM\Project', 'getProjectsOfCustomer'),
             'eval'              	=> array('tl_class'=>'w50', 'chosen'=>true, 'includeBlankOption'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),

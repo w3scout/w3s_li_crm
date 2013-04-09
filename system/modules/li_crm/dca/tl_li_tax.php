@@ -23,7 +23,6 @@ $GLOBALS['TL_DCA']['tl_li_tax'] = array
             )
         )
 	),
-
 	// List
 	'list' => array
 	(

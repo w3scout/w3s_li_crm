@@ -47,7 +47,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toCustomer'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Customer', 'getCustomerOptions'),
+			'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('mandatory' => true, 'tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true, 'submitOnChange'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -56,7 +56,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProject'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Project', 'getProjectsOfCustomer'),
+			'options_callback'      => array('LiCRM\Project', 'getProjectsOfCustomer'),
             'eval'                  => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -73,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_li_product_to_customer'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_product_to_customer']['toProduct'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Product', 'getProductsList'),
+			'options_callback'      => array('LiCRM\Product', 'getProductsList'),
             'eval'                  => array('mandatory' => true, 'chosen'=>true, 'tl_class' => 'w50', 'includeBlankOption' => true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),

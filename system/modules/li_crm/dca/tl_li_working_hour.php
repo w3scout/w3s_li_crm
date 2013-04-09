@@ -19,11 +19,11 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 		'enableVersioning'          => true,
 		'onsubmit_callback'         => array
 		(
-			array('WorkingHourCalendar', 'onSubmit')
+			array('LiCRM\WorkingHourCalendar', 'onSubmit')
 		),
 		'ondelete_callback'         => array
 		(
-			array('WorkingHourCalendar', 'onDelete')
+			array('LiCRM\WorkingHourCalendar', 'onDelete')
 		),
         'sql' => array
         (
@@ -73,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 			'label'					=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['toWorkPackage'],
 			'inputType'				=> 'select',
 			'exclude'   			=> true,
-			'options_callback'		=> array('WorkPackage', 'getWorkPackages'),
+			'options_callback'		=> array('LiCRM\WorkPackage', 'getWorkPackages'),
 			'eval'					=> array('mandatory' => true, 'chosen'=>true, 'includeBlankOption' => true, 'tl_class' => 'w50'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),

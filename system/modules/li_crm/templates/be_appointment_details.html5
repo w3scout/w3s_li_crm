@@ -5,9 +5,9 @@
 <title><?php echo $this->title; ?> - Contao Open Source CMS <?php echo VERSION; ?></title>
 <base href="<?php echo $this->base; ?>">
 <link rel="stylesheet" href="<?php
-  $objCombiner = new Combiner();
+  $objCombiner = new \Combiner();
   $objCombiner->add('system/themes/'. $this->theme .'/basic.css');
-  $objCombiner->add('system/modules/li_crm/css/detailsbox.css');
+  $objCombiner->add('system/modules/li_crm/assets/detailsbox.css');
   echo $objCombiner->getCombinedFile();
 ?>" media="all">
 <!--[if IE]><link rel="stylesheet" href="<?php echo TL_SCRIPT_URL; ?>system/themes/<?php echo $this->theme; ?>/iefixes.css" media="screen"><![endif]-->

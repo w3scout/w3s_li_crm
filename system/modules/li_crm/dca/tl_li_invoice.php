@@ -7,9 +7,9 @@
  */
 
 $this->loadLanguageFile('tl_li_invoice_reminder');
-$this->import('InvoiceTemplate');
+$this->import('LiCRM\InvoiceTemplate');
 
-#$invoiceTemplate = new InvoiceTemplate();
+$invoiceTemplate = new LiCRM\InvoiceTemplate();
 
 /**
  * Table tl_li_invoice
@@ -42,7 +42,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		'label' => array
 		(
 			'fields'                => array('title'),
-			'label_callback'        => array('Invoice', 'renderLabel')
+			'label_callback'        => array('LiCRM\Invoice', 'renderLabel')
 		),
 		'global_operations' => array
 		(
@@ -101,7 +101,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['toggle'],
 				'icon'              => 'visible.gif',
 				'attributes'        => 'onclick="Backend.getScrollOffset(); return AjaxRequest.toggleVisibility(this, %s);"',
-				'button_callback'   => array('Invoice', 'toggleIcon')
+				'button_callback'   => array('LiCRM\Invoice', 'toggleIcon')
 			),
 			'show' => array
 			(
@@ -114,37 +114,37 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'],
                 'icon'              => 'system/modules/li_crm/icons/invoice_unpaid.png',
                 'attributes'        => 'onclick="Backend.getScrollOffset();"',
-                'button_callback'   => array('Invoice', 'togglePaidIcon')
+                'button_callback'   => array('LiCRM\Invoice', 'togglePaidIcon')
             ),
 			'showFile' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['showFile'],
 				'icon'              => 'system/modules/li_crm/icons/invoice_show.png',
-				'button_callback'   => array('Invoice', 'showFile')
+				'button_callback'   => array('LiCRM\Invoice', 'showFile')
 			),
 			'downloadFile' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'],
 				'icon'              => 'system/modules/li_crm/icons/invoice_download.png',
-				'button_callback'   => array('Invoice', 'downloadFileIcon')
+				'button_callback'   => array('LiCRM\Invoice', 'downloadFileIcon')
 			),
 			'html' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['html'],
 				'icon'              => 'system/modules/li_crm/icons/invoice_html_disabled.png',
-				'button_callback'   => array('Invoice', 'htmlGenerationIcon')
+				'button_callback'   => array('LiCRM\Invoice', 'htmlGenerationIcon')
 			),
 			'generate' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['generate'],
 				'icon'              => 'system/modules/li_crm/icons/invoice_generation_disabled.png',
-				'button_callback'   => array('Invoice', 'generationIcon')
+				'button_callback'   => array('LiCRM\Invoice', 'generationIcon')
 			),
             'send' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['send'],
 				'icon'              => 'system/modules/li_crm/icons/invoice_send_disabled.png',
-				'button_callback'   => array('Invoice', 'dispatchIcon')
+				'button_callback'   => array('LiCRM\Invoice', 'dispatchIcon')
 			),
             'generation' => array
             (
@@ -194,7 +194,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'filter'                => true,
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-            'options_callback'      => array('Customer', 'getCustomerOptions'),
+            'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -227,7 +227,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'eval'                  => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'save_callback' 		=> array
 			(
-				array('Invoice', 'generateAlias')
+				array('LiCRM\Invoice', 'generateAlias')
 			),
             'sql'                     => "varchar(64) NOT NULL default ''"
 		),
@@ -267,7 +267,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['currency'],
             'inputType'             => 'select',
             'exclude'               => true,
-            'options_callback'      => array('CurrencyHelper', 'getCurrencyOptions'),
+            'options_callback'      => array('LiCRM\CurrencyHelper', 'getCurrencyOptions'),
             'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
             'sql'                     => "varchar(3) NOT NULL default ''"
         ),
@@ -337,7 +337,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['toTemplate'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'default'				=> $this->InvoiceTemplate->getDefaultTemplate(),
+			'default'				=> $invoiceTemplate->getDefaultTemplate(),
 			'foreignKey'      		=> 'tl_li_invoice_template.title',
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
@@ -347,7 +347,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['toAddress'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'      => array('Invoice', 'getAddressOptions'),
+			'options_callback'      => array('LiCRM\Invoice', 'getAddressOptions'),
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
@@ -379,7 +379,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'  			=> &$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'	=> array('Invoice', 'getUnitOptions'),
+						'options_callback'	=> array('LiCRM\Invoice', 'getUnitOptions'),
 						'eval' 				=> array('style'=>'width:80px;', 'chosen'=>true)
 					),
 					'item' => array
@@ -387,7 +387,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('Invoice', 'getServiceOptions'),
+						'options_callback'  => array('LiCRM\Invoice', 'getServiceOptions'),
 						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
@@ -421,7 +421,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_unit'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback' 	=> array('Invoice', 'getUnitOptions'),
+						'options_callback' 	=> array('LiCRM\Invoice', 'getUnitOptions'),
 						'eval' 				=> array('style'=>'width:80px;', 'chosen'=>true)
 					),
 					'item' => array
@@ -429,7 +429,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('Invoice', 'getProductOptions'),
+						'options_callback'  => array('LiCRM\Invoice', 'getProductOptions'),
 						'eval' 				=> array('style'=>'width:160px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
@@ -463,7 +463,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 						'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['position_item'],
 						'exclude'           => true,
 						'inputType'         => 'select',
-						'options_callback'  => array('Invoice', 'getHourOptions'),
+						'options_callback'  => array('LiCRM\Invoice', 'getHourOptions'),
 						'eval' 				=> array('style'=>'width:247px;', 'chosen'=>true, 'includeBlankOption'=>true)
 					),
 					'title' => array
@@ -521,14 +521,3 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
         )
 	)
 );
-
-class tl_li_invoice extends Backend {
-
-    public function getInvoiceTemplates(DataContainer $dc)
-    {
-        return $this->getTemplateGroup('invoice_');
-    }
-
-}
-
-

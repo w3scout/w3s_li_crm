@@ -111,7 +111,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_product']['unit'],
             'inputType'             => 'select',
             'exclude'   			=> true,
-            'options_callback'      => array('Product', 'getUnitOptions'),
+            'options_callback'      => array('LiCRM\Product', 'getUnitOptions'),
             'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
             'sql'                     => "varchar(20) NOT NULL default 'unit'"
         ),
@@ -121,7 +121,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default 'unit'"
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
         'title' => array
 		(
@@ -129,7 +129,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default 'unit'"
+            'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'price' => array
 		(
@@ -144,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_product']['toTax'],
 			'inputType'             => 'select',
 			'exclude'   			=> true,
-			'options_callback'		=> array('CompanySettings', 'getTaxOptions'),
+			'options_callback'		=> array('LiCRM\CompanySettings', 'getTaxOptions'),
 			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'maxlength'=>3, 'tl_class'=>'w50', 'rgxp'=>'digit'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -153,7 +153,7 @@ $GLOBALS['TL_DCA']['tl_li_product'] = array
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_product']['currency'],
             'inputType'             => 'select',
             'exclude'               => true,
-            'options_callback'      => array('CurrencyHelper', 'getCurrencyOptions'),
+            'options_callback'      => array('LiCRM\CurrencyHelper', 'getCurrencyOptions'),
             'eval'                  => array('mandatory' => true, 'chosen'=>true, 'tl_class' => 'w50'),
             'sql'                     => "varchar(3) NOT NULL default ''"
         )
