@@ -144,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'eval'                  => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'save_callback' 		=> array
 			(
-				array('InvoiceGeneration', 'generateAlias')
+				array('LiCRM\InvoiceGeneration', 'generateAlias')
 			),
             'sql'                     => "varchar(64) NOT NULL default ''"
 		),

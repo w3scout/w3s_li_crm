@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_reminder'] = array
 		(
 			'fields'           		=> array('toCustomer', 'toInvoice'),
 			'format'				=> '%s %s',
-			'label_callback'    	=> array('InvoiceReminder', 'renderLabel'),
+			'label_callback'    	=> array('LiCRM\InvoiceReminder', 'renderLabel'),
 		),
 		'global_operations' => array
 		(

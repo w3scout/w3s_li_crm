@@ -55,7 +55,7 @@ class Invoice extends \BackendModule
 		elseif($key == 'generation')
 		{
 			$generationId = $this->buildGeneration($id);
-			$this->redirect('contao/main.php?do=li_invoices&table=tl_li_invoice_generation&act=edit&id='.$generationId);
+			$this->redirect('contao/main.php?do=li_invoices&table=tl_li_invoice_generation&act=edit&id='.$generationId.'&rt='.REQUEST_TOKEN);
 		}
 		elseif ($key == 'pdf')
 		{
@@ -134,13 +134,13 @@ class Invoice extends \BackendModule
 	{
 		if ($row['isOut'] == '1')
 		{
-			$icon = "<img src=\"system/modules/li_crm/icons/income.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['income']."\" style=\"vertical-align:-3px;\" /> ";
+			$icon = "<img src=\"system/modules/li_crm/assets/income.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['income']."\" style=\"vertical-align:-3px;\" /> ";
 		}
 		else
 		{
-			$icon = "<img src=\"system/modules/li_crm/icons/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ";
+			$icon = "<img src=\"system/modules/li_crm/assets/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ";
 		}
-		$currencyHelper = new LiCRM\CurrencyHelper();
+		$currencyHelper = new \LiCRM\CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($row['currency']);
 		return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
 	}
@@ -153,11 +153,11 @@ class Invoice extends \BackendModule
 			$href = '&do=li_invoices&key=show&id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][1], $row['id']);
 
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_show_file.png" alt="'.$alt.'" /></a> ';
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_show_file.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
-			return '<img src="system/modules/li_crm/icons/invoice_show_file_disabled.png" alt="'.$alt.'" /> ';
+			return '<img src="system/modules/li_crm/assets/invoice_show_file_disabled.png" alt="'.$alt.'" /> ';
 		}
 	}
 
@@ -169,11 +169,11 @@ class Invoice extends \BackendModule
 			$href = '&do=li_invoices&key=pdf&id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][1], $row['id']);
 
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_download.png" alt="'.$alt.'" /></a> ';
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/assets/invoice_download.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
-			return '<img src="system/modules/li_crm/icons/invoice_download_disabled.png" alt="'.$alt.'" /> ';
+			return '<img src="system/modules/li_crm/assets/invoice_download_disabled.png" alt="'.$alt.'" /> ';
 		}
 	}
 	
@@ -184,11 +184,11 @@ class Invoice extends \BackendModule
 		{
 			$href = '&amp;do=li_invoices&amp;key=html&amp;id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['html'][1], $row['id']);
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/icons/invoice_html.png" alt="'.$alt.'" /></a> ';
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/assets/invoice_html.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
-			return '<img src="system/modules/li_crm/icons/invoice_html_disabled.png" alt="'.$alt.'" /> ';
+			return '<img src="system/modules/li_crm/assets/invoice_html_disabled.png" alt="'.$alt.'" /> ';
 		}
 	}
 
@@ -199,11 +199,11 @@ class Invoice extends \BackendModule
 		{
 			$href = '&amp;do=li_invoices&amp;key=print&amp;id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['generate'][1], $row['id']);
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_generation.png" alt="'.$alt.'" /></a> ';
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_generation.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
-			return '<img src="system/modules/li_crm/icons/invoice_generation_disabled.png" alt="'.$alt.'" /> ';
+			return '<img src="system/modules/li_crm/assets/invoice_generation_disabled.png" alt="'.$alt.'" /> ';
 		}
 	}
 
@@ -214,11 +214,11 @@ class Invoice extends \BackendModule
 		{
 			$href = '&amp;do=li_invoices&amp;key=send&amp;id='.$row['id'];
 			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][1], $row['id']);
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_send.png" alt="'.$alt.'" /></a> ';
+			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_send.png" alt="'.$alt.'" /></a> ';
 		}
 		else
 		{
-			return '<img src="system/modules/li_crm/icons/invoice_send_disabled.png" alt="'.$alt.'" /> ';
+			return '<img src="system/modules/li_crm/assets/invoice_send_disabled.png" alt="'.$alt.'" /> ';
 		}
 	}
 
@@ -263,7 +263,7 @@ class Invoice extends \BackendModule
 		return $addresses;
 	}
 
-	public function getUnitOptions(MultiColumnWizard $mcw)
+	public function getUnitOptions(\MultiColumnWizard $mcw)
 	{
         $this->loadLanguageFile('tl_li_invoice');
 		$unit_options = array(
@@ -275,7 +275,7 @@ class Invoice extends \BackendModule
 		return $unit_options;
 	}
 
-	public function getServiceOptions(MultiColumnWizard $mcw)
+	public function getServiceOptions(\MultiColumnWizard $mcw)
 	{
 		$options = array();
 		$objInvoice = $this->Database->prepare("
@@ -296,7 +296,7 @@ class Invoice extends \BackendModule
 		return $options;
 	}
 
-	public function getProductOptions(MultiColumnWizard $mcw)
+	public function getProductOptions(\MultiColumnWizard $mcw)
 	{
 		$options = array();
 		$objInvoice = $this->Database->prepare("
@@ -319,7 +319,7 @@ class Invoice extends \BackendModule
 		return $options;
 	}
 
-	public function getHourOptions(MultiColumnWizard $mcw)
+	public function getHourOptions(\MultiColumnWizard $mcw)
 	{
 		$options = array();
 		$objInvoice = $this->Database->prepare("
@@ -368,8 +368,11 @@ class Invoice extends \BackendModule
                 ON i.toTemplate = t.id
             WHERE i.id = ?
         ")->limit(1)->execute($id);
-		
-		require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
+
+        $objBasepath = \FilesModel::findByPk($objInvoice->basePath);
+
+
+        require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
 
 		// Generate DOMPDF object
 		$dompdf = new \DOMPDF();
@@ -380,7 +383,7 @@ class Invoice extends \BackendModule
 
 		// Generate export path
         $root = TL_ROOT."/";
-        $basePath = $objInvoice->basePath."/";
+        $basePath = $objBasepath->basePath."/";
         $periodFolder = "";
 
 		if ($objInvoice->periodFolder != '')
@@ -471,10 +474,11 @@ class Invoice extends \BackendModule
                 ON i.toCustomer = m.id
             WHERE i.id = ?
         ")->limit(1)->execute($id);
-		$objAddress = $this->Database->prepare("
+
+        $objAddress = $this->Database->prepare("
             SELECT company, firstname, lastname, street, postal, city, gender, country
             FROM tl_address
-            WHERE id = ?
+            WHERE id=?
         ")->limit(1)->execute($objInvoice->toAddress);
 
 		// Load language file
@@ -492,8 +496,11 @@ class Invoice extends \BackendModule
 
         $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
 
+        // get logo
+        $objLogo = \FilesModel::findByPk($objInvoice->logo);
+
         $template = array(
-            'logo' => $objInvoice->logo,
+            'logo' => $objLogo->path,
             'company_name' => $GLOBALS['TL_CONFIG']['li_crm_company_name'],
             'company_street' => $GLOBALS['TL_CONFIG']['li_crm_company_street'],
             'company_postal' => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_postal']),
@@ -540,7 +547,7 @@ class Invoice extends \BackendModule
             }
         }
 
-		$currencyHelper = new LiCRM\CurrencyHelper();
+		$currencyHelper = new \LiCRM\CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
 
 		$rowCounter = 1;
@@ -1140,11 +1147,11 @@ class Invoice extends \BackendModule
         $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'][1], $row['id']);
         if ($objInvoice->paid)
         {
-            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_paid.png" alt="'.$alt.'" /></a> ';
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_paid.png" alt="'.$alt.'" /></a> ';
         }
         else
         {
-            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/icons/invoice_unpaid.png" alt="'.$alt.'" /></a> ';
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_unpaid.png" alt="'.$alt.'" /></a> ';
         }
     }
 
@@ -1200,7 +1207,7 @@ class Invoice extends \BackendModule
 			$objInvoice->descriptionAfter
 		)->insertId;
 		
-		$invoiceGeneration = new LiCRM\InvoiceGeneration();
+		$invoiceGeneration = new \LiCRM\InvoiceGeneration();
 		$alias = $invoiceGeneration->generateAliasWithoutDC($objInvoice->title, $generationId);
 		$this->Database->prepare("
 			UPDATE tl_li_invoice_generation

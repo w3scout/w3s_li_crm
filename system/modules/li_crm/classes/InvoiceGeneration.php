@@ -264,7 +264,7 @@ class InvoiceGeneration extends \Controller
 
             $invoiceNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
             $invoiceTitle = $GLOBALS['TL_LANG']['tl_li_invoice']['generatedInvoiceName'].$invoiceNumber;
-            $invoice = new LiCRM\Invoice();
+            $invoice = new \LiCRM\Invoice();
             $invoiceAlias = $invoice->generateAliasWithoutDC($invoiceTitle, $invoiceId);
 
             $this->Database->prepare("
@@ -299,7 +299,7 @@ class InvoiceGeneration extends \Controller
         }
     }
 
-    public function getServiceOptions(MultiColumnWizard $mcw)
+    public function getServiceOptions(\MultiColumnWizard $mcw)
     {
         $options = array();
         $objInvoice = $this->Database->prepare("
@@ -320,7 +320,7 @@ class InvoiceGeneration extends \Controller
         return $options;
     }
 
-    public function getProductOptions(MultiColumnWizard $mcw)
+    public function getProductOptions(\MultiColumnWizard $mcw)
     {
         $options = array();
         $objInvoice = $this->Database->prepare("
@@ -343,7 +343,7 @@ class InvoiceGeneration extends \Controller
         return $options;
     }
 
-    public function getHourOptions(MultiColumnWizard $mcw)
+    public function getHourOptions(\MultiColumnWizard $mcw)
     {
         $options = array();
         $objInvoice = $this->Database->prepare("
@@ -368,7 +368,7 @@ class InvoiceGeneration extends \Controller
             $hours = $objHours->sumHours;
             $minutes = $objHours->sumMinutes;
 
-            $hours = Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
+            $hours = \LiCRM\Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
 
             $options[$objHours->id] = $objHours->title.' ('.$hours.')';
         }

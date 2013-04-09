@@ -112,51 +112,51 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'togglePaid' => array
             (
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'],
-                'icon'              => 'system/modules/li_crm/icons/invoice_unpaid.png',
+                'icon'              => 'system/modules/li_crm/assets/invoice_unpaid.png',
                 'attributes'        => 'onclick="Backend.getScrollOffset();"',
                 'button_callback'   => array('LiCRM\Invoice', 'togglePaidIcon')
             ),
 			'showFile' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['showFile'],
-				'icon'              => 'system/modules/li_crm/icons/invoice_show.png',
+				'icon'              => 'system/modules/li_crm/assets/invoice_show.png',
 				'button_callback'   => array('LiCRM\Invoice', 'showFile')
 			),
 			'downloadFile' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'],
-				'icon'              => 'system/modules/li_crm/icons/invoice_download.png',
+				'icon'              => 'system/modules/li_crm/assets/invoice_download.png',
 				'button_callback'   => array('LiCRM\Invoice', 'downloadFileIcon')
 			),
 			'html' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['html'],
-				'icon'              => 'system/modules/li_crm/icons/invoice_html_disabled.png',
+				'icon'              => 'system/modules/li_crm/assets/invoice_html_disabled.png',
 				'button_callback'   => array('LiCRM\Invoice', 'htmlGenerationIcon')
 			),
 			'generate' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['generate'],
-				'icon'              => 'system/modules/li_crm/icons/invoice_generation_disabled.png',
+				'icon'              => 'system/modules/li_crm/assets/invoice_generation_disabled.png',
 				'button_callback'   => array('LiCRM\Invoice', 'generationIcon')
 			),
             'send' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['send'],
-				'icon'              => 'system/modules/li_crm/icons/invoice_send_disabled.png',
+				'icon'              => 'system/modules/li_crm/assets/invoice_send_disabled.png',
 				'button_callback'   => array('LiCRM\Invoice', 'dispatchIcon')
 			),
             'generation' => array
             (
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['generation'],
                 'href'              => 'key=generation',
-                'icon'              => 'system/modules/li_crm/icons/generation_new.png'
+                'icon'              => 'system/modules/li_crm/assets/generation_new.png'
             ),
 			'new_reminder' => array
 			(
 				'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice_reminder']['new'],
 				'href'              => 'table=tl_li_invoice_reminder&act=create',
-				'icon'              => 'system/modules/li_crm/icons/reminder_add.png'
+				'icon'              => 'system/modules/li_crm/assets/reminder_add.png'
 			)
 		)
 	),
@@ -231,6 +231,10 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			),
             'sql'                     => "varchar(64) NOT NULL default ''"
 		),
+        'invoiceNumber' => array
+        (
+            'sql'                     => "varchar(64) NOT NULL default ''"
+        ),
 		'invoiceDate' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceDate'],
