@@ -12,46 +12,59 @@
 
 
 /**
+ * Register the namespaces
+ */
+ClassLoader::addNamespaces(array
+(
+    'W3S',
+));
+
+/**
  * Register the classes
  */
 ClassLoader::addClasses(array
 (
-	'TaskReminder'              => 'system/modules/li_crm/classes/TaskReminder.php',
-	'Contact'                   => 'system/modules/li_crm/classes/Contact.php',
-	'ModuleInvoiceReader'       => 'system/modules/li_crm/modules/ModuleInvoiceReader.php',
-	'InvoiceCategory'           => 'system/modules/li_crm/classes/InvoiceCategory.php',
-	'Settings'                  => 'system/modules/li_crm/classes/Settings.php',
-	'InvoiceGeneration'         => 'system/modules/li_crm/classes/InvoiceGeneration.php',
-	'Appointment'               => 'system/modules/li_crm/classes/Appointment.php',
-	'CustomerRegistration'      => 'system/modules/li_crm/classes/CustomerRegistration.php',
-	'Product'                   => 'system/modules/li_crm/classes/Product.php',
-	'ModuleMobileCustomerList'  => 'system/modules/li_crm/modules/MobileCustomerList.php',
-	'TaskStatus'                => 'system/modules/li_crm/classes/TaskStatus.php',
-	'TaskHistory'               => 'system/modules/li_crm/classes/TaskHistory.php',
-	'Project'                   => 'system/modules/li_crm/classes/Project.php',
-	'HourlyWage'                => 'system/modules/li_crm/classes/HourlyWage.php',
-	'ModuleInvoiceList'         => 'system/modules/li_crm/modules/ModuleInvoiceList.php',
-	'CompanySettings'           => 'system/modules/li_crm/classes/CompanySettings.php',
-	'Customer'                  => 'system/modules/li_crm/classes/Customer.php',
-	'ModuleTaskReader'          => 'system/modules/li_crm/modules/ModuleTaskReader.php',
-	'InvoiceReminder'           => 'system/modules/li_crm/classes/InvoiceReminder.php',
-	'Service'                   => 'system/modules/li_crm/classes/Service.php',
-	'TaskComment'               => 'system/modules/li_crm/classes/TaskComment.php',
-	'CustomerList'              => 'system/modules/li_crm/classes/CustomerList.php',
-	'ModuleTaskList'            => 'system/modules/li_crm/modules/ModuleTaskList.php',
-	'MemberGroup'               => 'system/modules/li_crm/modules/MemberGroup.php',
-	'DetailsBox'                => 'system/modules/li_crm/classes/DetailsBox.php',
-	'TaskStatusMessages'        => 'system/modules/li_crm/classes/TaskStatusMessages.php',
-	'Reminder'                  => 'system/modules/li_crm/classes/Reminder.php',
-	'InvoiceTemplate'           => 'system/modules/li_crm/classes/InvoiceTemplate.php',
-	'WorkingHourCalendar'       => 'system/modules/li_crm/classes/WorkingHourCalendar.php',
-	'CurrencyHelper'            => 'system/modules/li_crm/classes/CurrencyHelper.php',
-	'Task'                      => 'system/modules/li_crm/classes/Task.php',
-	'ProductType'               => 'system/modules/li_crm/classes/ProductType.php',
-	'ServiceType'               => 'system/modules/li_crm/classes/ServiceType.php',
-	'Invoice'                   => 'system/modules/li_crm/classes/Invoice.php',
-	'WorkPackage'               => 'system/modules/li_crm/classes/WorkPackage.php',
-	'ModuleMobileAddressReader' => 'system/modules/li_crm/modules/ModuleMobileAddressReader.php',
+	// Classes
+    'W3S\LiCRM\TaskReminder'              => 'system/modules/li_crm/classes/TaskReminder.php',
+	'W3S\LiCRM\Contact'                   => 'system/modules/li_crm/classes/Contact.php',
+	'W3S\LiCRM\InvoiceCategory'           => 'system/modules/li_crm/classes/InvoiceCategory.php',
+	'W3S\LiCRM\Settings'                  => 'system/modules/li_crm/classes/Settings.php',
+	'W3S\LiCRM\InvoiceGeneration'         => 'system/modules/li_crm/classes/InvoiceGeneration.php',
+	'W3S\LiCRM\Appointment'               => 'system/modules/li_crm/classes/Appointment.php',
+	'W3S\LiCRM\CustomerRegistration'      => 'system/modules/li_crm/classes/CustomerRegistration.php',
+	'W3S\LiCRM\Product'                   => 'system/modules/li_crm/classes/Product.php',
+    'W3S\LiCRM\Task'                      => 'system/modules/li_crm/classes/Task.php',
+    'W3S\LiCRM\ProductType'               => 'system/modules/li_crm/classes/ProductType.php',
+    'W3S\LiCRM\ServiceType'               => 'system/modules/li_crm/classes/ServiceType.php',
+    'W3S\LiCRM\Invoice'                   => 'system/modules/li_crm/classes/Invoice.php',
+    'W3S\LiCRM\WorkPackage'               => 'system/modules/li_crm/classes/WorkPackage.php',
+	'W3S\LiCRM\TaskStatus'                => 'system/modules/li_crm/classes/TaskStatus.php',
+	'W3S\LiCRM\TaskHistory'               => 'system/modules/li_crm/classes/TaskHistory.php',
+	'W3S\LiCRM\Project'                   => 'system/modules/li_crm/classes/Project.php',
+	'W3S\LiCRM\HourlyWage'                => 'system/modules/li_crm/classes/HourlyWage.php',
+	'W3S\LiCRM\CompanySettings'           => 'system/modules/li_crm/classes/CompanySettings.php',
+	'W3S\LiCRM\Customer'                  => 'system/modules/li_crm/classes/Customer.php',
+	'W3S\LiCRM\InvoiceReminder'           => 'system/modules/li_crm/classes/InvoiceReminder.php',
+	'W3S\LiCRM\Service'                   => 'system/modules/li_crm/classes/Service.php',
+	'W3S\LiCRM\TaskComment'               => 'system/modules/li_crm/classes/TaskComment.php',
+	'W3S\LiCRM\CustomerList'              => 'system/modules/li_crm/classes/CustomerList.php',
+	'W3S\LiCRM\DetailsBox'                => 'system/modules/li_crm/classes/DetailsBox.php',
+	'W3S\LiCRM\TaskStatusMessages'        => 'system/modules/li_crm/classes/TaskStatusMessages.php',
+	'W3S\LiCRM\Reminder'                  => 'system/modules/li_crm/classes/Reminder.php',
+	'W3S\LiCRM\InvoiceTemplate'           => 'system/modules/li_crm/classes/InvoiceTemplate.php',
+	'W3S\LiCRM\WorkingHourCalendar'       => 'system/modules/li_crm/classes/WorkingHourCalendar.php',
+	'W3S\LiCRM\CurrencyHelper'            => 'system/modules/li_crm/classes/CurrencyHelper.php',
+
+    // Models
+
+    // Modules
+    'W3S\LiCRM\ModuleTaskReader'          => 'system/modules/li_crm/modules/ModuleTaskReader.php',
+    'W3S\LiCRM\ModuleMobileCustomerList'  => 'system/modules/li_crm/modules/MobileCustomerList.php',
+    'W3S\LiCRM\ModuleInvoiceReader'       => 'system/modules/li_crm/modules/ModuleInvoiceReader.php',
+	'W3S\LiCRM\ModuleMobileAddressReader' => 'system/modules/li_crm/modules/ModuleMobileAddressReader.php',
+    'W3S\LiCRM\ModuleInvoiceList'         => 'system/modules/li_crm/modules/ModuleInvoiceList.php',
+    'W3S\LiCRM\ModuleTaskList'            => 'system/modules/li_crm/modules/ModuleTaskList.php',
+    'W3S\LiCRM\MemberGroup'               => 'system/modules/li_crm/modules/MemberGroup.php',
 ));
 
 
