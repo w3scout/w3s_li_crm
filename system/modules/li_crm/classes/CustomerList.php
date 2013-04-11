@@ -23,9 +23,9 @@ class CustomerList extends \BackendModule
 		parent::generate();
 
         // Redirect to another page when element is created
-        $key = $this->Input->get('key');
-        $id = $this->Input->get('id');
-        $projectId = $this->Input->get('projectId') != '' ? $this->Input->get('projectId') : 0;
+        $key = \Input::get('key');
+        $id = \Input::get('id');
+        $projectId = \Input::get('projectId') != '' ? \Input::get('projectId') : 0;
 
         if($key == 'project')
         {
@@ -87,15 +87,15 @@ class CustomerList extends \BackendModule
 
         // Filter elements
         // Reset if value = 0
-        if($this->Input->post('tl_type') == '0')
+        if(\Input::post('tl_type') == '0')
         {
             $searchType = "";
             $searchValue = "";
         }
-        elseif($this->Input->post('tl_type') != '')
+        elseif(\Input::post('tl_type') != '')
         {
-            $searchType = $this->Input->post('tl_type');
-            $searchValue = $this->Input->post('tl_value');
+            $searchType = \Input::post('tl_type');
+            $searchValue = \Input::post('tl_value');
         }
         elseif($_SESSION['li_customers']['tl_type'] != '')
         {
@@ -124,17 +124,17 @@ class CustomerList extends \BackendModule
         $optionsCount = $customerTotal / $contaoLimit;
 
         // Reset if value = tl_limit
-        if($this->Input->post('tl_limit') == 'tl_limit')
+        if(\Input::post('tl_limit') == 'tl_limit')
         {
             $currentLimit = '0,'.$contaoLimit;
         }
-        elseif($this->Input->post('tl_limit') == 'all')
+        elseif(\Input::post('tl_limit') == 'all')
         {
             $currentLimit = '0,'.$customerTotal;
         }
-        elseif($this->Input->post('tl_limit') != '')
+        elseif(\Input::post('tl_limit') != '')
         {
-            $currentLimit = $this->Input->post('tl_limit');
+            $currentLimit = \Input::post('tl_limit');
         }
         elseif($_SESSION['li_customers']['tl_limit'] != '')
         {

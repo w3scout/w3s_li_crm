@@ -6,10 +6,12 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
+namespace W3S\LiCRM;
+
 /**
  * Class ModuleTaskList
  */
-class ModuleTaskList extends Module
+class ModuleTaskList extends \Module
 {
 	/**
 	 * Template

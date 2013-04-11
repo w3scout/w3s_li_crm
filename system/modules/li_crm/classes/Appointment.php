@@ -21,7 +21,7 @@ class Appointment extends \BackendModule
 		$this->loadLanguageFile('tl_li_appointment');
 		$this->import('BackendUser', 'User');
 
-		$view = $this->Input->get('view');
+		$view = \Input::get('view');
 
 		if($view == '' or ($view != 'week' && $view != 'day'))
 		{

@@ -6,10 +6,12 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
+namespace W3S\LiCRM;
+
 /**
  * Class ModuleInvoiceList
  */
-class ModuleInvoiceList extends Module
+class ModuleInvoiceList extends \Module
 {
 	/**
 	 * Template

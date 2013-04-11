@@ -38,10 +38,10 @@ class DetailsBox extends \Backend
 	 */
 	public function run()
 	{
-		$this->loadLanguageFile($this->Input->get('table'));
-		$this->loadDataContainer($this->Input->get('table'));
+		$this->loadLanguageFile(\Input::get('table'));
+		$this->loadDataContainer(\Input::get('table'));
 		
-		$id = $this->Input->get('id');
+		$id = \Input::get('id');
 
 		$this->Template = new \BackendTemplate('be_appointment_details');
 
@@ -112,11 +112,11 @@ class DetailsBox extends \Backend
 	 */
 	protected function output()
 	{
-		$this->Template->theme = $this->getTheme();
-		$this->Template->base = $this->Environment->base;
-		$this->Template->language = $GLOBALS['TL_LANGUAGE'];
-		$this->Template->title = $GLOBALS['TL_CONFIG']['websiteTitle'];
-		$this->Template->charset = $GLOBALS['TL_CONFIG']['characterSet'];
+		$this->Template->theme      = $this->getTheme();
+		$this->Template->base       = \Environment::get('base');
+		$this->Template->language   = $GLOBALS['TL_LANGUAGE'];
+		$this->Template->title      = $GLOBALS['TL_CONFIG']['websiteTitle'];
+		$this->Template->charset    = $GLOBALS['TL_CONFIG']['characterSet'];
 
 		$this->Template->output();
 	}
@@ -125,5 +125,5 @@ class DetailsBox extends \Backend
 /**
  * Instantiate controller
  */
-$objDetailsBox = new LiCRM\DetailsBox();
+$objDetailsBox = new \LiCRM\DetailsBox();
 $objDetailsBox->run();

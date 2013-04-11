@@ -27,8 +27,8 @@ class TaskComment extends \Backend
 	public function hookExecutePreActions($strAction)
 	{
 		if ($strAction == 'moreComments') {
-			$intPid    = intval($this->Input->post('pid'));
-			$intOffset = intval($this->Input->post('offset'));
+			$intPid    = intval(\Input::post('pid'));
+			$intOffset = intval(\Input::post('offset'));
 
 			$strBuffer = '';
 			$intCommentCount = $this->Database
@@ -63,7 +63,7 @@ class TaskComment extends \Backend
 	 */
 	public function onLoad(\DataContainer $dc)
 	{
-		switch ($this->Input->get('act')) {
+		switch (\Input::get('act')) {
 			case 'edit':
 				$this->import('\BackendUser', 'User');
 				$this->User->authenticate();
@@ -90,7 +90,7 @@ class TaskComment extends \Backend
 			case 'create':
 				$objTask = $this->Database
 					->prepare("SELECT * FROM tl_li_task WHERE id=?")
-					->execute($this->Input->get('pid'));
+					->execute(\Input::get('pid'));
 				foreach ($GLOBALS['TL_DCA']['tl_li_task_comment']['fields'] as $name=> $field)
 				{
 					if (isset($field['passToTask'])) {

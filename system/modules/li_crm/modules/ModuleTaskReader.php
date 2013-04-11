@@ -6,10 +6,12 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
+namespace W3S\LiCRM;
+
 /**
  * Class ModuleTaskReader
  */
-class ModuleTaskReader extends Module
+class ModuleTaskReader extends \Module
 {
 	/**
 	 * Template
@@ -45,7 +47,7 @@ class ModuleTaskReader extends Module
 	protected function compile()
 	{
 		$this->loadLanguageFile('tl_li_task');
-		$alias = $this->Input->get('items');
+		$alias = \Input::get('items');
 
 		$objTask = $this->Database->prepare("
 			SELECT t.id, t.title, t.priority, t.deadline, t.description, s.title AS status, s.icon, s.cssClass

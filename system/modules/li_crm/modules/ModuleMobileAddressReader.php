@@ -6,10 +6,12 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
+namespace W3S\LiCRM;
+
 /**
  * Class ModuleInvoiceReader
  */
-class ModuleMobileAddressReader extends Module
+class ModuleMobileAddressReader extends \Module
 {
 	/**
 	 * Template
@@ -48,7 +50,7 @@ class ModuleMobileAddressReader extends Module
         $this->loadLanguageFile('tl_member');
         $this->loadLanguageFile('tl_address');
 
-        $alias = $this->Input->get('items');
+        $alias = \Input::get('items');
 
         $objAddress = $this->Database->prepare("
             SELECT firstname, lastname, company, street, postal, city, country, email, website

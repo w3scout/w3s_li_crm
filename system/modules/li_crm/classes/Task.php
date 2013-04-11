@@ -40,8 +40,8 @@ class Task extends \BackendModule
 	{
 		parent::generate();
 
-		$key = $this->Input->get('key');
-		$id = $this->Input->get('id');
+		$key = \Input::get('key');
+		$id = \Input::get('id');
 
 		if ($key == 'done')
 		{
@@ -229,9 +229,9 @@ class Task extends \BackendModule
 
 	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
 	{
-		if (strlen($this->Input->get('tid')))
+		if (strlen(\Input::get('tid')))
 		{
-			$this->toggleVisibility($this->Input->get('tid'), ($this->Input->get('state') == 1));
+			$this->toggleVisibility(\Input::get('tid'), (\Input::get('state') == 1));
 			$this->redirect($this->getReferer());
 		}
 
@@ -247,8 +247,8 @@ class Task extends \BackendModule
 
 	public function toggleVisibility($intId, $blnVisible)
 	{
-		$this->Input->setGet('id', $intId);
-		$this->Input->setGet('act', 'toggle');
+		\Input::setGet('id', $intId);
+		\Input::setGet('act', 'toggle');
 
 		// Update the database
 		$this->Database->prepare("UPDATE tl_li_task SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);

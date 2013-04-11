@@ -6,10 +6,12 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
+namespace W3S\LiCRM;
+
 /**
  * Class ModuleInvoiceReader
  */
-class ModuleInvoiceReader extends Module
+class ModuleInvoiceReader extends \Module
 {
 	/**
 	 * Template
@@ -45,14 +47,14 @@ class ModuleInvoiceReader extends Module
 	protected function compile()
 	{
 		global $objPage;
-		$key = $this->Input->get('key');
-		$id = $this->Input->get('id');
+		$key = \Input::get('key');
+		$id = \Input::get('id');
 
 		if ($key == '')
 		{
 			$this->loadLanguageFile('tl_li_invoice');
 			$this->import('FrontendUser', 'User');
-			$alias = $this->Input->get('items');
+			$alias = \Input::get('items');
 
 			if($this->User->id != '')
 			{

@@ -44,7 +44,7 @@ class TaskHistory extends \Widget
 			 		   INNER JOIN tl_li_task_comment c
 			 		   ON t.id=c.pid
 			 		   WHERE c.id=?")
-			->execute($this->Input->get('id'));
+			->execute(\Input::get('id'));
 
 		if (!$objTask->next()) {
 			return '';
