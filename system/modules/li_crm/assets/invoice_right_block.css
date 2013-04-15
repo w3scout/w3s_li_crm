@@ -1,0 +1,34 @@
+body{padding:25px 30px;font-family:Helvetica;font-size:10pt;line-height:100%;}
+
+table {border-spacing:0;}
+table.invoice_head {width:100%;margin-bottom:100px;}
+table.invoice_head td {vertical-align:top;}
+
+.lefthead {}
+.lefthead img {width:280px;}
+.address_window {margin:150px 0 0 20px;}
+.small_address {margin:10px 0 20px 0;font-size:7pt;}
+.customer_address {}
+
+.righthead {width:300px;padding-bottom:30px;font-size:9pt;}
+.account {margin-top:20px;}
+.account h3 {font-size:9pt;margin:0;padding:0;line-height:120%;}
+.invoice_shortdata {margin-top: 40px;}
+
+h1 {font-size:16pt;padding:0;border-bottom:1px solid #000;line-height:130%;}
+p {line-height:150%;margin-top:20px;}
+
+table thead td {font-weight:bold;border-top:1px solid #000;border-bottom:1px solid #000;height:30px;line-height:30px;color:#333333;vertical-align:top;}
+table tbody tr.odd td {background-color:#f3f3f3;}
+
+table.positions {width:100%;margin:10px 0;}
+table.positions td.quantity,
+table.positions td.unit {text-align:center;}
+table.positions tbody td,
+table.account tbody td {height:25px;line-height:25px;}
+
+table.positions {padding-bottom: 10px;}
+table.positions tbody tr.total td {font-weight:bold;}
+table.positions tbody td.amount,
+table.positions tbody td.price {text-align:right;}
+table.positions tbody td.price {padding-right:10px;}

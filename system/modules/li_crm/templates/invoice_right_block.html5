@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title><?php echo $template['title']; ?></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <base href="<?php echo $template['base']; ?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $template['root_path']; ?>system/modules/li_crm/assets/invoice_right_block.css" />
+    </head>
+    <body>
+        <table class="invoice_head">
+            <tbody>
+                <tr>
+                    <td class="lefthead">
+                        <img src="<?php echo $template['root_path']; ?><?php echo $template['logo']; ?>" alt="Logo" title="Logo" />
+
+                        <div class="address_window">
+                            <div class="small_address"><?php echo $template['company_name'].", ".$template['company_street'].", ".$template['company_postal']." ".$template['company_city']; ?></div>
+
+                            <div class="customer_address">
+                                <?php echo $template['customer_company']; ?><br />
+                                <?php echo $template['customer_firstname']; ?> <?php echo $template['customer_lastname']; ?><br />
+                                <?php echo $template['customer_street']; ?><br />
+                                <?php echo $template['customer_postal']; ?> <?php echo $template['customer_city']; ?>
+                                <?php if($template['customer_country'] != ''): ?>
+                                    <br /><?php echo $template['customer_country']; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="righthead">
+                        <strong><?php echo $template['company_name']; ?></strong><br />
+                        <br />
+                        <?php echo $template['company_street']; ?><br />
+                        <?php echo $template['company_postal']." ".$template['company_city']; ?><br />
+                        <br />
+                        <?php echo $GLOBALS['TL_LANG']['tl_member']['phone'][0].": ".$template['company_phone']; ?>
+                        <?php if($template['company_fax'] != ''): ?>
+                            <br />
+                            <?php echo $GLOBALS['TL_LANG']['tl_member']['fax']['0'].": ".$template['company_fax']; ?>
+                        <?php endif; ?>
+                        <?php if($template['company_email'] != ''): ?>
+                            <br />
+                            <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['email'].": ".$template['company_email']; ?>
+                        <?php endif; ?>
+                        <?php if($template['company_website'] != ''): ?>
+                            <br />
+                            <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['website'].": ".$template['company_website']; ?>
+                        <?php endif; ?>
+
+                        <div class="account">
+                            <h3><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['account_data']; ?></h3>
+
+                            <?php if($template['bank'] != ''): ?>
+                                <br />
+                                <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank']['0']; ?>: <?php echo $template['bank']; ?>
+                            <?php endif; ?>
+                            <?php if($template['account_number'] != ''): ?>
+                                <br />
+                                <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number']['0']; ?>: <?php echo $template['account_number']; ?>
+                            <?php endif; ?>
+                            <?php if($template['bank_code'] != ''): ?>
+                                <br />
+                                <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank_code']['0']; ?>: <?php echo $template['bank_code']; ?>
+                            <?php endif; ?>
+                            <?php if($template['iban'] != ''): ?>
+                                <br />
+                                <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_iban']['0']; ?>: <?php echo $template['iban']; ?>
+                            <?php endif; ?>
+                            <?php if($template['bic'] != ''): ?>
+                                <br />
+                                <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bic']['0']; ?>: <?php echo $template['bic']; ?>
+                            <?php endif; ?>
+                        </div>
+
+                        <?php if($template['company_tax_number'] != ''): ?>
+                            <br />
+                            <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_tax_number']['0'].": ".$template['company_tax_number']; ?>
+                        <?php endif; ?>
+                        <?php if($template['company_ustid'] != ''): ?>
+                            <br />
+                            <?php echo $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_company_ustid']['0'].": ".$template['company_ustid']; ?>
+                        <?php endif; ?>
+
+                        <div class="invoice_shortdata">
+                            <?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['date']; ?>: <?php echo $template['invoice_date']; ?><br />
+                            <?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number']; ?>: <?php echo $template['invoice_number']; ?>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h1><?php echo $template['title']; ?></h1>
+        <p><?php echo $template['introduction']; ?></p>
+
+        <?php echo $template['description_before']; ?>
+
+        <table class="positions">
+        <thead>
+            <tr>
+                <td width="35" class="quantity"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['position_quantity']['0']; ?></td>
+                <td width="50" class="unit"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit']['0']; ?></td>
+                <td class="label"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['position_label']['0']; ?></td>
+                <td width="60" class="unit_price"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['position_unit_price']['0']; ?></td>
+                <td width="60" class="total_price"><?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['position_total_price']; ?></td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php echo $template['positions']; ?>
+        </tbody>
+        </table>
+
+        <?php if($template['early_payment_discount'] != ''): ?>
+            <p>
+                <?php echo $template['early_payment_discount']; ?>
+            </p>
+        <?php endif; ?>
+
+        <?php echo $template['description_after']; ?>
+        <p><?php echo $template['performance_date_remark']; ?></p>
+        <p><?php echo $template['maturity_remark']; ?></p>
+
+        <p><?php echo $template['greeting']; ?></p>
+    </body>
+</html>

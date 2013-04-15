@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title><?php echo $template['title']; ?></title>
-        <meta http-equiv="Content-Type" content="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <base href="<?php echo $template['base']; ?>" />
-        <link rel="stylesheet" type="text/css" href="system/modules/li_crm/assets/invoice_default.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $template['root_path']; ?>system/modules/li_crm/assets/invoice_default.css" />
     </head>
     <body>
         <table class="invoice_head">
             <tbody>
                 <tr>
                     <td class="logo">
-                        <img src="<?php echo $template['logo']; ?>" alt="Logo" title="Logo" />
+                        <img src="<?php echo $template['root_path']; ?><?php echo $template['logo']; ?>" alt="Logo" title="Logo" />
                         <span class="small_address"><?php echo $template['company_name']."<br />".$template['company_street']." ".$template['company_postal']." ".$template['company_city']; ?></span>
                     </td>
                     <td class="own_address">

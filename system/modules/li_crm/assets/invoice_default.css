@@ -1,19 +1,19 @@
 body{padding:25px 30px;font-family:Helvetica;font-size:10pt;line-height:100%;}
-.logo{padding:20px 70px 0 0;}
+.logo{width:650px;padding:20px 60px 0 0;}
 .logo img{width:280px;}
-.own_address{width:150px;padding-bottom:30px;}
+.own_address{width:200px;padding-bottom:30px;}
 .small_address{display:block;font-size:7pt;padding-top:10px;}
 h1{font-size:20pt;padding-top:50px;border-bottom:1px solid #000;line-height:130%;}
 p{line-height:150%;padding-top:-10px;}
 table{border-spacing:0;}
 
-table.invoice_head{width:500px;}
+table.invoice_head{}
 table.invoice_head td{vertical-align:top;}
 table.positions{width:100%;margin:10px 0;}
 table.positions td.quantity, table.positions td.unit{text-align:center;}
-table.positions tbody td, table.account tbody td{height:15px;line-height:15px;}
+table.positions tbody td, table.account tbody td{height:30px;line-height:30px;}
 
-table thead td{font-weight:bold;border-top:1px solid #000;border-bottom:1px solid #000;height:15px;line-height:15px;color:#333333;vertical-align:top;}
+table thead td{font-weight:bold;border-top:1px solid #000;border-bottom:1px solid #000;height:30px;line-height:30px;color:#333333;vertical-align:top;}
 table tbody tr.odd td{background-color:#ddd;}
 
 table td.own_address strong{display:block;}

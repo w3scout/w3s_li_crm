@@ -2,7 +2,8 @@
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
@@ -29,8 +30,8 @@ class Invoice extends \BackendModule
 	{
 		parent::generate();
 
-		$key = $this->Input->get('key');
-		$id = $this->Input->get('id');
+		$key = \Input::get('key');
+		$id = \Input::get('id');
 
         if($key == 'paid')
         {
@@ -38,7 +39,7 @@ class Invoice extends \BackendModule
         }
 		elseif($key == 'print')
 		{
-			$this->Template->filePath = $this->printInvoice($id);
+			$this->Template->filePath = $this->printInvoiceAsPDF($id);
 		}
 		elseif($key == 'html')
 		{
@@ -322,12 +323,14 @@ class Invoice extends \BackendModule
 	public function getHourOptions(\MultiColumnWizard $mcw)
 	{
 		$options = array();
-		$objInvoice = $this->Database->prepare("
+
+        $objInvoice = $this->Database->prepare("
 		    SELECT toCustomer, currency
 		    FROM tl_li_invoice
 		    WHERE id = ?
 		")->limit(1)->execute($mcw->currentRecord);
-		$objHours = $this->Database->prepare("
+
+        $objHours = $this->Database->prepare("
             SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
             FROM tl_li_work_package AS wp
             INNER JOIN tl_li_working_hour AS wh
@@ -339,7 +342,8 @@ class Invoice extends \BackendModule
               AND wp.printOnInvoice = 1
             GROUP BY wp.id
         ")->execute($objInvoice->toCustomer, $objInvoice->currency);
-		while ($objHours->next())
+
+        while ($objHours->next())
 		{
 			$hours = $objHours->sumHours;
 			$minutes = $objHours->sumMinutes;
@@ -351,15 +355,16 @@ class Invoice extends \BackendModule
 		return $options;
 	}
 
-	public function printInvoice($id)
+	public function printInvoiceAsPDF($id)
 	{
 		// Log process
-		$this->log('Generate new invoice', 'Generate invoice with id '.$id, TL_FILES);
+		$this->log('Generate new pdf invoice', 'Generate invoice with id '.$id, TL_FILES);
 
-		$data = $this->getInvoiceData($id);
-        $html = $data['html'];
-        $invoiceNumber = $data['invoiceNumber'];
-        $fullNetto = $data['fullNetto'];
+		$data           = $this->getInvoiceData($id,"pdf");
+        $strHtml        = $data['html'];
+
+        $invoiceNumber  = $data['invoiceNumber'];
+        $fullNetto      = $data['fullNetto'];
 		
 		$objInvoice = $this->Database->prepare("
             SELECT i.alias, i.invoiceDate, t.basePath, t.periodFolder
@@ -369,23 +374,21 @@ class Invoice extends \BackendModule
             WHERE i.id = ?
         ")->limit(1)->execute($id);
 
-        $objBasepath = \FilesModel::findByPk($objInvoice->basePath);
+        $dompdf = new \ContaoDOMPDF();
+        $dompdf->set_paper('a4');
+        $dompdf->set_base_path(TL_ROOT);
+        $dompdf->load_html($strHtml);
+        $dompdf->render();
 
-
-        require_once (TL_ROOT.'/system/modules/dompdf/resources/dompdf_config.inc.php');
-
-		// Generate DOMPDF object
-		$dompdf = new \DOMPDF();
-		$dompdf->set_paper('a4');
-		$dompdf->set_base_path(TL_ROOT);
-		$dompdf->load_html($html);
-		$dompdf->render();
+        $strPDF = $dompdf->output();
 
 		// Generate export path
         $root = TL_ROOT."/";
-        $basePath = $objBasepath->basePath."/";
-        $periodFolder = "";
+        $objResult = \FilesModel::findByPk($objInvoice->basePath);
 
+        $basePath = $objResult->path."/";
+
+        $periodFolder = "";
 		if ($objInvoice->periodFolder != '')
 		{
 			if ($objInvoice->periodFolder == 'daily')
@@ -414,9 +417,9 @@ class Invoice extends \BackendModule
         $file = $objInvoice->alias.'.pdf';
 		$exportFile = $root.$basePath.$periodFolder.$file;
 
-		// Export pdf
+		// Save pdf as file
 		$pdfInvoice = fopen($exportFile, 'w');
-		fwrite($pdfInvoice, $dompdf->output());
+		fwrite($pdfInvoice, $strPDF);
 		fclose($pdfInvoice);
 
 		$templateLink = substr($exportFile, 2);
@@ -432,8 +435,7 @@ class Invoice extends \BackendModule
 		return $templateLink;
 	}
 
-
-	private function getInvoiceData($id)
+	private function getInvoiceData($id,$type)
 	{
         $this->import('Encryption');
 
@@ -475,7 +477,7 @@ class Invoice extends \BackendModule
             WHERE i.id = ?
         ")->limit(1)->execute($id);
 
-        $objAddress = $this->Database->prepare("
+        $objCustomerAddress = $this->Database->prepare("
             SELECT company, firstname, lastname, street, postal, city, gender, country
             FROM tl_address
             WHERE id=?
@@ -492,47 +494,49 @@ class Invoice extends \BackendModule
 		$templateFile = $objInvoice->invoice_template;
 
         $countries = $this->getCountries();
-        $country = $objAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objAddress->country] : '';
+        $country = $objCustomerAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objCustomerAddress->country] : '';
 
         $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
 
-        // get logo
         $objLogo = \FilesModel::findByPk($objInvoice->logo);
 
         $template = array(
-            'logo' => $objLogo->path,
-            'company_name' => $GLOBALS['TL_CONFIG']['li_crm_company_name'],
-            'company_street' => $GLOBALS['TL_CONFIG']['li_crm_company_street'],
-            'company_postal' => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_postal']),
-            'company_city' => $GLOBALS['TL_CONFIG']['li_crm_company_city'],
-            'company_phone' => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_phone']),
-            'company_fax' => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_fax']),
-            'company_tax_number' => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
-            'company_ustid' => $GLOBALS['TL_CONFIG']['li_crm_company_ustid'],
+            'logo'                      => $objLogo->path,
+            'company_name'              => $GLOBALS['TL_CONFIG']['li_crm_company_name'],
+            'company_street'            => $GLOBALS['TL_CONFIG']['li_crm_company_street'],
+            'company_postal'            => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_postal']),
+            'company_city'              => $GLOBALS['TL_CONFIG']['li_crm_company_city'],
+            'company_phone'             => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_phone']),
+            'company_fax'               => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_company_fax']),
+            'company_email'             => $GLOBALS['TL_CONFIG']['li_crm_company_email'],
+            'company_website'           => $GLOBALS['TL_CONFIG']['li_crm_company_website'],
 
-            'customer_number' => $objInvoice->customerNumber,
-            'customer_company' => $objAddress->company,
-            'customer_firstname' => $objAddress->firstname,
-            'customer_lastname' => $objAddress->lastname,
-            'customer_street' => $objAddress->street,
-            'customer_postal' => $objAddress->postal,
-            'customer_city' => $objAddress->city,
-            'customer_country' => $country,
+            'company_tax_number'        => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
+            'company_ustid'             => $GLOBALS['TL_CONFIG']['li_crm_company_ustid'],
 
-            'invoice_date' => date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate),
-            'invoice_number' => $invoiceNumber,
+            'customer_number'           => $objInvoice->customerNumber,
+            'customer_company'          => $objCustomerAddress->company,
+            'customer_firstname'        => $objCustomerAddress->firstname,
+            'customer_lastname'         => $objCustomerAddress->lastname,
+            'customer_street'           => $objCustomerAddress->street,
+            'customer_postal'           => $objCustomerAddress->postal,
+            'customer_city'             => $objCustomerAddress->city,
+            'customer_country'          => $country,
 
-            'title' => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
-            'introduction' => sprintf($objAddress->gender == 'male' || $objAddress->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objAddress->lastname),
+            'invoice_date'              => date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate),
+            'invoice_number'            => $invoiceNumber,
 
-            'early_payment_discount' => $objInvoice->earlyPaymentDiscount,
+            'title'                     => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
+            'introduction'              => sprintf($objCustomerAddress->gender == 'male' || $objCustomerAddress->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objCustomerAddress->lastname),
 
-            'performance_date_remark' => $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
-            'account_number' => $GLOBALS['TL_CONFIG']['li_crm_account_number'],
-            'bank_code' => $GLOBALS['TL_CONFIG']['li_crm_bank_code'],
-            'iban' => $GLOBALS['TL_CONFIG']['li_crm_iban'],
-            'bic' => $GLOBALS['TL_CONFIG']['li_crm_bic'],
-            'bank' => $GLOBALS['TL_CONFIG']['li_crm_bank'],
+            'early_payment_discount'    => $objInvoice->earlyPaymentDiscount,
+
+            'performance_date_remark'   => $objInvoice->invoiceDate == $objInvoice->performanceDate ? $GLOBALS['TL_LANG']['tl_li_invoice']['performance_is_invoice_date'] : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['performance_date_at'], date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->performanceDate)),
+            'account_number'            => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_account_number']),
+            'bank_code'                 => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_bank_code']),
+            'iban'                      => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_iban']),
+            'bic'                       => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_bic']),
+            'bank'                      => $this->Encryption->decrypt($GLOBALS['TL_CONFIG']['li_crm_bank']),
 
             'greeting' => sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['greeting'], $GLOBALS['TL_CONFIG']['li_crm_company_name'])
         );
@@ -809,9 +813,11 @@ class Invoice extends \BackendModule
 		}
 
         $template['description_before'] = $descriptionBefore;
-        $template['positions'] = $htmlPositions;
-        $template['description_after'] = $descriptionAfter;
-        $template['maturity_remark'] = $maturity_remark;
+        $template['positions']          = $htmlPositions;
+        $template['description_after']  = $descriptionAfter;
+        $template['maturity_remark']    = $maturity_remark;
+
+        $template['root_path']          = $type == 'pdf' ? TL_ROOT.'/' : null;
 
 		ob_start();
 		include ($this->getTemplate($templateFile, 'html5'));
@@ -819,7 +825,7 @@ class Invoice extends \BackendModule
 		ob_end_clean();
 
 		return array(
-            'html' => utf8_decode($html),
+            'html' => $html,
             'invoiceNumber' => $invoiceNumber,
             'fullNetto' => $fullNetto
         );
@@ -997,10 +1003,11 @@ class Invoice extends \BackendModule
 	
 	private function generateHtmlInvoice($id)
 	{
-		$data = $this->getInvoiceData($id);
+		$data = $this->getInvoiceData($id,"html");
         echo $data['html'];
-		exit;
-	}
+
+        exit;
+    }
 
 	public function sendInvoice($id)
 	{
@@ -1013,15 +1020,16 @@ class Invoice extends \BackendModule
         ")->limit(1)->execute($id);
 		try
 		{
-			$objEmail = new \Email();
-			$objEmail->from = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_from'];
+			$objEmail           = new \Email();
+			$objEmail->from     = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_from'];
 			$objEmail->fromName = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_fromName'];
-			$objEmail->subject = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'];
-			$objEmail->text = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
-			$objEmail->html = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+			$objEmail->subject  = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'];
+			$objEmail->text     = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+			$objEmail->html     = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 
 			$objEmail->attachFile(TL_ROOT."/".$objInvoice->file);
-			$worked = $objEmail->sendTo($objInvoice->email);
+
+            $worked = $objEmail->sendTo($objInvoice->email);
 		}
 		catch( Exception $e )
 		{
@@ -1037,12 +1045,14 @@ class Invoice extends \BackendModule
 
 	private function returnFile($id)
 	{
-		$objInvoice = $this->Database->prepare("
+        $objInvoice = $this->Database->prepare("
             SELECT file AS pdfFile
             FROM tl_li_invoice
             WHERE id = ?
         ")->limit(1)->execute($id);
+
 		$path = '../'.$objInvoice->pdfFile;
+
 		$filename = basename($path);
 		header('Content-type: application/pdf');
 		header('Content-Disposition: attachment; filename="'.$filename.'"');
@@ -1108,9 +1118,9 @@ class Invoice extends \BackendModule
 
 	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
 	{
-		if (strlen($this->Input->get('tid')))
+		if (strlen(\Input::get('tid')))
 		{
-			$this->toggleVisibility($this->Input->get('tid'), ($this->Input->get('state') == 1));
+			$this->toggleVisibility(\Input::get('tid'), (\Input::get('state') == 1));
 			$this->redirect($this->getReferer());
 		}
 
@@ -1121,13 +1131,14 @@ class Invoice extends \BackendModule
 		}
 		$label = $GLOBALS['TL_LANG']['tl_li_invoice']['toggle']['0'];
 		$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['toggle']['1'], $row['id']);
-		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+
+        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
 	}
 
 	public function toggleVisibility($intId, $blnVisible)
 	{
-		$this->Input->setGet('id', $intId);
-		$this->Input->setGet('act', 'toggle');
+		\Input::setGet('id', $intId);
+		\Input::setGet('act', 'toggle');
 
 		// Update the database
 		$this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
@@ -1226,8 +1237,8 @@ class Invoice extends \BackendModule
 		// Add a log entry
 		$this->log('Access to page ID "'.$pageId.'" denied', 'PageError403 generate()', TL_ERROR);
 
-		$host = $this->Environment->host;
-		$accept_language = $this->Environment->httpAcceptLanguage;
+		$host = \Environment::get('host');
+		$accept_language = \Environment::get('httpAcceptLanguage');
 		$time = time();
 
 		// Find the matching root pages (thanks to Andreas Schempp)
