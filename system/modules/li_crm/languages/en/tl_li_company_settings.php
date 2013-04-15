@@ -23,3 +23,6 @@ $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank_code'] = array("Bank 
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank'] = array("Bank name", "Please enter the name of your bank.");
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_iban'] = array("IBAN", "Please enter your IBAN.");
 $GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bic'] = array("BIC", "Please enter your BIC.");
+
+$GLOBALS['TL_LANG']['tl_li_company_settings']['email']      = 'Email';
+$GLOBALS['TL_LANG']['tl_li_company_settings']['website']    = 'Web';

@@ -24,7 +24,7 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 	'palettes' => array
 	(
 		'default'                   => '{company_legend},li_crm_company_name,li_crm_company_default_currency,li_crm_company_tax_number,li_crm_company_ustid;
-		    							{address_legend},li_crm_company_street,li_crm_company_postal,li_crm_company_city,li_crm_company_country,li_crm_company_phone,li_crm_company_fax;
+		    							{address_legend},li_crm_company_street,li_crm_company_postal,li_crm_company_city,li_crm_company_country,li_crm_company_phone,li_crm_company_fax,li_crm_company_email,li_crm_company_website;
 		    							{bank_legend},li_crm_account_number,li_crm_bank_code,li_crm_bank,li_crm_iban,li_crm_bic;'
 	),
 
@@ -104,40 +104,54 @@ $GLOBALS['TL_DCA']['tl_li_company_settings'] = array
 			'exclude'   			=> true,
 			'eval'                  => array('encrypt'=>true, 'maxlength'=>64, 'rgxp'=>'phone', 'tl_class'=>'w50'),
 		),
+        'li_crm_company_email' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_member']['email'],
+            'inputType'             => 'text',
+            'exclude'   			=> true,
+            'eval'                  => array('maxlength'=>64, 'rgxp'=>'email', 'tl_class'=>'w50'),
+        ),
+        'li_crm_company_website' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_member']['website'],
+            'inputType'             => 'text',
+            'exclude'   			=> true,
+            'eval'                  => array('maxlength'=>64, 'rgxp'=>'url', 'tl_class'=>'w50'),
+        ),
 		'li_crm_account_number' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_account_number'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>64, 'rgxp'=>'digit'),
+			'eval'                  => array('encrypt'=>true,'maxlength'=>64, 'rgxp'=>'digit'),
 		),
 		'li_crm_bank_code' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank_code'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>64, 'rgxp'=>'digit', 'tl_class'=>'w50'),
+			'eval'                  => array('encrypt'=>true,'maxlength'=>64, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 		),
 		'li_crm_bank' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bank'],
 			'inputType'             => 'text',
 			'exclude'   			=> true,
-			'eval'                  => array('maxlength'=>64, 'tl_class'=>'w50'),
+			'eval'                  => array('encrypt'=>true,'maxlength'=>64, 'tl_class'=>'w50'),
 		),
         'li_crm_iban' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_iban'],
             'inputType'             => 'text',
             'exclude'   			=> true,
-            'eval'                  => array('maxlength'=>64, 'tl_class'=>'w50'),
+            'eval'                  => array('encrypt'=>true,'maxlength'=>64, 'tl_class'=>'w50'),
         ),
         'li_crm_bic' => array
         (
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_company_settings']['li_crm_bic'],
             'inputType'             => 'text',
             'exclude'   			=> true,
-            'eval'                  => array('maxlength'=>64, 'tl_class'=>'w50'),
+            'eval'                  => array('encrypt'=>true,'maxlength'=>64, 'tl_class'=>'w50'),
         )
 	)
 );
