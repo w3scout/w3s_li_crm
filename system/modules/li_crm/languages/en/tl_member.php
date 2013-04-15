@@ -27,5 +27,6 @@ $GLOBALS['TL_LANG']['tl_member']['registerProduct'] = array("Product", "Please c
 $GLOBALS['TL_LANG']['tl_member']['contacts'] = array("Contacts", "Manage the contacts of the member with the ID %s");
 
 $GLOBALS['TL_LANG']['tl_member']['phone'] = array("Phone", "Please enter a phone number.");
+$GLOBALS['TL_LANG']['tl_member']['fax'] = array("Fax", "Please insert a fax number.");
 
 $GLOBALS['TL_LANG']['tl_member']['noCustomersAvailable'] = 'No customers available';

@@ -101,82 +101,82 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 
         'title' => array
         (
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['title'],
-			'inputType'             => 'text',
-			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['title'],
+			'inputType'                 => 'text',
+			'exclude'   			    => true,
+			'eval'                      => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
             'sql'                       => "varchar(255) NOT NULL default ''"
 		),
 		'invoice_template' => array
         (
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'],
-			'inputType'             => 'select',
-			'exclude'   			=> true,
-			'options_callback'      => array('LiCRM\InvoiceTemplate', 'getInvoiceTemplates'),
-            'eval'                  => array('chosen'=>true, 'tl_class'=>'w50'),
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['invoice_template'],
+			'inputType'                 => 'select',
+			'exclude'   			    => true,
+			'options_callback'          => array('LiCRM\InvoiceTemplate', 'getInvoiceTemplates'),
+            'eval'                      => array('chosen'=>true, 'tl_class'=>'w50'),
             'sql'                       => "varchar(64) NOT NULL default ''"
 		),
 		'isDefaultTemplate' => array
         (
-            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['isDefaultTemplate'],
-            'inputType'             => 'checkbox',
-            'exclude'   			=> true,
-            'eval'                  => array('tl_class'=>'w50 m12'),
+            'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['isDefaultTemplate'],
+            'inputType'                 => 'checkbox',
+            'exclude'   			    => true,
+            'eval'                      => array('tl_class'=>'w50 m12'),
             'sql'                       => "char(1) NOT NULL default ''"
         ),
 		'logo' => array
         (
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'],
-			'inputType'             => 'fileTree',
-			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true),
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['logo'],
+			'inputType'                 => 'fileTree',
+			'exclude'   			    => true,
+			'eval'                      => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true),
             'sql'                       => "varchar(255) NOT NULL default ''"
 		),
 		'maturity' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity'],
-			'inputType'             => 'text',
-			'exclude'   			=> true,
-			'eval'                  => array('tl_class'=>'w50'),
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['maturity'],
+			'inputType'                 => 'text',
+			'exclude'   			    => true,
+			'eval'                      => array('tl_class'=>'w50'),
             'sql'                       => "int(10) unsigned NOT NULL default '0'"
 		),
 		'descriptionBefore' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'],
-            'inputType'             => 'textarea',
-            'exclude'   			=> true,
-			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'],
+            'inputType'                 => 'textarea',
+            'exclude'   			    => true,
+			'eval'                      => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
             'sql'                       => "text NOT NULL"
 		),
         'descriptionAfter' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter'],
-            'inputType'             => 'textarea',
-            'exclude'   			=> true,
-			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter'],
+            'inputType'                 => 'textarea',
+            'exclude'   			    => true,
+			'eval'                      => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
             'sql'                       => "text NOT NULL"
 		),
 		'basePath' => array
         (
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'],
-			'inputType'             => 'fileTree',
-			'exclude'   			=> true,
-			'save_callback'         => array
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'],
+			'inputType'                 => 'fileTree',
+			'exclude'   			    => true,
+			'save_callback'             => array
             (
 				array('LiCRM\InvoiceTemplate', 'moveHtaccessFile')
 			),
-			'eval'                  => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false, 'mandatory'=>true),
+			'eval'                      => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false, 'mandatory'=>true),
             'sql'                       => "varchar(255) NOT NULL default ''"
 		),
 		'periodFolder' => array
         (
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'],
-			'inputType'             => 'select',
-			'exclude'   			=> true,
-			'options'               => array('daily', 'weekly', 'monthly', 'yearly'),
-			'reference'             => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods'],
-			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
-            'sql'                   => "varchar(10) NOT NULL default ''"
+			'label'                     => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'],
+			'inputType'                 => 'select',
+			'exclude'   			    => true,
+			'options'                   => array('daily', 'weekly', 'monthly', 'yearly'),
+			'reference'                 => &$GLOBALS['TL_LANG']['tl_li_invoice_template']['periods'],
+			'eval'                      => array('includeBlankOption'=>true, 'chosen'=>true),
+            'sql'                       => "varchar(10) NOT NULL default ''"
 		)
 	)
 );

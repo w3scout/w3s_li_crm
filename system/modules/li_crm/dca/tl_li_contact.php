@@ -151,7 +151,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'options'               => array('incoming', 'outgoing'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_contact']['directions'],
 			'eval'                  => array('mandatory'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "varchar(32) NOT NULL default ''"
+            'sql'                   => "varchar(32) NOT NULL default ''"
 		),
 		'startDate' => array
 		(

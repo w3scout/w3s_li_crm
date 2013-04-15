@@ -7,8 +7,8 @@
  */
 
 $this->loadLanguageFile('tl_li_invoice_reminder');
-$this->import('LiCRM\InvoiceTemplate');
 
+$this->import('LiCRM\InvoiceTemplate');
 $invoiceTemplate = new LiCRM\InvoiceTemplate();
 
 /**
