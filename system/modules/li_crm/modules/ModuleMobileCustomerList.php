@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -80,19 +80,19 @@ class ModuleMobileCustomerList extends \Module
             while($objAddresses->next() != null) {
                 $arrAddresses[] = array
                 (
-                    'id' => $objAddresses->id,
+                    'id'        => $objAddresses->id,
                     'firstname' => $objAddresses->firstname,
-                    'lastname' => $objAddresses->lastname,
-                    'link' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objAddresses->id)
+                    'lastname'  => $objAddresses->lastname,
+                    'link'      => $this->generateFrontendUrl($objPage->row(), '/items/'. $objAddresses->id)
                 );
             }
             $arrCustomers[] = array
 			(
-				'id' => $objCustomers->id,
-				'customerNumber' => $objCustomers->customerNumber,
-				'customerName' => $objCustomers->customerName,
-                'countAddresses' => count($arrAddresses),
-                'addresses' => $arrAddresses
+                'id'                => $objCustomers->id,
+                'customerNumber'    => $objCustomers->customerNumber,
+                'customerName'      => $objCustomers->customerName,
+                'countAddresses'    => count($arrAddresses),
+                'addresses'         => $arrAddresses
 			);
 		}
 		

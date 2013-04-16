@@ -163,4 +163,59 @@ class Task extends \BackendModule
 	}
 
 
+    /**
+     * @param $row
+     * @param $label
+     * @return string
+     */
+    public function renderComment($row)
+    {
+
+        $this->loadLanguageFile('tl_li_task_comment');
+
+        $objTemplate = new \BackendTemplate('be_task_comment');
+        $objTemplate->setData($row);
+
+        $objTemplate->datetime = $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $row['tstamp']);
+        $objTemplate->date     = $this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['tstamp']);
+
+        $objTemplate->user = $this->Database
+            ->prepare("SELECT * FROM tl_user WHERE id=?")
+            ->execute($row['user']);
+
+        if ($row['toCustomer']) {
+            $objTemplate->customer = $this->Database
+                ->prepare("SELECT * FROM tl_member WHERE id=?")
+                ->execute($row['toCustomer']);
+        }
+
+        if ($row['toProject']) {
+            $objTemplate->project = $this->Database
+                ->prepare("SELECT * FROM tl_li_project WHERE id=?")
+                ->execute($row['toProject']);
+        }
+
+        $objTemplate->pstatus = $this->Database
+            ->prepare("SELECT * FROM tl_li_task_status WHERE id=?")
+            ->execute($row['previousStatus']);
+
+        $objTemplate->status = $this->Database
+            ->prepare("SELECT * FROM tl_li_task_status WHERE id=?")
+            ->execute($row['toStatus']);
+
+        $objTemplate->puser = $this->Database
+            ->prepare("SELECT * FROM tl_user WHERE id=?")
+            ->execute($row['previousUser']);
+
+        $objTemplate->tuser = $this->Database
+            ->prepare("SELECT * FROM tl_user WHERE id=?")
+            ->execute($row['toUser']);
+
+        $objTemplate->workPackage = $this->Database
+            ->prepare("SELECT * FROM tl_li_work_package WHERE id=?")
+            ->execute($row['toWorkPackage']);
+
+        return $objTemplate->parse();
+    }
+
 }

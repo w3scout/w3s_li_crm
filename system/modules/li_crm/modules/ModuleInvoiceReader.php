@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -84,14 +84,14 @@ class ModuleInvoiceReader extends \Module
 			{
 				$currencyHelper = new CurrencyHelper();
 				$arrInvoice = array(
-						'id' => $objInvoice->id,
-						'title' => $objInvoice->title,
-						'date' => $objInvoice->invoiceDate,
-						'price' => $this->getFormattedNumber($objInvoice->price).' '.$currencyHelper->getSymbolOfCode($objInvoice->currency),
-						'currency' => strtolower($objInvoice->currency),
+						'id'            => $objInvoice->id,
+						'title'         => $objInvoice->title,
+						'date'          => $objInvoice->invoiceDate,
+						'price'         => $this->getFormattedNumber($objInvoice->price).' '.$currencyHelper->getSymbolOfCode($objInvoice->currency),
+						'currency'      => strtolower($objInvoice->currency),
 						'fileAvailable' => $objInvoice->file != '',
-						'file' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoice->alias).'?key=pdf&id='.$objInvoice->id,
-						'cssClass' => $objInvoice->cssClass
+						'file'          => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoice->alias).'?key=pdf&id='.$objInvoice->id,
+						'cssClass'      => $objInvoice->cssClass
 				);
 				$this->Template->invoice = $arrInvoice;
 				$this->Template->invoiceFound = true;

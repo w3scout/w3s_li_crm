@@ -27,15 +27,15 @@ class ModuleInvoiceList extends \Module
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard  = '### INVOICE LIST ###';
-			$objTemplate->title     = $this->headline;
-			$objTemplate->id        = $this->id;
-			$objTemplate->link      = $this->name;
-			$objTemplate->href      = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+            $objTemplate->wildcard  = '### INVOICE LIST ###';
+            $objTemplate->title     = $this->headline;
+            $objTemplate->id        = $this->id;
+            $objTemplate->link      = $this->name;
+            $objTemplate->href      = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
 
-			return $objTemplate->parse();
+            return $objTemplate->parse();
 		}
 
 		return parent::generate();
@@ -83,15 +83,15 @@ class ModuleInvoiceList extends \Module
 		{
 			$newArray = array
 			(
-				'id' => $objInvoices->id,
-				'title' => $objInvoices->title,
-				'date' => $objInvoices->invoiceDate,
-				'price' => $this->getFormattedNumber($objInvoices->price).' '.$currencyHelper->getSymbolOfCode($objInvoices->currency),
-				'currency' => strtolower($objInvoices->currency),
+				'id'            => $objInvoices->id,
+				'title'         => $objInvoices->title,
+				'date'          => $objInvoices->invoiceDate,
+				'price'         => $this->getFormattedNumber($objInvoices->price).' '.$currencyHelper->getSymbolOfCode($objInvoices->currency),
+				'currency'      => strtolower($objInvoices->currency),
 				'fileAvailable' => $objInvoices->file != '',
-				'file' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias).'?key=pdf&id='.$objInvoices->id,
-				'cssClass' => $objInvoices->cssClass,
-				'details' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias)
+				'file'          => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias).'?key=pdf&id='.$objInvoices->id,
+				'cssClass'      => $objInvoices->cssClass,
+				'details'       => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias)
 			);
 			$arrInvoices[] = $newArray;
 		}

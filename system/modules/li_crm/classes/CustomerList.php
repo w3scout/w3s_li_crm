@@ -25,6 +25,7 @@ class CustomerList extends \BackendModule
         // Redirect to another page when element is created
         $key = \Input::get('key');
         $id = \Input::get('id');
+
         $projectId = \Input::get('projectId') != '' ? \Input::get('projectId') : 0;
 
         if($key == 'project')

@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -66,20 +66,18 @@ class ModuleMobileAddressReader extends \Module
                 'fields' => array
                 (
                     'firstname' => $objAddress->firstname,
-                    'lastname' => $objAddress->lastname,
-                    'company' => $objAddress->company,
-                    'street' => $objAddress->street,
-                    'postal' => $objAddress->postal,
-                    'city' => $objAddress->city,
-                    'country' => $objAddress->country,
-                    'email' => $objAddress->email,
-                    'website' => $objAddress->website
+                    'lastname'  => $objAddress->lastname,
+                    'company'   => $objAddress->company,
+                    'street'    => $objAddress->street,
+                    'postal'    => $objAddress->postal,
+                    'city'      => $objAddress->city,
+                    'country'   => $objAddress->country,
+                    'email'     => $objAddress->email,
+                    'website'   => $objAddress->website
                 )
-
             );
             $this->Template->address = $arrAddress;
             $this->Template->addressFound = true;
         }
-
 	}
 }

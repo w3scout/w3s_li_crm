@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -62,19 +62,18 @@ class ModuleTaskReader extends \Module
 		{
 			$arrTask = array
 			(
-					'id' => $objTask->id,
-					'title' => $objTask->title,
-					'priority' => $objTask->priority,
-					'deadline' => $objTask->deadline,
-					'status' => $objTask->status,
-					'description' => $objTask->description,
-					'icon' => $objTask->icon,
-					'cssClass' => $objTask->cssClass
+					'id'            => $objTask->id,
+					'title'         => $objTask->title,
+					'priority'      => $objTask->priority,
+					'deadline'      => $objTask->deadline,
+					'status'        => $objTask->status,
+					'description'   => $objTask->description,
+					'icon'          => $objTask->icon,
+					'cssClass'      => $objTask->cssClass
 			);
 			$this->Template->task = $arrTask;
 			
 			$this->Template->taskFound = true;
 		}
-		
 	}
 }

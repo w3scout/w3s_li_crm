@@ -36,7 +36,7 @@ class TaskHistory extends \Widget
 		$this->loadLanguageFile('tl_li_task');
 
 		$this->import('Database');
-		//$this->import('\LiCRM\TaskComment');
+		//$this->import('TaskComment');
 
 		$objTask = $this->Database
 			->prepare("SELECT t.*

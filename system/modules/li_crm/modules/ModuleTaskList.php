@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -25,7 +25,7 @@ class ModuleTaskList extends \Module
 	 */
 	public function generate()
 	{
-		if (TL_MODE == 'BE')
+        if (TL_MODE == 'BE')
 		{
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
@@ -49,7 +49,8 @@ class ModuleTaskList extends \Module
 	{
 		$this->loadLanguageFile('tl_li_task');
 		$this->import('FrontendUser', 'User');
-		if($this->User->id != 0) {
+
+        if($this->User->id != 0) {
 			$objTasks = $this->Database->prepare("
 				SELECT t.id, t.title, t.alias, t.priority, t.deadline, s.title AS status, s.icon, s.cssClass
 				FROM tl_li_task AS t
@@ -82,19 +83,19 @@ class ModuleTaskList extends \Module
 		{
 			$newArray = array
 			(
-				'id' => $objTasks->id,
-				'title' => $objTasks->title,
-				'priority' => $objTasks->priority,
-				'deadline' => $objTasks->deadline,
-				'status' => $objTasks->status,
-				'icon' => $objTasks->icon,
-				'cssClass' => $objTasks->cssClass,
-				'details' => $this->generateFrontendUrl($objPage->row(), '/items/'. $objTasks->alias)
+				'id'        => $objTasks->id,
+				'title'     => $objTasks->title,
+				'priority'  => $objTasks->priority,
+				'deadline'  => $objTasks->deadline,
+				'status'    => $objTasks->status,
+				'icon'      => $objTasks->icon,
+				'cssClass'  => $objTasks->cssClass,
+				'details'   => $this->generateFrontendUrl($objPage->row(), '/items/'. $objTasks->alias)
 			);
 			$arrTasks[] = $newArray;
 		}
 		
-		$this->Template->user = $this->User;
-		$this->Template->tasks = $arrTasks;
+		$this->Template->user   = $this->User;
+		$this->Template->tasks  = $arrTasks;
 	}
 }

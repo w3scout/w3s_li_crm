@@ -58,13 +58,12 @@ ClassLoader::addClasses(array
     // Models
 
     // Modules
-    'W3S\LiCRM\ModuleTaskReader'          => 'system/modules/li_crm/modules/ModuleTaskReader.php',
-    'W3S\LiCRM\ModuleMobileCustomerList'  => 'system/modules/li_crm/modules/MobileCustomerList.php',
-    'W3S\LiCRM\ModuleInvoiceReader'       => 'system/modules/li_crm/modules/ModuleInvoiceReader.php',
-	'W3S\LiCRM\ModuleMobileAddressReader' => 'system/modules/li_crm/modules/ModuleMobileAddressReader.php',
-    'W3S\LiCRM\ModuleInvoiceList'         => 'system/modules/li_crm/modules/ModuleInvoiceList.php',
     'W3S\LiCRM\ModuleTaskList'            => 'system/modules/li_crm/modules/ModuleTaskList.php',
-    'W3S\LiCRM\MemberGroup'               => 'system/modules/li_crm/modules/MemberGroup.php',
+    'W3S\LiCRM\ModuleTaskReader'          => 'system/modules/li_crm/modules/ModuleTaskReader.php',
+    'W3S\LiCRM\ModuleInvoiceList'         => 'system/modules/li_crm/modules/ModuleInvoiceList.php',
+    'W3S\LiCRM\ModuleInvoiceReader'       => 'system/modules/li_crm/modules/ModuleInvoiceReader.php',
+    'W3S\LiCRM\ModuleMobileCustomerList'  => 'system/modules/li_crm/modules/ModuleMobileCustomerList.php',
+	'W3S\LiCRM\ModuleMobileAddressReader' => 'system/modules/li_crm/modules/ModuleMobileAddressReader.php'
 ));
 
 
