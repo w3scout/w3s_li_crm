@@ -104,6 +104,10 @@ $GLOBALS['TL_DCA']['tl_li_service'] = array
         (
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
+        'lastGeneratedOnInvoice' => array
+        (
+            'sql'                     => "varchar(10) NOT NULL default ''"
+        ),
         'toCustomer' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_service']['toCustomer'],
