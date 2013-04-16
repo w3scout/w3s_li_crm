@@ -562,129 +562,136 @@ class Invoice extends \BackendModule
         $htmlPositions = "";
 
 		$services = unserialize($objInvoice->servicePositions);
-		foreach ($services as $service)
-		{
-			if (empty($service['quantity']))
-			{
-				continue;
-			}
-			$objService = $this->Database->prepare("
-                SELECT s.title, s.price, t.rate AS taxRate
-                FROM tl_li_service AS s
-                INNER JOIN tl_li_tax AS t
-                    ON s.toTax = t.id
-                WHERE s.id = ?
-            ")->execute($service['item']);
+		if(is_array($services)) {
+            foreach ($services as $service)
+            {
+                if (empty($service['quantity']))
+                {
+                    continue;
+                }
 
-			$position_total_price = $service['quantity'] * $objService->price;
+                $objService = $this->Database->prepare("
+                    SELECT s.title, s.price, t.rate AS taxRate
+                    FROM tl_li_service AS s
+                    INNER JOIN tl_li_tax AS t
+                        ON s.toTax = t.id
+                    WHERE s.id = ?
+                ")->execute($service['item']);
 
-			if (!array_key_exists($objService->taxRate, $taxes))
-			{
-				$taxes[$objService->taxRate] = $position_total_price;
-			}
-			else
-			{
-				$taxes[$objService->taxRate] += $position_total_price;
-			}
+                $position_total_price = $service['quantity'] * $objService->price;
 
-			$fullNetto += $service['quantity'] * $objService->price;
+                if (!array_key_exists($objService->taxRate, $taxes))
+                {
+                    $taxes[$objService->taxRate] = $position_total_price;
+                }
+                else
+                {
+                    $taxes[$objService->taxRate] += $position_total_price;
+                }
 
-			$title = $service['title'] != '' ? $service['title'] : $objService->title;
+                $fullNetto += $service['quantity'] * $objService->price;
 
-			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
-			$htmlPositions .= '<td class="quantity">'.$service['quantity'].'</td>';
-			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$service['unit']].'</td>';
-			$htmlPositions .= '<td class="label">'.$title.'</td>';
-			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objService->price).' '.$symbol.'</td>';
-			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
-			$htmlPositions .= '</tr>';
+                $title = $service['title'] != '' ? $service['title'] : $objService->title;
 
-			$rowCounter++;
-		}
+                $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+                $htmlPositions .= '<td class="quantity">'.$service['quantity'].'</td>';
+                $htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$service['unit']].'</td>';
+                $htmlPositions .= '<td class="label">'.$title.'</td>';
+                $htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objService->price).' '.$symbol.'</td>';
+                $htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
+                $htmlPositions .= '</tr>';
+
+                $rowCounter++;
+            }
+        }
 
 		$products = unserialize($objInvoice->productPositions);
-		foreach ($products as $product)
-		{
-			if (empty($product['quantity']))
-			{
-				continue;
-			}
-			$objProduct = $this->Database->prepare("
-                SELECT p.title, p.price, t.rate AS taxRate
-                FROM tl_li_product AS p
-                INNER JOIN tl_li_tax AS t
-                    ON p.toTax = t.id
-                WHERE p.id = ?
-            ")->execute($product['item']);
+        if(is_array($products)) {
+            foreach ($products as $product)
+            {
+                if (empty($product['quantity']))
+                {
+                    continue;
+                }
+                $objProduct = $this->Database->prepare("
+                    SELECT p.title, p.price, t.rate AS taxRate
+                    FROM tl_li_product AS p
+                    INNER JOIN tl_li_tax AS t
+                        ON p.toTax = t.id
+                    WHERE p.id = ?
+                ")->execute($product['item']);
 
-			$position_total_price = $product['quantity'] * $objProduct->price;
+                $position_total_price = $product['quantity'] * $objProduct->price;
 
-			if (!array_key_exists($objProduct->taxRate, $taxes))
-			{
-				$taxes[$objProduct->taxRate] = $position_total_price;
-			}
-			else
-			{
-				$taxes[$objProduct->taxRate] += $position_total_price;
-			}
+                if (!array_key_exists($objProduct->taxRate, $taxes))
+                {
+                    $taxes[$objProduct->taxRate] = $position_total_price;
+                }
+                else
+                {
+                    $taxes[$objProduct->taxRate] += $position_total_price;
+                }
 
-			$fullNetto += $product['quantity'] * $objProduct->price;
+                $fullNetto += $product['quantity'] * $objProduct->price;
 
-			$title = $product['title'] != '' ? $product['title'] : $objProduct->title;
+                $title = $product['title'] != '' ? $product['title'] : $objProduct->title;
 
-			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
-			$htmlPositions .= '<td class="quantity">'.$product['quantity'].'</td>';
-			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$product['unit']].'</td>';
-			$htmlPositions .= '<td class="label">'.$title.'</td>';
-			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objProduct->price).' '.$symbol.'</td>';
-			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
-			$htmlPositions .= '</tr>';
+                $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+                $htmlPositions .= '<td class="quantity">'.$product['quantity'].'</td>';
+                $htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units'][$product['unit']].'</td>';
+                $htmlPositions .= '<td class="label">'.$title.'</td>';
+                $htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objProduct->price).' '.$symbol.'</td>';
+                $htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
+                $htmlPositions .= '</tr>';
 
-			$rowCounter++;
-		}
+                $rowCounter++;
+            }
+        }
 
 		$hours = unserialize($objInvoice->hourPositions);
-		foreach ($hours as $hour)
-		{
-			if (empty($hour['item']))
-			{
-				continue;
-			}
-			$objHour = $this->Database->prepare("
-                SELECT wp.title, hw.wage, t.rate AS taxRate
-                FROM tl_li_work_package AS wp
-                INNER JOIN tl_li_hourly_wage AS hw
-                    ON wp.toHourlyWage = hw.id
-                INNER JOIN tl_li_tax AS t
-                    ON hw.toTax = t.id
-                WHERE wp.id = ?
-            ")->execute($hour['item']);
+        if(is_array($hours)) {
+            foreach ($hours as $hour)
+            {
+                if (empty($hour['item']))
+                {
+                    continue;
+                }
+                $objHour = $this->Database->prepare("
+                    SELECT wp.title, hw.wage, t.rate AS taxRate
+                    FROM tl_li_work_package AS wp
+                    INNER JOIN tl_li_hourly_wage AS hw
+                        ON wp.toHourlyWage = hw.id
+                    INNER JOIN tl_li_tax AS t
+                        ON hw.toTax = t.id
+                    WHERE wp.id = ?
+                ")->execute($hour['item']);
 
-			$position_total_price = $hour['quantity'] * $objHour->wage;
+                $position_total_price = $hour['quantity'] * $objHour->wage;
 
-			if (!array_key_exists($objHour->taxRate, $taxes))
-			{
-				$taxes[$objHour->taxRate] = $position_total_price;
-			}
-			else
-			{
-				$taxes[$objHour->taxRate] += $position_total_price;
-			}
+                if (!array_key_exists($objHour->taxRate, $taxes))
+                {
+                    $taxes[$objHour->taxRate] = $position_total_price;
+                }
+                else
+                {
+                    $taxes[$objHour->taxRate] += $position_total_price;
+                }
 
-			$fullNetto += $hour['quantity'] * $objHour->wage;
+                $fullNetto += $hour['quantity'] * $objHour->wage;
 
-			$title = $hour['title'] != '' ? $hour['title'] : $objHour->title;
+                $title = $hour['title'] != '' ? $hour['title'] : $objHour->title;
 
-			$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
-			$htmlPositions .= '<td class="quantity">'.$hour['quantity'].'</td>';
-			$htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'].'</td>';
-			$htmlPositions .= '<td class="label">'.$title.'</td>';
-			$htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objHour->wage).' '.$symbol.'</td>';
-			$htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
-			$htmlPositions .= '</tr>';
+                $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+                $htmlPositions .= '<td class="quantity">'.$hour['quantity'].'</td>';
+                $htmlPositions .= '<td class="unit">'.$GLOBALS['TL_LANG']['tl_li_invoice']['units']['hour'].'</td>';
+                $htmlPositions .= '<td class="label">'.$title.'</td>';
+                $htmlPositions .= '<td class="unit_price price">'.$this->getFormattedNumber($objHour->wage).' '.$symbol.'</td>';
+                $htmlPositions .= '<td class="total_price price">'.$this->getFormattedNumber($position_total_price).' '.$symbol.'</td>';
+                $htmlPositions .= '</tr>';
 
-			$rowCounter++;
-		}
+                $rowCounter++;
+            }
+        }
 
         $discount = unserialize($objInvoice->discount);
         if(!empty($discount['value']))
