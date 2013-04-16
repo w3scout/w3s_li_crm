@@ -54,6 +54,7 @@ ClassLoader::addClasses(array
 	'W3S\LiCRM\InvoiceTemplate'           => 'system/modules/li_crm/classes/InvoiceTemplate.php',
 	'W3S\LiCRM\WorkingHourCalendar'       => 'system/modules/li_crm/classes/WorkingHourCalendar.php',
 	'W3S\LiCRM\CurrencyHelper'            => 'system/modules/li_crm/classes/CurrencyHelper.php',
+    'W3S\LiCRM\MemberGroup'               => 'system/modules/li_crm/classes/MemberGroup.php',
 
     // Models
 
@@ -63,7 +64,7 @@ ClassLoader::addClasses(array
     'W3S\LiCRM\ModuleInvoiceList'         => 'system/modules/li_crm/modules/ModuleInvoiceList.php',
     'W3S\LiCRM\ModuleInvoiceReader'       => 'system/modules/li_crm/modules/ModuleInvoiceReader.php',
     'W3S\LiCRM\ModuleMobileCustomerList'  => 'system/modules/li_crm/modules/ModuleMobileCustomerList.php',
-	'W3S\LiCRM\ModuleMobileAddressReader' => 'system/modules/li_crm/modules/ModuleMobileAddressReader.php'
+	'W3S\LiCRM\ModuleMobileAddressReader' => 'system/modules/li_crm/modules/ModuleMobileAddressReader.php',
 ));
 
 
