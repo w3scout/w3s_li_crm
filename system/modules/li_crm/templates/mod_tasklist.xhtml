@@ -24,7 +24,7 @@
 				<td class="priority prio<?php echo $task['priority']; ?> number"><?php echo $task['priority']; ?></td>
 				<td class="deadline date"><?php echo $task['deadline'] != '' ? date('d.m.Y', $task['deadline']) : '-'; ?></td>
 				<td class="status icon">
-					<img src="<?php echo $task['icon'] != '' ? $task['icon'] : 'system/modules/li_crm/icons/status_default.png'; ?>" alt="<?php echo $task['status']; ?>" title="<?php echo $task['status']; ?>" />
+					<img src="<?php echo $task['icon'] != '' ? $task['icon'] : 'system/modules/li_crm/assets/status_default.png'; ?>" alt="<?php echo $task['status']; ?>" title="<?php echo $task['status']; ?>" />
 					<span><?php echo $task['status']; ?></span>
 				</td>
 				<td class="details">

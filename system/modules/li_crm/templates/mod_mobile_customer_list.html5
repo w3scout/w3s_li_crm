@@ -1,22 +1,22 @@
 <!-- indexer::stop -->
 <ul data-role="listview" data-inset="true">
 	<?php if($this->customers != null): ?>
-    <?php foreach($this->customers as $customer): ?>
-    <li><a><?php echo $customer['customerNumber']; ?> <?php echo $customer['customerName']; ?></a>
-        <span class="ui-li-count"><?php echo $customer['countAddresses']; ?></span>
-        <ul data-role="listview" data-inset="true">
-            <?php if($customer['addresses'] != null): ?>
-            <?php foreach($customer['addresses'] as $address): ?>
-            <li><a href="<?php echo $address['link']; ?>"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?></a></li>
-            <?php endforeach; ?>
-            <?php else: ?>
-            <li><?php echo $GLOBALS['TL_LANG']['tl_address']['noAddressesAvailable']; ?></li>
-            <?php endif; ?>
-        </ul>
-    </li>
-    <?php endforeach; ?>
+        <?php foreach($this->customers as $customer): ?>
+            <li><a><?php echo $customer['customerNumber']; ?> <?php echo $customer['customerName']; ?></a>
+                <span class="ui-li-count"><?php echo $customer['countAddresses']; ?></span>
+                <ul data-role="listview" data-inset="true">
+                    <?php if($customer['addresses'] != null): ?>
+                        <?php foreach($customer['addresses'] as $address): ?>
+                            <li><a href="<?php echo $address['link']; ?>"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?></a></li>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <li><?php echo $GLOBALS['TL_LANG']['tl_address']['noAddressesAvailable']; ?></li>
+                    <?php endif; ?>
+                </ul>
+            </li>
+        <?php endforeach; ?>
     <?php else: ?>
-    <li><?php echo $GLOBALS['TL_LANG']['tl_member']['noCustomersAvailable']; ?></li>
+        <li><?php echo $GLOBALS['TL_LANG']['tl_member']['noCustomersAvailable']; ?></li>
     <?php endif; ?>
 </ul>
 <!-- indexer::continue -->

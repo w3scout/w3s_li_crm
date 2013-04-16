@@ -26,10 +26,10 @@
 				<td class="download icon">
 					<?php if($invoice['fileAvailable']): ?>
 					<a href="<?php echo $invoice['file']; ?>" title="<?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice']; ?>" target="blank">
-						<img src="system/modules/li_crm/icons/invoice_download.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice']; ?>" />
+						<img src="system/modules/li_crm/assets/invoice_download.png" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice']; ?>" />
 					</a>
 					<?php else: ?>
-						<img src="system/modules/li_crm/icons/invoice_download_disabled.png" alt="" />
+						<img src="system/modules/li_crm/assets/invoice_download_disabled.png" alt="" />
 					<?php endif; ?>
 				</td>
 				<td class="details">
