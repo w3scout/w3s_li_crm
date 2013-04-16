@@ -165,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	'palettes' => array
 	(
 		'__selector__'              => array('enableGeneration'),
-		'default'                   => '{invoice_legend},toCustomer,toCategory,title,alias,price,currency,invoiceDate,performanceDate,maturity,paid;
+		'default'                   => '{invoice_legend},title,alias,toCustomer,toCategory,price,currency,invoiceDate,performanceDate,maturity,paid;
 										{pdf_legend},file;
 		                                {settings_legend},isOut,isSingular;
 		                                {generation_legend},enableGeneration;
@@ -188,6 +188,29 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
         (
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
+        'title' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['title'],
+            'inputType'             => 'text',
+            'exclude'   			=> true,
+            'search'                => true,
+            'flag'                  => 1,
+            'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'alias' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['alias'],
+            'search'                => true,
+            'inputType'             => 'text',
+            'exclude'   			=> true,
+            'eval'                  => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
+            'save_callback' 		=> array
+            (
+                array('LiCRM\Invoice', 'generateAlias')
+            ),
+            'sql'                     => "varchar(64) NOT NULL default ''"
+        ),
         'toCustomer' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['toCustomer'],
@@ -208,29 +231,6 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
-        'title' => array
-		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['title'],
-			'inputType'             => 'text',
-			'exclude'   			=> true,
-			'search'                => true,
-			'flag'                  => 1,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
-		),
-		'alias' => array
-		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['alias'],
-			'search'                => true,
-			'inputType'             => 'text',
-			'exclude'   			=> true,
-			'eval'                  => array('rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
-			'save_callback' 		=> array
-			(
-				array('LiCRM\Invoice', 'generateAlias')
-			),
-            'sql'                     => "varchar(64) NOT NULL default ''"
-		),
         'invoiceNumber' => array
         (
             'sql'                     => "varchar(64) NOT NULL default ''"
