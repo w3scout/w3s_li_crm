@@ -7,10 +7,10 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
-$GLOBALS['TL_LANG']['tl_li_task_comment']['settings_legend'] = "Einstellungen";
-$GLOBALS['TL_LANG']['tl_li_task_comment']['comment_legend'] = "Kommentar";
+$GLOBALS['TL_LANG']['tl_li_task_comment']['settings_legend']    = "Einstellungen";
+$GLOBALS['TL_LANG']['tl_li_task_comment']['comment_legend']     = "Kommentar";
 $GLOBALS['TL_LANG']['tl_li_task_comment']['timekeeping_legend'] = "Zeiterfassung";
-$GLOBALS['TL_LANG']['tl_li_task_comment']['history_legend'] = "Historie";
+$GLOBALS['TL_LANG']['tl_li_task_comment']['history_legend']     = "Historie";
 
 $GLOBALS['TL_LANG']['tl_li_task_comment']['changeCustomerProject'] = array("Neuen Kunden zuweisen", "Wählen Sie diese Option, wenn Sie die Aufgabe einem anderen Kunden zuweisen möchten.");
 $GLOBALS['TL_LANG']['tl_li_task_comment']['toCustomer'] = array("Kunde", "Bitte wählen Sie einen Kunden aus.");

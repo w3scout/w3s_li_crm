@@ -27,7 +27,7 @@ class ModuleMobileCustomerList extends \Module
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new BackendTemplate('be_wildcard');
+			$objTemplate = new \BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### MOBILE CUSTOMER LIST ###';
 			$objTemplate->title = $this->headline;

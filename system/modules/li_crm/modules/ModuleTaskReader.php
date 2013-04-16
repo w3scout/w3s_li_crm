@@ -27,7 +27,7 @@ class ModuleTaskReader extends \Module
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new BackendTemplate('be_wildcard');
+			$objTemplate = new \BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### TASK READER ###';
 			$objTemplate->title = $this->headline;
