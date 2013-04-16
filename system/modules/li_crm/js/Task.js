@@ -41,6 +41,6 @@ function moreComments(id) {
 		'pid': id,
 		'offset': offset,
 		'action': 'moreComments',
-		'REQUEST_TOKEN': REQUEST_TOKEN
+		'REQUEST_TOKEN': Contao.request_token
 	});
 }

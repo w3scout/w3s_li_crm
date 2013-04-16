@@ -375,6 +375,7 @@ label.print {
 	padding-top: 4px;
 }
 .task_comments .be_task_comment {
+    clear: both;
 }
 .task_comments .be_task_comment .rownum {
 	color: #666;
@@ -390,13 +391,17 @@ label.print {
 .task_comments .be_task_comment .user {
 	float: left;
 }
+.task_comments .be_task_comment .comment_details {
+    clear: both;
+}
 .task_comments .be_task_comment {
 	margin-top: 4px;
 	padding: 3px 4px 0;
 	border-top: 1px solid #ccc;
 }
 .task_comments div.count {
-	margin-top: 4px;
+	clear: both;
+    margin-top: 4px;
 	padding: 3px 4px 0;
 	border-top: 1px solid #ccc;
 }

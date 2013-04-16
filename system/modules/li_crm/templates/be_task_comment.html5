@@ -3,6 +3,7 @@
 	<span class="datetime"><?php echo $this->datetime ?>&nbsp;</span>
 	<span class="user"><?php echo $this->user->name; ?>:&nbsp;</span>
 
+    <div class="comment_details">
 	<?php if ($this->comment): ?>
 		<div class="comment">
 			<?php echo $this->comment; ?>
@@ -85,4 +86,5 @@
 			?>
 		</div>
 	<?php endif; ?>
+	</div>
 </div>
