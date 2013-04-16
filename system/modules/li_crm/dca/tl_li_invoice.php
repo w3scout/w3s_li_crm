@@ -324,7 +324,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
             'eval'                  => array('submitOnChange'=>true),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                   => "char(1) NOT NULL default ''"
         ),
         'headline' => array
 		(

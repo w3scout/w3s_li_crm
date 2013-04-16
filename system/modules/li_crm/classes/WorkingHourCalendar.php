@@ -45,8 +45,7 @@ class WorkingHourCalendar extends \BackendModule
 		$this->Template->nextWeek = ($week + 1 > 53) ? 1 : $week + 1;
 
 		// Get the configured week mode from the configuration
-		$weekMode = !empty($GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode']) ?
-			$GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode'] : '7';
+		$weekMode = !empty($GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode']) ?	$GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode'] : '7';
 
 		// Only get the working hours in the desired week range
 		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) AS weekday,
