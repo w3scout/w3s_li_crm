@@ -122,8 +122,8 @@ $GLOBALS['TL_DCA']['tl_li_task'] = array
 	'palettes' => array
 	(
 		'__selector__'              => array(''),
-		'default'                   => '{settings_legend}, toCustomer, toProject, toStatus, toUser, priority;
-										{task_legend}, title, alias, deadline, description;
+		'default'                   => '{task_legend}, title, alias, deadline, description;
+		                                {settings_legend}, toCustomer, toProject, toStatus, toUser, priority;
 										{publish_legend},published;'
 	),
 	
