@@ -25,8 +25,8 @@ class Contact extends \Controller
 
 	public function renderLabel($arrContact)
 	{
-		$categoryIcon = '<img src="system/modules/li_crm/icons/'.$arrContact['category'].'_'.$arrContact['direction'].'.png" style="vertical-align:-3px;" alt="" />';
-		$reachedIcon = '<img src="system/modules/li_crm/icons/'.$arrContact['result'].'.png" style="vertical-align:-3px;" alt="" />';
+		$categoryIcon = '<img src="system/modules/li_crm/assets/'.$arrContact['category'].'_'.$arrContact['direction'].'.png" style="vertical-align:-3px;" alt="" />';
+		$reachedIcon = '<img src="system/modules/li_crm/assets/'.$arrContact['result'].'.png" style="vertical-align:-3px;" alt="" />';
 		$date = date('d.m.Y', $arrContact['startDate'])." ".date('H:i', $arrContact['startTime']);
 		$title = $arrContact['title'];
 
