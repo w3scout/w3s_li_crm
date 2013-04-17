@@ -36,7 +36,7 @@ $GLOBALS['TL_DCA']['tl_li_contact'] = array
 			'fields'                => array('startDate', 'title'),
 			'disableGrouping'       => true,
 			'panelLayout'           => 'filter;search,limit',
-			'child_record_callback' => array('Contact','renderLabel')
+			'child_record_callback' => array('LiCRM\Contact','renderLabel')
 		),
 		'label' => array
 		(
