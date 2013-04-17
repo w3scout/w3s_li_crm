@@ -1,6 +1,4 @@
 <?php
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -21,5 +19,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['isCustomer'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_module']['isCustomer'],
 	'exclude'       => true,
 	'inputType'     => 'checkbox',
-	'eval'          => array()
+	'eval'          => array(),
+    'sql' => "char(1) NOT NULL default ''"
 );
