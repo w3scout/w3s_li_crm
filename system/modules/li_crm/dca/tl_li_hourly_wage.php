@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * @copyright	Liplex Webprogrammierung und -design Christian Kolb 2011
