@@ -7,7 +7,22 @@
 		</div>
 		<div class="tl_search tl_subpanel">
 			<strong><?php echo $GLOBALS['TL_LANG']['tl_li_appointment']['day']; ?>:</strong>
-			<input type="text" name="appointments_day" class="tl_text" value="<?php echo $this->day; ?>">	
+			<input type="text" name="appointments_day" id="ctrl_appointments_day" class="tl_text" value="<?php echo $this->day; ?>">
+			<img src="assets/mootools/datepicker/<?php echo DATEPICKER;?>/icon.gif" width="20" height="20" alt="" title="Date picker" id="toggle_appointments_day" style="vertical-align:-6px;cursor:pointer">
+				<script>
+                    window.addEvent("domready", function() {
+                      new Picker.Date($("ctrl_appointments_day"), {
+                        draggable: false,
+                        toggle: $("toggle_appointments_day"),
+                        format: "<?php echo \Date::formatToJs($GLOBALS['TL_CONFIG']['dateFormat']);?>",
+                        positionOffset: {x:-197,y:-182},
+                        pickerClass: "datepicker_dashboard",
+                        useFadeInOut: !Browser.ie,
+                        startDay: <?php echo $GLOBALS['TL_LANG']['MSC']['weekOffset'];?>,
+                        titleFormat: "<?php echo $GLOBALS['TL_LANG']['MSC']['titleFormat'];?>"
+                      });
+                    });
+                  </script>
 		</div>
 		<div class="clear"></div>
 	</div>
