@@ -115,7 +115,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'foreignKey'			=> 'tl_user.name',
             'default'               => $this->User->id,
 			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>true),
+			'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'includeBlankOption'=>false),
             'sql'                   => "int(10) unsigned NOT NULL default '0'"
 		),
         'subject' => array
@@ -164,7 +164,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 			'flag'      			=> 1,
 			'inputType' 			=> 'text',
 			'exclude'   			=> true,
-			'eval'      			=> array('maxlength'=>6, 'isHexColor'=>true, 'tl_class'=>'w50'),
+			'eval'      			=> array('maxlength'=>6, 'isHexColor'=>true, 'colorpicker'=>true, 'tl_class'=>'w50 wizard'),
             'sql'                   => "varchar(6) NOT NULL default ''"
 		),
 		'note' => array
@@ -188,7 +188,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 		'endDate' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['endDate'],
-			'exclude'               => true,
+            'exclude'               => true,
 			'inputType'             => 'text',
 			'eval'                  => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
             'sql'                   => "int(10) unsigned NULL"
