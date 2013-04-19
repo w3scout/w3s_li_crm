@@ -40,7 +40,7 @@ class InvoiceGeneration extends \Controller
 		    WHERE alias = ?
 		")->execute($varValue);
 
-		// Check whether the news alias exists
+		// Check whether the new alias exists
 		if ($objAlias->numRows > 1 && !$autoAlias)
 		{
 			throw new \Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
@@ -85,25 +85,30 @@ class InvoiceGeneration extends \Controller
 
         $objInvoiceGenerations = $this->Database->prepare("
             SELECT id, toCustomer, toCategory, currency, maturity, generationInverval, generatedLast,
-                headline, toTemplate, toAddress, descriptionBefore, fixedPositions, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter,
+                headline, toTemplate, toAddress, descriptionBefore, fixedPositions, servicePositions,
+                productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter,
                 publishImmediately, sendImmediately
-            FROM tl_li_invoice_generation
-            WHERE DATE(FROM_UNIXTIME(startDate)) <= CURRENT_DATE
-            ORDER BY id ASC
+            FROM
+              tl_li_invoice_generation
+            WHERE
+              DATE(FROM_UNIXTIME(startDate)) <= CURRENT_DATE
+            ORDER
+              BY id ASC
         ")->execute();
+
         while($objInvoiceGenerations->next() != null)
         {
             $generatedLast = $objInvoiceGenerations->generatedLast;
             $interval = $objInvoiceGenerations->generationInverval;
             switch($interval)
             {
-                case 'weekly': $unit = 'week'; $value = 1; break;
-                case 'biweekly': $unit = 'week'; $value = 2; break;
-                case 'monthly': $unit = 'month'; $value = 1; break;
-                case 'bimonthly': $unit = 'month'; $value = 2; break;
-                case 'quarterly': $unit = 'month'; $value = 3; break;
+                case 'weekly':      $unit = 'week'; $value = 1; break;
+                case 'biweekly':    $unit = 'week'; $value = 2; break;
+                case 'monthly':     $unit = 'month'; $value = 1; break;
+                case 'bimonthly':   $unit = 'month'; $value = 2; break;
+                case 'quarterly':   $unit = 'month'; $value = 3; break;
                 case 'half-yearly': $unit = 'month'; $value = 6; break;
-                case 'yearly': $unit = 'year'; $value = 1; break;
+                case 'yearly':      $unit = 'year'; $value = 1; break;
             }
             // Skip generation if it's not time for it yet
             if($generatedLast != '')
@@ -119,9 +124,9 @@ class InvoiceGeneration extends \Controller
 
             if($objInvoiceGenerations->fixedPositions)
             {
-                $servicePositions = $objInvoiceGenerations->servicePositions;
-                $productPositions = $objInvoiceGenerations->productPositions;
-                $hourPositions = $objInvoiceGenerations->hourPositions;
+                $servicePositions   = $objInvoiceGenerations->servicePositions;
+                $productPositions   = $objInvoiceGenerations->productPositions;
+                $hourPositions      = $objInvoiceGenerations->hourPositions;
             }
             else
             {
@@ -264,6 +269,7 @@ class InvoiceGeneration extends \Controller
 
             $invoiceNumber = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
             $invoiceTitle = $GLOBALS['TL_LANG']['tl_li_invoice']['generatedInvoiceName'].$invoiceNumber;
+
             $invoice = new \LiCRM\Invoice();
             $invoiceAlias = $invoice->generateAliasWithoutDC($invoiceTitle, $invoiceId);
 
@@ -280,7 +286,7 @@ class InvoiceGeneration extends \Controller
                 $invoiceId
             );
 
-            $invoice->printInvoice($invoiceId);
+            $invoice->printInvoiceAsPDF($invoiceId);
 			
 			if($objInvoiceGenerations->sendImmediately) {
 				$invoice->sendInvoice($invoiceId);

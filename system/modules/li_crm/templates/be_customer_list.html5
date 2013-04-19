@@ -28,10 +28,10 @@
 				</div>
 				<select name="tl_type" class="tl_select" style="opacity: 0; margin-bottom: 4px; ">
 					<option value="0">-</option>
-  					<option value="customer"<?php echo $this->searchType == 'customer' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['tl_member']['customer_legend']; ?></option>
-  					<option value="project"<?php echo $this->searchType == 'project' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['tl_li_project']['project_legend']; ?></option>
-  					<option value="service"<?php echo $this->searchType == 'service' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['tl_li_service']['service_legend']; ?></option>
-                    <option value="product"<?php echo $this->searchType == 'product' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['tl_li_product']['product_legend']; ?></option>
+  					<option value="customer"<?php echo $this->searchType == 'customer' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['li_customers']['search_customer']; ?></option>
+  					<option value="project"<?php echo $this->searchType == 'project' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['li_customers']['search_project']; ?></option>
+  					<option value="service"<?php echo $this->searchType == 'service' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['li_customers']['search_service']; ?></option>
+                    <option value="product"<?php echo $this->searchType == 'product' ? ' selected' : ''; ?>><?php echo $GLOBALS['TL_LANG']['li_customers']['search_product']; ?></option>
 				</select>
 				<span> = </span>
 				<input type="text" name="tl_value" class="tl_text" value="<?php echo $this->searchValue; ?>">

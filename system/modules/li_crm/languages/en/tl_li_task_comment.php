@@ -1,4 +1,5 @@
-<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
+<?php
+
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -34,7 +35,7 @@ $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeNoCustomer']
 $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeCustomerProject'] = '&rarr; Assign to customer %s %s, project %s';
 $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeCustomer'] = '&rarr; Assign to customer %s %s';
 $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changePriority'] = '&rarr; New priority %s';
-$GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeTitle'] = '&rarr; Title updateded';
+$GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeTitle'] = '&rarr; Title updated';
 $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeDeadline'] = '&rarr; new deadline %s';
 $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeStatus'] = '&rarr; Changed status to %2$s';
 $GLOBALS['TL_LANG']['tl_li_task_comment']['be_task_comment']['changeUser'] = '&rarr; assigned to %2$s';

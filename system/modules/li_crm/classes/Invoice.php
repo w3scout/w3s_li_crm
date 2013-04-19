@@ -234,10 +234,13 @@ class Invoice extends \BackendModule
 				$objInvoice = $this->Database->prepare("
 				    SELECT COUNT(id) AS countInvoices
 				    FROM tl_li_invoice
-				    WHERE isOut = '1'
-				")->limit(1)->executeUncached();
-				$count = $objInvoice->countInvoices;
-				if (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start']))
+				    WHERE isOut = '1'")
+                    ->limit(1)
+                    ->executeUncached();
+
+                $count = $objInvoice->countInvoices;
+
+                if (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start']))
 				{
 					$count += $GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start'];
 				}

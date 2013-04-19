@@ -2,7 +2,8 @@
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
@@ -29,8 +30,8 @@ class Reminder extends \Controller
 		// Invoice reminder
 		$objReminder = $this->Database->prepare("
 			SELECT *
-			FROM tl_li_invoice_reminder
-		")->execute();
+			FROM tl_li_invoice_reminder")
+            ->execute();
 		
 		while ($objReminder->next())
 		{
@@ -43,8 +44,14 @@ class Reminder extends \Controller
 			}
 			if ($objReminder->remindRepeatedly)
 			{
-				$objInvoice = $this->Database->prepare("SELECT invoiceDate FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($objReminder->toInvoice);
-				if ($objReminder->remindInterval == 'daily')
+				$objInvoice = $this->Database->prepare("
+				    SELECT invoiceDate
+				    FROM tl_li_invoice
+				    WHERE id = ?")
+                    ->limit(1)
+                    ->execute($objReminder->toInvoice);
+
+                if ($objReminder->remindInterval == 'daily')
 				{
 					$this->prepareInvoiceReminder($objReminder);
 				}
@@ -63,8 +70,14 @@ class Reminder extends \Controller
 			}
 		}
 		// Task reminder
-		$objReminder = $this->Database->prepare("SELECT r.toTask, t.toCustomer, r.remindOnce, r.remindDate, r.remindRepeatedly, r.remindInterval FROM tl_li_task_reminder AS r INNER JOIN tl_li_task AS t ON r.toTask = t.id WHERE deadline >= ?")->execute(strtotime(date('d.m.Y')));
-		while ($objReminder->next())
+		$objReminder = $this->Database->prepare("
+		    SELECT r.toTask, t.toCustomer, r.remindOnce, r.remindDate, r.remindRepeatedly, r.remindInterval
+		    FROM tl_li_task_reminder AS r
+		    INNER JOIN tl_li_task AS t ON r.toTask = t.id
+		    WHERE deadline >= ?")
+            ->execute(strtotime(date('d.m.Y')));
+
+        while ($objReminder->next())
 		{
 			if ($objReminder->remindOnce)
 			{
@@ -75,8 +88,14 @@ class Reminder extends \Controller
 			}
 			if ($objReminder->remindRepeatedly)
 			{
-				$objTask = $this->Database->prepare("SELECT deadline FROM tl_li_task WHERE id = ?")->limit(1)->execute($objReminder->toTask);
-				if ($objReminder->remindInterval == 'daily')
+				$objTask = $this->Database->prepare("
+				    SELECT deadline
+				    FROM tl_li_task
+				    WHERE id = ?")
+                    ->limit(1)
+                    ->execute($objReminder->toTask);
+
+                if ($objReminder->remindInterval == 'daily')
 				{
 					$this->prepareTaskReminder($objReminder);
 				}
@@ -100,14 +119,24 @@ class Reminder extends \Controller
 	{
 		$arrReminder = array();
 
-		$objTask = $this->Database->prepare("SELECT title, toUser, deadline FROM tl_li_task WHERE id = ?")->limit(1)->execute($reminder->toTask);
+		$objTask = $this->Database->prepare("
+		    SELECT title, toUser, deadline
+		    FROM tl_li_task
+		    WHERE id = ?")
+            ->limit(1)
+            ->execute($reminder->toTask);
 
 		$arrReminder['from'] = $GLOBALS['TL_CONFIG']['li_crm_task_reminder_from'];
 		$arrReminder['fromName'] = $GLOBALS['TL_CONFIG']['li_crm_task_reminder_fromName'];
 		$arrReminder['subject'] = $GLOBALS['TL_LANG']['tl_li_task_reminder']['subject']." - ".$objTask->title;
 		$arrReminder['deadline'] = date('d.m.Y', $objTask->deadline);
 
-		$objUser = $this->Database->prepare("SELECT username, email FROM tl_user WHERE id = ?")->limit(1)->execute($objTask->toUser);
+		$objUser = $this->Database->prepare("
+		    SELECT username, email
+		    FROM tl_user
+		    WHERE id = ?")
+            ->limit(1)
+            ->execute($objTask->toUser);
 
 		$receiver = array();
 		$receiver[] = $objUser->email;
@@ -125,8 +154,14 @@ class Reminder extends \Controller
 		$text .= sprintf($GLOBALS['TL_LANG']['tl_li_task_reminder']['text'], $objTask->title, date($GLOBALS['TL_CONFIG']['dateFormat'], $objTask->deadline));
 		if ($reminder->toCustomer != 0)
 		{
-			$objCustomer = $this->Database->prepare("SELECT customerNumber, customerName FROM tl_member WHERE id = ?")->limit(1)->execute($reminder->toCustomer);
-			$text .= "\n".sprintf($GLOBALS['TL_LANG']['tl_li_task_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName);
+			$objCustomer = $this->Database->prepare("
+			    SELECT customerNumber, customerName
+			    FROM tl_member
+			    WHERE id = ?")
+                ->limit(1)
+                ->execute($reminder->toCustomer);
+
+            $text .= "\n".sprintf($GLOBALS['TL_LANG']['tl_li_task_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName);
 		}
 		return $text;
 	}
@@ -137,8 +172,14 @@ class Reminder extends \Controller
 		$text .= "<p>".sprintf($GLOBALS['TL_LANG']['tl_li_task_reminder']['text'], $objTask->title, date($GLOBALS['TL_CONFIG']['dateFormat'], $objTask->deadline))."</p>";
 		if ($reminder->toCustomer != 0)
 		{
-			$objCustomer = $this->Database->prepare("SELECT customerNumber, customerName FROM tl_member WHERE id = ?")->limit(1)->execute($reminder->toCustomer);
-			$text .= "<p>".sprintf($GLOBALS['TL_LANG']['tl_li_task_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName)."</p>";
+			$objCustomer = $this->Database->prepare("
+			    SELECT customerNumber, customerName
+			    FROM tl_member
+			    WHERE id = ?")
+                ->limit(1)
+                ->execute($reminder->toCustomer);
+
+            $text .= "<p>".sprintf($GLOBALS['TL_LANG']['tl_li_task_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName)."</p>";
 		}
 		return $text;
 	}
@@ -147,7 +188,12 @@ class Reminder extends \Controller
 	{
 		$arrReminder = array();
 
-		$objInvoice = $this->Database->prepare("SELECT title, invoiceDate FROM tl_li_invoice WHERE id = ?")->limit(1)->execute($reminder->toInvoice);
+		$objInvoice = $this->Database->prepare("
+		    SELECT title, invoiceDate
+		    FROM tl_li_invoice
+		    WHERE id = ?")
+            ->limit(1)
+            ->execute($reminder->toInvoice);
 
 		$arrReminder['from'] = $GLOBALS['TL_CONFIG']['li_crm_invoice_reminder_from'];
 		$arrReminder['fromName'] = $GLOBALS['TL_CONFIG']['li_crm_invoice_reminder_fromName'];
@@ -158,8 +204,14 @@ class Reminder extends \Controller
 		$receiver = array();
 		foreach ($arrUserIds as $userId)
 		{
-			$objUser = $this->Database->prepare("SELECT username, email FROM tl_user WHERE id = ?")->limit(1)->execute($userId);
-			$receiver[] = $objUser->email;
+			$objUser = $this->Database->prepare("
+			    SELECT username, email
+			    FROM tl_user
+			    WHERE id = ?")
+                ->limit(1)
+                ->execute($userId);
+
+            $receiver[] = $objUser->email;
 		}
 		$arrReminder['receiver'] = $receiver;
 
@@ -175,8 +227,14 @@ class Reminder extends \Controller
 		$text .= sprintf($GLOBALS['TL_LANG']['tl_li_invoice_reminder']['text'], $objInvoice->title, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate));
 		if ($reminder->toCustomer != 0)
 		{
-			$objCustomer = $this->Database->prepare("SELECT customerNumber, customerName FROM tl_member WHERE id = ?")->limit(1)->execute($reminder->toCustomer);
-			$text .= "\n".sprintf($GLOBALS['TL_LANG']['tl_li_invoice_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName);
+			$objCustomer = $this->Database->prepare("
+			    SELECT customerNumber, customerName
+			    FROM tl_member
+			    WHERE id = ?")
+                ->limit(1)
+                ->execute($reminder->toCustomer);
+
+            $text .= "\n".sprintf($GLOBALS['TL_LANG']['tl_li_invoice_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName);
 		}
 		return $text;
 	}
@@ -187,8 +245,14 @@ class Reminder extends \Controller
 		$text .= "<p>".sprintf($GLOBALS['TL_LANG']['tl_li_invoice_reminder']['text'], $objInvoice->title, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate))."</p>";
 		if ($reminder->toCustomer != 0)
 		{
-			$objCustomer = $this->Database->prepare("SELECT customerNumber, customerName FROM tl_member WHERE id = ?")->limit(1)->execute($reminder->toCustomer);
-			$text .= "<p>".sprintf($GLOBALS['TL_LANG']['tl_li_invoice_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName)."</p>";
+			$objCustomer = $this->Database->prepare("
+			    SELECT customerNumber, customerName
+			    FROM tl_member
+			    WHERE id = ?")
+                ->limit(1)
+                ->execute($reminder->toCustomer);
+
+            $text .= "<p>".sprintf($GLOBALS['TL_LANG']['tl_li_invoice_reminder']['customerRemark'], $objCustomer->customerNumber, $objCustomer->customerName)."</p>";
 		}
 		return $text;
 	}

@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die("You cannot access this file directly!");
+<?php
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
@@ -9,7 +9,9 @@
  
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['category_legend'] = "Rechnungskategorie";
 
-$GLOBALS['TL_LANG']['tl_li_invoice_category']['title'] = array("Titel", "Bitte geben Sie den Titel ein.");
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['title'][0] = "Titel";
+$GLOBALS['TL_LANG']['tl_li_invoice_category']['title'][1] = "Bitte geben Sie den Titel ein.";
+
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['orderNumber'] = array("Sortiernummer", "Bitte geben Sie die Sortiernummer ein.");
 $GLOBALS['TL_LANG']['tl_li_invoice_category']['cssClass'] = array("CSS Klasse", "Bitte geben Sie die CSS Klasse ein.");
 
