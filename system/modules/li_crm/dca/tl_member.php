@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerColor'] = array
 	'flag'                  => 1,
 	'inputType'             => 'text',
 	'exclude'               => true,
-	'eval'                  => array('maxlength'=>6, 'isHexColor'=>true, 'tl_class'=>'w50'),
+	'eval'                  => array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'tl_class'=>'w50 wizard'),
     'sql'                   => "varchar(6) NOT NULL default ''"
 );
 
