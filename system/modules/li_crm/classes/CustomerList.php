@@ -79,12 +79,7 @@ class CustomerList extends \BackendModule
 		}
 		
 		// Load language file for customers
-		$this->loadLanguageFile('li_customer');
-        $this->loadLanguageFile('tl_member');
-        $this->loadLanguageFile('tl_li_project');
-        $this->loadLanguageFile('tl_li_service');
-        $this->loadLanguageFile('tl_li_product');
-        $this->loadLanguageFile('tl_address');
+        $this->loadLanguageFile('li_customer');
 
         // Filter elements
         // Reset if value = 0
@@ -101,14 +96,14 @@ class CustomerList extends \BackendModule
         elseif($_SESSION['li_customers']['tl_type'] != '')
         {
             $searchType = $_SESSION['li_customers']['tl_type'];
-            $searchValue = $_SESSION['li_customers']['tl_vlaue'];
+            $searchValue = $_SESSION['li_customers']['tl_value'];
         }
 
         $this->Template->searchType = $searchType;
         $this->Template->searchValue = $searchValue;
 
         $_SESSION['li_customers']['tl_type'] = $searchType;
-        $_SESSION['li_customers']['tl_vlaue'] = $searchValue;
+        $_SESSION['li_customers']['tl_value'] = $searchValue;
 
         // Workaround for a Contao Bug with LINK in MySQL
         $searchValue = strtoupper($searchValue);
