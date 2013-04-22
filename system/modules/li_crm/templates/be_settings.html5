@@ -52,7 +52,7 @@
         </div>
         <div class="tl_module_desc">
             <h3>
-                <a href="contao/main.php?do=li_settings&table=tl_li_task_reminder_settings&rt=<?php echo REQUEST_TOKEN;?><?php echo (!defined('TL_REFERER_ID')) ?: '&ref='.TL_REFERER_ID;?>" class="navigation" style="background-image:url('system/modules/li_crm/assets/task_reminder.png')">
+                <a href="contao/main.php?do=li_settings&table=tl_li_task_reminder_settings&rt=<?php echo REQUEST_TOKEN;?><?php echo (!defined('TL_REFERER_ID')) ?: '&ref='.TL_REFERER_ID;?>" class="navigation" style="background-image:url('system/modules/li_crm/assets/manage_reminders.png')">
                     <?php echo $GLOBALS['TL_LANG']['li_settings']['taskReminderSettings']; ?>
                 </a>
             </h3>
