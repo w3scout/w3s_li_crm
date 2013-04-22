@@ -2,7 +2,8 @@
 
 /**
  * @copyright   Liplex Webprogrammierung und -design Christian Kolb 2011
- * @author      Christian Kolb <info@liplex.de>, Darko Selesi <hallo@w3scouts.com>
+ * @author      Christian Kolb <info@liplex.de>
+ * @author      Darko Selesi <hallo@w3scouts.com>
  * @license     MIT (see /LICENSE.txt for further information)
  */
 
@@ -39,8 +40,8 @@ class TaskReminder extends \Controller
 		$tasks = array();
 		while ($objTasks->next())
 		{
-            $customer = $objTasks->customerNumber != '' ? $objTasks->customerNumber." ".$objTasks->customerName : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noCustomer'];
-            $project = $objTasks->project != '' ? $objTasks->project : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noProject'];
+            $customer   = $objTasks->customerNumber != '' ? $objTasks->customerNumber." ".$objTasks->customerName : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noCustomer'];
+            $project    = $objTasks->project != '' ? $objTasks->project : $GLOBALS['TL_LANG']['tl_li_task_reminder']['noProject'];
 
 			$tasks[$customer.' - '.$project][$objTasks->id] = $objTasks->title;
 		}
@@ -51,10 +52,12 @@ class TaskReminder extends \Controller
 	public function getRemindDate($value, $dc)
 	{
         $objInvoice = $this->Database->prepare("SELECT deadline
-            FROM tl_li_task
-            WHERE id = ?")->limit(1)->execute($dc->activeRecord->toTask);
+                                                FROM tl_li_task
+                                                WHERE id = ?")
+                                     ->limit(1)
+                                     ->execute($dc->activeRecord->toTask);
 
-        return $this->parseDate('d.m.Y', $objInvoice->taskDate);
+        return $this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->taskDate);
 	}
 
 	public function renderLabel($row)

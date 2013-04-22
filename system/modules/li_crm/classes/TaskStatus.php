@@ -19,7 +19,6 @@ class TaskStatus extends \Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->import('Database');
 	}
 
 	public function renderLabel($row, $label)

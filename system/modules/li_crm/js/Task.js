@@ -1,20 +1,19 @@
 $(window).addEvent('domready', function() {
 	var toggler = $$('span.toggle_comments');
 	var accordions = $$('div.task_comments');
-	if (toggler.length && toggler.length == accordions.length) {
-		new Accordion(toggler,
-			accordions, {
-				display: -1,
-				alwaysHide: true,
-				onActive: function(toggler, element) {
-					var img = $(toggler).getElement('img');
-					img.src = img.src.replace(/folPlus\.gif/, 'folMinus.gif');
-				},
-				onBackground: function(toggler, element) {
-					var img = $(toggler).getElement('img');
-					img.src = img.src.replace(/folMinus\.gif/, 'folPlus.gif');
-				}
-			});
+    if (toggler.length && toggler.length == accordions.length) {
+        new Fx.Accordion(toggler, accordions, {
+            display: -1,
+            alwaysHide: true,
+            onActive: function(toggler, element) {
+                var img = $(toggler).getElement('img');
+                img.src = img.src.replace(/folPlus\.gif/, 'folMinus.gif');
+            },
+            onBackground: function(toggler, element) {
+                var img = $(toggler).getElement('img');
+                img.src = img.src.replace(/folMinus\.gif/, 'folPlus.gif');
+            }
+		});
 	}
 });
 

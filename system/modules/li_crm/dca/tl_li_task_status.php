@@ -93,12 +93,12 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 	'fields' => array
 	(
         'id' => array(
-            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+            'sql'                   => "int(10) unsigned NOT NULL auto_increment"
         ),
         'tstamp' => array
         (
             'default' => time(),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'title' => array
 		(
@@ -106,7 +106,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'sql'                   => "varchar(255) NOT NULL default ''"
 		),
 		'orderNumber' => array
 		(
@@ -114,7 +114,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
 		),
 		'icon' => array
 		(
@@ -122,7 +122,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 			'inputType'             => 'fileTree',
 			'exclude'   			=> true,
 			'eval'                  => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'sql'                   => "varchar(255) NOT NULL default ''"
 		),
 		'isTaskDisabled' => array
 		(
@@ -130,7 +130,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'eval'                  => array('tl_class'=>'w50'),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                   => "char(1) NOT NULL default ''"
 		),
 		'isTaskDone' => array
 		(
@@ -138,7 +138,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 			'inputType'             => 'checkbox',
 			'exclude'   			=> true,
 			'eval'                  => array('tl_class'=>'w50'),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                   => "char(1) NOT NULL default ''"
 		),
         'showOnStartpage' => array
         (
@@ -146,7 +146,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
             'eval'                  => array('tl_class'=>'w50'),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                   => "char(1) NOT NULL default ''"
         ),
 		'cssClass' => array
 		(
@@ -154,7 +154,7 @@ $GLOBALS['TL_DCA']['tl_li_task_status'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'sql'                   => "varchar(255) NOT NULL default ''"
 		)
 	)
 );

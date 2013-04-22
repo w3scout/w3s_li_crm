@@ -63,3 +63,5 @@ system/utf8_lookup.php
 
 system/runonce.php
 system/modules/li_crm/config/runonce.php
+
+/ide_compat.php

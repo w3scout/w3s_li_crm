@@ -99,22 +99,23 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 	'fields' => array
 	(
         'id' => array(
-            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+            'sql'                   => "int(10) unsigned NOT NULL auto_increment"
         ),
         'tstamp' => array
         (
             'default' => time(),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'toTask' => array
 		(
             'label'                 => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['toTask'],
 			'inputType'             => 'select',
-			'exclude'   			=> true,
+			'default'               => is_numeric(\Input::get('id')) ? \Input::get('id') : '',
+            'exclude'   			=> true,
             'foreignKey'        	=> 'tl_li_task.title',
             'options_callback'      => array('LiCRM\TaskReminder', 'getTaskOptions'),
 			'eval'                  => array('tl_class' => 'w50', 'chosen'=>true, 'includeBlankOption' => true),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'remindOnce' => array
 		(
@@ -123,7 +124,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'exclude'   			=> true,
 			'filter'                => true,
 			'eval'                  => array('submitOnChange' => true),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                   => "char(1) NOT NULL default ''"
         ),
         'remindDate' => array
 		(
@@ -136,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'exclude'   			=> true,
 			'load_callback'         => array(array('LiCRM\TaskReminder', 'getRemindDate')),
 			'eval'                  => array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'sql'                   => "varchar(10) NOT NULL default ''"
 		),
         'remindRepeatedly' => array
 		(
@@ -145,7 +146,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
 			'exclude'   			=> true,
 			'filter'                => true,
 			'eval'                  => array('submitOnChange' => true),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                   => "char(1) NOT NULL default ''"
         ),
         'remindInterval' => array
 		(
@@ -156,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_li_task_reminder'] = array
             'options'               => array('daily', 'weekly', 'monthly', 'yearly'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_task_reminder']['remindInterval'],
 			'eval'                  => array('tl_class' => 'w50', 'chosen'=>true),
-            'sql'                     => "varchar(20) NOT NULL default ''"
+            'sql'                   => "varchar(20) NOT NULL default ''"
         )
 	)
 );
