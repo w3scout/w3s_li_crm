@@ -188,6 +188,7 @@ $GLOBALS['TL_DCA']['tl_li_appointment'] = array
 		'endDate' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_appointment']['endDate'],
+            'default'               => time(),
             'exclude'               => true,
 			'inputType'             => 'text',
 			'eval'                  => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
