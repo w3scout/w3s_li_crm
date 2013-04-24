@@ -1022,7 +1022,7 @@ class Invoice extends \BackendModule
 	public function sendInvoice($id)
 	{
 		$objInvoice = $this->Database->prepare("
-            SELECT i.invoiceDate, i.file, a.lastname, a.gender, a.email
+            SELECT i.invoiceDate, i.invoiceNumber, i.file, a.lastname, a.gender, a.email
             FROM tl_li_invoice AS i
             INNER JOIN tl_address AS a
                 ON a.id = i.toAddress
@@ -1040,6 +1040,8 @@ class Invoice extends \BackendModule
 			$objEmail->attachFile(TL_ROOT."/".$objInvoice->file);
 
             $worked = $objEmail->sendTo($objInvoice->email);
+
+            if($worked) $this->log('Dispatch successfull: Invoice (Nr. '.$objInvoice->invoiceNumber.')', __METHOD__, TL_CRON);
 		}
 		catch( Exception $e )
 		{
