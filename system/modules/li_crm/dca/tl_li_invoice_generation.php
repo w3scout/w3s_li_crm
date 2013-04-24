@@ -390,10 +390,6 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'eval'                  => array('tl_class'=>'w50'),
             'sql'                     => "char(1) NOT NULL default '0'"
         ),
-        'sendImmediately' => array
-        (
-            'sql'                     => "varchar(10) NOT NULL default ''"
-        ),
         'invoiceNumber' => array
         (
             'sql'                     => "varchar(64) NOT NULL default ''"
