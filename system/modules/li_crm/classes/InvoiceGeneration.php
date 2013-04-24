@@ -98,18 +98,20 @@ class InvoiceGeneration extends \Controller
 
         while($objInvoiceGenerations->next() != null)
         {
-            $generatedLast = $objInvoiceGenerations->generatedLast;
-            $interval = $objInvoiceGenerations->generationInverval;
+            $generatedLast  = $objInvoiceGenerations->generatedLast;
+            $interval       = $objInvoiceGenerations->generationInverval;
+
             switch($interval)
             {
-                case 'weekly':      $unit = 'week'; $value = 1; break;
-                case 'biweekly':    $unit = 'week'; $value = 2; break;
+                case 'weekly':      $unit = 'week';  $value = 1; break;
+                case 'biweekly':    $unit = 'week';  $value = 2; break;
                 case 'monthly':     $unit = 'month'; $value = 1; break;
                 case 'bimonthly':   $unit = 'month'; $value = 2; break;
                 case 'quarterly':   $unit = 'month'; $value = 3; break;
                 case 'half-yearly': $unit = 'month'; $value = 6; break;
-                case 'yearly':      $unit = 'year'; $value = 1; break;
+                case 'yearly':      $unit = 'year';  $value = 1; break;
             }
+
             // Skip generation if it's not time for it yet
             if($generatedLast != '')
             {
@@ -119,7 +121,7 @@ class InvoiceGeneration extends \Controller
                 }
             }
 
-            $invoiceDate = time();
+            $invoiceDate     = time();
             $performanceDate = time();
 
             if($objInvoiceGenerations->fixedPositions)
@@ -195,17 +197,15 @@ class InvoiceGeneration extends \Controller
                 $products = array();
                 while($objProducts->next() != null) {
                     $products[] = array(
-                        'quantity' => $objProducts->quantity,
-                        'unit' => $objProducts->unit,
-                        'item' => $objProducts->id,
-                        'title' => ''
+                        'quantity'  => $objProducts->quantity,
+                        'unit'      => $objProducts->unit,
+                        'item'      => $objProducts->id,
+                        'title'     => ''
                     );
                 }
                 $productPositions = serialize($products);
 
                 // Hours
-                $hours = array();
-                $hourPositions = serialize($hours);
                 $objHours = $this->Database->prepare("
                 	SELECT wp.id, (SUM(wh.hours) + SUM(wh.minutes) / 60) AS quantity
 					FROM tl_li_work_package AS wp
@@ -224,10 +224,10 @@ class InvoiceGeneration extends \Controller
 				$hours = array();
                 while($objHours->next() != null) {
                     $hours[] = array(
-                        'quantity' => $objHours->quantity,
-                        'unit' => 'hour',
-                        'item' => $objHours->id,
-                        'title' => ''
+                        'quantity'  => $objHours->quantity,
+                        'unit'      => 'hour',
+                        'item'      => $objHours->id,
+                        'title'     => ''
                     );
                 }
                 $hourPositions = serialize($hours);
@@ -239,9 +239,10 @@ class InvoiceGeneration extends \Controller
             }
 
             $invoiceId = $this->Database->prepare("
-                INSERT INTO tl_li_invoice(tstamp, toCustomer, toCategory, invoiceDate, performanceDate, currency, maturity, isSingular, isOut,
-                    enableGeneration, headline, toTemplate, toAddress, descriptionBefore, servicePositions, productPositions, hourPositions, discount, earlyPaymentDiscount, descriptionAfter,
-                    published)
+                INSERT INTO tl_li_invoice(
+                    tstamp, toCustomer, toCategory, invoiceDate, performanceDate, currency, maturity, isSingular, isOut,
+                    enableGeneration, headline, toTemplate, toAddress, descriptionBefore, servicePositions, productPositions,
+                    hourPositions, discount, earlyPaymentDiscount, descriptionAfter, published)
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ")->execute(
                 time(),

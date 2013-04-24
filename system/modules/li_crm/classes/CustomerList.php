@@ -511,14 +511,14 @@ class CustomerList extends \BackendModule
 			$id = $objCustomers->id;
 			$arrCustomers[] = array
 			(
-				'id' => $id,
-				'customerNumber' => $objCustomers->customerNumber,
-				'customerName' => $objCustomers->customerName,
-				'projects' => $arrProjects,
-                'services' => $arrCustomerServices,
-                'products' => $arrCustomerProducts,
-				'isDisabled' => $objCustomers->disable,
-				'display' => $_SESSION['li_crm']['customerList']['customer'][$id]['display']
+                'id'                => $id,
+                'customerNumber'    => $objCustomers->customerNumber,
+                'customerName'      => $objCustomers->customerName,
+                'projects'          => $arrProjects,
+                'services'          => $arrCustomerServices,
+                'products'          => $arrCustomerProducts,
+                'isDisabled'        => $objCustomers->disable,
+                'display'           => $_SESSION['li_crm']['customerList']['customer'][$id]['display']
 			);
 		}
 
