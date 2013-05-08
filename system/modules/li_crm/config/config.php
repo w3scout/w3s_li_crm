@@ -20,10 +20,11 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'icon'       => 'system/modules/li_crm/assets/customers.png',
             'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
-        'li_products' => array
+        'li_projects' => array
         (
-            'tables'     => array('tl_li_product', 'tl_li_product_type'),
-            'icon'       => 'system/modules/li_crm/assets/products.png',
+            'tables'     => array('tl_li_project', 'tl_li_task'),
+            //'callback'   => 'LiCRM\Task',
+            'icon'       => 'system/modules/li_crm/assets/projects.png',
             'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
         'li_tasks' => array
@@ -46,6 +47,12 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'tables'     => array('tl_li_work_package', 'tl_li_working_hour'),
             'callback'   => 'LiCRM\WorkingHourCalendar',
             'icon'       => 'system/modules/li_crm/assets/timekeeping.png',
+            'stylesheet' => 'system/modules/li_crm/assets/crm.css'
+        ),
+        'li_products' => array
+        (
+            'tables'     => array('tl_li_product', 'tl_li_product_type'),
+            'icon'       => 'system/modules/li_crm/assets/products.png',
             'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
         'li_invoices' => array
