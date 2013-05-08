@@ -20,6 +20,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'icon'       => 'system/modules/li_crm/assets/customers.png',
             'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
+        /*
         'li_projects' => array
         (
             'tables'     => array('tl_li_project', 'tl_li_task'),
@@ -27,6 +28,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array
             'icon'       => 'system/modules/li_crm/assets/projects.png',
             'stylesheet' => 'system/modules/li_crm/assets/crm.css'
         ),
+        */
         'li_tasks' => array
         (
             'tables'     => array('tl_li_task', 'tl_li_task_comment', 'tl_li_task_reminder'),
