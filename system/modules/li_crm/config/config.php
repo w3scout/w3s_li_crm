@@ -120,6 +120,9 @@ if ($_GET['do'] == 'li_settings' && !empty($_GET['table']))
 	unset($GLOBALS['BE_MOD']['li_crm']['li_settings']['callback']);
 }
 
+// constant for system log category
+define('TL_LICRM','LiCRM');
+
 // Cronjobs
 
 // - Reminder
