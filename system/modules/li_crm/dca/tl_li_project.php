@@ -95,6 +95,14 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
         (
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
+        'title' => array
+        (
+            'label'                 => &$GLOBALS['TL_LANG']['tl_li_project']['title'],
+            'inputType'             => 'text',
+            'exclude'   			=> true,
+            'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
         'toCustomer' => array
 		(
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_project']['toCustomer'],
@@ -119,13 +127,6 @@ $GLOBALS['TL_DCA']['tl_li_project'] = array
         	'eval'                  => array('maxlength'=>255, 'alwaysSave'=>true, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
-        'title' => array
-		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_li_project']['title'],
-			'inputType'             => 'text',
-			'exclude'   			=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
-		)
+
 	)
 );
