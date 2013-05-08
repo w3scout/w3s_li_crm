@@ -81,6 +81,8 @@ class InvoiceGeneration extends \Controller
 
     public function generateInvoices()
     {
+        $this->log('LiCRM Invoice check: '.date('Y-m-d', time()), __METHOD__, TL_LICRM);
+
         $this->loadLanguageFile('tl_li_invoice');
 
         $objInvoiceGenerations = $this->Database->prepare("
@@ -236,6 +238,7 @@ class InvoiceGeneration extends \Controller
 				if($objServices->numRows == 0 && $objProducts->numRows == 0 && $objHours->numRows == 0) {
                     continue;
                 }
+
             }
 
             $invoiceId = $this->Database->prepare("
@@ -294,15 +297,10 @@ class InvoiceGeneration extends \Controller
 			}
 
             // Update generated last date
-            $this->Database->prepare("
-                UPDATE tl_li_invoice_generation
-                SET generatedLast = ?
-                WHERE id = ?
-            ")->execute(
-                time(),
-                $objInvoiceGenerations->id
-            );
-
+            $this->Database->prepare("UPDATE tl_li_invoice_generation SET generatedLast=? WHERE id=?")
+                            ->execute(time(),$objInvoiceGenerations->id);
+            
+            $this->log('LiCRM Invoice generated: '.$objInvoiceGenerations->id, __METHOD__, TL_LICRM);
         }
     }
 
