@@ -11,6 +11,8 @@ $GLOBALS['TL_LANG']['MOD']['li_crm']                = "CRM";
 
 $GLOBALS['TL_LANG']['MOD']['li_customers'][0]       = "Kunden";
 $GLOBALS['TL_LANG']['MOD']['li_customers'][1]       = "Kunden verwalten.";
+$GLOBALS['TL_LANG']['MOD']['li_projects'][0]         = "Projekte";
+$GLOBALS['TL_LANG']['MOD']['li_projects'][1]         = "Projekte verwalten.";
 $GLOBALS['TL_LANG']['MOD']['li_products'][0]        = "Produkte";
 $GLOBALS['TL_LANG']['MOD']['li_products'][1]        = "Produkte verwalten.";
 $GLOBALS['TL_LANG']['MOD']['li_tasks'][0]           = "Aufgaben";
