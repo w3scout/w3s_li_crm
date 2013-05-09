@@ -355,11 +355,13 @@ class InvoiceGeneration extends \Controller
     public function getHourOptions(\MultiColumnWizard $mcw)
     {
         $options = array();
+
         $objInvoice = $this->Database->prepare("
             SELECT toCustomer, currency
             FROM tl_li_invoice_generation
             WHERE id = ?
         ")->limit(1)->execute($mcw->currentRecord);
+
         $objHours = $this->Database->prepare("
             SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
             FROM tl_li_work_package AS wp
@@ -372,15 +374,13 @@ class InvoiceGeneration extends \Controller
                 AND wp.printOnInvoice = 1
             GROUP BY wp.id
         ")->execute($objInvoice->toCustomer, $objInvoice->currency);
+
         while ($objHours->next())
         {
-            $hours = $objHours->sumHours;
-            $minutes = $objHours->sumMinutes;
-
             $hours = \LiCRM\Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
-
             $options[$objHours->id] = $objHours->title.' ('.$hours.')';
         }
+
         return $options;
     }
 }
