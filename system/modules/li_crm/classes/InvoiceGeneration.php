@@ -304,7 +304,7 @@ class InvoiceGeneration extends \Controller
         }
     }
 
-    public function getServiceOptions(\multiColumnWizard $mcw)
+    public function getServiceOptions(\MultiColumnWizard $mcw)
     {
         $options = array();
 
