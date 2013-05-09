@@ -3,8 +3,10 @@
 /**
  * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author     Christian Kolb <info@liplex.de>
+ * @author     Darko Selesi <hallo@w3scouts.com>
  * @license    MIT (see /LICENSE.txt for further information)
  */
+
 
 /**
  * Table tl_li_invoice_generation
