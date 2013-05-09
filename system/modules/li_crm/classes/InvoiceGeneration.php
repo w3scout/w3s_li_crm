@@ -304,24 +304,28 @@ class InvoiceGeneration extends \Controller
         }
     }
 
-    public function getServiceOptions(\MultiColumnWizard $mcw)
+    public function getServiceOptions(\multiColumnWizard $mcw)
     {
         $options = array();
+
         $objInvoice = $this->Database->prepare("
             SELECT toCustomer, currency
             FROM tl_li_invoice_generation
             WHERE id = ?
         ")->limit(1)->execute($mcw->currentRecord);
+
         $objServices = $this->Database->prepare("
             SELECT id, title
             FROM tl_li_service AS s
             WHERE toCustomer = ?
               AND currency = ?
         ")->execute($objInvoice->toCustomer, $objInvoice->currency);
+
         while ($objServices->next())
         {
             $options[$objServices->id] = $objServices->title;
         }
+
         return $options;
     }
 
