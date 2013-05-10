@@ -21,8 +21,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_settings'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                   => '{invoice_data_legend},li_crm_invoice_maturity;
-										{invoice_number_legend},li_crm_invoice_number_generation, li_crm_invoice_number_generation_start;'
+        'default'                   => '{invoice_data_legend},li_crm_invoice_maturity;{invoice_number_legend},li_crm_invoice_number_generation, li_crm_invoice_number_generation_start;'
 	),
 
 	// Fields

@@ -271,9 +271,6 @@ class Invoice extends \BackendModule
 
         while ($objHours->next())
 		{
-			$hours = $objHours->sumHours;
-			$minutes = $objHours->sumMinutes;
-
 			$hours = Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
 
 			$options[$objHours->id] = $objHours->title.' ('.$hours.')';
