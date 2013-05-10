@@ -153,3 +153,5 @@ $GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('LiCRM\TaskStatusMessages', 
 
 // Form fields
 $GLOBALS['BE_FFL']['TaskHistory'] = 'LiCRM\TaskHistory';
+
+$GLOBALS['TL_PERMISSIONS'][] = 'licrm_invoicep';

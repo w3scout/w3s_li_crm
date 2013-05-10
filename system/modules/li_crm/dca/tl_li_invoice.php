@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 		'enableVersioning'          => true,
         'onload_callback' => array
         (
-            //array('tl_li_invoice', 'checkPermission')
+            array('tl_li_invoice', 'checkPermission')
         ),
         'sql' => array
         (
@@ -555,8 +555,10 @@ class tl_li_invoice extends Backend
 
     public function generationIcon($row, $href, $label, $title, $icon, $attributes)
     {
+        $boolHasAccess = $this->User->hasAccess('print', 'licrm_invoicep');
+
         $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['generate'][0];
-        if ($row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress'])
+        if ($boolHasAccess && $row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress'])
         {
             $href = '&amp;do=li_invoices&amp;key=print&amp;id='.$row['id'];
             $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['generate'][1], $row['id']);
@@ -570,8 +572,10 @@ class tl_li_invoice extends Backend
 
     public function dispatchIcon($row, $href, $label, $title, $icon, $attributes)
     {
+        $boolHasAccess = $this->User->hasAccess('send', 'licrm_invoicep');
+
         $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][0];
-        if ($row['isOut'] && $row['file'] != '')
+        if ($boolHasAccess && $row['isOut'] && $row['file'] != '')
         {
             $href = '&amp;do=li_invoices&amp;key=send&amp;id='.$row['id'];
             $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][1], $row['id']);
@@ -665,5 +669,35 @@ class tl_li_invoice extends Backend
         // Update the database
         $this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
         $this->createNewVersion('tl_li_invoice', $intId);
+    }
+
+    public function checkPermission()
+    {
+        if ($this->User->isAdmin)
+        {
+            return;
+        }
+
+        $error = false;
+        switch (\Input::get('key'))
+        {
+            case 'print':
+                if(!$this->User->hasAccess('print', 'licrm_invoicep')) { $error = true; }
+                break;
+
+            case 'send':
+                if(!$this->User->hasAccess('send', 'licrm_invoicep')) { $error = true; }
+                break;
+
+            default:
+                if (strlen(\Input::get('key'))) return;
+                break;
+        }
+
+        if($error == true)
+        {
+            $this->log('Not enough permissions to '.\Input::get('key').' invoices ID "'.\Input::get('id').'"', 'tl_li_invoice checkPermission', TL_ERROR);
+            $this->redirect('contao/main.php?act=error');
+        }
     }
 }
