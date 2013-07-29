@@ -297,7 +297,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 			'label'                 => &$GLOBALS['TL_LANG']['tl_li_invoice']['file'],
 			'inputType'             => 'fileTree',
 			'exclude'   			=> true,
-			'eval'                  => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr', 'extensions'=>'pdf','path'=>'tl_files'),
+			'eval'                  => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr', 'extensions'=>'pdf','path'=>$GLOBALS['TL_CONFIG']['uploadPath']),
             'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'isOut' => array
