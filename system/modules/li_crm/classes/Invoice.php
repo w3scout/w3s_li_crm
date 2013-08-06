@@ -300,7 +300,7 @@ class Invoice extends \BackendModule
         $dompdf = new \ContaoDOMPDF();
         $dompdf->set_paper('a4');
         $dompdf->set_base_path(TL_ROOT);
-        $dompdf->load_html($strHtml);
+        $dompdf->load_html(iconv("UTF-8", "CP1252", $strHtml));
         $dompdf->render();
 
         $strPDF = $dompdf->output();
@@ -749,7 +749,8 @@ class Invoice extends \BackendModule
 
         $template['root_path']          = $type == 'pdf' ? TL_ROOT.'/' : null;
 
-		ob_start();
+		ob_start();    
+    header("Content-Type: text/html; charset=utf-8");
 		include ($this->getTemplate($templateFile, 'html5'));
 		$html = ob_get_contents();
 		ob_end_clean();

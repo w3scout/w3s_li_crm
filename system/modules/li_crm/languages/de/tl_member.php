@@ -24,7 +24,7 @@ $GLOBALS['TL_LANG']['tl_member']['bic'] = array("BIC", "Bitte geben Sie die BIC 
 $GLOBALS['TL_LANG']['tl_member']['registerProducts'] = array("Produkte", "Bitte wählen Sie die Produkte aus.");
 $GLOBALS['TL_LANG']['tl_member']['registerProduct'] = array("Produkt", "Bitte wählen Sie ein Produkt aus.");
 
-$GLOBALS['TL_LANG']['tl_member']['contacts'] = array('Kontakte', 'Die Kontakte des Mitglieds mit der ID %s verwalten');
+$GLOBALS['TL_LANG']['tl_member']['contacts'] = array('Kontakte', 'Die Kontakthistorie des Mitglieds mit der ID %s verwalten');
 
 $GLOBALS['TL_LANG']['tl_member']['phone'] = array("Telefon", "Bitte geben Sie eine Telefonnummer ein.");
 $GLOBALS['TL_LANG']['tl_member']['fax'] = array("Fax", "Bitte geben Sie eine Faxnummer ein.");
