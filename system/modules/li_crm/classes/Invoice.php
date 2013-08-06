@@ -829,7 +829,8 @@ class Invoice extends \BackendModule
 
         $template['root_path']          = $type == 'pdf' ? TL_ROOT.'/' : null;
 
-		ob_start();
+		ob_start();    
+    header("Content-Type: text/html; charset=utf-8");
 		include ($this->getTemplate($templateFile, 'html5'));
 		$html = ob_get_contents();
 		ob_end_clean();
