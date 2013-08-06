@@ -380,7 +380,7 @@ class Invoice extends \BackendModule
         $dompdf = new \ContaoDOMPDF();
         $dompdf->set_paper('a4');
         $dompdf->set_base_path(TL_ROOT);
-        $dompdf->load_html($strHtml);
+        $dompdf->load_html(iconv("UTF-8", "CP1252", $strHtml));
         $dompdf->render();
 
         $strPDF = $dompdf->output();
