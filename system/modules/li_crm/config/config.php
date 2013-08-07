@@ -125,7 +125,6 @@ $GLOBALS['TL_CRON']['daily'][]  = array('LiCRM\InvoiceGeneration', 'generateInvo
 // - Replace insert tags
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('LiCRM\Customer', 'getCustomerCount');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('LiCRM\Project', 'getProjectCount');
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('LiCRM\Invoice', 'getInvoiceCount');
 
 // - Registration
 $GLOBALS['TL_HOOKS']['createNewUser'][] = array('LiCRM\CustomerRegistration', 'createNewUser');
