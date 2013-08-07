@@ -21,6 +21,18 @@ class Invoice extends \BackendModule
 	 * Template
 	 */
 	protected $strTemplate = 'be_invoice';
+  
+  /**
+	 * This current invoice's unique ID with eventual prefix
+	 * @param string
+	 */
+	protected $strInvoiceId = '';
+  
+  /**
+	 * Name of the current table
+	 * @var string
+	 */
+	protected $strTable = 'tl_li_invoice';
 
 	/**
 	 * Generate the module
@@ -30,42 +42,42 @@ class Invoice extends \BackendModule
 	{
 		parent::generate();
 
-		$key = \Input::get('key');
-		$id = \Input::get('id');
+		$this->key = \Input::get('key');
+		$this->id = \Input::get('id');
 
-        if($key == 'paid')
+        if($this->key == 'paid')
         {
-            $this->Template->success = $this->invoicePaid($id);
+            $this->Template->success = $this->invoicePaid();
         }
-		elseif($key == 'print')
+		elseif($this->key == 'print')
 		{
-			$this->Template->filePath = $this->printInvoiceAsPDF($id);
+			$this->Template->filePath = $this->printInvoiceAsPDF();
 		}
-		elseif($key == 'html')
+		elseif($this->key == 'html')
 		{
-			$this->generateHtmlInvoice($id);
+			$this->generateHtmlInvoice();
 		}
-		elseif ($key == 'reports')
+		elseif ($this->key == 'reports')
 		{
 			$this->Template->graphData = $this->generateReports();
 		}
-		elseif ($key == 'send')
+		elseif ($this->key == 'send')
 		{
-			$this->Template->dispatchSuccessful = $this->sendInvoice($id);
+			$this->Template->dispatchSuccessful = $this->sendInvoice();
 		}
-		elseif($key == 'generation')
+		elseif($this->key == 'generation')
 		{
-			$generationId = $this->buildGeneration($id);
+			$generationId = $this->buildGeneration();
 			$this->redirect('contao/main.php?do=li_invoices&table=tl_li_invoice_generation&act=edit&id='.$generationId.'&rt='.REQUEST_TOKEN);
 		}
-		elseif ($key == 'pdf')
+		elseif ($this->key == 'pdf')
 		{
 			// Return the file and do not render the template
-			$this->returnFile($id);
+			$this->returnFile($this->id);
 		}
-
-		$this->Template->id = $id;
-		$this->Template->key = $key;
+    
+		$this->Template->id = $this->id;
+		$this->Template->key = $this->key;
 
 		return $this->Template->parse();
 	}
@@ -106,7 +118,7 @@ class Invoice extends \BackendModule
 		return $varValue;
 	}
 
-    public function generateAliasWithoutDC($title, $id)
+    public function generateAliasWithoutDC($title)
     {
         // Generate alias
         $alias = standardize($title);
@@ -126,7 +138,7 @@ class Invoice extends \BackendModule
         // Add ID to alias
         if ($objAlias->numRows)
         {
-            $alias .= '-'.$id;
+            $alias .= '-'.$this->id;
         }
         return $alias;
     }
@@ -223,32 +235,56 @@ class Invoice extends \BackendModule
 		}
 	}
 
-	public function getInvoiceCount($insertConfig)
+	private function generateInvoiceID()
 	{
-		$arrSplit = explode('::', $insertConfig);
-
-		if ($arrSplit[0] == 'countInvoices')
+    if ($this->strInvoiceId != '')
 		{
-			if (isset($arrSplit[1]))
-			{
-				$objInvoice = $this->Database->prepare("
-				    SELECT COUNT(id) AS countInvoices
-				    FROM tl_li_invoice
-				    WHERE isOut = '1'")
-                    ->limit(1)
-                    ->executeUncached();
-
-                $count = $objInvoice->countInvoices;
-
-                if (!empty($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start']))
-				{
-					$count += $GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation_start'];
-				}
-				return str_pad($count, $arrSplit[1], '0', STR_PAD_LEFT);
-			}
-			return false;
+			return $this->strInvoiceId;
 		}
-		return false;
+    
+    // !HOOK: generate a custom invoice ID
+		if (isset($GLOBALS['LICRM_HOOKS']['generateInvoiceId']) && is_array($GLOBALS['LICRM_HOOKS']['generateInvoiceId']))
+		{
+			foreach ($GLOBALS['LICRM_HOOKS']['generateInvoiceId'] as $callback)
+			{
+				$this->import($callback[0]);
+				$strInvoiceId = $this->$callback[0]->$callback[1]($this);
+
+				if ($strInvoiceId !== false)
+				{
+					$this->strInvoiceId = $strOrderId;
+					break;
+				}
+			}
+		}
+    
+    if ($this->strInvoiceId == '')
+		{
+      $objDatabase = \Database::getInstance();
+      
+      $strPrefix = preg_replace('/\{\{countInvoices::(\d+)\}\}/i', "", $GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+      $strPrefix = $this->replaceInsertTags($strPrefix, false);
+      $intPrefix = utf8_strlen($strPrefix);
+      
+      preg_match_all('/\{\{countInvoices::(\d+)\}\}/i', $GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation'], $matches);
+      $orderDigits = $matches[1][0];
+      
+      // Lock tables so no other order can get the same ID
+      $objDatabase->lockTables(array($this->strTable => 'WRITE'));
+      
+      // Retrieve the highest available order ID
+      $objMax = $objDatabase->prepare("SELECT invoiceNumber FROM {$this->strTable}". ($strPrefix != '' ? " WHERE invoiceNumber LIKE '$strPrefix%' " : '') . " ORDER BY CAST(" . ($strPrefix != '' ? ("SUBSTRING(invoiceNumber, " . ($intPrefix+1) . ")") : 'invoiceNumber') . " AS UNSIGNED) DESC")->limit(1)->executeUncached();
+      $intMax = (int) substr($objMax->invoiceNumber, $intPrefix);
+      
+      $this->strInvoiceId = $strPrefix . str_pad($intMax+1, $orderDigits, '0', STR_PAD_LEFT);
+    
+      $objDatabase->prepare("UPDATE {$this->strTable} SET invoiceNumber=? WHERE id={$this->id}")->executeUncached($this->strInvoiceId);
+      
+      // Unlock table
+      $objDatabase->unlockTables();
+    }
+    
+    return $this->strInvoiceId;
 	}
 
 	public function getAddressOptions(\DataContainer $dc)
@@ -358,12 +394,12 @@ class Invoice extends \BackendModule
 		return $options;
 	}
 
-	public function printInvoiceAsPDF($id)
+	public function printInvoiceAsPDF()
 	{
 		// Log process
-		$this->log('Generate new pdf invoice', 'Generate invoice with id '.$id, TL_FILES);
+		$this->log('Generate new pdf invoice', 'Generate invoice with id '.$this->id, TL_FILES);
 
-		$data           = $this->getInvoiceData($id,"pdf");
+		$data           = $this->getInvoiceData($this->id,"pdf");
         $strHtml        = $data['html'];
 
         $invoiceNumber  = $data['invoiceNumber'];
@@ -375,7 +411,7 @@ class Invoice extends \BackendModule
             INNER JOIN tl_li_invoice_template AS t
                 ON i.toTemplate = t.id
             WHERE i.id = ?
-        ")->limit(1)->execute($id);
+        ")->limit(1)->execute($this->id);
 
         $dompdf = new \ContaoDOMPDF();
         $dompdf->set_paper('a4');
@@ -432,13 +468,13 @@ class Invoice extends \BackendModule
             UPDATE tl_li_invoice
             SET file = ?, invoiceNumber = ?, price = ?
             WHERE id = ?
-        ")->execute($filePath, $invoiceNumber, $fullNetto, $id);
+        ")->execute($filePath, $invoiceNumber, $fullNetto, $this->id);
 
 		// Return link to template
 		return $templateLink;
 	}
 
-	private function getInvoiceData($id,$type)
+	private function getInvoiceData($type)
 	{
         $this->import('Encryption');
 
@@ -478,7 +514,7 @@ class Invoice extends \BackendModule
             LEFT JOIN tl_member AS m
                 ON i.toCustomer = m.id
             WHERE i.id = ?
-        ")->limit(1)->execute($id);
+        ")->limit(1)->execute($this->id);
 
         $objCustomerAddress = $this->Database->prepare("
             SELECT company, firstname, lastname, street, postal, city, gender, country
@@ -499,7 +535,7 @@ class Invoice extends \BackendModule
         $countries = $this->getCountries();
         $country = $objCustomerAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objCustomerAddress->country] : '';
 
-        $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+        $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->generateInvoiceID();
 
         $objLogo = \FilesModel::findByPk($objInvoice->logo);
 
@@ -1011,15 +1047,15 @@ class Invoice extends \BackendModule
 		return $graphData;
 	}
 	
-	private function generateHtmlInvoice($id)
+	private function generateHtmlInvoice()
 	{
-		$data = $this->getInvoiceData($id,"html");
+		$data = $this->getInvoiceData($this->id,"html");
         echo $data['html'];
 
         exit;
     }
 
-	public function sendInvoice($id)
+	public function sendInvoice()
 	{
 		$objInvoice = $this->Database->prepare("
             SELECT i.invoiceDate, i.invoiceNumber, i.file, a.lastname, a.gender, a.email
@@ -1027,7 +1063,7 @@ class Invoice extends \BackendModule
             INNER JOIN tl_address AS a
                 ON a.id = i.toAddress
             WHERE i.id = ?
-        ")->limit(1)->execute($id);
+        ")->limit(1)->execute($this->id);
 		try
 		{
 			$objEmail           = new \Email();
@@ -1055,13 +1091,13 @@ class Invoice extends \BackendModule
 		return $row % 2 == 0 ? 'odd' : 'even';
 	}
 
-	private function returnFile($id)
+	private function returnFile()
 	{
         $objInvoice = $this->Database->prepare("
             SELECT file AS pdfFile
             FROM tl_li_invoice
             WHERE id = ?
-        ")->limit(1)->execute($id);
+        ")->limit(1)->execute($this->id);
 
 		$path = '../'.$objInvoice->pdfFile;
 
@@ -1071,14 +1107,14 @@ class Invoice extends \BackendModule
 		readfile($path);
 	}
 
-	public function returnFileForFrontend($id)
+	public function returnFileForFrontend()
 	{
 		$this->import('FrontendUser', 'User');
 		$objInvoice = $this->Database->prepare("
             SELECT toCustomer, file AS pdfFile
             FROM tl_li_invoice
             WHERE id = ?
-        ")->limit(1)->execute($id);
+        ")->limit(1)->execute($this->id);
 		if ($this->User->id != '')
 		{
 			if ($objInvoice->toCustomer == $this->User->id)
@@ -1178,20 +1214,20 @@ class Invoice extends \BackendModule
         }
     }
 
-    public function invoicePaid($id)
+    public function invoicePaid()
     {
         $objInvoice = $this->Database->prepare("
             SELECT paid
             FROM tl_li_invoice
             WHERE id = ?
-        ")->limit(1)->execute($id);
+        ")->limit(1)->execute($this->id);
         $this->Database->prepare("
             UPDATE tl_li_invoice
             SET paid = ?
             WHERE id = ?
         ")->execute(
             $objInvoice->paid == 1 ? 0 : 1,
-            $id
+            $this->id
         );
         return true;
     }
