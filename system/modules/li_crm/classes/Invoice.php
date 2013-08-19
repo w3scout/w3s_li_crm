@@ -99,7 +99,7 @@ class Invoice extends \BackendModule
 		}
 
 		// Add ID to alias
-		if ($objAlias->numRows && $autoAlias)
+		if ($objAlias->numRows && $autoAlias && strlen($varValue) > 0)
 		{
 			$varValue .= '-'.$dc->id;
 		}
@@ -1063,7 +1063,16 @@ class Invoice extends \BackendModule
             WHERE id = ?
         ")->limit(1)->execute($id);
 
-		$path = '../'.$objInvoice->pdfFile;
+        // in Contao 3, we need to get the path via DBFS
+        if (is_numeric($objInvoice->pdfFile))
+        {
+        	$objFile = \FilesModel::findByPk($objInvoice->pdfFile);
+        	$path = '../'.$objFile->path;
+        }
+        else
+        {
+			$path = '../'.$objInvoice->pdfFile;
+		}
 
 		$filename = basename($path);
 		header('Content-type: application/pdf');
@@ -1084,6 +1093,11 @@ class Invoice extends \BackendModule
 			if ($objInvoice->toCustomer == $this->User->id)
 			{
 				$path = $objInvoice->pdfFile;
+				if (is_numeric($path))
+				{
+					$objFile = \FilesModel::findByPk($path);
+					$path = $objFile->path;
+				}
 				$filename = basename($path);
 				header('Content-type: application/pdf');
 				header('Content-Disposition: attachment; filename="'.$filename.'"');
@@ -1097,6 +1111,11 @@ class Invoice extends \BackendModule
 		else
 		{
 			$path = $objInvoice->pdfFile;
+			if (is_numeric($path))
+			{
+				$objFile = \FilesModel::findByPk($path);
+				$path = $objFile->path;
+			}
 			$filename = basename($path);
 			header('Content-type: application/pdf');
 			header('Content-Disposition: attachment; filename="'.$filename.'"');
