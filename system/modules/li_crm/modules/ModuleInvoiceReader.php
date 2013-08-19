@@ -83,6 +83,7 @@ class ModuleInvoiceReader extends \Module
 			if ($objInvoice->numRows == 1)
 			{
 				$currencyHelper = new CurrencyHelper();
+				$itemurl = ( $GLOBALS['TL_CONFIG']['useAutoItem'] ) ? '/' : '/items/';
 				$arrInvoice = array(
 						'id'            => $objInvoice->id,
 						'title'         => $objInvoice->title,
@@ -90,7 +91,7 @@ class ModuleInvoiceReader extends \Module
 						'price'         => $this->getFormattedNumber($objInvoice->price).' '.$currencyHelper->getSymbolOfCode($objInvoice->currency),
 						'currency'      => strtolower($objInvoice->currency),
 						'fileAvailable' => $objInvoice->file != '',
-						'file'          => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoice->alias).'?key=pdf&id='.$objInvoice->id,
+						'file'          => $this->generateFrontendUrl($objPage->row(), $itemurl . $objInvoice->alias).'?key=pdf&id='.$objInvoice->id,
 						'cssClass'      => $objInvoice->cssClass
 				);
 				$this->Template->invoice = $arrInvoice;
