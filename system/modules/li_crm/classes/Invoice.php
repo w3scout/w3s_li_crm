@@ -146,83 +146,6 @@ class Invoice extends \BackendModule
 		return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
 	}
 
-	public function showFile($row, $href, $label, $title, $icon, $attributes)
-	{
-		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][0];
-		if ($row['file'])
-		{
-			$href = '&do=li_invoices&key=show&id='.$row['id'];
-			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][1], $row['id']);
-
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_show_file.png" alt="'.$alt.'" /></a> ';
-		}
-		else
-		{
-			return '<img src="system/modules/li_crm/assets/invoice_show_file_disabled.png" alt="'.$alt.'" /> ';
-		}
-	}
-
-	public function downloadFileIcon($row, $href, $label, $title, $icon, $attributes)
-	{
-		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][0];
-		if ($row['file'])
-		{
-			$href = '&do=li_invoices&key=pdf&id='.$row['id'];
-			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][1], $row['id']);
-
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/assets/invoice_download.png" alt="'.$alt.'" /></a> ';
-		}
-		else
-		{
-			return '<img src="system/modules/li_crm/assets/invoice_download_disabled.png" alt="'.$alt.'" /> ';
-		}
-	}
-	
-	public function htmlGenerationIcon($row, $href, $label, $title, $icon, $attributes)
-	{
-		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['html'][0];
-		if ($row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress'])
-		{
-			$href = '&amp;do=li_invoices&amp;key=html&amp;id='.$row['id'];
-			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['html'][1], $row['id']);
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/assets/invoice_html.png" alt="'.$alt.'" /></a> ';
-		}
-		else
-		{
-			return '<img src="system/modules/li_crm/assets/invoice_html_disabled.png" alt="'.$alt.'" /> ';
-		}
-	}
-
-	public function generationIcon($row, $href, $label, $title, $icon, $attributes)
-	{
-		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['generate'][0];
-		if ($row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress'])
-		{
-			$href = '&amp;do=li_invoices&amp;key=print&amp;id='.$row['id'];
-			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['generate'][1], $row['id']);
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_generation.png" alt="'.$alt.'" /></a> ';
-		}
-		else
-		{
-			return '<img src="system/modules/li_crm/assets/invoice_generation_disabled.png" alt="'.$alt.'" /> ';
-		}
-	}
-
-	public function dispatchIcon($row, $href, $label, $title, $icon, $attributes)
-	{
-		$alt = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][0];
-		if ($row['isOut'] && $row['file'] != '')
-		{
-			$href = '&amp;do=li_invoices&amp;key=send&amp;id='.$row['id'];
-			$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][1], $row['id']);
-			return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_send.png" alt="'.$alt.'" /></a> ';
-		}
-		else
-		{
-			return '<img src="system/modules/li_crm/assets/invoice_send_disabled.png" alt="'.$alt.'" /> ';
-		}
-	}
-
 	public function getInvoiceCount($insertConfig)
 	{
 		$arrSplit = explode('::', $insertConfig);
@@ -348,9 +271,6 @@ class Invoice extends \BackendModule
 
         while ($objHours->next())
 		{
-			$hours = $objHours->sumHours;
-			$minutes = $objHours->sumMinutes;
-
 			$hours = Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
 
 			$options[$objHours->id] = $objHours->title.' ('.$hours.')';
@@ -380,7 +300,7 @@ class Invoice extends \BackendModule
         $dompdf = new \ContaoDOMPDF();
         $dompdf->set_paper('a4');
         $dompdf->set_base_path(TL_ROOT);
-        $dompdf->load_html($strHtml);
+        $dompdf->load_html(iconv("UTF-8", "CP1252", $strHtml));
         $dompdf->render();
 
         $strPDF = $dompdf->output();
@@ -829,7 +749,8 @@ class Invoice extends \BackendModule
 
         $template['root_path']          = $type == 'pdf' ? TL_ROOT.'/' : null;
 
-		ob_start();
+		ob_start();    
+    header("Content-Type: text/html; charset=utf-8");
 		include ($this->getTemplate($templateFile, 'html5'));
 		$html = ob_get_contents();
 		ob_end_clean();
@@ -1128,55 +1049,7 @@ class Invoice extends \BackendModule
 		return ($iHours + $hours).":".$minutes;
 	}
 
-	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
-	{
-		if (strlen(\Input::get('tid')))
-		{
-			$this->toggleVisibility(\Input::get('tid'), (\Input::get('state') == 1));
-			$this->redirect($this->getReferer());
-		}
 
-		$href .= '&amp;tid='.$row['id'].'&amp;state='.($row['published'] ? '' : 1);
-		if (!$row['published'])
-		{
-			$icon = 'invisible.gif';
-		}
-		$label = $GLOBALS['TL_LANG']['tl_li_invoice']['toggle']['0'];
-		$title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['toggle']['1'], $row['id']);
-
-        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
-	}
-
-	public function toggleVisibility($intId, $blnVisible)
-	{
-		\Input::setGet('id', $intId);
-		\Input::setGet('act', 'toggle');
-
-		// Update the database
-		$this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
-		$this->createNewVersion('tl_li_invoice', $intId);
-	}
-
-    public function togglePaidIcon($row, $href, $label, $title, $icon, $attributes)
-    {
-        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'][0];
-
-        $objInvoice = $this->Database->prepare("
-            SELECT paid
-            FROM tl_li_invoice
-            WHERE id = ?
-        ")->limit(1)->execute($row['id']);
-        $href = '&amp;do=li_invoices&amp;key=paid&amp;id='.$row['id'];
-        $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'][1], $row['id']);
-        if ($objInvoice->paid)
-        {
-            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_paid.png" alt="'.$alt.'" /></a> ';
-        }
-        else
-        {
-            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_unpaid.png" alt="'.$alt.'" /></a> ';
-        }
-    }
 
     public function invoicePaid($id)
     {

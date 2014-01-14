@@ -81,6 +81,8 @@ class InvoiceGeneration extends \Controller
 
     public function generateInvoices()
     {
+        $this->log('LiCRM Invoice check: '.date('Y-m-d', time()), __METHOD__, TL_LICRM);
+
         $this->loadLanguageFile('tl_li_invoice');
 
         $objInvoiceGenerations = $this->Database->prepare("
@@ -236,6 +238,7 @@ class InvoiceGeneration extends \Controller
 				if($objServices->numRows == 0 && $objProducts->numRows == 0 && $objHours->numRows == 0) {
                     continue;
                 }
+
             }
 
             $invoiceId = $this->Database->prepare("
@@ -294,36 +297,35 @@ class InvoiceGeneration extends \Controller
 			}
 
             // Update generated last date
-            $this->Database->prepare("
-                UPDATE tl_li_invoice_generation
-                SET generatedLast = ?
-                WHERE id = ?
-            ")->execute(
-                time(),
-                $objInvoiceGenerations->id
-            );
-
+            $this->Database->prepare("UPDATE tl_li_invoice_generation SET generatedLast=? WHERE id=?")
+                            ->execute(time(),$objInvoiceGenerations->id);
+            
+            $this->log('LiCRM Invoice generated: '.$objInvoiceGenerations->id, __METHOD__, TL_LICRM);
         }
     }
 
     public function getServiceOptions(\MultiColumnWizard $mcw)
     {
         $options = array();
+
         $objInvoice = $this->Database->prepare("
             SELECT toCustomer, currency
             FROM tl_li_invoice_generation
             WHERE id = ?
         ")->limit(1)->execute($mcw->currentRecord);
+
         $objServices = $this->Database->prepare("
             SELECT id, title
             FROM tl_li_service AS s
             WHERE toCustomer = ?
               AND currency = ?
         ")->execute($objInvoice->toCustomer, $objInvoice->currency);
+
         while ($objServices->next())
         {
             $options[$objServices->id] = $objServices->title;
         }
+
         return $options;
     }
 
@@ -353,11 +355,13 @@ class InvoiceGeneration extends \Controller
     public function getHourOptions(\MultiColumnWizard $mcw)
     {
         $options = array();
+
         $objInvoice = $this->Database->prepare("
             SELECT toCustomer, currency
             FROM tl_li_invoice_generation
             WHERE id = ?
         ")->limit(1)->execute($mcw->currentRecord);
+
         $objHours = $this->Database->prepare("
             SELECT wp.id, wp.title, SUM(wh.hours) AS sumHours, SUM(wh.minutes) AS sumMinutes
             FROM tl_li_work_package AS wp
@@ -370,15 +374,13 @@ class InvoiceGeneration extends \Controller
                 AND wp.printOnInvoice = 1
             GROUP BY wp.id
         ")->execute($objInvoice->toCustomer, $objInvoice->currency);
+
         while ($objHours->next())
         {
-            $hours = $objHours->sumHours;
-            $minutes = $objHours->sumMinutes;
-
             $hours = \LiCRM\Invoice::getTotalHours($objHours->sumHours, $objHours->sumMinutes);
-
             $options[$objHours->id] = $objHours->title.' ('.$hours.')';
         }
+
         return $options;
     }
 }

@@ -43,7 +43,7 @@ class InvoiceTemplate extends \Controller
 		return $path;
 	}
 
-	public function updateDefaultTemplate($dc)
+	public function updateDefaultTemplate(\DataContainer $dc)
 	{
 		if (\Input::post('isDefaultTemplate'))
 		{

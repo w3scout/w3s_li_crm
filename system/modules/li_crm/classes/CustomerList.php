@@ -325,7 +325,7 @@ class CustomerList extends \BackendModule
                     (
                         'id' => $id,
                         'serviceTitle' => $objCustomerServices->serviceTitle,
-                        'icon' => $objCustomerServices->icon != '' ? $objCustomerServices->icon : 'system/modules/li_crm/assets/service_default.png',
+                        'icon' => $objCustomerServices->icon != '' ? \FilesModel::findByPk($objCustomerServices->icon)->path : 'system/modules/li_crm/assets/service_default.png',
                     );
                 }
             }
@@ -374,7 +374,7 @@ class CustomerList extends \BackendModule
                     (
                         'id' => $id,
                         'productTitle' => $objCustomerProducts->productTitle,
-                        'icon' => $objCustomerProducts->icon != '' ? $objCustomerProducts->icon : 'system/modules/li_crm/assets/products.png',
+                        'icon' => $objCustomerProducts->icon != '' ? \FilesModel::findByPk($objCustomerProducts->icon)->path : 'system/modules/li_crm/assets/products.png',
                     );
                 }
             }
@@ -446,7 +446,7 @@ class CustomerList extends \BackendModule
                             (
                                 'id' => $id,
                                 'serviceTitle' => $objServices->serviceTitle,
-                                'icon' => $objServices->icon != '' ? $objServices->icon : 'system/modules/li_crm/assets/service_default.png',
+                                'icon' => $objServices->icon != '' ? \FilesModel::findByPk($objServices->icon)->path : 'system/modules/li_crm/assets/service_default.png',
                             );
                         }
                     }
@@ -489,7 +489,7 @@ class CustomerList extends \BackendModule
                             (
                                 'id' => $id,
                                 'productTitle' => $objProducts->productTitle,
-                                'icon' => $objProducts->icon != '' ? $objProducts->icon : 'system/modules/li_crm/assets/products.png',
+                                'icon' => $objProducts->icon != '' ? \FilesModel::findByPk($objProducts->icon)->path : 'system/modules/li_crm/assets/products.png',
                             );
                         }
                     }

@@ -3,8 +3,10 @@
 /**
  * @copyright  Liplex Webprogrammierung und -design Christian Kolb 2011
  * @author     Christian Kolb <info@liplex.de>
+ * @author     Darko Selesi <hallo@w3scouts.com>
  * @license    MIT (see /LICENSE.txt for further information)
  */
+
 
 /**
  * Table tl_li_invoice_generation
@@ -99,11 +101,11 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 	'fields' => array
 	(
         'id' => array(
-            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+            'sql'                   => "int(10) unsigned NOT NULL auto_increment"
         ),
         'tstamp' => array
         (
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'toCustomer' => array
 		(
@@ -113,7 +115,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'exclude'   			=> true,
             'options_callback'      => array('LiCRM\Customer', 'getCustomerOptions'),
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'toCategory' => array
 		(
@@ -123,7 +125,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'exclude'   			=> true,
             'foreignKey'            => 'tl_li_invoice_category.title',
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'title' => array
 		(
@@ -133,7 +135,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'search'                => true,
 			'flag'                  => 1,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'sql'                   => "varchar(255) NOT NULL default ''"
 		),
 		'alias' => array
 		(
@@ -146,7 +148,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			(
 				array('LiCRM\InvoiceGeneration', 'generateAlias')
 			),
-            'sql'                     => "varchar(64) NOT NULL default ''"
+            'sql'                   => "varchar(64) NOT NULL default ''"
 		),
         'currency' => array
         (
@@ -155,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'exclude'               => true,
             'options_callback'      => array('LiCRM\CurrencyHelper', 'getCurrencyOptions'),
             'eval'                  => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'submitOnChange'=>true),
-            'sql'                     => "varchar(3) NOT NULL default ''"
+            'sql'                   => "varchar(3) NOT NULL default ''"
         ),
 		'maturity' => array
 		(
@@ -163,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('tl_class'=>'w50'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
 		),
         'headline' => array
 		(
@@ -173,7 +175,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'search'                => true,
 			'flag'                  => 1,
 			'eval'                  => array('maxlength'=>250, 'tl_class'=>'clr'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'sql'                   => "varchar(255) NOT NULL default ''"
 		),
         'toTemplate' => array
 		(
@@ -182,7 +184,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'exclude'   			=> true,
 			'foreignKey'            => 'tl_li_invoice_template.title',
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'toAddress' => array
 		(
@@ -191,7 +193,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'exclude'   			=> true,
 			'options_callback'      => array('LiCRM\Invoice', 'getAddressOptions'),
 			'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql'                   => "int(10) unsigned NOT NULL default '0'"
         ),
         'startDate' => array
         (
@@ -201,7 +203,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'inputType'             => 'text',
             'exclude'   			=> true,
             'eval'                  => array('rgxp'=>'date', 'mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'sql'                   => "varchar(10) NOT NULL default ''"
         ),
         'generationInverval' => array
         (
@@ -211,7 +213,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'options'               => array('weekly', 'biweekly', 'monthly', 'bimonthly', 'quarterly', 'half-yearly', 'yearly'),
             'reference'				=> &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['generationInvervals'],
             'eval'                  => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50', 'mandatory'=>true),
-            'sql'                     => "varchar(20) NOT NULL default ''"
+            'sql'                   => "varchar(20) NOT NULL default ''"
         ),
         'descriptionBefore' => array
 		(
@@ -219,7 +221,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'inputType'             => 'textarea',
             'exclude'   			=> true,
 			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-            'sql'                     => "text NOT NULL"
+            'sql'                   => "text NOT NULL"
 		),
         'fixedPositions' => array
         (
@@ -227,7 +229,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'inputType'             => 'checkbox',
             'exclude'   			=> true,
             'eval'                  => array('submitOnChange'=>true),
-            'sql'                     => "char(1) NOT NULL default '0'"
+            'sql'                   => "char(1) NOT NULL default '0'"
         ),
         'servicePositions' => array
 		(
@@ -345,7 +347,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 					)
 				)
 			),
-            'sql'                     => "text NOT NULL"
+            'sql'                   => "text NOT NULL"
 		),
         'discount' => array
         (
@@ -354,7 +356,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'options'               => array('percent', 'value'),
             'reference'             => &$GLOBALS['TL_LANG']['tl_li_invoice_generation']['discountOptions'],
             'exclude'   			=> true,
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'sql'                   => "varchar(255) NOT NULL default ''"
         ),
         'earlyPaymentDiscount' => array
         (
@@ -362,7 +364,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'inputType'             => 'text',
             'exclude'   			=> true,
             'eval'                  => array('tl_class'=>'long'),
-            'sql'                     => "text NOT NULL"
+            'sql'                   => "text NOT NULL"
         ),
         'descriptionAfter' => array
 		(
@@ -370,7 +372,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'inputType'             => 'textarea',
             'exclude'   			=> true,
 			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-            'sql'                     => "text NOT NULL"
+            'sql'                   => "text NOT NULL"
 		),
 		'publishImmediately' => array
 		(
@@ -379,7 +381,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
 			'exclude'   			=> true,
 			'filter'                => true,
             'eval'                  => array('tl_class'=>'w50'),
-            'sql'                     => "char(1) NOT NULL default '0'"
+            'sql'                   => "char(1) NOT NULL default '0'"
         ),
         'sendImmediately' => array
         (
@@ -388,23 +390,23 @@ $GLOBALS['TL_DCA']['tl_li_invoice_generation'] = array
             'exclude'   			=> true,
             'filter'                => true,
             'eval'                  => array('tl_class'=>'w50'),
-            'sql'                     => "char(1) NOT NULL default '0'"
+            'sql'                   => "char(1) NOT NULL default '0'"
         ),
         'invoiceNumber' => array
         (
-            'sql'                     => "varchar(64) NOT NULL default ''"
+            'sql'                   => "varchar(64) NOT NULL default ''"
         ),
         'invoiceDate' => array
         (
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'sql'                   => "varchar(10) NOT NULL default ''"
         ),
         'performanceDate' => array
         (
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'sql'                   => "varchar(10) NOT NULL default ''"
         ),
         'generatedLast' => array
         (
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'sql'                   => "varchar(10) NOT NULL default ''"
         ),
 	)
 );

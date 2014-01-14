@@ -21,6 +21,10 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 	(
 		'dataContainer'             => 'Table',
 		'enableVersioning'          => true,
+        'onload_callback' => array
+        (
+            array('tl_li_invoice', 'checkPermission')
+        ),
         'sql' => array
         (
             'keys' => array
@@ -101,7 +105,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 				'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['toggle'],
 				'icon'              => 'visible.gif',
 				'attributes'        => 'onclick="Backend.getScrollOffset(); return AjaxRequest.toggleVisibility(this, %s);"',
-				'button_callback'   => array('LiCRM\Invoice', 'toggleIcon')
+				'button_callback'   => array('tl_li_invoice', 'toggleIcon')
 			),
 			'show' => array
 			(
@@ -114,37 +118,37 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'],
                 'icon'              => 'system/modules/li_crm/assets/invoice_unpaid.png',
                 'attributes'        => 'onclick="Backend.getScrollOffset();"',
-                'button_callback'   => array('LiCRM\Invoice', 'togglePaidIcon')
+                'button_callback'   => array('tl_li_invoice', 'togglePaidIcon')
             ),
 			'showFile' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['showFile'],
 				'icon'              => 'system/modules/li_crm/assets/invoice_show.png',
-				'button_callback'   => array('LiCRM\Invoice', 'showFile')
+				'button_callback'   => array('tl_li_invoice', 'showFile')
 			),
 			'downloadFile' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'],
 				'icon'              => 'system/modules/li_crm/assets/invoice_download.png',
-				'button_callback'   => array('LiCRM\Invoice', 'downloadFileIcon')
+				'button_callback'   => array('tl_li_invoice', 'downloadFileIcon')
 			),
 			'html' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['html'],
 				'icon'              => 'system/modules/li_crm/assets/invoice_html_disabled.png',
-				'button_callback'   => array('LiCRM\Invoice', 'htmlGenerationIcon')
+				'button_callback'   => array('tl_li_invoice', 'htmlGenerationIcon')
 			),
 			'generate' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['generate'],
 				'icon'              => 'system/modules/li_crm/assets/invoice_generation_disabled.png',
-				'button_callback'   => array('LiCRM\Invoice', 'generationIcon')
+				'button_callback'   => array('tl_li_invoice', 'generationIcon')
 			),
             'send' => array
 			(
                 'label'             => &$GLOBALS['TL_LANG']['tl_li_invoice']['send'],
 				'icon'              => 'system/modules/li_crm/assets/invoice_send_disabled.png',
-				'button_callback'   => array('LiCRM\Invoice', 'dispatchIcon')
+				'button_callback'   => array('tl_li_invoice', 'dispatchIcon')
 			),
             'generation' => array
             (
@@ -361,7 +365,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'             => 'textarea',
             'exclude'   			=> true,
 			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
         'servicePositions' => array
 		(
@@ -403,7 +408,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 					)
 				)
 			),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
 		'productPositions' => array
 		(
@@ -445,7 +451,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 					)
 				)
 			),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
 		'hourPositions' => array
 		(
@@ -479,7 +486,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 					)
 				)
 			),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
         'discount' => array
         (
@@ -525,3 +533,175 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
         )
 	)
 );
+
+class tl_li_invoice extends Backend
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->import('BackendUser', 'User');
+    }
+
+    public function htmlGenerationIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['html'][0];
+        if ($row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress'])
+        {
+            $href = '&amp;do=li_invoices&amp;key=html&amp;id='.$row['id'];
+            $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['html'][1], $row['id']);
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/assets/invoice_html.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<img src="system/modules/li_crm/assets/invoice_html_disabled.png" alt="'.$alt.'" /> ';
+        }
+    }
+
+    public function generationIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        $boolHasAccess = $this->User->hasAccess('print', 'licrm_invoicep');
+
+        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['generate'][0];
+        if ($boolHasAccess && $row['enableGeneration'] && $row['isOut'] && $row['toTemplate'] && $row['toAddress'])
+        {
+            $href = '&amp;do=li_invoices&amp;key=print&amp;id='.$row['id'];
+            $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['generate'][1], $row['id']);
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_generation.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<img src="system/modules/li_crm/assets/invoice_generation_disabled.png" alt="'.$alt.'" /> ';
+        }
+    }
+
+    public function dispatchIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        $boolHasAccess = $this->User->hasAccess('send', 'licrm_invoicep');
+
+        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][0];
+        if ($boolHasAccess && $row['isOut'] && $row['file'] != '')
+        {
+            $href = '&amp;do=li_invoices&amp;key=send&amp;id='.$row['id'];
+            $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch'][1], $row['id']);
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_send.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<img src="system/modules/li_crm/assets/invoice_send_disabled.png" alt="'.$alt.'" /> ';
+        }
+    }
+
+    public function downloadFileIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][0];
+        if ($row['file'])
+        {
+            $href = '&do=li_invoices&key=pdf&id='.$row['id'];
+            $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['downloadFile'][1], $row['id']);
+
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'" target="blank"><img src="system/modules/li_crm/assets/invoice_download.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<img src="system/modules/li_crm/assets/invoice_download_disabled.png" alt="'.$alt.'" /> ';
+        }
+    }
+
+    public function showFile($row, $href, $label, $title, $icon, $attributes)
+    {
+        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][0];
+        if ($row['file'])
+        {
+            $href = '&do=li_invoices&key=show&id='.$row['id'];
+            $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['showFile'][1], $row['id']);
+
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_show_file.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<img src="system/modules/li_crm/assets/invoice_show_file_disabled.png" alt="'.$alt.'" /> ';
+        }
+    }
+
+    public function togglePaidIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        $alt = $GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'][0];
+
+        $objInvoice = $this->Database->prepare("
+            SELECT paid
+            FROM tl_li_invoice
+            WHERE id = ?
+        ")->limit(1)->execute($row['id']);
+
+        $href = '&amp;do=li_invoices&amp;key=paid&amp;id='.$row['id'];
+        $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['togglePaid'][1], $row['id']);
+
+        if ($objInvoice->paid)
+        {
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_paid.png" alt="'.$alt.'" /></a> ';
+        }
+        else
+        {
+            return '<a href="'.$this->addToUrl($href).'" title="'.$title.'"><img src="system/modules/li_crm/assets/invoice_unpaid.png" alt="'.$alt.'" /></a> ';
+        }
+    }
+
+    public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        if (strlen(\Input::get('tid')))
+        {
+            $this->toggleVisibility(\Input::get('tid'), (\Input::get('state') == 1));
+            $this->redirect($this->getReferer());
+        }
+
+        $href .= '&amp;tid='.$row['id'].'&amp;state='.($row['published'] ? '' : 1);
+        if (!$row['published'])
+        {
+            $icon = 'invisible.gif';
+        }
+        $label = $GLOBALS['TL_LANG']['tl_li_invoice']['toggle']['0'];
+        $title = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['toggle']['1'], $row['id']);
+
+        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+    }
+
+    public function toggleVisibility($intId, $blnVisible)
+    {
+        \Input::setGet('id', $intId);
+        \Input::setGet('act', 'toggle');
+
+        // Update the database
+        $this->Database->prepare("UPDATE tl_li_invoice SET tstamp=".time().", published='".($blnVisible ? 1 : '')."' WHERE id=?")->execute($intId);
+        $this->createNewVersion('tl_li_invoice', $intId);
+    }
+
+    public function checkPermission()
+    {
+        if ($this->User->isAdmin)
+        {
+            return;
+        }
+
+        $error = false;
+        switch (\Input::get('key'))
+        {
+            case 'print':
+                if(!$this->User->hasAccess('print', 'licrm_invoicep')) { $error = true; }
+                break;
+
+            case 'send':
+                if(!$this->User->hasAccess('send', 'licrm_invoicep')) { $error = true; }
+                break;
+
+            default:
+                if (strlen(\Input::get('key'))) return;
+                break;
+        }
+
+        if($error == true)
+        {
+            $this->log('Not enough permissions to '.\Input::get('key').' invoices ID "'.\Input::get('id').'"', 'tl_li_invoice checkPermission', TL_ERROR);
+            $this->redirect('contao/main.php?act=error');
+        }
+    }
+}
