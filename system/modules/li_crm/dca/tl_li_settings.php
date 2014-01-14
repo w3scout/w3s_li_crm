@@ -124,7 +124,7 @@ $GLOBALS['TL_DCA']['tl_li_settings'] = array
                                 {dispatch_legend},invoice_dispatch_from,invoice_dispatch_fromName;
                                 {template_legend:hide},invoice_template,maturity,logo,descriptionBefore,descriptionAfter;
                                 {generation_path_legend},basePath,periodFolder;
-                                {message_legend},task_reminder_from,task_reminder_fromName;';
+                                {message_legend},task_reminder_from,task_reminder_fromName;'
   ),
   
   // Fields
