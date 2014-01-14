@@ -365,7 +365,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
             'inputType'             => 'textarea',
             'exclude'   			=> true,
 			'eval'                  => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
         'servicePositions' => array
 		(
@@ -407,7 +408,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 					)
 				)
 			),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
 		'productPositions' => array
 		(
@@ -449,7 +451,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 					)
 				)
 			),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
 		'hourPositions' => array
 		(
@@ -483,7 +486,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice'] = array
 					)
 				)
 			),
-            'sql'                     => "text NOT NULL"
+            'sql'                     => "text NOT NULL",
+			'default'				=> ""
 		),
         'discount' => array
         (
