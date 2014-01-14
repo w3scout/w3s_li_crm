@@ -146,7 +146,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
             'inputType'                 => 'textarea',
             'exclude'   			    => true,
 			'eval'                      => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-            'sql'                       => "text NOT NULL"
+            'sql'                       => "text NOT NULL",
+			'default'					=> ""
 		),
         'descriptionAfter' => array
 		(
@@ -154,7 +155,8 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
             'inputType'                 => 'textarea',
             'exclude'   			    => true,
 			'eval'                      => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-            'sql'                       => "text NOT NULL"
+            'sql'                       => "text NOT NULL",
+			'default'					=> ""
 		),
 		'basePath' => array
         (
