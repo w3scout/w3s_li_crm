@@ -419,7 +419,7 @@ class Invoice extends \BackendModule
         $countries = $this->getCountries();
         $country = $objCustomerAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objCustomerAddress->country] : '';
 
-        $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+        $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation'],false);
 
         $objLogo = \FilesModel::findByPk($objInvoice->logo);
 

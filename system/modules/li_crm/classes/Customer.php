@@ -101,7 +101,7 @@ class Customer extends \Controller
 		}
 
 		// Generate new customer number
-		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);
+		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation'],false);
 	}
 
     public function changeMandatoryFields(\DataContainer $dc)
