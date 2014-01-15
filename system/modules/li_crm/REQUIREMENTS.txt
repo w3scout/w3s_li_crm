@@ -1,0 +1,11 @@
+FOR LI_CRM PHP HAVE TO BE COMPILED WITH EXTENSIONS:
+
+calendar, iconv
+
+PHPINFO() WILL SHOW YOU PARTICULAR CONFIGURATION-SECTIONS WITH:
+Calendar support	enabled
+iconv support	enabled
+
+OTHERWISE THERE ARISES ERRORS LIKE:
+Fatal error: Call to undefined function cal_days_in_month() in ...
+Fatal error: Call to undefined function iconv() in ...
