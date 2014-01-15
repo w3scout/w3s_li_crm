@@ -28,7 +28,16 @@ class InvoiceTemplate extends \Controller
 	}
 	
 	public function moveHtaccessFile($path, \DataContainer $dc) {
-		$exportPath = '../'.$path.'/';
+
+		$strPath = '';
+		$objFile = \FilesModel::findByUuid($path);
+		if ($objFile !== null && is_dir(TL_ROOT . '/' . $objFile->path))
+			$strPath = $objFile->path;
+
+		if(!$strPath)
+			throw new \Exception(sprintf($GLOBALS['TL_LANG']['tl_li_invoice_template']['folderForInvoicesNotFound'],$path));
+
+		$exportPath = '../'.$strPath.'/';
 		$htaccess = '.htaccess';
 		
 		if (!file_exists($exportPath))

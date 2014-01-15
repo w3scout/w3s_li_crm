@@ -130,7 +130,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 			'inputType'                 => 'fileTree',
 			'exclude'   			    => true,
 			'eval'                      => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true),
-            'sql'                       => "varchar(255) NOT NULL default ''"
+            'sql'                       => "blob NULL"
 		),
 		'maturity' => array
 		(
@@ -166,7 +166,7 @@ $GLOBALS['TL_DCA']['tl_li_invoice_template'] = array
 				array('LiCRM\InvoiceTemplate', 'moveHtaccessFile')
 			),
 			'eval'                      => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>false, 'mandatory'=>true),
-            'sql'                       => "varchar(255) NOT NULL default ''"
+            'sql'                       => "blob NULL"
 		),
 		'periodFolder' => array
         (
