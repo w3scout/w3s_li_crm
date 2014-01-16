@@ -990,7 +990,9 @@ class Invoice extends \BackendModule
             WHERE id = ?
         ")->limit(1)->execute($id);
 
-		$path = '../'.$objInvoice->pdfFile;
+		$objFile = \FilesModel::findByUuid($objInvoice->pdfFile);
+
+		$path = '../'.$objFile->path;
 
 		$filename = basename($path);
 		header('Content-type: application/pdf');
