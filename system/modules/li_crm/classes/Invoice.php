@@ -996,7 +996,7 @@ class Invoice extends \BackendModule
 
 		$filename = basename($path);
 		header('Content-type: application/pdf');
-		header('Content-Disposition: attachment; filename="'.$filename.'"');
+		header('Content-Disposition: inline; filename="'.$filename.'"');
 		readfile($path);
 	}
 
