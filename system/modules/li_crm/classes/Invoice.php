@@ -307,7 +307,7 @@ class Invoice extends \BackendModule
 
 		// Generate export path
         $root = TL_ROOT."/";
-        $objResult = \FilesModel::findByPk($objInvoice->basePath);
+        $objResult = \FilesModel::findByUuid($objInvoice->basePath);
 
         $basePath = $objResult->path."/";
 
@@ -348,14 +348,20 @@ class Invoice extends \BackendModule
 		$templateLink = substr($exportFile, 2);
 		$filePath = $basePath.$periodFolder.$file;
 
-		$this->Database->prepare("
-            UPDATE tl_li_invoice
-            SET file = ?, invoiceNumber = ?, price = ?
-            WHERE id = ?
-        ")->execute($filePath, $invoiceNumber, $fullNetto, $id);
+		//Synchronize the file system with the database
+		$objFile = \Dbafs::addResource($filePath);
 
-		// Return link to template
-		return $templateLink;
+		if($objFile){
+			$this->Database->prepare("
+				UPDATE tl_li_invoice
+				SET file = ?, invoiceNumber = ?, price = ?
+				WHERE id = ?
+			")->execute($objFile->uuid, $invoiceNumber, $fullNetto, $id);
+
+			// Return link to template
+			return $templateLink;
+		}
+		return null;
 	}
 
 	private function getInvoiceData($id,$type)
@@ -421,7 +427,7 @@ class Invoice extends \BackendModule
 
         $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation'],false);
 
-        $objLogo = \FilesModel::findByPk($objInvoice->logo);
+        $objLogo = \FilesModel::findByUuid($objInvoice->logo);
 
         $template = array(
             'logo'                      => $objLogo->path,
