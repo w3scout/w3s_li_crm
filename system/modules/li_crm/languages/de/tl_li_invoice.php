@@ -191,6 +191,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound']                 = "Rechn
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation']              = "Rechnungsgenerierung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['paid_status_changed']             = "Der Bezahlstatus wurde erfolgreich geändert.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success']              = "Die Rechnung wurde erfolgreich generiert.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['generation_not_success']          = "Die Rechnung konnte nicht generiert werden.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview']                   = "Zurück zur Übersicht";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject']                = "Rechnung";
