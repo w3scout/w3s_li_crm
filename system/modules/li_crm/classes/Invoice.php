@@ -141,7 +141,7 @@ class Invoice extends \BackendModule
 		{
 			$icon = "<img src=\"system/modules/li_crm/assets/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ";
 		}
-		$currencyHelper = new \LiCRM\CurrencyHelper();
+		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($row['currency']);
 		return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
 	}
@@ -480,7 +480,7 @@ class Invoice extends \BackendModule
             }
         }
 
-		$currencyHelper = new \LiCRM\CurrencyHelper();
+		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
 
 		$rowCounter = 1;
@@ -1111,7 +1111,7 @@ class Invoice extends \BackendModule
 			$objInvoice->descriptionAfter
 		)->insertId;
 		
-		$invoiceGeneration = new \LiCRM\InvoiceGeneration();
+		$invoiceGeneration = new InvoiceGeneration();
 		$alias = $invoiceGeneration->generateAliasWithoutDC($objInvoice->title, $generationId);
 		$this->Database->prepare("
 			UPDATE tl_li_invoice_generation
@@ -1128,7 +1128,7 @@ class Invoice extends \BackendModule
 	private function sendTo403()
 	{
 		// Add a log entry
-		$this->log('Access to page ID "'.$pageId.'" denied', 'PageError403 generate()', TL_ERROR);
+		//$this->log('Access to page ID "'.$pageId.'" denied', 'PageError403 generate()', TL_ERROR);
 
 		$host = \Environment::get('host');
 		$accept_language = \Environment::get('httpAcceptLanguage');
