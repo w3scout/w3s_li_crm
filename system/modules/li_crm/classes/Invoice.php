@@ -300,8 +300,10 @@ class Invoice extends \BackendModule
         $dompdf = new \ContaoDOMPDF();
         $dompdf->set_paper('a4');
         $dompdf->set_base_path(TL_ROOT);
-        $dompdf->load_html(iconv("UTF-8", "CP1252", $strHtml));
-        $dompdf->render();
+		//problem with german umlauts> deleted iconv():No Problem with german umlauts: correct pdf-rendering
+        //$dompdf->load_html(iconv("UTF-8", "CP1252", $strHtml));
+		$dompdf->load_html($strHtml);
+		$dompdf->render();
 
         $strPDF = $dompdf->output();
 
