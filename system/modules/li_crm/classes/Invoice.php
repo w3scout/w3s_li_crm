@@ -1014,7 +1014,8 @@ class Invoice extends \BackendModule
 		{
 			if ($objInvoice->toCustomer == $this->User->id)
 			{
-				$path = $objInvoice->pdfFile;
+				$objFile = \FilesModel::findByUuid($objInvoice->pdfFile);
+				$path = $objFile->path;
 				$filename = basename($path);
 				header('Content-type: application/pdf');
 				header('Content-Disposition: attachment; filename="'.$filename.'"');
@@ -1027,7 +1028,8 @@ class Invoice extends \BackendModule
 		}
 		else
 		{
-			$path = $objInvoice->pdfFile;
+			$objFile = \FilesModel::findByUuid($objInvoice->pdfFile);
+			$path = $objFile->path;
 			$filename = basename($path);
 			header('Content-type: application/pdf');
 			header('Content-Disposition: attachment; filename="'.$filename.'"');
