@@ -148,7 +148,7 @@ class Customer extends \Controller
                 SET firstname = ?, lastname = ?, gender = ?, language = ?,
                     company = ?, street = ?, street_2 = ?, street_3 = ?, postal = ?, city = ?, state = ?, country = ?,
                     email = ?, secondEmail = ?, phone = ?, mobile = ?, fax = ?, website = ?
-                WHERE id = ?
+                WHERE pid = ?
             ")->execute(
                 $dc->activeRecord->firstname,
                 $dc->activeRecord->lastname,
