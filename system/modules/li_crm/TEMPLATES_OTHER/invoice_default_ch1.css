@@ -1,0 +1,43 @@
+body{padding:20px 50px;font-family:dejavu sans;font-size:10pt;line-height:100%;}
+table.invoice_head{}
+table.invoice_head td{vertical-align:top;}
+
+.logo{width:450px;}
+.logo img{width:420px;}
+h5{font-size:12pt;line-height:100%;font-weight:500; padding: 15px 0 20px;margin:5px 0;}
+.invoice_data {}
+.invoice_data table tr {}
+.invoice_data table td{}
+.invoice_data table td.title{height:30px;}
+.invoice_data table td.first-c{width:80;}
+.invoice_data table td.second-c{width:210;}
+.invoice_data table td.higher{padding-bottom:10px;}
+p.introduction{line-height:130%;padding-top:20px;}
+table{border-spacing:0;  border-collapse:collapse;}
+
+table thead td{font-weight:bold;border-top:1px solid #afc058;border-bottom:1px solid #afc058;height:30px;line-height:30px;color:#333333;vertical-align:top;}
+table tbody tr.odd td{background-color: #f9ffef;}
+
+table.positions{width:100%;margin:10px 0;}
+table.positions td.quantity, table.positions td.unit{text-align:center;}
+table.positions td.unit_price, table.positions td.total_price{text-align:right; padding-right:10px;}
+table.positions tbody td, table.account tbody td{height:30px;line-height:30px;}
+
+table.positions tbody .start td {border-top:1px dotted #afc058}
+table.positions tbody .end td {border-bottom:3px double #afc058}
+table.positions tbody .without td {border-top:1px dotted #afc058; border-bottom:3px double #afc058}
+
+table td.own_address strong{display:block;}
+
+table.positions{padding-bottom: 10px;}
+table.positions tbody tr.total td{font-weight:bold;}
+table.positions tbody td.amount, table.positions tbody td.price{text-align:right;}
+table.positions tbody td.price{padding-right:10px;}
+
+table.account{padding:80px 0 10px 0;}
+table.account td{padding:0 5px;}
+
+.bottom {position: absolute; top: 1600px;}
+.bottom {text-align: center; margin-bottom: 0; padding-bottom: 0;}
+.small_address {display: inline-block; text-align: center; color: #afc058; font-size:9pt;}
+
