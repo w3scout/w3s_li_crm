@@ -426,7 +426,7 @@ class Invoice extends \BackendModule
 
         $countries = $this->getCountries();
         $country = $objCustomerAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objCustomerAddress->country] : '';
-
+		$companyCountry = ($GLOBALS['TL_CONFIG']['li_crm_company_country'] != false && ($c = $countries[$GLOBALS['TL_CONFIG']['li_crm_company_country']]) != false) ? $c : '';
         $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation'],false);
 
         $objLogo = \FilesModel::findByUuid($objInvoice->logo);
@@ -444,6 +444,7 @@ class Invoice extends \BackendModule
 
             'company_tax_number'        => $GLOBALS['TL_CONFIG']['li_crm_company_tax_number'],
             'company_ustid'             => $GLOBALS['TL_CONFIG']['li_crm_company_ustid'],
+			'company_country'			=> $companyCountry,
 
             'customer_number'           => $objInvoice->customerNumber,
             'customer_company'          => $objCustomerAddress->company,
@@ -765,7 +766,7 @@ class Invoice extends \BackendModule
 
         $template['root_path']          = $type == 'pdf' ? TL_ROOT.'/' : null;
 
-		ob_start();    
+		ob_start();
     header("Content-Type: text/html; charset=utf-8");
 		include ($this->getTemplate($templateFile, 'html5'));
 		$html = ob_get_contents();
@@ -801,8 +802,8 @@ class Invoice extends \BackendModule
 					       FROM tl_li_invoice
 					       WHERE isOut = ''
 					       	AND MONTH(FROM_UNIXTIME(invoiceDate)) >= ?
-					 		AND MONTH(FROM_UNIXTIME(invoiceDate)) <= ? 
-					 		AND YEAR(FROM_UNIXTIME(invoiceDate)) = ? 
+					 		AND MONTH(FROM_UNIXTIME(invoiceDate)) <= ?
+					 		AND YEAR(FROM_UNIXTIME(invoiceDate)) = ?
 					   	   GROUP BY MONTH(FROM_UNIXTIME(invoiceDate))
 					   	   ORDER BY YEAR(FROM_UNIXTIME(invoiceDate)), MONTH(FROM_UNIXTIME(invoiceDate))";
 			$monthOutSql = "SELECT MONTH(FROM_UNIXTIME(invoiceDate)) AS currentMonth, YEAR(FROM_UNIXTIME(invoiceDate)) AS currentYear, SUM(price) AS sumPrice
@@ -947,7 +948,7 @@ class Invoice extends \BackendModule
 
 		return $graphData;
 	}
-	
+
 	private function generateHtmlInvoice($id)
 	{
 		$data = $this->getInvoiceData($id,"html");
