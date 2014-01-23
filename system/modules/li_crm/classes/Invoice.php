@@ -409,7 +409,7 @@ class Invoice extends \BackendModule
         ")->limit(1)->execute($id);
 
         $objCustomerAddress = $this->Database->prepare("
-            SELECT company, firstname, lastname, street, postal, city, gender, country
+            SELECT company, firstname, lastname, street, postal, city, gender, country, isFriend
             FROM tl_address
             WHERE id=?
         ")->limit(1)->execute($objInvoice->toAddress);
@@ -458,7 +458,9 @@ class Invoice extends \BackendModule
             'invoice_number'            => $invoiceNumber,
 
             'title'                     => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
-            'introduction'              => sprintf($objCustomerAddress->gender == 'male' || $objCustomerAddress->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objCustomerAddress->lastname),
+            'introduction'              => $objCustomerAddress->gender == 'male' || $objCustomerAddress->gender == '' ?
+					($objCustomerAddress->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male_friend'] ? sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male_friend'],$objCustomerAddress->firstname) : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'],$objCustomerAddress->lastname))  :
+					($objCustomerAddress->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female_friend'] ? sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female_friend'],$objCustomerAddress->firstname) : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'],$objCustomerAddress->lastname)),
 
             'early_payment_discount'    => $objInvoice->earlyPaymentDiscount,
 
@@ -753,7 +755,7 @@ class Invoice extends \BackendModule
 		$maturity_remark = '';
 		if (!empty($maturityDays))
 		{
-			$maturity_remark = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark'], $maturityDays);
+			$maturity_remark = sprintf(($objCustomerAddress->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark_friend'] ? $GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark_friend'] : $GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark']), $maturityDays);
 		}
 
         $template['description_before'] = $descriptionBefore;

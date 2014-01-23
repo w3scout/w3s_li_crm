@@ -22,7 +22,7 @@ $GLOBALS['TL_DCA']['tl_member']['palettes']['__selector__'][]    = 'isCustomer';
 $GLOBALS['TL_DCA']['tl_member']['subpalettes']                   = array(
     'login'                 => 'username,password',
     'assignDir'             => 'homeDir',
-    'isCustomer'            => 'customerNumber,customerName,customerColor'
+    'isCustomer'            => 'customerNumber,customerName,customerColor,isFriend'
 );
 
 // Insert adresses support
@@ -81,6 +81,16 @@ $GLOBALS['TL_DCA']['tl_member']['fields']['customerColor'] = array
 	'exclude'               => true,
 	'eval'                  => array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'tl_class'=>'w50 wizard'),
     'sql'                   => "varchar(6) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_member']['fields']['isFriend'] = array
+(
+	'label'                 => &$GLOBALS['TL_LANG']['tl_member']['isFriend'],
+	'inputType'             => 'checkbox',
+	'exclude'               => true,
+	'eval'                  => array('tl_class'=>'w50'),
+	'sql'                   => "char(1) NOT NULL default ''"
+
 );
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['accountNumber'] = array
