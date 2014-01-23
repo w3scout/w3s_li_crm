@@ -975,7 +975,11 @@ class Invoice extends \BackendModule
 			$objEmail->text     = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 			$objEmail->html     = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
 
-			$objEmail->attachFile(TL_ROOT."/".$objInvoice->file);
+			$objFile = \FilesModel::findByUuid($objInvoice->file);
+			$path = TL_ROOT."/".$objFile->path;
+
+			if(file_exists($path))
+				$objEmail->attachFile($path);
 
             $worked = $objEmail->sendTo($objInvoice->email);
 
