@@ -664,18 +664,24 @@ class Invoice extends \BackendModule
             }
         }
 
-		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+		/*$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
 		$htmlPositions .= '<td class="spacer" colspan="5"> </td>';
 		$htmlPositions .= '</tr>';
-		$rowCounter++;
+		$rowCounter++;*/
+
+		//for a better contrast in the invoice-layout : total (and if requested, total_netto) always on an 'odd' row
+		$htmlPositions .= '<tr class="even">';
+		$htmlPositions .= '<td class="spacer" colspan="5"> </td>';
+		$htmlPositions .= '</tr>';
+		$rowCounter = 0;
 
         if(!$objInvoice->withoutTaxes) {
-            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total start">';
             $htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
             $htmlPositions .= '</tr>';
             $rowCounter++;
         } else {
-            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total without">';
             $htmlPositions .= '<td class="amount" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
             $htmlPositions .= '</tr>';
             $rowCounter++;
@@ -706,7 +712,7 @@ class Invoice extends \BackendModule
                 $rowCounter++;
             }
 
-            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total end">';
             $htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' '.$symbol.'</td>';
             $htmlPositions .= '</tr>';
         }
