@@ -20,6 +20,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'] = array("Besc
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter'] = array("Beschreibung nach den Positionen", "Bitte geben Sie die Beschreibung nach den Positionen ein.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'] = array("Basispfad", "Bitte wählen Sie den Basisordner aus.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'] = array("Periodischen Ordner erstellen?", "Soll ein zusätzlicher periodischer Ordner erstellt werden?");
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['folderForInvoicesNotFound'] = "Ordner für Rechnungen nicht gefunden.  übergebener Wert: %s. (Nutzt Uuid über FileModule::findByUuid())";
 
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['daily'] = "Täglich";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['weekly'] = "Wöchentlich";

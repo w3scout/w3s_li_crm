@@ -102,7 +102,7 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>250, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+			'sql'					=> "varchar(255) NOT NULL default ''"
 		),
 		'orderNumber' => array
 		(
@@ -110,7 +110,7 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 			'inputType'             => 'text',
 			'exclude'   			=> true,
 			'eval'                  => array('mandatory'=>true, 'maxlength'=>12, 'tl_class'=>'w50', 'rgxp'=>'digit'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+			'sql'					=> "int(10) unsigned NOT NULL default '0'"
 		),
 		'icon' => array
 		(
@@ -118,7 +118,7 @@ $GLOBALS['TL_DCA']['tl_li_service_type'] = array
 			'inputType'             => 'fileTree',
 			'exclude'   			=> true,
 			'eval'                  => array('fieldType'=>'radio', 'tl_class'=>'clr', 'files'=>true, 'filesOnly'=>true),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+			'sql'					=> "blob NULL"
 		)
 	)
 );

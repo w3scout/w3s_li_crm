@@ -141,7 +141,7 @@ class Invoice extends \BackendModule
 		{
 			$icon = "<img src=\"system/modules/li_crm/assets/expense.png\" alt=\"".$GLOBALS['TL_LANG']['tl_li_invoice']['expense']."\" style=\"vertical-align:-3px;\" /> ";
 		}
-		$currencyHelper = new \LiCRM\CurrencyHelper();
+		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($row['currency']);
 		return $icon.$this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $row['invoiceDate'])." - ".$row['title']." (".$this->getFormattedNumber($row['price'])." ".$symbol.")";
 	}
@@ -300,14 +300,16 @@ class Invoice extends \BackendModule
         $dompdf = new \ContaoDOMPDF();
         $dompdf->set_paper('a4');
         $dompdf->set_base_path(TL_ROOT);
-        $dompdf->load_html(iconv("UTF-8", "CP1252", $strHtml));
-        $dompdf->render();
+		//problem with german umlauts> deleted iconv():No Problem with german umlauts: correct pdf-rendering
+        //$dompdf->load_html(iconv("UTF-8", "CP1252", $strHtml));
+		$dompdf->load_html($strHtml);
+		$dompdf->render();
 
         $strPDF = $dompdf->output();
 
 		// Generate export path
         $root = TL_ROOT."/";
-        $objResult = \FilesModel::findByPk($objInvoice->basePath);
+        $objResult = \FilesModel::findByUuid($objInvoice->basePath);
 
         $basePath = $objResult->path."/";
 
@@ -348,14 +350,20 @@ class Invoice extends \BackendModule
 		$templateLink = substr($exportFile, 2);
 		$filePath = $basePath.$periodFolder.$file;
 
-		$this->Database->prepare("
-            UPDATE tl_li_invoice
-            SET file = ?, invoiceNumber = ?, price = ?
-            WHERE id = ?
-        ")->execute($filePath, $invoiceNumber, $fullNetto, $id);
+		//Synchronize the file system with the database
+		$objFile = \Dbafs::addResource($filePath);
 
-		// Return link to template
-		return $templateLink;
+		if($objFile){
+			$this->Database->prepare("
+				UPDATE tl_li_invoice
+				SET file = ?, invoiceNumber = ?, price = ?
+				WHERE id = ?
+			")->execute($objFile->uuid, $invoiceNumber, $fullNetto, $id);
+
+			// Return link to template
+			return $templateLink;
+		}
+		return null;
 	}
 
 	private function getInvoiceData($id,$type)
@@ -401,7 +409,7 @@ class Invoice extends \BackendModule
         ")->limit(1)->execute($id);
 
         $objCustomerAddress = $this->Database->prepare("
-            SELECT company, firstname, lastname, street, postal, city, gender, country
+            SELECT company, firstname, lastname, street, postal, city, gender, country, isFriend
             FROM tl_address
             WHERE id=?
         ")->limit(1)->execute($objInvoice->toAddress);
@@ -419,9 +427,9 @@ class Invoice extends \BackendModule
         $countries = $this->getCountries();
         $country = $objCustomerAddress->country != $GLOBALS['TL_CONFIG']['li_crm_company_country'] ? $countries[$objCustomerAddress->country] : '';
 
-        $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation']);
+        $invoiceNumber = $objInvoice->invoiceNumber != '' ? $objInvoice->invoiceNumber : $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_invoice_number_generation'],false);
 
-        $objLogo = \FilesModel::findByPk($objInvoice->logo);
+        $objLogo = \FilesModel::findByUuid($objInvoice->logo);
 
         $template = array(
             'logo'                      => $objLogo->path,
@@ -450,7 +458,9 @@ class Invoice extends \BackendModule
             'invoice_number'            => $invoiceNumber,
 
             'title'                     => $objInvoice->headline != '' ? $objInvoice->headline : $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_legend'],
-            'introduction'              => sprintf($objCustomerAddress->gender == 'male' || $objCustomerAddress->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'], $objCustomerAddress->lastname),
+            'introduction'              => $objCustomerAddress->gender == 'male' || $objCustomerAddress->gender == '' ?
+					($objCustomerAddress->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male_friend'] ? sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male_friend'],$objCustomerAddress->firstname) : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male'],$objCustomerAddress->lastname))  :
+					($objCustomerAddress->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female_friend'] ? sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female_friend'],$objCustomerAddress->firstname) : sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female'],$objCustomerAddress->lastname)),
 
             'early_payment_discount'    => $objInvoice->earlyPaymentDiscount,
 
@@ -474,7 +484,7 @@ class Invoice extends \BackendModule
             }
         }
 
-		$currencyHelper = new \LiCRM\CurrencyHelper();
+		$currencyHelper = new CurrencyHelper();
 		$symbol = $currencyHelper->getSymbolOfCode($objInvoice->currency);
 
 		$rowCounter = 1;
@@ -656,18 +666,24 @@ class Invoice extends \BackendModule
             }
         }
 
-		$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
+		/*$htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).'">';
 		$htmlPositions .= '<td class="spacer" colspan="5"> </td>';
 		$htmlPositions .= '</tr>';
-		$rowCounter++;
+		$rowCounter++;*/
+
+		//for a better contrast in the invoice-layout : total (and if requested, total_netto) always on an 'odd' row
+		$htmlPositions .= '<tr class="even">';
+		$htmlPositions .= '<td class="spacer" colspan="5"> </td>';
+		$htmlPositions .= '</tr>';
+		$rowCounter = 0;
 
         if(!$objInvoice->withoutTaxes) {
-            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total start">';
             $htmlPositions .= '<td class="amount netto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_netto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
             $htmlPositions .= '</tr>';
             $rowCounter++;
         } else {
-            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total without">';
             $htmlPositions .= '<td class="amount" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto).' '.$symbol.'</td>';
             $htmlPositions .= '</tr>';
             $rowCounter++;
@@ -698,7 +714,7 @@ class Invoice extends \BackendModule
                 $rowCounter++;
             }
 
-            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total">';
+            $htmlPositions .= '<tr class="'.$this->getOddEven($rowCounter).' total end">';
             $htmlPositions .= '<td class="amount brutto" colspan="4">'.$GLOBALS['TL_LANG']['tl_li_invoice']['total_brutto'].'</td><td class="price">'.$this->getFormattedNumber($fullNetto + $fullTaxes).' '.$symbol.'</td>';
             $htmlPositions .= '</tr>';
         }
@@ -739,7 +755,7 @@ class Invoice extends \BackendModule
 		$maturity_remark = '';
 		if (!empty($maturityDays))
 		{
-			$maturity_remark = sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark'], $maturityDays);
+			$maturity_remark = sprintf(($objCustomerAddress->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark_friend'] ? $GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark_friend'] : $GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark']), $maturityDays);
 		}
 
         $template['description_before'] = $descriptionBefore;
@@ -984,11 +1000,13 @@ class Invoice extends \BackendModule
             WHERE id = ?
         ")->limit(1)->execute($id);
 
-		$path = '../'.$objInvoice->pdfFile;
+		$objFile = \FilesModel::findByUuid($objInvoice->pdfFile);
+
+		$path = '../'.$objFile->path;
 
 		$filename = basename($path);
 		header('Content-type: application/pdf');
-		header('Content-Disposition: attachment; filename="'.$filename.'"');
+		header('Content-Disposition: inline; filename="'.$filename.'"');
 		readfile($path);
 	}
 
@@ -1004,7 +1022,8 @@ class Invoice extends \BackendModule
 		{
 			if ($objInvoice->toCustomer == $this->User->id)
 			{
-				$path = $objInvoice->pdfFile;
+				$objFile = \FilesModel::findByUuid($objInvoice->pdfFile);
+				$path = $objFile->path;
 				$filename = basename($path);
 				header('Content-type: application/pdf');
 				header('Content-Disposition: attachment; filename="'.$filename.'"');
@@ -1017,7 +1036,8 @@ class Invoice extends \BackendModule
 		}
 		else
 		{
-			$path = $objInvoice->pdfFile;
+			$objFile = \FilesModel::findByUuid($objInvoice->pdfFile);
+			$path = $objFile->path;
 			$filename = basename($path);
 			header('Content-type: application/pdf');
 			header('Content-Disposition: attachment; filename="'.$filename.'"');
@@ -1103,7 +1123,7 @@ class Invoice extends \BackendModule
 			$objInvoice->descriptionAfter
 		)->insertId;
 		
-		$invoiceGeneration = new \LiCRM\InvoiceGeneration();
+		$invoiceGeneration = new InvoiceGeneration();
 		$alias = $invoiceGeneration->generateAliasWithoutDC($objInvoice->title, $generationId);
 		$this->Database->prepare("
 			UPDATE tl_li_invoice_generation
@@ -1120,7 +1140,7 @@ class Invoice extends \BackendModule
 	private function sendTo403()
 	{
 		// Add a log entry
-		$this->log('Access to page ID "'.$pageId.'" denied', 'PageError403 generate()', TL_ERROR);
+		//$this->log('Access to page ID "'.$pageId.'" denied', 'PageError403 generate()', TL_ERROR);
 
 		$host = \Environment::get('host');
 		$accept_language = \Environment::get('httpAcceptLanguage');

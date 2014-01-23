@@ -20,6 +20,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionBefore'] = array("Desc
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['descriptionAfter'] = array("Description after the positions", "Please enter the description after the positions.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['basePath'] = array("Base path", "Please choose a base path.");
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periodFolder'] = array("Create periodic folder", "Wether a periodic folder should be created.");
+$GLOBALS['TL_LANG']['tl_li_invoice_template']['folderForInvoicesNotFound'] = "Folder for Invoices not found with %s. (FileModule::findByUuid() in use)";
 
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['daily'] = "Daily";
 $GLOBALS['TL_LANG']['tl_li_invoice_template']['periods']['weekly'] = "Weekly";

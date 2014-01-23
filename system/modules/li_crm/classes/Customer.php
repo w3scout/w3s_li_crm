@@ -101,7 +101,7 @@ class Customer extends \Controller
 		}
 
 		// Generate new customer number
-		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation']);
+		return $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_customer_number_generation'],false);
 	}
 
     public function changeMandatoryFields(\DataContainer $dc)
@@ -147,8 +147,8 @@ class Customer extends \Controller
                 UPDATE tl_address
                 SET firstname = ?, lastname = ?, gender = ?, language = ?,
                     company = ?, street = ?, street_2 = ?, street_3 = ?, postal = ?, city = ?, state = ?, country = ?,
-                    email = ?, secondEmail = ?, phone = ?, mobile = ?, fax = ?, website = ?
-                WHERE id = ?
+                    email = ?, secondEmail = ?, phone = ?, mobile = ?, fax = ?, website = ?, isFriend = ?
+                WHERE pid = ?
             ")->execute(
                 $dc->activeRecord->firstname,
                 $dc->activeRecord->lastname,
@@ -168,7 +168,8 @@ class Customer extends \Controller
                 $dc->activeRecord->mobile != null ? $dc->activeRecord->mobile : '',
                 $dc->activeRecord->fax != null ? $dc->activeRecord->fax : '',
                 $dc->activeRecord->website != null ? $dc->activeRecord->website : '',
-                $dc->id
+				$dc->activeRecord->isFriend != null ? $dc->activeRecord->isFriend : '',
+				$dc->id
             );
         }
         else
@@ -177,8 +178,8 @@ class Customer extends \Controller
             $this->Database->prepare("
                 INSERT INTO tl_address (pid, firstname, lastname, gender, language,
                   company, street, street_2, street_3, postal, city, state, country,
-                  email, secondEmail, phone, mobile, fax, website, isDefaultAddress, isBillingAddress)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)
+                  email, secondEmail, phone, mobile, fax, website, isFriend, isDefaultAddress, isBillingAddress)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)
             ")->execute(
                 $dc->activeRecord->id,
                 $dc->activeRecord->firstname,
@@ -198,7 +199,8 @@ class Customer extends \Controller
                 $dc->activeRecord->phone != null ? $dc->activeRecord->phone : '',
                 $dc->activeRecord->mobile != null ? $dc->activeRecord->mobile : '',
                 $dc->activeRecord->fax != null ? $dc->activeRecord->fax : '',
-                $dc->activeRecord->website != null ? $dc->activeRecord->website : ''
+                $dc->activeRecord->website != null ? $dc->activeRecord->website : '',
+				$dc->activeRecord->isFriend != null ? $dc->activeRecord->isFriend : ''
             );
         }
     }

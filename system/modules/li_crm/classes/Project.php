@@ -126,7 +126,7 @@ class Project extends \Controller
 		}
 
 		// Generate new customer number
-		$value = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_project_number_generation']);
+		$value = $this->replaceInsertTags($GLOBALS['TL_CONFIG']['li_crm_project_number_generation'],false);
         
 		return $value;
 	}

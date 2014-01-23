@@ -107,6 +107,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound'] = "Invoice not found.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation'] = "Invoice creation";
 $GLOBALS['TL_LANG']['tl_li_invoice']['paid_status_changed'] = "The paid status of the invoice was successfully changed.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['generation_success'] = "The invoice was successfully created.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['generation_not_success'] = "The invoice wasn't successfully created.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['back_overview'] = "Back to the overview";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'] = "Invoice";
