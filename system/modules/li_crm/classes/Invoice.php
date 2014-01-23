@@ -960,7 +960,7 @@ class Invoice extends \BackendModule
 	public function sendInvoice($id)
 	{
 		$objInvoice = $this->Database->prepare("
-            SELECT i.invoiceDate, i.invoiceNumber, i.file, a.lastname, a.gender, a.email
+            SELECT i.invoiceDate, i.invoiceNumber, i.file, a.firstname, a.lastname, a.gender, a.email, a.isFriend
             FROM tl_li_invoice AS i
             INNER JOIN tl_address AS a
                 ON a.id = i.toAddress
@@ -972,8 +972,24 @@ class Invoice extends \BackendModule
 			$objEmail->from     = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_from'];
 			$objEmail->fromName = $GLOBALS['TL_CONFIG']['li_crm_invoice_dispatch_fromName'];
 			$objEmail->subject  = $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_subject'];
-			$objEmail->text     = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
-			$objEmail->html     = sprintf($objInvoice->gender == 'male' || $objInvoice->gender == '' ? $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'] : $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $objInvoice->lastname, date($GLOBALS['TL_CONFIG']['dateFormat'], $objInvoice->invoiceDate), $GLOBALS['TL_CONFIG']['li_crm_company_name']);
+			$companyName = $GLOBALS['TL_CONFIG']['li_crm_company_name']?$GLOBALS['TL_CONFIG']['li_crm_company_name']:'';
+			$invoiceDate = date($GLOBALS['TL_CONFIG']['dateFormat'],$objInvoice->invoiceDate);
+			$customerName = $objInvoice->isFriend ? ($objInvoice->firstname ? $objInvoice->firstname:'') : ($objInvoice->lastname ? $objInvoice->lastname : '');
+
+			$objEmail->text     = $objInvoice->gender == 'male' || $objInvoice->gender == '' ?
+				(($objInvoice->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male_friend']) ?
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male_friend'], $customerName, $invoiceDate, $companyName) :
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male'], $customerName, $invoiceDate, $companyName))  :
+				(($objInvoice->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female_friend']) ?
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female_friend'], $customerName, $invoiceDate, $companyName) :
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female'], $customerName, $invoiceDate, $companyName));
+			$objEmail->html		= $objInvoice->gender == 'male' || $objInvoice->gender == '' ?
+				(($objInvoice->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male_friend']) ?
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male_friend'], $customerName, $invoiceDate, $companyName) :
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male'], $customerName, $invoiceDate, $companyName)) :
+				(($objInvoice->isFriend && $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female_friend']) ?
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female_friend'], $customerName, $invoiceDate, $companyName) :
+					sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female'], $customerName, $invoiceDate, $companyName));
 
 			$objFile = \FilesModel::findByUuid($objInvoice->file);
 			$path = TL_ROOT."/".$objFile->path;
@@ -981,9 +997,9 @@ class Invoice extends \BackendModule
 			if(file_exists($path))
 				$objEmail->attachFile($path);
 
-            $worked = $objEmail->sendTo($objInvoice->email);
+			$worked = $objEmail->sendTo($objInvoice->email);
 
-            if($worked) $this->log('Dispatch successfull: Invoice (Nr. '.$objInvoice->invoiceNumber.')', __METHOD__, TL_CRON);
+			if($worked) $this->log('Dispatch successfull: Invoice (Nr. '.$objInvoice->invoiceNumber.')', __METHOD__, TL_CRON);
 		}
 		catch( Exception $e )
 		{
