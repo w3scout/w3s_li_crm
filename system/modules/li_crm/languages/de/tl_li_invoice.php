@@ -127,7 +127,9 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['tax_number']                      = "Steue
 $GLOBALS['TL_LANG']['tl_li_invoice']['date']                            = "Datum";
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_number']                  = "Rechnungs-Nr.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male']               = "Sehr geehrter Herr %s,<br />für Ihren Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.";
-$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female']             = "Sehr geehrte Frau %s,<br />für Ihren Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female']     		= "Sehr geehrte Frau %s,<br />für Ihren Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_male_friend']        = "Lieber %s,<br />für Deinen Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['introduction_female_friend']      = "Liebe %s,<br />für Deinen Auftrag bedanke ich mich und berechne folgendes für meine Leistungen.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['servicePositions'][0]             = "Leistungen";
 $GLOBALS['TL_LANG']['tl_li_invoice']['servicePositions'][1]             = "Bitte wählen Sie die Leistungspositionen aus.";
 
@@ -164,6 +166,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['account_number']                  = "Konto
 $GLOBALS['TL_LANG']['tl_li_invoice']['bank_code']                       = "BLZ";
 $GLOBALS['TL_LANG']['tl_li_invoice']['bank']                            = "Bank";
 $GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark']                 = "Bitte überweisen Sie den Rechnungsbetrag innerhalb der nächsten %s Tagen.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['maturity_remark_friend']	        = "Bitte überweise den Rechnungsbetrag innerhalb der nächsten %s Tagen.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['greeting']                        = "Mit freundlichen Grüßen<br />%s";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['service']                         = "Leistungen";
@@ -199,7 +202,10 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male']              = "Sehr 
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female']            = "Sehr geehrte Frau %s,\n\nanbei die neue Rechnung vom %s.\n\nMit freundlichen Grüßen\n%s";
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male']              = "Sehr geehrter Herr %s,<br /><br />anbei die neue Rechnung vom %s.<br /><br />Mit freundlichen Grüßen<br />%s";
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female']            = "Sehr geehrte Frau %s,<br /><br />anbei die neue Rechnung vom %s.<br /><br />Mit freundlichen Grüßen<br />%s";
-$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_dispatch']                = "Rechnungsversand";
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_male_friend']       = "Hallo %s,\n\nanbei die neue Rechnung vom %s.\n\nMit freundlichen Grüßen\n%s";
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_text_female_friend']     = "Hallo %s,\n\nanbei die neue Rechnung vom %s.\n\nMit freundlichen Grüßen\n%s";
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_male_friend']       = "Hallo %s,<br /><br />anbei die neue Rechnung vom %s.<br /><br />Mit freundlichen Grüßen<br />%s";
+$GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_html_female_friend']     = "Sallo %s,<br /><br />anbei die neue Rechnung vom %s.<br /><br />Mit freundlichen Grüßen<br />%s";$GLOBALS['TL_LANG']['tl_li_invoice']['invoice_dispatch']                = "Rechnungsversand";
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_successful']             = "Die Rechnung wurde erfolgreich versandt.";
 $GLOBALS['TL_LANG']['tl_li_invoice']['dispatch_failed']                 = "Die Rechnung konnte nicht versant werden. Genauere Informationen entnehmen Sie bitte dem System Log.";
 
