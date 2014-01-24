@@ -36,8 +36,15 @@
     padding-left: 28px;
 }
 
+.tree_view .tl_listing .package .tl_left {
+    padding-left: 48px;
+}
+
 .tree_view .tl_listing .service .tl_left, .tree_view .tl_listing .product .tl_left {
     padding-left: 70px;
+}
+.tree_view .tl_listing .work .tl_left{
+    padding-left: 91px;
 }
 
 .tree_view .tl_listing .tl_folder.disabled strong {

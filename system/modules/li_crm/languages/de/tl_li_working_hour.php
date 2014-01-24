@@ -7,6 +7,7 @@
  * @license     MIT (see /LICENSE.txt for further information)
  */
  
+$GLOBALS['TL_LANG']['tl_li_working_hour']['legend'] = "Arbeitsstunden";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['hour_legend'] = "Stunden erfassen";
 
 $GLOBALS['TL_LANG']['tl_li_working_hour']['entryDate'] = array("Datum", "Datum an dem die Stunden geleistet wurden");
@@ -20,6 +21,8 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['editWorkPackage'] = "Zugehöriges Arb
 
 $GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = "Kalenderwoche";
 
-$GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'] = "Stundeneintrag bearbeiten";
-$GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'] = "Stundeneintrag löschen";
+$GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'] = array("Stundeneintrag bearbeiten", "Den Stundeneintrag mit der ID %s bearbeiten");
+$GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'] = array("Stundeneintrag löschen", "Den Stundeneintrag mit der ID %s löschen");
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'] = "Diesen Stundeneintrag wirklich löschen?";
+$GLOBALS['TL_LANG']['tl_li_working_hour']['show'] = array("Stundeneintrag anzeigen", "Den Stundeneintrag mit der ID %s anzeigen");
+

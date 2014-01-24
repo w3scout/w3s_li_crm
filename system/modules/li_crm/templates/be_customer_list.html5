@@ -152,7 +152,7 @@
 					<?php foreach($customer['projects'] as $project) : ?>
 						<li class="tl_file project" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
 							<div class="tl_left">
-								<?php if (count($project['services']) > 0 || count($project['products']) > 0): ?>
+								<?php if (count($project['services']) > 0 || count($project['products']) > 0 || count($project['working_packages']) > 0): ?>
 									<a href="contao/main.php?do=li_customers&toggle=project&id=<?php echo $project['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>">
 										<?php if ($project['display'] && (count($project['services']) > 0 || count($project['products']) > 0)): ?>
 											<img src="system/themes/default/images/folMinus.gif" />
@@ -234,6 +234,64 @@
 									</div>
 									<div style="clear:both;"></div>
 								</li>
+							<?php endforeach; ?>
+							<?php foreach($project['working_packages'] as $package): ?>
+								<li class="tl_file package" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
+									<div class="tl_left">
+										<?php if (count($package['working_hours']) > 0): ?>
+											<a href="contao/main.php?do=li_customers&toggle=package&id=<?php echo $package['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>">
+												<?php if ($package['display']): ?>
+													<img src="system/themes/default/images/folMinus.gif" />
+												<?php else: ?>
+													<img src="system/themes/default/images/folPlus.gif" />
+												<?php endif; ?>
+											</a>
+										<?php else: ?>
+											<span style="padding-left: 22px;"></span>
+										<?php endif; ?>
+										<span>
+											<img class="icon" height="16" width="16" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_work_package']['package_legend']; ?>" src="<?php echo $package['icon']; ?>" />
+										</span>
+										<span><?php echo $package['title']; ?></span>
+									</div>
+									<div class="tl_right">
+										<?php if(!$customer['isDisabled']) : ?>
+											<a href="contao/main.php?do=li_timekeeping&table=tl_li_work_package&act=edit&id=<?php echo $package['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_work_package']['edit'][1], $package['id']); ?>"><img src="system/themes/default/images/edit.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_work_package']['edit'][0]; ?>" width="12" height="16" /></a>
+											<a href="contao/main.php?do=li_timekeeping&table=tl_li_work_package&act=copy&id=<?php echo $package['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_work_package']['copy'][1], $product['id']); ?>"><img src="system/themes/default/images/copy.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_work_package']['copy'][0]; ?>" width="14" height="16" /></a>
+											<a href="contao/main.php?do=li_timekeeping&table=tl_li_work_package&act=delete&id=<?php echo $package['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_work_package']['delete'][1], $product['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['MSC']['deleteConfirm'], $product['id']); ?>')) return false; Backend.getScrollOffset();"><img src="system/themes/default/images/delete.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_product']['delete'][0]; ?>" width="14" height="16" /></a>
+										<?php else: ?>
+											<span><img src="system/themes/default/images/edit_.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_work_package']['edit'][0]; ?>" width="12" height="16" /></span>
+											<span><img src="system/themes/default/images/copy_.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_work_package']['copy'][0]; ?>" width="14" height="16" /></span>
+											<span><img src="system/themes/default/images/delete_.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_work_package']['delete'][0]; ?>" width="14" height="16" /></span>
+										<?php endif; ?>
+										<a href="contao/main.php?do=li_timekeeping&table=tl_li_work_package&act=show&id=<?php echo $product['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_product']['show'][1], $product['id']); ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $$GLOBALS['TL_LANG']['tl_li_service']['edit'][0]; ?>" width="14" height="16" /></a>
+									</div>
+									<div style="clear:both;"></div>
+								</li>
+
+								<?php if ($package['display']): ?>
+									<?php foreach($package['working_hours'] as $work): ?>
+										<li class="tl_file work" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
+											<div class="tl_left">
+											<span>
+												<img class="icon" height="16" width="16" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_working_hour']['legend']; ?>" src="<?php echo $work['icon']; ?>" />
+											</span>
+												<span><?php echo $work['entryDate'] . ' ('.$work['hours'] . ':' . str_pad($work['minutes'], 2, "0", STR_PAD_LEFT) . ')'; ?></span>
+											</div>
+											<div class="tl_right">
+												<?php if(!$customer['isDisabled']) : ?>
+													<a href="contao/main.php?do=li_timekeeping&&table=tl_li_working_hour&act=edit&id=<?php echo $work['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'][1], $work['id']); ?>"><img src="system/themes/default/images/edit.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_working_hour']['edit'][0]; ?>" width="12" height="16" /></a>
+													<a href="contao/main.php?do=li_timekeeping&&table=tl_li_working_hour&act=delete&id=<?php echo $work['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'][1], $work['id']); ?>" onclick="if (!confirm('<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'], $work['id']); ?>')) return false; Backend.getScrollOffset();"><img src="system/themes/default/images/delete.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'][0]; ?>" width="14" height="16" /></a>
+												<?php else: ?>
+													<span><img src="system/themes/default/images/edit_.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'][0]; ?>" width="12" height="16" /></span>
+													<span><img src="system/themes/default/images/delete_.gif" alt="<?php echo $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'][0]; ?>" width="14" height="16" /></span>
+												<?php endif; ?>
+												<a href="contao/main.php?do=li_timekeeping&&table=tl_li_working_hour&act=show&id=<?php echo $work['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>" title="<?php echo sprintf($GLOBALS['TL_LANG']['tl_li_working_hour']['show'][1], $work['id']); ?>"><img src="system/themes/default/images/show.gif" alt="<?php echo $$GLOBALS['TL_LANG']['tl_li_working_hour']['show'][0]; ?>" width="14" height="16" /></a>
+											</div>
+											<div style="clear:both;"></div>
+										</li>
+									<?php endforeach; ?>
+								<?php endif; ?>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					<?php endforeach; ?>

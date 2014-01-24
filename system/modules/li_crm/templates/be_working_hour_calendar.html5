@@ -65,15 +65,15 @@
 									 alt="<?php echo $lang['editWorkPackage']; ?>" width="16" height="16" />
 							</a>
 							<a href="contao/main.php?do=li_timekeeping&amp;&table=tl_li_working_hour&amp;act=edit&amp;id=<?php echo $entry['id']; ?>&amp;rt=<?php echo REQUEST_TOKEN;?>"
-							   title="<?php echo $lang['editEntry']; ?>">
+							   title="<?php echo $lang['editEntry'][0]; ?>">
 								<img src="system/modules/li_crm/assets/edit.png"
-									 alt="<?php echo $lang['editEntry']; ?>" width="16" height="16" />
+									 alt="<?php echo $lang['editEntry'][0]; ?>" width="16" height="16" />
 							</a>
 							<a href="contao/main.php?do=li_timekeeping&amp;&table=tl_li_working_hour&amp;act=delete&amp;id=<?php echo $entry['id']; ?>&amp;rt=<?php echo REQUEST_TOKEN;?>"
-							   title="<?php echo $lang['deleteEntry']; ?>"
+							   title="<?php echo $lang['deleteEntry'][0]; ?>"
 							   onclick="if (!confirm('<?php echo $lang['deleteConfirmDialog']; ?>')) return false; Backend.getScrollOffset();"">
 								<img src="system/modules/li_crm/assets/delete.png"
-									 alt="<?php echo $lang['deleteEntry']; ?>" width="16" height="16" />
+									 alt="<?php echo $lang['deleteEntry'][0]; ?>" width="16" height="16" />
 							</a>
 						</div>
 					</div>

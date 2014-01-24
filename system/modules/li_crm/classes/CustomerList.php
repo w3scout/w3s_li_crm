@@ -494,7 +494,58 @@ class CustomerList extends \BackendModule
                         }
                     }
 
-                    $id = $objProjects->id;
+					// Get all working_package and working_hours of that project
+					$arrWorkingPackages = array();
+					$objWorkingPackages = $this->Database->prepare("
+						SELECT  id, title
+						FROM tl_li_work_package
+						WHERE toProject = ?
+					")->execute($objProjects->id);
+
+					if($objWorkingPackages != null)
+					{
+						while ($objWorkingPackages->next())
+						{
+							$wp_id = $objWorkingPackages->id;
+							$arrWorkingHours = array();
+							//Get all working_hours from current working_package
+							$objWorkingHours = $this->Database->prepare("
+								SELECT  id, hours, minutes, entryDate
+								FROM tl_li_working_hour
+								WHERE toWorkPackage = ?
+								ORDER BY entryDate ASC
+							")->execute($wp_id);
+							if($objWorkingHours != null)
+							{
+								while ($objWorkingHours->next())
+								{
+									$arrWorkingHours[] = array
+									(
+										'id' => $objWorkingHours->id,
+										'entryDate' => date($GLOBALS['TL_CONFIG']['dateFormat'],$objWorkingHours->entryDate),
+										'hours' => $objWorkingHours->hours ?:0,
+										'minutes' => $objWorkingHours->minutes ?:0,
+										'icon' => 'system/modules/li_crm/assets/timekeeping.png'
+									);
+								}
+								$arrWorkingPackages[] = array
+								(
+									'id' => $wp_id,
+									'title' => $objWorkingPackages->title,
+									'working_hours' => $arrWorkingHours,
+									'icon' => 'system/modules/li_crm/assets/workpackage.png',
+									'display' => $_SESSION['li_crm']['customerList']['package'][$wp_id]['display']
+								);
+							}
+						}
+					}
+					$id = $objProjects->id;
+
+					if($arrWorkingPackages !== array())
+						$this->loadLanguageFile('tl_li_work_package');
+					if($arrWorkingHours !== array())
+						$this->loadLanguageFile('tl_li_working_hour');
+
                     $arrProjects[] = array
                     (
                         'id' => $id,
@@ -502,6 +553,7 @@ class CustomerList extends \BackendModule
                         'title' => $objProjects->title,
                         'services' => $arrServices,
                         'products' => $arrProducts,
+						'working_packages' => $arrWorkingPackages,
                         'display' => $_SESSION['li_crm']['customerList']['project'][$id]['display']
                     );
                 }
