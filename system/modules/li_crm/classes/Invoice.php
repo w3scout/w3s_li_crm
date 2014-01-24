@@ -994,10 +994,12 @@ class Invoice extends \BackendModule
 			$objFile = \FilesModel::findByUuid($objInvoice->file);
 			$path = TL_ROOT."/".$objFile->path;
 
-			if(file_exists($path))
+			if(file_exists($path)){
 				$objEmail->attachFile($path);
-
-			$worked = $objEmail->sendTo($objInvoice->email);
+				$worked = $objEmail->sendTo($objInvoice->email);
+			} else {
+				$this->log('Dispatch error: '.sprintf($GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound'],$path), __METHOD__, TL_CRON);
+			}
 
 			if($worked) $this->log('Dispatch successfull: Invoice (Nr. '.$objInvoice->invoiceNumber.')', __METHOD__, TL_CRON);
 		}

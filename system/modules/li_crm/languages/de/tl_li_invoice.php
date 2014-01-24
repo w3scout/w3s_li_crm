@@ -189,7 +189,7 @@ $GLOBALS['TL_LANG']['tl_li_invoice']['discountOptions']['value']        = 'Wert'
 $GLOBALS['TL_LANG']['tl_li_invoice']['details']                         = "Details";
 $GLOBALS['TL_LANG']['tl_li_invoice']['downloadInvoice']                 = "Rechnung runterladen";
 $GLOBALS['TL_LANG']['tl_li_invoice']['noInvoicesAvailable']             = "Keine Rechnungen verfügbar.";
-$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound']                 = "Rechnung nicht gefunden.";
+$GLOBALS['TL_LANG']['tl_li_invoice']['invoiceNotFound']                 = "Rechnungs-PDF »%s« konnte im Dateisystem nicht gefunden werden.";
 
 $GLOBALS['TL_LANG']['tl_li_invoice']['invoice_generation']              = "Rechnungsgenerierung";
 $GLOBALS['TL_LANG']['tl_li_invoice']['paid_status_changed']             = "Der Bezahlstatus wurde erfolgreich geändert.";
