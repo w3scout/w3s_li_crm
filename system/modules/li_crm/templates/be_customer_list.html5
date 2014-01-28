@@ -153,7 +153,7 @@
 						<li class="tl_file project" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
 							<div class="tl_left">
 								<?php if (count($project['services']) > 0 || count($project['products']) > 0 || count($project['working_packages']) > 0): ?>
-									<a href="contao/main.php?do=li_customers&toggle=project&id=<?php echo $project['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>">
+									<a href="contao/main.php?do=li_customers&toggle=project&id=<?php echo $project['id']; ?>&customer=<?php echo $customer['id']?>&rt=<?php echo REQUEST_TOKEN;?>">
 										<?php if ($project['display'] && (count($project['services']) > 0 || count($project['products']) > 0)): ?>
 											<img src="system/themes/default/images/folMinus.gif" />
 										<?php else: ?>
@@ -239,7 +239,7 @@
 								<li class="tl_file package" style="" onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);">
 									<div class="tl_left">
 										<?php if (count($package['working_hours']) > 0): ?>
-											<a href="contao/main.php?do=li_customers&toggle=package&id=<?php echo $package['id']; ?>&rt=<?php echo REQUEST_TOKEN;?>">
+											<a href="contao/main.php?do=li_customers&toggle=package&id=<?php echo $package['id']; ?>&customer=<?php echo $customer['id']?>&project=<?php echo $project['id']?>&rt=<?php echo REQUEST_TOKEN;?>">
 												<?php if ($package['display']): ?>
 													<img src="system/themes/default/images/folMinus.gif" />
 												<?php else: ?>
