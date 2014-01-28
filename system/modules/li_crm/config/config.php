@@ -144,7 +144,7 @@ $GLOBALS['TL_HOOKS']['createNewUser'][] = array('LiCRM\CustomerRegistration', 'c
 $GLOBALS['TL_HOOKS']['executePreActions'][] = array('LiCRM\TaskComment', 'hookExecutePreActions');
 
 // - Post actions
-$GLOBALS['TL_HOOKS']['executePostActions'][] = array('LiCRM\Invoice', 'generateInvoice');
+//$GLOBALS['TL_HOOKS']['executePostActions'][] = array('LiCRM\Invoice', 'generateInvoice');
 
 // - System messsages
 $GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('LiCRM\TaskStatusMessages', 'listTasks');
