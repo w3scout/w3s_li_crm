@@ -293,7 +293,7 @@ class CustomerList extends \BackendModule
 		while ($objCustomers->next())
 		{
 			$intCustomerId = $objCustomers->id;
-			if(!$this->displayDetailsCustomer($objCustomers->id))
+			if(!$this->displayDetailsCustomer($intCustomerId))
 			{
 				$objCountDetails = $this->Database->prepare("
 					SELECT  (
@@ -329,7 +329,7 @@ class CustomerList extends \BackendModule
 						LEFT JOIN tl_li_service_type AS t
 							ON s.toServiceType = t.id
 						WHERE s.toProject = 0
-							AND s.toCustomer = ".$objCustomers->id."
+							AND s.toCustomer = ".$intCustomerId."
 							AND s.title LIKE '%".$searchValue."%'
 						ORDER BY t.orderNumber ASC
 					")->execute();
@@ -348,7 +348,7 @@ class CustomerList extends \BackendModule
 						WHERE s.toProject = 0
 							AND s.toCustomer = ?
 						ORDER BY t.orderNumber ASC
-					")->execute($objCustomers->id);
+					")->execute($intCustomerId);
 				}
 
 				$arrCustomerServices = array();
@@ -376,7 +376,7 @@ class CustomerList extends \BackendModule
 							ON pp.toProduct = p.id
 						INNER JOIN tl_li_product_type AS pt
 							ON p.toProductType = pt.id
-						WHERE pp.toCustomer = ".$objCustomers->id."
+						WHERE pp.toCustomer = ".$intCustomerId."
 							AND pp.toProject = 0
 							AND p.title LIKE '%".$searchValue."%'
 						ORDER BY p.title
@@ -398,7 +398,7 @@ class CustomerList extends \BackendModule
 						WHERE pp.toCustomer = ?
 							AND pp.toProject = 0
 						ORDER BY p.title
-					")->execute($objCustomers->id);
+					")->execute($intCustomerId);
 				}
 				$arrCustomerProducts = array();
 				if($objCustomerProducts != null)
@@ -421,7 +421,7 @@ class CustomerList extends \BackendModule
 					$objProjects = $this->Database->prepare("
 						SELECT id, projectNumber, title
 						FROM tl_li_project
-						WHERE toCustomer = ".$objCustomers->id."
+						WHERE toCustomer = ".$intCustomerId."
 							AND (
 								projectNumber LIKE '%".$searchValue."%'
 								OR title LIKE '%".$searchValue."%'
@@ -436,7 +436,7 @@ class CustomerList extends \BackendModule
 						FROM tl_li_project
 						WHERE toCustomer = ?
 						ORDER BY projectNumber ASC
-					")->execute($objCustomers->id);
+					")->execute($intCustomerId);
 				}
 				$arrProjects = array();
 				if($objProjects != null)
@@ -574,7 +574,7 @@ class CustomerList extends \BackendModule
 											'title' => $objWorkingPackages->title,
 											'working_hours' => $arrWorkingHours,
 											'icon' => 'system/modules/li_crm/assets/workpackage.png',
-											'display' => $_SESSION['li_crm']['customerList'][$objCustomers->id][$objProjects->id][$intPackageId]['display']
+											'display' => $_SESSION['li_crm']['customerList'][$intCustomerId][$objProjects->id][$intPackageId]['display']
 										);
 									}
 								}
@@ -614,24 +614,21 @@ class CustomerList extends \BackendModule
 							'services' => $arrServices,
 							'products' => $arrProducts,
 							'working_packages' => $arrWorkingPackages,
-							'display' => $_SESSION['li_crm']['customerList'][$objCustomers->id][$intProjectId]['display']
+							'display' => $_SESSION['li_crm']['customerList'][$intCustomerId][$intProjectId]['display']
 						);
 					}
 				}
 			}
-
-
-			$id = $objCustomers->id;
 			$arrCustomers[] = array
 			(
-                'id'                => $id,
+                'id'                => $intCustomerId,
                 'customerNumber'    => $objCustomers->customerNumber,
                 'customerName'      => $objCustomers->customerName,
                 'projects'          => $arrProjects,
                 'services'          => $arrCustomerServices,
                 'products'          => $arrCustomerProducts,
                 'isDisabled'        => $objCustomers->disable,
-                'display'           => $_SESSION['li_crm']['customerList'][$id]['display']
+                'display'           => $_SESSION['li_crm']['customerList'][$intCustomerId]['display']
 			);
 		}
 
