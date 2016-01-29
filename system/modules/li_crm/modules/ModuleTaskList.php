@@ -79,6 +79,7 @@ class ModuleTaskList extends \Module
 		")->limit(1)->execute($this->jumpTo);
 		
 		$arrTasks = array();
+		$itemurl = ( $GLOBALS['TL_CONFIG']['useAutoItem'] ) ? '/' : '/items/';
 		while($objTasks->next() != null)
 		{
 			$newArray = array
@@ -90,7 +91,7 @@ class ModuleTaskList extends \Module
 				'status'    => $objTasks->status,
 				'icon'      => $objTasks->icon,
 				'cssClass'  => $objTasks->cssClass,
-				'details'   => $this->generateFrontendUrl($objPage->row(), '/items/'. $objTasks->alias)
+				'details'   => $this->generateFrontendUrl($objPage->row(), $itemurl . $objTasks->alias)
 			);
 			$arrTasks[] = $newArray;
 		}

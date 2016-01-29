@@ -27,7 +27,15 @@ class InvoiceTemplate extends \Controller
 		return $this->getTemplateGroup('invoice_');
 	}
 	
-	public function moveHtaccessFile($path, \DataContainer $dc) {
+	public function moveHtaccessFile($path, \DataContainer $dc)
+	{
+		// in Contao 3 we need to get the path via the DBFS
+		if (is_numeric($path))
+		{
+			$objFile = \FilesModel::findByPk($path);
+			$path = $objFile->path;
+		}
+
 		$exportPath = '../'.$path.'/';
 		$htaccess = '.htaccess';
 		

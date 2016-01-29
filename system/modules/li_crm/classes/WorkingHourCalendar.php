@@ -21,13 +21,27 @@ class WorkingHourCalendar extends \BackendModule
 	public function generate()
 	{
 		parent::generate();
+
+		// Get the desired year or set default values
+		if (isset($_REQUEST['tl_li_year']))
+		{
+			$year = $_REQUEST['tl_li_year'];
+		}
+		elseif (isset($_SESSION['tl_li_year']))
+		{
+			$year = $_SESSION['tl_li_year'];
+		}
+		else
+		{
+			$year = date('Y');
+		}
 		
 		// Get the desired week range or set default values
-		if (!empty($_REQUEST['tl_li_week']))
+		if (isset($_REQUEST['tl_li_week']))
 		{
 			$week = $_REQUEST['tl_li_week'];
 		}
-		elseif (!empty($_SESSION['tl_li_week']))
+		elseif (isset($_SESSION['tl_li_week']))
 		{
 			$week = $_SESSION['tl_li_week'];
 		}
@@ -35,22 +49,39 @@ class WorkingHourCalendar extends \BackendModule
 		{
 			$week = date('W');
 		}
-		
-		// Save the displayed week in the session so it will be restored if the user leaves the page
+
+		// catch 0 week and greater than 53 week
+		if( $week <= 0 )
+		{
+			$year--;
+			$week = $week + 53;
+		}
+		if( $week > 53 )
+		{
+			$year++;
+			$week = $week - 53;
+		} 
+
+		// clamp the week
+		$week = min( 53, max( 1, $week ) );
+
+		// Save the displayed week and year in the session so it will be restored if the user leaves the page
 		$_SESSION['tl_li_week'] = $week;
+		$_SESSION['tl_li_year'] = $year;
 		
 		// Save template variables for previous, current and next week numbers
 		$this->Template->week = $week;
-		$this->Template->prevWeek = ($week - 1 <= 0) ? 53 : $week - 1;
-		$this->Template->nextWeek = ($week + 1 > 53) ? 1 : $week + 1;
+		$this->Template->prevWeek = $week - 1;
+		$this->Template->nextWeek = $week + 1;
+		$this->Template->year = $year;
 
 		// Get the configured week mode from the configuration
-		$weekMode = !empty($GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode']) ?	$GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode'] : '7';
+		$weekMode = 3;//!empty($GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode']) ?	$GLOBALS['TL_CONFIG']['li_crm_timekeeping_week_mode'] : '3';
 
 		// Only get the working hours in the desired week range
 		$getWorkingHours = $this->Database->prepare("SELECT wh.id, WEEKDAY(FROM_UNIXTIME(wh.entryDate)) AS weekday,
 				(wh.hours * 60 + wh.minutes) AS minutes, wp.id AS workPackageId, c.customerColor,
-				u.username AS username, u.name as `user`
+				u.username AS username, u.name as `user`, wh.description as description
 			FROM tl_li_working_hour wh
 				INNER JOIN tl_li_work_package wp ON wh.toWorkPackage = wp.id
 				LEFT JOIN tl_li_project p ON wp.toProject = p.id
@@ -58,7 +89,8 @@ class WorkingHourCalendar extends \BackendModule
 				LEFT JOIN tl_user u ON wh.user = u.id
 			WHERE hours IS NOT NULL
 				AND WEEK(FROM_UNIXTIME(wh.entryDate), ?) = ?
-			ORDER BY wh.entryDate")->execute($weekMode, $week);
+				AND YEAR(FROM_UNIXTIME(wh.entryDate)) = ?
+			ORDER BY wh.entryDate")->execute($weekMode, $week, $year);
 
 		// Build an array of the working hours per day. The first index is the week of the year,
 		// the second is the day within that week
@@ -78,6 +110,7 @@ class WorkingHourCalendar extends \BackendModule
 				'customerId'    => $getWorkingHours->customerId,
 				'workPackageId' => $getWorkingHours->workPackageId,
 				'user'          => $getWorkingHours->user ? $getWorkingHours->user : $getWorkingHours->username,
+				'description'   => $getWorkingHours->description,
 				'foo'           => $getWorkingHours->row()
 			);
 			

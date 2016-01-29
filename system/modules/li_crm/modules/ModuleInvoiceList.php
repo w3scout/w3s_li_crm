@@ -79,6 +79,7 @@ class ModuleInvoiceList extends \Module
 		
 		$arrInvoices = array();
 		$currencyHelper = new CurrencyHelper();
+		$itemurl = ( $GLOBALS['TL_CONFIG']['useAutoItem'] ) ? '/' : '/items/';
 		while($objInvoices->next() != null)
 		{
 			$newArray = array
@@ -89,9 +90,9 @@ class ModuleInvoiceList extends \Module
 				'price'         => $this->getFormattedNumber($objInvoices->price).' '.$currencyHelper->getSymbolOfCode($objInvoices->currency),
 				'currency'      => strtolower($objInvoices->currency),
 				'fileAvailable' => $objInvoices->file != '',
-				'file'          => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias).'?key=pdf&id='.$objInvoices->id,
+				'file'          => $this->generateFrontendUrl($objPage->row(), $itemurl . $objInvoices->alias).'?key=pdf&id='.$objInvoices->id,
 				'cssClass'      => $objInvoices->cssClass,
-				'details'       => $this->generateFrontendUrl($objPage->row(), '/items/'. $objInvoices->alias)
+				'details'       => $this->generateFrontendUrl($objPage->row(), $itemurl . $objInvoices->alias)
 			);
 			$arrInvoices[] = $newArray;
 		}

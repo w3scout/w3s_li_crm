@@ -68,6 +68,7 @@ class ModuleMobileCustomerList extends \Module
 		")->limit(1)->execute($this->jumpTo);
 		
 		$arrCustomers = array();
+		$itemurl = ( $GLOBALS['TL_CONFIG']['useAutoItem'] ) ? '/' : '/items/';
 		while($objCustomers->next() != null)
 		{
             $objAddresses = $this->Database->prepare("
@@ -83,7 +84,7 @@ class ModuleMobileCustomerList extends \Module
                     'id'        => $objAddresses->id,
                     'firstname' => $objAddresses->firstname,
                     'lastname'  => $objAddresses->lastname,
-                    'link'      => $this->generateFrontendUrl($objPage->row(), '/items/'. $objAddresses->id)
+                    'link'      => $this->generateFrontendUrl($objPage->row(), $itemurl . $objAddresses->id)
                 );
             }
             $arrCustomers[] = array

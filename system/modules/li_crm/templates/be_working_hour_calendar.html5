@@ -1,3 +1,4 @@
+<?php $this->import('String'); ?> 
 <?php $lang = $this->lang; ?>
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 	<input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>" />
@@ -9,6 +10,10 @@
 		<div class="tl_search tl_subpanel">
 			<strong><?php echo $lang['calendar_week']; ?>:</strong>
 			<input type="text" name="tl_li_week" class="tl_text" value="<?php echo $this->week; ?>">	
+		</div>
+		<div class="tl_search tl_subpanel">
+			<strong><?php echo $lang['calendar_year']; ?>:</strong>
+			<input type="text" name="tl_li_year" class="tl_text" value="<?php echo $this->year; ?>">	
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -40,13 +45,13 @@
 	<table id="working_hours_calendar">
 		<thead>
 			<tr>
-				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][1]; ?></td>
-				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][2]; ?></td>
-				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][3]; ?></td>
-				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][4]; ?></td>
-				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][5]; ?></td>
-				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][6]; ?></td>
-				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][0]; ?></td>
+				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][1]; ?><br><span class="date"><?php echo date('j. M Y',strtotime($this->year."W".$this->week."1")); ?></span></td>
+				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][2]; ?><br><span class="date"><?php echo date('j. M Y',strtotime($this->year."W".$this->week."2")); ?></span></td>
+				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][3]; ?><br><span class="date"><?php echo date('j. M Y',strtotime($this->year."W".$this->week."3")); ?></span></td>
+				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][4]; ?><br><span class="date"><?php echo date('j. M Y',strtotime($this->year."W".$this->week."4")); ?></span></td>
+				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][5]; ?><br><span class="date"><?php echo date('j. M Y',strtotime($this->year."W".$this->week."5")); ?></span></td>
+				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][6]; ?><br><span class="date"><?php echo date('j. M Y',strtotime($this->year."W".$this->week."6")); ?></span></td>
+				<td><?php echo $GLOBALS['TL_LANG']['DAYS'][0]; ?><br><span class="date"><?php echo date('j. M Y',strtotime($this->year."W".$this->week."7")); ?></span></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -55,8 +60,10 @@
 				<td>
 	<?php if (!empty($this->hours[$day])): ?>
 		<?php foreach ($this->hours[$day] as $entry): ?>
-					<div class="working_hour_entry" style="background-color: #<?php echo $entry['customerColor']; ?>">
-						<span class="user"><?php echo $entry['user']; ?></span>
+					<div class="working_hour_entry"<?php if($entry['customerColor']): ?> style="border-top:5px solid #<?php echo $entry['customerColor']; ?>"<?php endif; ?>>
+						<!--<div class="color" style="background-color:#<?php echo $entry['customerColor']; ?>"></div>-->
+						<span class="user"><?php echo $this->String->substr($entry['user'], 10, ' …'); ?></span>
+						<span class="description"><?php echo $this->String->substr($entry['description'], 40, ' …'); ?></span>
 						<span class="time"><?php echo $entry['hours'].'h'.(!empty($entry['minutes']) ? ' '.$entry['minutes'].'m ' : ''); ?></span>
 						<div class="entry_buttons">
 							<a href="contao/main.php?do=li_timekeeping&amp;table=tl_li_work_package&amp;act=edit&amp;id=<?php echo $entry['workPackageId']; ?>&rt=<?php echo REQUEST_TOKEN;?>"
