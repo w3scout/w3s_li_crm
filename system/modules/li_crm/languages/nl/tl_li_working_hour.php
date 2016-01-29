@@ -30,6 +30,8 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'] = "Weet u zeker
 $GLOBALS['TL_LANG']['tl_li_working_hour']['addHours'] = "Boeking toevoegen";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['manageWorkPackages'] = "Werkpakketten beheren";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editWorkPackage'] = "Werkpakket bewerken";
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_year'] = "Calendar year";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = "Kalenderweek";
+$GLOBALS['TL_LANG']['tl_li_working_hour']['description'] = array("Description","Description of the work that was done");
  
 ?>

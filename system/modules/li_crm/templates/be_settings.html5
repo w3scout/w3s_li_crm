@@ -60,6 +60,7 @@
         </div>
         
         <h2><?php echo $GLOBALS['TL_LANG']['li_settings']['timekeeping']; ?></h2>
+<!--
         <div class="tl_module_desc">
             <h3>
                 <a href="contao/main.php?do=li_settings&amp;table=tl_li_timekeeping_settings&rt=<?php echo REQUEST_TOKEN;?><?php echo (!defined('TL_REFERER_ID')) ?: '&ref='.TL_REFERER_ID;?>" class="navigation" style="background-image:url('system/modules/li_crm/assets/timekeeping.png')">
@@ -68,6 +69,7 @@
             </h3>
             <p><?php echo $GLOBALS['TL_LANG']['li_settings']['workingHoursDesc']; ?></p>
         </div>
+-->
         <div class="tl_module_desc">
             <h3>
                 <a href="contao/main.php?do=li_settings&amp;table=tl_li_hourly_wage&rt=<?php echo REQUEST_TOKEN;?><?php echo (!defined('TL_REFERER_ID')) ?: '&ref='.TL_REFERER_ID;?>" class="navigation"

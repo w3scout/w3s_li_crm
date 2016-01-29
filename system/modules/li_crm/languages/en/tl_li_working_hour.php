@@ -18,8 +18,11 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['addHours'] = "Add the entry";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['manageWorkPackages'] = "Manage work packages";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editWorkPackage'] = "Edit the work package";
 
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_year'] = "Calendar year";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = "Calendar week";
 
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'] = "Edit the entry";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'] = "Delete the entry";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'] = "Are you sure you want to delete this entry?";
+
+$GLOBALS['TL_LANG']['tl_li_working_hour']['description'] = array("Description","Description of the work that was done");

@@ -18,8 +18,11 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['addHours'] = "Stunden erfassen";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['manageWorkPackages'] = "Arbeitspakete verwalten";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editWorkPackage'] = "Zugehöriges Arbeitspaket bearbeiten";
 
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_year'] = "Kalenderjahr";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = "Kalenderwoche";
 
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'] = "Stundeneintrag bearbeiten";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'] = "Stundeneintrag löschen";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'] = "Diesen Stundeneintrag wirklich löschen?";
+
+$GLOBALS['TL_LANG']['tl_li_working_hour']['description'] = array("Beschreibung","Beschreibung der Tätigkeiten");

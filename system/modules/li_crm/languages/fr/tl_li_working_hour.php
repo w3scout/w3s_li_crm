@@ -27,9 +27,11 @@ $GLOBALS['TL_LANG']['tl_li_working_hour']['minutes']['1'] = "SVP spécifiez le n
 $GLOBALS['TL_LANG']['tl_li_working_hour']['addHours'] = "Ajouter l'enregistrement";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['manageWorkPackages'] = "Gérer les lots de travail";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editWorkPackage'] = "Modifier le lot de travail";
+$GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_year'] = "Calendar year";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['calendar_week'] = "Semaine calendaire";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['editEntry'] = "Modifier l'enregistement";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteEntry'] = "Supprimer l'enregistrement";
 $GLOBALS['TL_LANG']['tl_li_working_hour']['deleteConfirmDialog'] = "Etes-vous sûr(e) de vouloir supprimer cet enregistrement ?";
+$GLOBALS['TL_LANG']['tl_li_working_hour']['description'] = array("Description","Description des travaux qui était don");
  
 ?>

@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 	'palettes' => array
 	(
 		'__selector__'				=> array('isExternal'),
-		'default'					=> '{hour_legend},entryDate,toWorkPackage,hours,minutes;'
+		'default'					=> '{hour_legend},entryDate,toWorkPackage,hours,minutes,description;'
 	),
 	
 	// Fields
@@ -92,6 +92,15 @@ $GLOBALS['TL_DCA']['tl_li_working_hour'] = array
 			'exclude'   			=> true,
 			'eval'					=> array('rgxp'=>'digit', 'maxlength'=>'2', 'tl_class'=>'w50'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
+		'description' => array
+		(
+			'label'					=> &$GLOBALS['TL_LANG']['tl_li_working_hour']['description'],
+			'exclude'               => true,
+			'inputType'             => 'textarea',
+			'search'                => true,
+			'eval'                  => array('style'=>'height:60px', 'decodeEntities'=>true, 'tl_class'=>'clr'),
+			'sql'                   => "text NULL"
 		)
 	)
 );
